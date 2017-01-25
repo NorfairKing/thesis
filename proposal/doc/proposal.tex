@@ -1,7 +1,60 @@
-\documentclass{article}
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage{minted}
 
 \title{Thesis Proposal: Functional Property Discovery and Test Generation}
 \author{Tom Sydney Kerckhove}
 \begin{document}
 \maketitle
+
+\section{Introduction and Motivation}
+
+When verification is too expensive, testing is the most reliable way to ensure that a software system does what it should.
+While traditional unit tests can be used to show failures, they are insufficient to show the absence of failures.
+Traditional unit tests have the disadvantage that the programmer has to make up many examples for the unit tests to be of real value in providing confidence in the implementation.
+Property-based testing \cite{QuickCheck} allows for more rigorous testing but requires the programmer to come up with properties to test.
+While property-based testing can give probabilistic confidence that code behaves well, and therein improves upon traditional unit testing, it has the same problem that traditional unit testing has.
+Tests are still conceived as simply to expensive to write, in terms of developer time.
+The transaction cost of writing tests, even though the tests may be a great time investment, are often high enough to prevent programmers performing rigorous tests.
+
+Property-based testing takes care of the 'rigour' aspect of the testing problem, but programmers still have to think of properties.
+Automatic discovery of properties could take of the 'transaction costs' aspect of the testing problem.
+Previous work\cite{QuickSpec} has explored automatic discovery of equational properties.
+Equational properties, while certainly useful, fall short in describing real workings of even simple programs.
+For example, there is no way to specify the correctness of a sorting algorithm using an equational property.
+
+The first goal of this thesis is to explore automatic discovery of generalised properties.
+General properties allow for much more expressive properties such as the correctness of a sorting algorithm.\footnote{\mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered ss}, for example.}
+The second goal is to, once properties have been discovered, generate the code necessary to test that these properties hold.
+
+\section{Assignment}
+\subsection{Objective}
+Develop a tool that can inspect Haskell code and suggest properties of that code to the programmer.
+After the programmer has selected the appropriate properties, the tool should be able to generate the necessary code to test these properties.
+
+\subsection{Tasks}
+
+\begin{itemize}
+    \item Study and analyse the relevant literature.
+    \item Propose a property discovery mechanism.
+    \item Implement property discovery.
+    \item Implement test code generation.
+    \item Assess the feasibility of the property discovery mechanism for increasingly large input programs.
+    \item (Optional) Assess the relative advantage of general property testing over equational property testing in a quantitative manner.
+    \item Write the final report and prepare a presentation
+\end{itemize}
+
+
+\subsection{Deliverables}
+
+\begin{itemize}
+    \item Final report
+    \item Tool code and instructions on how to use it.
+    \item Presentation
+\end{itemize}
+
+\bibliographystyle{plain}
+\bibliography{proposal}
+
+
 \end{document}

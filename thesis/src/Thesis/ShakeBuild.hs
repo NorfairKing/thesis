@@ -11,9 +11,11 @@ thesisShakeBuildRules = proposalRules
 proposalRules :: Rules ()
 proposalRules = do
     proposalTmpMainSource %> \out -> copyFile' proposalMainSource out
+    proposalTmpMainBibliography %> \out ->
+        copyFile' proposalMainBibliography out
     proposalTmpOut %> \_ -> do
-        need [proposalTmpMainSource]
-        cmd (Cwd proposalTmpDir) "latexmk" "-pdf" -- Download latexmk if necessary, also download pdflatex if necessary.
+        need [proposalTmpMainSource, proposalTmpMainBibliography]
+        cmd (Cwd proposalTmpDir) "latexmk" "-pdf" "-shell-escape" -- Download latexmk if necessary, also download pdflatex if necessary.
     proposalOut %> \out -> copyFile' proposalTmpOut out
 
 proposalDir :: FilePath
@@ -41,10 +43,19 @@ proposalTmpOut :: FilePath
 proposalTmpOut = proposalTmpDir </> proposalTmpOutFile
 
 proposalMainSrcFile :: FilePath
-proposalMainSrcFile = "proposal" <.> "tex"
+proposalMainSrcFile = proposalMainFileName <.> "tex"
 
 proposalTmpMainSource :: FilePath
 proposalTmpMainSource = proposalTmpDir </> proposalMainSrcFile
 
 proposalMainSource :: FilePath
 proposalMainSource = proposalDocDir </> proposalMainSrcFile
+
+proposalMainBibFile :: FilePath
+proposalMainBibFile = proposalMainFileName <.> "bib"
+
+proposalTmpMainBibliography :: FilePath
+proposalTmpMainBibliography = proposalTmpDir </> proposalMainBibFile
+
+proposalMainBibliography :: FilePath
+proposalMainBibliography = proposalDocDir </> proposalMainBibFile
