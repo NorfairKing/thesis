@@ -2,35 +2,52 @@
 
 \usepackage{minted}
 
-\title{Thesis Proposal: Functional Property Discovery and Test Generation}
+\usepackage[a4paper, margin=2cm]{geometry}
+
+
+\title{Thesis Proposal: Functional Property Discovery and Test Generation in Haskell}
 \author{Tom Sydney Kerckhove}
 \begin{document}
 \maketitle
 
 \section{Introduction and Motivation}
 
-When verification is too expensive, testing is the most reliable way to ensure that a software system does what it should.
-While traditional unit tests can be used to show failures, they are insufficient to show the absence of failures.
-Traditional unit tests have the disadvantage that the programmer has to make up many examples for the unit tests to be of real value in providing confidence in the implementation.
-Property-based testing \cite{QuickCheck} allows for more rigorous testing but requires the programmer to come up with properties to test.
-While property-based testing can give probabilistic confidence that code behaves well, and therein improves upon traditional unit testing, it has the same problem that traditional unit testing has.
-Tests are still conceived as simply to expensive to write, in terms of developer time.
-The transaction cost of writing tests, even though the tests may be a great time investment, are often high enough to prevent programmers performing rigorous tests.
+Correctness of code is currently too expensive.
+Current options, in order of decreasing rigour and decreasing cost, include formal verification, testing and having users file bug reports after failures have already happened.
 
-Property-based testing takes care of the 'rigour' aspect of the testing problem, but programmers still have to think of properties.
-Automatic discovery of properties could take of the 'transaction costs' aspect of the testing problem.
-Previous work\cite{QuickSpec} has explored automatic discovery of equational properties.
+When verification is too expensive, testing is the most reliable way to ensure that a software system does what it should.
+Traditional unit tests have two problems.
+The first problem is that unit tests can be only used to show the presence failures, but can never show the absence of failures.
+The second problem is that unit tests require a programmer to come up with many examples for the unit tests to be of real value in providing confidence in the implementation.
+This requires great discipline on the programmer's part.
+Traditional unit tests are still too expensive.
+As a result, programmers will all too often omit tests.
+
+Property-based testing \cite{QuickCheck} can probabilistically solve the first problem by automatically generating examples instead of having the programmer think of them.
+However, it exacerbates the second problem.
+Now programmers have to come up with mathematical properties of their code.
+The transaction costs of writing property tests are even higher than for unit tests.
+As a result, however great their benefits, property tests are barely used.
+
+Automatic property tests could resolve the second problem of traditional unit tests.
+If properties could automatically be discovered, and their corresponding property tests automatically generated, then programmers would not have to think of any properties, but only decide to enforce the properties.
+Relieving a programmer from having to think of examples or properties would make it much cheaper to test software.
+
+Previous work \cite{QuickSpec} has explored automatic discovery of equational properties.
+These are properties of the form \mintinline{Haskell}{\x -> f x == g x}, e.g. \mintinline{Haskell}{\xs -> reverse (reverse xs) == xs}.
 Equational properties, while certainly useful, fall short in describing real workings of even simple programs.
 For example, there is no way to specify the correctness of a sorting algorithm using an equational property.
 
-The first goal of this thesis is to explore automatic discovery of generalised properties.
-General properties allow for much more expressive properties such as the correctness of a sorting algorithm.\footnote{\mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered ss}, for example.}
+The first goal of this thesis is to explore automatic discovery of general properties.
+General properties allow for much more expressive properties such as the correctness of a sorting algorithm.\footnote{The property \mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered ss}, for example, serves to assess the correctness of a sorting algorithm, but can not be expressed as an equational property.}
 The second goal is to, once properties have been discovered, generate the code necessary to test that these properties hold.
+
+\newpage
 
 \section{Assignment}
 \subsection{Objective}
 Develop a tool that can inspect Haskell code and suggest properties of that code to the programmer.
-After the programmer has selected the appropriate properties, the tool should be able to generate the necessary code to test these properties.
+After the programmer has selected the appropriate properties, the tool generates the necessary code to test these properties.
 
 \subsection{Tasks}
 
