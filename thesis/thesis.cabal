@@ -29,9 +29,9 @@ library
         optparse-applicative -any,
         shake -any,
         zifter -any,
-        path,
-        path-io,
-        exceptions
+        path -any,
+        path-io -any,
+        exceptions -any
     default-language: Haskell2010
     default-extensions: NoImplicitPrelude
     hs-source-dirs: src/

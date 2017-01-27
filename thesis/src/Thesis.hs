@@ -13,4 +13,7 @@ thesis :: IO ()
 thesis =
     shakeArgs shakeOptions $ do
         thesisShakeBuildRules
-        want [toFilePath $ pdfOutFile detailedProposalSpec, toFilePath $ pdfOutFile proposalSpec]
+        want
+            [ toFilePath $ pdfOutFile detailedProposalSpec
+            , toFilePath $ pdfOutFile proposalSpec
+            ]

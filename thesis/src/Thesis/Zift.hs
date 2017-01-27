@@ -8,9 +8,9 @@ import Zifter
 
 import Development.Shake
 
+import Thesis.DetailedProposal
 import Thesis.LaTeX
 import Thesis.Proposal
-import Thesis.DetailedProposal
 import Thesis.ShakeBuild
 
 thesisZiftScript :: ZiftScript ()
