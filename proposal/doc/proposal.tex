@@ -5,7 +5,7 @@
 \usepackage[a4paper, margin=2cm]{geometry}
 
 
-\title{Thesis Proposal: Functional Property Discovery and Test Generation in Haskell}
+\title{Master Thesis Proposal:\\\vspace{0.5cm}{\Huge Functional Property Discovery and Corresponding Test Generation in Haskell}}
 \author{Tom Sydney Kerckhove}
 \begin{document}
 \maketitle
@@ -13,17 +13,18 @@
 \section{Introduction and Motivation}
 
 Correctness of code is currently too expensive.
-Current options, in order of decreasing rigour and decreasing cost, include formal verification, testing and having users file bug reports after failures have already happened.
+Current options, in order of decreasing rigour and decreasing cost, include formal methods, testing and having users file bug reports after failures have already ocurred.
 
-When verification is too expensive, testing is the most reliable way to ensure that a software system does what it should.
+When formal methods is too expensive, testing is the most reliable way to ensure that a software system does what it should.
 Traditional unit tests have two problems.
-The first problem is that unit tests can be only used to show the presence failures, but can never show the absence of failures.
-The second problem is that unit tests require a programmer to come up with many examples for the unit tests to be of real value in providing confidence in the implementation.
+The first problem is that unit tests can only be used to show the presence of failures, but can never show the absence of failures.
+The second problem is that unit tests require a programmer to provide many examples for the unit tests to be of real value in providing confidence in the implementation.
 This requires great discipline on the programmer's part.
 Traditional unit tests are still too expensive.
 As a result, programmers will all too often omit tests.
 
 Property-based testing \cite{QuickCheck} can probabilistically solve the first problem by automatically generating examples instead of having the programmer think of them.
+As such, property-based testing can show failures that the programmers did not anticipate and that the programmer would not have tested for.
 However, it exacerbates the second problem.
 Now programmers have to come up with mathematical properties of their code.
 The transaction costs of writing property tests are even higher than for unit tests.
@@ -39,7 +40,7 @@ Equational properties, while certainly useful, fall short in describing real wor
 For example, there is no way to specify the correctness of a sorting algorithm using an equational property.
 
 The first goal of this thesis is to explore automatic discovery of general properties.
-General properties allow for much more expressive properties such as the correctness of a sorting algorithm.\footnote{The property \mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered ss}, for example, serves to assess the correctness of a sorting algorithm, but can not be expressed as an equational property.}
+General properties allow for more expressive properties such as the correctness of a sorting algorithm.\footnote{The property \mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered ss}, for example, serves to assess the correctness of a sorting algorithm, but can not be expressed as an equational property.}
 The second goal is to, once properties have been discovered, generate the code necessary to test that these properties hold.
 
 \newpage
