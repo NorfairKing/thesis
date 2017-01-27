@@ -8,6 +8,7 @@ import Zifter
 
 import Development.Shake
 
+import Thesis.Proposal
 import Thesis.ShakeBuild
 
 thesisZiftScript :: ZiftScript ()

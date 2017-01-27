@@ -16,6 +16,7 @@ library
         Thesis.OptParse
         Thesis.OptParse.Types
         Thesis.ShakeBuild
+        Thesis.Proposal
         Thesis.Types
         Thesis.Zift
         Import

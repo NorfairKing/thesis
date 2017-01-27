@@ -4,6 +4,7 @@ import Import
 
 import Development.Shake
 
+import Thesis.Proposal
 import Thesis.ShakeBuild
 
 thesis :: IO ()
