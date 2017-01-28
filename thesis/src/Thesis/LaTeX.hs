@@ -10,6 +10,7 @@ module Thesis.LaTeX
 import Import
 
 import Development.Shake
+import Development.Shake.Path
 
 import Thesis.Constants
 import Thesis.Utils
@@ -47,10 +48,9 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
         tmpMainBibliography = tmpDir </> mainBibFile
         mainBibliography :: Path Rel File
         mainBibliography = docDir </> mainBibFile
-    toFilePath tmpMainSource %> \out -> copyFile' (toFilePath mainSource) out
-    toFilePath tmpMainBibliography %> \out ->
-        copyFile' (toFilePath mainBibliography) out
-    toFilePath tmpOut %> \_ -> do
-        need $ map toFilePath [tmpMainSource, tmpMainBibliography]
+    tmpMainSource $%> copyFile mainSource tmpMainSource
+    tmpMainBibliography $%> copyFile mainBibliography tmpMainBibliography
+    tmpOut $%> do
+        needP [tmpMainSource, tmpMainBibliography]
         cmd (Cwd $ toFilePath tmpDir) "latexmk" "-pdf" "-shell-escape" -- Download latexmk if necessary, also download pdflatex if necessary.
-    toFilePath outFile %> \out -> copyFile' (toFilePath tmpOut) out
+    outFile $%> copyFile tmpOut outFile

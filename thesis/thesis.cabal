@@ -31,7 +31,8 @@ library
         zifter -any,
         path -any,
         path-io -any,
-        exceptions -any
+        exceptions -any,
+        shake-path -any
     default-language: Haskell2010
     default-extensions: NoImplicitPrelude
     hs-source-dirs: src/
