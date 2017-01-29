@@ -12,18 +12,27 @@ author: Tom Sydney Kerckhove
 
 library
     exposed-modules:
+        Import
         Thesis
+        Thesis.Constants
+        Thesis.DetailedProposal
+        Thesis.LaTeX
         Thesis.OptParse
         Thesis.OptParse.Types
+        Thesis.Proposal
         Thesis.ShakeBuild
         Thesis.Types
+        Thesis.Utils
         Thesis.Zift
-        Import
     build-depends:
         base >=4.9 && <=5,
         optparse-applicative -any,
         shake -any,
-        zifter -any
+        zifter -any,
+        path -any,
+        path-io -any,
+        exceptions -any,
+        shake-path -any
     default-language: Haskell2010
     default-extensions: NoImplicitPrelude
     hs-source-dirs: src/
