@@ -2,6 +2,8 @@
 
 \usepackage{minted}
 
+\newcommand{\h}[1]{\mintinline{haskell}{#1}}
+
 \usepackage[a4paper, margin=2cm]{geometry}
 
 
@@ -13,6 +15,92 @@
 \section{Introduction and Motivation}
 
 \newpage
+
+\section{Type-guided property discovery}
+
+Input: A set of functions that are 'in scope'.
+Output: All possible properties that can be built with these functions.
+
+Example:
+Input: 
+\begin{itemize}
+  \item \h{sorted :: Ord a => [a] -> Bool}
+  \item \h{sort :: Ord a => [a] -> [a]}
+  \item \h{permutation :: Eq a => [a] -> [a] -> Bool}
+\end{itemize}
+
+A property is any function of type \h{a -> Bool} \footnote{Later it will become necessary that \h{a} is a type of which values can be generated arbitrarily.}.
+This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression that can use \h{x} and \h{y} is of type `Bool`.
+
+At this point we have these terms in 'play':
+
+\begin{itemize}
+  \item \h{sorted :: Ord a => [a] -> Bool}
+  \item \h{sort :: Ord a => [a] -> [a]}
+  \item \h{permutation :: Eq a => [a] -> [a] -> Bool}
+  \item \h{x :: a}
+\end{itemize}
+
+... and the following non-terminal terms:
+
+\begin{itemize}
+  \item \h{y :: Bool}
+\end{itemize}
+
+We could try to replace \h{y} with any of the terms in play, by first collecting the type constraints that would imply.
+For example, we could try to replace \h{y} with \h{x}.
+This means that we have to solve \h{a ~ Bool}.
+The result would be a terminal property \h{\a -> a} of type \h{Bool -> Bool}.
+This is the identity function.
+One could argue that this is indeed a property of the input functions.
+\footnote{Even if every set of input functions will allow for the discovery of this function and it does not hold for any input set.}
+
+When we disregard replacing \h{y}, for the sake of preventing infinite loops, only the input functions remain as options.
+In particular, trying to replace \h{y} with any of \h{sorted} \h{sort} or \h{permutation} will result in the unsatisfiable type constraints \h{(Ord a => [a] -> Bool) ~ Bool}, \h{(Ord a => [a] -> [a]) ~ Bool} or \h{(Eq a => [a] -> [a] -> Bool) ~ Bool}.
+
+Now that the options for direct term unification have run out, we can try to expand any of the relevant term in the current expression \h{\x -> y}.
+The only relevant term to replace is \h{y}, so we will have a look at how we can expand \h{y} in the next section.
+
+
+Given that we want the type-checker to judge the expression \h{y} to be of type \h{Bool}, we can now construct the ways in which this could happen.
+If we look at how type judgements are made, we can see how \h{y} can be made up of the functions in the input.
+
+The most common type judgements is made according to the following rule:
+
+\[
+  \frac{f : a \rightarrow b,\ x : a}{f x : b}
+\]
+
+This rule entails that if \h{y} is an expression of type \h{b}, that means that it is possible that it consists of a function application of a function \h{f} of type \h{a -> b} to an expression \h{x} of type \h{a}.
+
+If we follow this rule backward, and we start with the expression \h{y} in \h{\x -> y}, that we know is of type \h{Bool}, then it could be the case that \h{y} is of the form \h{f z} where \h{f} is of type \h{b -> Bool} and \h{z} is of type \h{c} for some \h{c}.
+Note that \h{z} does not necessarily have to equal \h{x} and \h{c} does not necessarily have to equal \h{a}.
+It could be the case that \h{x} is used somewhere else in \h{f} or even not at all.
+
+At this point we have these terms in 'play':
+
+\begin{itemize}
+  \item \h{sorted :: Ord a => [a] -> Bool}
+  \item \h{sort :: Ord a => [a] -> [a]}
+  \item \h{permutation :: Eq a => [a] -> [a] -> Bool}
+  \item \h{x :: a}
+\end{itemize}
+
+... and the following non-terminal terms:
+
+\begin{itemize}
+  \item \h{f :: b -> Bool}
+  \item \h{z :: b}
+\end{itemize}
+
+In the following table, we can see the type-constraints that occur when we try to unify the terms in play with \h{f}.
+
+\begin{tabular}{lll}
+  Replacement & Type Constraints & Solution \\
+  \h{sorted} & \h{(Ord a => [a] -> Bool ~ (b -> Bool)} & \h{b ~ [a]} \\
+  \h{sort} & \h{(Ord a => [a] -> [a]) ~ (b -> Bool)} & Unsatisfiable \\
+  \h{permutation} & \h{(Ord a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
+\end{tabular}
 
 \section{Assignment}
 \subsection{Objective}

@@ -48,9 +48,20 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
         tmpMainBibliography = tmpDir </> mainBibFile
         mainBibliography :: Path Rel File
         mainBibliography = docDir </> mainBibFile
-    tmpMainSource $%> copyFile mainSource tmpMainSource
-    tmpMainBibliography $%> copyFile mainBibliography tmpMainBibliography
+    tmpMainSource `byCopying` mainSource
+    tmpMainBibliography `byCopying` mainBibliography
     tmpOut $%> do
         needP [tmpMainSource, tmpMainBibliography]
-        cmd (Cwd $ toFilePath tmpDir) "latexmk" "-pdf" "-shell-escape" -- Download latexmk if necessary, also download pdflatex if necessary.
-    outFile $%> copyFile tmpOut outFile
+        cmd
+            (Cwd $ toFilePath tmpDir)
+            "latexmk"
+            "-pdf"
+            "-shell-escape"
+            "-halt-on-error" -- Download latexmk if necessary, also download pdflatex if necessary.
+    outFile `byCopying` tmpOut
+
+byCopying :: Path r File -> Path s File -> Rules ()
+byCopying to from =
+    to $%> do
+        needP [from]
+        copyFile from to
