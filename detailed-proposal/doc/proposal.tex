@@ -6,6 +6,7 @@
 
 \usepackage[a4paper, margin=2cm]{geometry}
 
+\newcommand{\TODO}[1]{#1}
 
 \title{Detailed Master Thesis Proposal:\\\vspace{0.5cm}{\Huge Functional Property Discovery and Corresponding Test Generation in Haskell}}
 \author{Tom Sydney Kerckhove}
@@ -92,15 +93,71 @@ At this point we have these terms in 'play':
   \item \h{f :: b -> Bool}
   \item \h{z :: b}
 \end{itemize}
+\TODO{explain dependent type scoping for non-terminals and independent type scoping for terminals.}
 
 In the following table, we can see the type-constraints that occur when we try to unify the terms in play with \h{f}.
 
 \begin{tabular}{lll}
   Replacement & Type Constraints & Solution \\
-  \h{sorted} & \h{(Ord a => [a] -> Bool ~ (b -> Bool)} & \h{b ~ [a]} \\
+  \h{sorted} & \h{(Ord a => [a] -> Bool) ~ (b -> Bool)} & \h{b ~ [a]} \\
   \h{sort} & \h{(Ord a => [a] -> [a]) ~ (b -> Bool)} & Unsatisfiable \\
   \h{permutation} & \h{(Ord a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
+  \h{x} & \h{a ~ (b -> Bool)} & \h{a ~ (b -> Bool)} \\
 \end{tabular}
+
+We could do the same for \h{z} and arrive at some much more complicated solutions, so let's have a look at what happens if we (term) unify \h{f} with \h{sorted}. \footnote{In the real algorithm, the unification of \h{x} with \h{f} would have to be explored as well.}
+This means that \h{b ~ [a]} must hold, and thus that \h{z} must be of type \h{[a]}.
+
+The expression that we are currently looking at is now \h{(\a -> sorted z) :: [a] -> Bool}.
+This already looks like a property but it still contains non-terminals so we must go on.
+
+We can now try to unify \h{z} with terminals, and we arrive at the following table as a result.
+Note that the scoping of the left-hand side and the right-hand side are independent in these type-equalities.
+
+\begin{tabular}{lll}
+  Replacement & Type Constraints & Solution \\
+  \h{sorted} & \h{(Ord a => [a] -> Bool) ~ [a]} & Unsatisfiable \\
+  \h{sort} & \h{(Ord a => [a] -> [a]) ~ [a]} & Unsatisfiable \\
+  \h{permutation} & \h{(Ord a => [a] -> [a] -> Bool) ~ [a]} & Unsatisfiable \\
+  \h{x} & \h{a ~ [a]} & \h{a ~ [a]} \\
+\end{tabular}
+
+There is only one option: to (term) unify \h{x} with \h{z}.
+This results in the expression \h{\a -> sorted x :: [a] -> Bool}.
+This is indeed a property of the set of input functions, even if it does not hold.
+
+If we rewind the last step, then we can use the the trick that we used earlier on \h{y} to split it into \h{f z}, but now on \h{z}.
+
+We can split \h{z :: [a]} into \h{g u :: [a]} where \h{g} is of type \h{d -> [a]} and \h{u} is of type \h{d}.
+
+Now we can (term) unify \h{g} with \h{sort}, analogous to the way we unified \h{f} with \h{sorted} before.
+This leaves us with the expression: \h{(\a -> sorted (sort u)) :: [a] -> Bool}.
+Here we still have a non-terminal \h{u}, that can be (term) unified with \h{x} to arrive at the property that a sorted list is in fact sorted:
+\h{(\x -> sorted (sort x)) :: [a] -> Bool}.
+
+So far we have discovered the following properties:
+
+\begin{itemize}
+  \item \h{(\x -> x) :: Bool -> Bool}
+  \item \h{(\x -> sorted x) :: [a] -> Bool}
+  \item \h{(\x -> sorted (sort x)) :: [a] -> Bool}
+\end{itemize}
+
+When we continue this algorithm, the following properties could also be discovered:
+
+\begin{itemize}
+  \item \h{(\x -> permutation (sort x) x) :: [a] -> Bool}
+  \item \h{(\x -> sorted (sort (sort x))) :: [a] -> Bool}
+  \item \h{(\x -> sorted (sort (sort (sort x)))) :: [a] -> Bool}
+  \item ...
+\end{itemize}
+
+Note that there are indeed an infinite number of properties to be found given these functions as input.
+However, the properties are discovered in increasing size, so by arbitrarily bounding the output properties to a given size, we can make this algorithm terminate.
+It makes sense to assume that we are only looking for properties of a relatively small size.
+The properties that we are looking for here are \h{(\x -> sorted (sort x)) :: [a] -> Bool}, and \h{(\x -> permutation (sort x) x) :: [a] -> Bool}, both of which are much smaller that 10 terms.
+
+\TODO{Bound the type variables wherever possible}
 
 \section{Assignment}
 \subsection{Objective}
