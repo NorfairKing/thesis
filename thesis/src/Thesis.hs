@@ -12,6 +12,6 @@ import Thesis.ShakeBuild
 
 thesis :: IO ()
 thesis =
-    shakeArgs shakeOptions $ do
+    shakeArgs shakeOptions {shakeVerbosity = Loud} $ do
         thesisShakeBuildRules
         wantP [pdfOutFile detailedProposalSpec, pdfOutFile proposalSpec]

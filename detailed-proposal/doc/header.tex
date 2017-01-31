@@ -3,8 +3,12 @@
 \theoremstyle{definition}
 \newmdtheoremenv{de}[thm]{Definition} % Definition with frame
 \newtheorem{prop}[thm]{Proposition}
+\newtheorem{ex}[thm]{Example}
 
-\newcommand{\h}[1]{\mintinline{haskell}{#1}}
+\definecolor{haskellbg}{rgb}{0.95,0.95,0.95}
+
+\newcommand{\h}[1]{\mintinline[bgcolor=haskellbg,breaklines]{haskell}{#1}}
       
 \newcommand{\TODO}[1]{#1}
 
+\setlength\parindent{0pt}

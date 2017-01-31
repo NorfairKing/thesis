@@ -15,23 +15,71 @@
 \section{Type-guided property discovery}
 
 \begin{de}
+  A \emph{property} is any Haskell function with a type of the form \h{a -> Bool}.
+\end{de}
+
+\begin{ex}
+  Examples of properties include \h{sorted :: forall a. Ord a => [a] -> Bool}, \h{increasing :: forall a. Ord a => (a, a) -> Bool} and even the degenerate \h{id :: Bool -> Bool}.
+
+  Note that every boolean function with multiple arguments can be rewritten as a property by uncurrying the arguments.
+\end{ex}
+
+\begin{de}
+  A \emph{scope} is a set of functions.
+  We say that a function is \emph{in scope} if it is an element of the scope.
+\end{de}
+
+\begin{de}
+  Given a scope, a property is a property \emph{of that scope} if it is made up of functions in scope.
+  \footnote{How functions are `made-up' is not strictly defined here. We could restrict this to function application, but choosing to allow more syntax may allow for more building blocks.}
 \end{de}
 
 \section{Type-guided property discovery}
 
-Input: A set of functions that are 'in scope'.
-Output: All possible properties that can be built with these functions.
+The following algorithm will allow for the discovery of properties given a scope of functions.
+It can be generalised to discover functions given their type, but the example that follows is restricted to properties.
 
-Example:
-Input: 
+\subsection{Context}
+
+Input: A scope of functions.\\
+Output: All possible properties that can be built in this scope.
+\footnote{
+  Note that this section does not discuss how to choose a scope.
+  That problem has no 'correct' solution and will have to be solved later.
+}
+
+The following running example will be used, but the algorithm is explained sufficiently generally as well.
+
+Consider the following scope as input.
+
 \begin{itemize}
   \item \h{sorted :: Ord a => [a] -> Bool}
   \item \h{sort :: Ord a => [a] -> [a]}
   \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
 \end{itemize}
 
-A property is any function of type \h{a -> Bool} \footnote{Later it will become necessary that \h{a} is a type of which values can be generated arbitrarily.}.
-This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression that can use \h{x} and \h{y} is of type `Bool`.
+Only these three functions are in scope, we limit the scope to these explicitly mentioned functions.
+This means that even commonly used functions like\\ \h{(==) :: Eq a => a -> a -> Bool} or \h{(.) :: (b -> c) -> (a -> b) -> a -> c} are out of scope in this example.
+
+\section{Shape of the solution}
+
+A property is any function of type \h{a -> Bool}.
+This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression\footnote{that could use \h{x}} and \h{y} is of type `Bool`.
+in particular, for the property to be of the input scope, the functions that make up \h{y} must be in scope.
+
+\section{Terminals and non-terminals}
+
+\begin{de}
+  A terminal variable is either a function in the scope or one of the arguments of the `shape of the solution'.
+\end{de}
+
+Throughout the algorithm, new variables will be needed.
+These will be fresh variables and they will necessarily be distinct from any terminals and from each other.
+As such they will be called \emph{non-terminals}.
+
+\begin{ex}
+  In \h{\x -> isPermutationOf y x}, \h{isPermutationOf} and \h{x} are terminal variables but \h{y} is not.
+\end{ex}
 
 At this point we have these terms in 'play':
 

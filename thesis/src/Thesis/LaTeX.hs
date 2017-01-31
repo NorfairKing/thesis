@@ -39,21 +39,9 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
     tmpOutFile <- liftIO $ latexMainTexFileName <.> pdfExt
     let tmpOut :: Path Rel File
         tmpOut = tmpDir </> tmpOutFile
-    mainSrcFile <- liftIO $ latexMainTexFileName <.> texExt
-    let tmpMainSource :: Path Rel File
-        tmpMainSource = tmpDir </> mainSrcFile
-        mainSource :: Path Rel File
-        mainSource = docDir </> mainSrcFile
-    mainBibFile <- liftIO $ latexMainTexFileName <.> bibExt
-    let tmpMainBibliography :: Path Rel File
-        tmpMainBibliography = tmpDir </> mainBibFile
-        mainBibliography :: Path Rel File
-        mainBibliography = docDir </> mainBibFile
-    tmpMainSource `byCopying` mainSource
-    tmpMainBibliography `byCopying` mainBibliography
     tmpOut $%> do
         fs <- liftIO $ snd <$> listDirRecur docDir
-        needP $ fs ++ map (here </>) [tmpMainSource, tmpMainBibliography]
+        needP fs
         forM_ fs $ \f ->
             case stripDir (here </> docDir) f of
                 Nothing -> pure ()
@@ -63,7 +51,8 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
             "latexmk"
             "-pdf"
             "-shell-escape"
-            "-halt-on-error" -- Download latexmk if necessary, also download pdflatex if necessary.
+            "-halt-on-error"
+            (toFilePath latexMainTexFileName) -- Download latexmk if necessary, also download pdflatex if necessary.
     outFile `byCopying` tmpOut
 
 byCopying :: Path r File -> Path s File -> Rules ()
