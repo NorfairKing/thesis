@@ -61,13 +61,13 @@ Consider the following scope as input.
 Only these three functions are in scope, we limit the scope to these explicitly mentioned functions.
 This means that even commonly used functions like\\ \h{(==) :: Eq a => a -> a -> Bool} or \h{(.) :: (b -> c) -> (a -> b) -> a -> c} are out of scope in this example.
 
-\section{Shape of the solution}
+\subsection{Shape of the solution}
 
 A property is any function of type \h{a -> Bool}.
 This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression\footnote{that could use \h{x}} and \h{y} is of type `Bool`.
 in particular, for the property to be of the input scope, the functions that make up \h{y} must be in scope.
 
-\section{Terminals and non-terminals}
+\subsection{Terminals and non-terminals}
 
 \begin{de}
   A terminal variable is either a function in the scope or one of the arguments of the `shape of the solution'.
@@ -81,76 +81,103 @@ As such they will be called \emph{non-terminals}.
   In \h{\x -> isPermutationOf y x}, \h{isPermutationOf} and \h{x} are terminal variables but \h{y} is not.
 \end{ex}
 
-At this point we have these terms in 'play':
 
-\begin{itemize}
-  \item \h{sorted :: Ord a => [a] -> Bool}
-  \item \h{sort :: Ord a => [a] -> [a]}
-  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
-  \item \h{x :: a}
-\end{itemize}
+\subsection{Terminal replacement}
 
-... and the following non-terminal terms:
+The first step of this algorithm is to try to replace non-terminal variables with terminal variables.
+If we can replace any non-terminal variables with terminals, then the resulting function will be a property of the scope.
 
-\begin{itemize}
-  \item \h{y :: Bool}
-\end{itemize}
+In the running example, we can first try to replace \h{y} with any of the terminals.
+Replacement occurs in two steps.
+The first step is type unification and, if that succeeds, the second step is term unification.
 
-We could try to replace \h{y} with any of the terms in play, by first collecting the type constraints that would imply.
-For example, we could try to replace \h{y} with \h{x}.
-This means that we have to solve \h{a ~ Bool}.
-The result would be a terminal property \h{\a -> a} of type \h{Bool -> Bool}.
-This is the identity function.
-One could argue that this is indeed a property of the input functions.
-\footnote{Even if every set of input functions will allow for the discovery of this function and it does not hold for any input set.}
+\subsubsection{Type unification}
 
-When we disregard replacing \h{y}, for the sake of preventing infinite loops, only the input functions remain as options.
-In particular, trying to replace \h{y} with any of \h{sorted} \h{sort} or \h{isPermutationOf} will result in the unsatisfiable type constraints \h{(Ord a => [a] -> Bool) ~ Bool}, \h{(Ord a => [a] -> [a]) ~ Bool} or \h{(Eq a => [a] -> [a] -> Bool) ~ Bool}.
+In order to type-unify \h{y} with any terminal, we have to record the appropriate type constraint, and then check if it is satisfiable.
 
-Now that the options for direct term unification have run out, we can try to expand any of the relevant term in the current expression \h{\x -> y}.
-The only relevant term to replace is \h{y}, so we will have a look at how we can expand \h{y} in the next section.
+In this case, when trying to unify \h{y :: Bool} with any of the terminals we find the following constraints and solutions:
 
+\begin{tabular}{|l|l|l|}
+  \hline
+  Replacement & Type Constraints & Solution \\
+  \hline
+  \hline
+  \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ Bool} & Unsatisfiable \\
+  \hline
+  \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ Bool} & Unsatisfiable \\
+  \hline
+  \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ Bool} & Unsatisfiable \\
+  \hline
+  \h{x} & \h{a ~ Bool} & \h{a ~ Bool} \\
+  \hline
+\end{tabular}
 
-Given that we want the type-checker to judge the expression \h{y} to be of type \h{Bool}, we can now construct the ways in which this could happen.
-If we look at how type judgements are made, we can see how \h{y} can be made up of the functions in the input.
+In general, there could be more than one non-terminal to try to unify.
+In that case, we try all options recursively. \TODO{Work out whether the order matters or not.}
 
-The most common type judgements is made according to the following rule:
+In the table above, we can see that only the unification of \h{y :: Bool} with \h{x :: a} can result in an expression that type-checks.
+
+\subsubsection{Term unification}
+
+Given that the types of the non-terminal that is being replaced and the replacement match, we remember the used constraints, and replace the terms appropirately.
+
+In this case, we would record \h{a ~ Bool} and end up with the expression \h{(\x -> x) :: Bool ~ a => a -> Bool}.
+This is just the identity function specialized to \h{Bool} and it is indeed a property of the scope.
+
+\subsection{Non-terminal expansion}
+
+Once all the options for terminal replacement have run out, we move on to the second phase of the algorithm: Non-terminal expansion.
+Non-terminal expansion attempts to complicate the property that is being discovered, in order to be able to discover more complicated properties. \TODO{reword.}
+
+In particular, given that we know the desired type-judgement of the property that is being discovered,
+non-terminal expansion will explore all possible ways in which this type-judgement could have been made.
+
+For example, the following is the most common type judgement:
+[App] in the Hindley-Milner type system. \TODO{Check to make sure that this actually makes sense.}
 
 \[
   \frac{f : a \rightarrow b,\ x : a}{f x : b}
 \]
 
 This rule entails that if \h{y} is an expression of type \h{b}, that means that it is possible that it consists of a function application of a function \h{f} of type \h{a -> b} to an expression \h{x} of type \h{a}.
+This means that we can expand any non-terminal variable \h{a :: p} to the function application \h{f b :: p} where \h{f} is a fresh non-terminal of type \h{q -> p} and \h{b} is a fresh non-terminal of type \h{q}.
 
-If we follow this rule backward, and we start with the expression \h{y} in \h{\x -> y}, that we know is of type \h{Bool}, then it could be the case that \h{y} is of the form \h{f z} where \h{f} is of type \h{b -> Bool} and \h{z} is of type \h{c} for some \h{c}.
-Note that \h{z} does not necessarily have to equal \h{x} and \h{c} does not necessarily have to equal \h{a}.
-It could be the case that \h{x} is used somewhere else in \h{f} or even not at all.
+If there are more options for non-terminal expansion, they should all be explored.
 
-At this point we have these terms in 'play':
+In the case of the running example, the non-terminal variable \h{y} will be expanded as follows.
+We know that we want the type-checker to judge the expression \h{y} to be of type \h{Bool}
+Using the above type-judgement rule, we can now construct the ways in which this could happen.
 
-\begin{itemize}
-  \item \h{sorted :: Ord a => [a] -> Bool}
-  \item \h{sort :: Ord a => [a] -> [a]}
-  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
-  \item \h{x :: a}
-\end{itemize}
+If we follow this rule backward, and we start with the expression \h{y} in \h{\x -> y}, that we know is of type \h{Bool}, then it could be the case that \h{y} is of the form \h{f z} where \h{f} is of type \h{c -> Bool} and \h{z} is of type \h{c} for some \h{c}.
 
-... and the following non-terminal terms:
+After a phase of non-terminal expansion, another phase of terminal replacement should occur.
+Because it is possible that there exists an infinite number of properties of a given scope, an arbitrary limit must be imposed on the number of phases of the algorithm.
+Given that desired properties are usually small, this is not a restrictive limitation.
+
+\subsection{The rest of the example}
+The second phase of terminal replacement works on the expression \h{\x -> f z} where we have the following non-terminals:
 
 \begin{itemize}
   \item \h{f :: b -> Bool}
   \item \h{z :: b}
 \end{itemize}
-\TODO{explain dependent type scoping for non-terminals and independent type scoping for terminals.}
 
-In the following table, we can see the type-constraints that occur when we try to unify the terms in play with \h{f}.
+For each non-terminal, we explore the constraints of type-unification:
 
 \begin{tabular}{lll}
-  Replacement & Type Constraints & Solution \\
-  \h{sorted} & \h{(Ord a => [a] -> Bool) ~ (b -> Bool)} & \h{b ~ [a]} \\
-  \h{sort} & \h{(Ord a => [a] -> [a]) ~ (b -> Bool)} & Unsatisfiable \\
-  \h{isPermutationOf} & \h{(Eq a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
+  Replacement for \h{f} & Type Constraints & Solution \\
+  \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ (b -> Bool)} & \h{b ~ [a]} \\
+  \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ (b -> Bool)} & Unsatisfiable \\
+  \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
   \h{x} & \h{a ~ (b -> Bool)} & \h{a ~ (b -> Bool)} \\
+\end{tabular}
+
+\begin{tabular}{lll}
+  Replacement for \h{z} & Type Constraints & Solution \\
+  \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ b} & \h{(forall a. Ord a => [a] -> Bool) ~ b} \\
+  \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ b} & \h{(forall a. Ord a => [a] -> [a]) ~ b} \\
+  \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ b} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ b} \\
+  \h{x} & \h{a ~ b} & \h{a ~ b} \\
 \end{tabular}
 
 We could do the same for \h{z} and arrive at some much more complicated solutions, so let's have a look at what happens if we (term) unify \h{f} with \h{sorted}. \footnote{In the real algorithm, the unification of \h{x} with \h{f} would have to be explored as well.}
