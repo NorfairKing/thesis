@@ -1,12 +1,7 @@
 \documentclass[a4paper, 11pt]{article}
 
-\usepackage{minted}
-
-\newcommand{\h}[1]{\mintinline{haskell}{#1}}
-
-\usepackage[a4paper, margin=2cm]{geometry}
-
-\newcommand{\TODO}[1]{#1}
+\input{packages.tex}
+\input{header.tex}
 
 \title{Detailed Master Thesis Proposal:\\\vspace{0.5cm}{\Huge Functional Property Discovery and Corresponding Test Generation in Haskell}}
 \author{Tom Sydney Kerckhove}
@@ -19,6 +14,11 @@
 
 \section{Type-guided property discovery}
 
+\begin{de}
+\end{de}
+
+\section{Type-guided property discovery}
+
 Input: A set of functions that are 'in scope'.
 Output: All possible properties that can be built with these functions.
 
@@ -27,7 +27,7 @@ Input:
 \begin{itemize}
   \item \h{sorted :: Ord a => [a] -> Bool}
   \item \h{sort :: Ord a => [a] -> [a]}
-  \item \h{permutation :: Eq a => [a] -> [a] -> Bool}
+  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
 \end{itemize}
 
 A property is any function of type \h{a -> Bool} \footnote{Later it will become necessary that \h{a} is a type of which values can be generated arbitrarily.}.
@@ -38,7 +38,7 @@ At this point we have these terms in 'play':
 \begin{itemize}
   \item \h{sorted :: Ord a => [a] -> Bool}
   \item \h{sort :: Ord a => [a] -> [a]}
-  \item \h{permutation :: Eq a => [a] -> [a] -> Bool}
+  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
   \item \h{x :: a}
 \end{itemize}
 
@@ -57,7 +57,7 @@ One could argue that this is indeed a property of the input functions.
 \footnote{Even if every set of input functions will allow for the discovery of this function and it does not hold for any input set.}
 
 When we disregard replacing \h{y}, for the sake of preventing infinite loops, only the input functions remain as options.
-In particular, trying to replace \h{y} with any of \h{sorted} \h{sort} or \h{permutation} will result in the unsatisfiable type constraints \h{(Ord a => [a] -> Bool) ~ Bool}, \h{(Ord a => [a] -> [a]) ~ Bool} or \h{(Eq a => [a] -> [a] -> Bool) ~ Bool}.
+In particular, trying to replace \h{y} with any of \h{sorted} \h{sort} or \h{isPermutationOf} will result in the unsatisfiable type constraints \h{(Ord a => [a] -> Bool) ~ Bool}, \h{(Ord a => [a] -> [a]) ~ Bool} or \h{(Eq a => [a] -> [a] -> Bool) ~ Bool}.
 
 Now that the options for direct term unification have run out, we can try to expand any of the relevant term in the current expression \h{\x -> y}.
 The only relevant term to replace is \h{y}, so we will have a look at how we can expand \h{y} in the next section.
@@ -83,7 +83,7 @@ At this point we have these terms in 'play':
 \begin{itemize}
   \item \h{sorted :: Ord a => [a] -> Bool}
   \item \h{sort :: Ord a => [a] -> [a]}
-  \item \h{permutation :: Eq a => [a] -> [a] -> Bool}
+  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
   \item \h{x :: a}
 \end{itemize}
 
@@ -101,7 +101,7 @@ In the following table, we can see the type-constraints that occur when we try t
   Replacement & Type Constraints & Solution \\
   \h{sorted} & \h{(Ord a => [a] -> Bool) ~ (b -> Bool)} & \h{b ~ [a]} \\
   \h{sort} & \h{(Ord a => [a] -> [a]) ~ (b -> Bool)} & Unsatisfiable \\
-  \h{permutation} & \h{(Ord a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
+  \h{isPermutationOf} & \h{(Eq a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
   \h{x} & \h{a ~ (b -> Bool)} & \h{a ~ (b -> Bool)} \\
 \end{tabular}
 
@@ -118,7 +118,7 @@ Note that the scoping of the left-hand side and the right-hand side are independ
   Replacement & Type Constraints & Solution \\
   \h{sorted} & \h{(Ord a => [a] -> Bool) ~ [a]} & Unsatisfiable \\
   \h{sort} & \h{(Ord a => [a] -> [a]) ~ [a]} & Unsatisfiable \\
-  \h{permutation} & \h{(Ord a => [a] -> [a] -> Bool) ~ [a]} & Unsatisfiable \\
+  \h{isPermutationOf} & \h{(Eq a => [a] -> [a] -> Bool) ~ [a]} & Unsatisfiable \\
   \h{x} & \h{a ~ [a]} & \h{a ~ [a]} \\
 \end{tabular}
 
@@ -146,7 +146,7 @@ So far we have discovered the following properties:
 When we continue this algorithm, the following properties could also be discovered:
 
 \begin{itemize}
-  \item \h{(\x -> permutation (sort x) x) :: [a] -> Bool}
+  \item \h{(\x -> isPermutationOf (sort x) x) :: [a] -> Bool}
   \item \h{(\x -> sorted (sort (sort x))) :: [a] -> Bool}
   \item \h{(\x -> sorted (sort (sort (sort x)))) :: [a] -> Bool}
   \item ...
@@ -155,7 +155,7 @@ When we continue this algorithm, the following properties could also be discover
 Note that there are indeed an infinite number of properties to be found given these functions as input.
 However, the properties are discovered in increasing size, so by arbitrarily bounding the output properties to a given size, we can make this algorithm terminate.
 It makes sense to assume that we are only looking for properties of a relatively small size.
-The properties that we are looking for here are \h{(\x -> sorted (sort x)) :: [a] -> Bool}, and \h{(\x -> permutation (sort x) x) :: [a] -> Bool}, both of which are much smaller that 10 terms.
+The properties that we are looking for here are \h{(\x -> sorted (sort x)) :: [a] -> Bool}, and \h{(\x -> isPermutationOf (sort x) x) :: [a] -> Bool}, both of which are much smaller that 10 terms.
 
 \TODO{Bound the type variables wherever possible}
 

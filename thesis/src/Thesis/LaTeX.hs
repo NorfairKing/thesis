@@ -27,6 +27,7 @@ pdfOutFile LaTeXRulesSpec {..} =
 
 simpleLaTeXRules :: LaTeXRulesSpec -> Rules ()
 simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
+    here <- liftIO getCurrentDir
     let dir :: Path Rel Dir
         dir = latexTopDir
         tmpDir :: Path Rel Dir
@@ -51,7 +52,12 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
     tmpMainSource `byCopying` mainSource
     tmpMainBibliography `byCopying` mainBibliography
     tmpOut $%> do
-        needP [tmpMainSource, tmpMainBibliography]
+        fs <- liftIO $ snd <$> listDirRecur docDir
+        needP $ fs ++ map (here </>) [tmpMainSource, tmpMainBibliography]
+        forM_ fs $ \f ->
+            case stripDir (here </> docDir) f of
+                Nothing -> pure ()
+                Just fn -> copyFile f $ tmpDir </> fn
         cmd
             (Cwd $ toFilePath tmpDir)
             "latexmk"
