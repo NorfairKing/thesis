@@ -249,9 +249,29 @@ Luckily QuickCheck\cite{QuickCheck} has defined a type class \h{Arbitrary} of wh
 
 To generate the test code for a property \h{\x -> y} and generator \h{gen}, the test code is \h{forAll gen $ \x -> y} using the standard hspec\cite{hspec}\TODO{cite hspec} test framework.
 
+\TODO{what do we do with parametric code?}
+
+\section{Triaging properties}
+
+In the end, a programmer is usually not interested in properties that don't hold.
+Instead, it would be a nicer user experience to only be presented with properties that are true.
+
+Given that we can obtain the testing code to test given properties, we can filter out properties that don't hold by testing them.
+This testing involves generating a number of arbitrary input values to the property and checking that all the results are \h{True}.
+
 \section{Scope determination}
 
+The entire explanation up until now has been parametric in a scope of functions to use as the input.
+Determining this scope is a loosely defined problem.
+A smaller scope allows for more efficient property discovery, but omitting too many functions might prohibit the discovery of relevant properties.
+Ideally, only the functions that are involved in the property that we want to discover should be in the scope.
+Of course we don't know which properties we want to discover, otherwise we would not be trying to discover them.
 
+While scope determination is an unsolved problem, making the user experience good is an independent problem.
+We can save the user from having to explicitly declare a scope by using the functions that are in scope for a given module, when discovering properties of that module.
+This way the user does not have to specify the scope manually, but this benefit comes at the cost of not being able to discover properties involving functions that are not in scope in the given module.
+
+The complexity limitations of this approach will certainly be explored. 
 
 \section{Assignment}
 \subsection{Objective}
