@@ -42,7 +42,6 @@ The first goal of this thesis is to explore automatic discovery of general prope
 General properties allow for more expressive properties such as the correctness of a sorting algorithm.\footnote{The property \mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered (sort xs)}, for example, serves to assess the correctness of a sorting algorithm, but can not be expressed as an equational property.}
 The second goal is to, once properties have been discovered, generate the code necessary to test that these properties hold.
 
-\newpage
 
 \section{Type-guided property discovery}
 
@@ -66,10 +65,12 @@ The second goal is to, once properties have been discovered, generate the code n
   \footnote{How functions are `made-up' is not strictly defined here. We could restrict this to function application, but choosing to allow more syntax may allow for more building blocks.}
 \end{de}
 
+
 \section{Type-guided property discovery}
 
 The following algorithm will allow for the discovery of properties given a scope of functions.
 It can be generalised to discover functions given their type, but the example that follows is restricted to properties for brevety's sake.
+
 
 \subsection{Context}
 
@@ -93,11 +94,13 @@ Consider the following scope as input.
 Only these three functions are in scope, we limit the scope to these explicitly mentioned functions.
 This means that even commonly used functions like\\ \h{(==) :: Eq a => a -> a -> Bool} or \h{(.) :: (b -> c) -> (a -> b) -> a -> c} are out of scope in this example.
 
+
 \subsection{Shape of the solution}
 
 A property is any function of type \h{a -> Bool}.
 This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression\footnote{that could use \h{x}} and \h{y} is of type \h{Bool}.
 in particular, for the property to be of the input scope, the functions that make up \h{y} must be in scope.
+
 
 \subsection{Terminals and non-terminals}
 
@@ -123,6 +126,7 @@ If we can replace any non-terminal variables with terminals, then the resulting 
 In the running example, we can first try to replace \h{y} with any of the terminals.
 Replacement occurs in two steps.
 The first step is type unification and, if that succeeds, the second step is term unification.
+
 
 \subsubsection{Type unification}
 
@@ -150,12 +154,14 @@ The details of how to handle this case are handled at the end of this section.
 
 In the table above, we can see that only the unification of \h{y :: Bool} with \h{x :: a} can result in an expression that type-checks.
 
+
 \subsubsection{Term unification}
 
 Given that the types of the non-terminal that is being replaced and the replacement match, we remember the used constraints, and replace the terms appropirately.
 
 In this case, we would record \h{a ~ Bool} and end up with the expression \h{(\x -> x) :: Bool ~ a => a -> Bool}.
 This is just the identity function specialized to \h{Bool} and it is indeed a property of the scope.
+
 
 \subsection{Non-terminal expansion}
 
@@ -188,8 +194,11 @@ After a phase of non-terminal expansion, another phase of terminal replacement s
 Because it is possible that there exists an infinite number of properties of a given scope, an arbitrary limit must be imposed on the number of phases of the algorithm.
 Given that desired properties are usually small, this is not a restrictive limitation.
 
+
 \subsection{The rest of the example}
+
 \subsubsection{Multiple terminal replacement}
+
 The second phase of terminal replacement works on the expression \h{\x -> f z} where we have the following non-terminals:
 
 \begin{itemize}
@@ -217,6 +226,7 @@ After term unification, we find that this is the property \h{\x -> sorted x :: [
 This results in the expression \h{\a -> sorted x :: [a] -> Bool}.
 This is indeed a property of the set of input functions, even if it does not hold.
 
+
 \subsubsection{Multiple non-terminal replacement}
 
 From the expression \h{\x -> f z} onwards, there are two options for non-terminal expansion.
@@ -236,6 +246,7 @@ Even further along, also every property of the following form will be discovered
   \item ...
 \end{itemize}
 
+
 \section{Test generation}
 
 Once properties are discovered for a given scope, we can already propose them to a user.
@@ -251,6 +262,7 @@ To generate the test code for a property \h{\x -> y} and generator \h{gen}, the 
 
 \TODO{what do we do with parametric code?}
 
+
 \section{Triaging properties}
 
 In the end, a programmer is usually not interested in properties that don't hold.
@@ -258,6 +270,7 @@ Instead, it would be a nicer user experience to only be presented with propertie
 
 Given that we can obtain the testing code to test given properties, we can filter out properties that don't hold by testing them.
 This testing involves generating a number of arbitrary input values to the property and checking that all the results are \h{True}.
+
 
 \section{Scope determination}
 
@@ -273,13 +286,36 @@ This way the user does not have to specify the scope manually, but this benefit 
 
 The complexity limitations of this approach will certainly be explored. 
 
+
 \section{Assignment}
+
 \subsection{Objective}
+
+Develop a tool that can inspect Haskell code and suggest properties of that code to the programmer.
+After the programmer has selected the appropriate properties, the tool generates the necessary code to test these properties.
+
 
 \subsection{Tasks}
 
+\begin{itemize}
+  \item Study and analyse the relevant literature.
+  \item Propose a property discovery mechanism.
+  \item Implement property discovery.
+  \item Implement test code generation.
+  \item Assess the feasibility of the property discovery mechanism for increasingly large input programs.
+  \item (Optional) Assess the relative advantage of general property testing over equational property testing in a quantitative manner.
+  \item Write the final report and prepare a presentation
+\end{itemize}
+
 
 \subsection{Deliverables}
+
+\begin{itemize}
+  \item Final report
+  \item Tool code and instructions on how to use it.
+  \item Presentation
+\end{itemize}
+
 
 \bibliographystyle{plain}
 \bibliography{proposal}
