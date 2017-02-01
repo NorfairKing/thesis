@@ -247,6 +247,20 @@ Even further along, also every property of the following form will be discovered
 \end{itemize}
 
 
+\subsection{Type constraint resolution}
+
+A lot has been said about type constraints and their satisfiability.
+However, type constraint satisfiability is not a trivial problem.
+Luckily, version 8 of the Glasgow Haskell Compiler \cite{ghc8}\TODO{cite} has a very powerful type constraint satisfiability solver\cite{gadtsMeetTheirMatch}\TODO{cite}.
+In reality, the algorithm above does not solve any constraints during its operation, but rather collects the possible properties and the appropriate constraints.
+Only after the properties and constraints have been discovered, is an attempt made to solve the constraints.
+Only the properties with satisfiable type constraints will be proposed as properties of the scope.
+
+\subsection{Proof of concept}
+
+Because this is the most risk-involved part of this proposal, I have created a proof of concept of this algorithm.
+\TODO{inject proof of concept}
+
 \section{Test generation}
 
 Once properties are discovered for a given scope, we can already propose them to a user.
