@@ -37,7 +37,7 @@
 \section{Type-guided property discovery}
 
 The following algorithm will allow for the discovery of properties given a scope of functions.
-It can be generalised to discover functions given their type, but the example that follows is restricted to properties.
+It can be generalised to discover functions given their type, but the example that follows is restricted to properties for brevety's sake.
 
 \subsection{Context}
 
@@ -64,7 +64,7 @@ This means that even commonly used functions like\\ \h{(==) :: Eq a => a -> a ->
 \subsection{Shape of the solution}
 
 A property is any function of type \h{a -> Bool}.
-This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression\footnote{that could use \h{x}} and \h{y} is of type `Bool`.
+This means that a property can always be written (in Haskell code) as \h{\x -> y} where \h{x} is a variable of type \h{a}, \h{y} is an expression\footnote{that could use \h{x}} and \h{y} is of type \h{Bool}.
 in particular, for the property to be of the input scope, the functions that make up \h{y} must be in scope.
 
 \subsection{Terminals and non-terminals}
@@ -75,6 +75,7 @@ in particular, for the property to be of the input scope, the functions that mak
 
 Throughout the algorithm, new variables will be needed.
 These will be fresh variables and they will necessarily be distinct from any terminals and from each other.
+For the algorithm to discover a property, all of these variables will have to dissappear.
 As such they will be called \emph{non-terminals}.
 
 \begin{ex}
@@ -113,7 +114,7 @@ In this case, when trying to unify \h{y :: Bool} with any of the terminals we fi
 \end{tabular}
 
 In general, there could be more than one non-terminal to try to unify.
-In that case, we try all options recursively. \TODO{Work out whether the order matters or not.}
+The details of how to handle this case are handled at the end of this section.
 
 In the table above, we can see that only the unification of \h{y :: Bool} with \h{x :: a} can result in an expression that type-checks.
 
@@ -127,7 +128,8 @@ This is just the identity function specialized to \h{Bool} and it is indeed a pr
 \subsection{Non-terminal expansion}
 
 Once all the options for terminal replacement have run out, we move on to the second phase of the algorithm: Non-terminal expansion.
-Non-terminal expansion attempts to complicate the property that is being discovered, in order to be able to discover more complicated properties. \TODO{reword.}
+This phase attempts to add complexity to the property that is being discovered.
+The resulting expression containing non-terminals will allow for the discovery of more complex properties in the next phase.
 
 In particular, given that we know the desired type-judgement of the property that is being discovered,
 non-terminal expansion will explore all possible ways in which this type-judgement could have been made.
@@ -155,6 +157,7 @@ Because it is possible that there exists an infinite number of properties of a g
 Given that desired properties are usually small, this is not a restrictive limitation.
 
 \subsection{The rest of the example}
+\subsubsection{Multiple terminal replacement}
 The second phase of terminal replacement works on the expression \h{\x -> f z} where we have the following non-terminals:
 
 \begin{itemize}
@@ -162,77 +165,44 @@ The second phase of terminal replacement works on the expression \h{\x -> f z} w
   \item \h{z :: b}
 \end{itemize}
 
-For each non-terminal, we explore the constraints of type-unification:
+When replacing these non-terminals with terminals, we explore the cross-product of all the options for terminals for each non-terminal.
+In this case that results in the following type-unification solutions:
 
 \begin{tabular}{lll}
-  Replacement for \h{f} & Type Constraints & Solution \\
-  \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ (b -> Bool)} & \h{b ~ [a]} \\
-  \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ (b -> Bool)} & Unsatisfiable \\
-  \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ (b -> Bool)} & Unsatisfiable \\
-  \h{x} & \h{a ~ (b -> Bool)} & \h{a ~ (b -> Bool)} \\
+  Replacement for \h{f} & Replacement for \h{z} & Solution \\
+  \h{sorted}            & \h{sorted}            &  Not satisfiable \\
+  \h{sorted}            & \h{sort}              &  Not satisfiable \\
+  \h{sorted}            & \h{isPermutationOf}   &  Not satisfiable \\
+  \h{sorted}            & \h{x}                 &  \h{b ~ [a]}     \\
+  \h{sort}              & *                     &  Not satisfiable \\
+  \h{isPermutationOf}   & *                     &  Not satisfiable \\
+  \h{x}                 & *                     &  Not satisfiable \\
 \end{tabular}
 
-\begin{tabular}{lll}
-  Replacement for \h{z} & Type Constraints & Solution \\
-  \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ b} & \h{(forall a. Ord a => [a] -> Bool) ~ b} \\
-  \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ b} & \h{(forall a. Ord a => [a] -> [a]) ~ b} \\
-  \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ b} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ b} \\
-  \h{x} & \h{a ~ b} & \h{a ~ b} \\
-\end{tabular}
+This leaves us with exactly one option for a property.
+After term unification, we find that this is the property \h{\x -> sorted x :: [a] -> Bool}.
 
-We could do the same for \h{z} and arrive at some much more complicated solutions, so let's have a look at what happens if we (term) unify \h{f} with \h{sorted}. \footnote{In the real algorithm, the unification of \h{x} with \h{f} would have to be explored as well.}
-This means that \h{b ~ [a]} must hold, and thus that \h{z} must be of type \h{[a]}.
-
-The expression that we are currently looking at is now \h{(\a -> sorted z) :: [a] -> Bool}.
-This already looks like a property but it still contains non-terminals so we must go on.
-
-We can now try to unify \h{z} with terminals, and we arrive at the following table as a result.
-Note that the scoping of the left-hand side and the right-hand side are independent in these type-equalities.
-
-\begin{tabular}{lll}
-  Replacement & Type Constraints & Solution \\
-  \h{sorted} & \h{(Ord a => [a] -> Bool) ~ [a]} & Unsatisfiable \\
-  \h{sort} & \h{(Ord a => [a] -> [a]) ~ [a]} & Unsatisfiable \\
-  \h{isPermutationOf} & \h{(Eq a => [a] -> [a] -> Bool) ~ [a]} & Unsatisfiable \\
-  \h{x} & \h{a ~ [a]} & \h{a ~ [a]} \\
-\end{tabular}
-
-There is only one option: to (term) unify \h{x} with \h{z}.
 This results in the expression \h{\a -> sorted x :: [a] -> Bool}.
 This is indeed a property of the set of input functions, even if it does not hold.
 
-If we rewind the last step, then we can use the the trick that we used earlier on \h{y} to split it into \h{f z}, but now on \h{z}.
+\subsubsection{Multiple non-terminal replacement}
 
-We can split \h{z :: [a]} into \h{g u :: [a]} where \h{g} is of type \h{d -> [a]} and \h{u} is of type \h{d}.
+From the expression \h{\x -> f z} onwards, there are two options for non-terminal expansion.
+Using [App] as before, we can expand \h{f :: b -> Bool} to \h{g u :: b -> Bool} with \h{g :: c -> b -> Bool} and \h{u :: c}.
+... Or we can expand \h{z :: b} to \h{h v :: b} with \h{h :: d -> b} and \h{v :: d}.
+The algorithm should try both.
 
-Now we can (term) unify \h{g} with \h{sort}, analogous to the way we unified \h{f} with \h{sorted} before.
-This leaves us with the expression: \h{(\a -> sorted (sort u)) :: [a] -> Bool}.
-Here we still have a non-terminal \h{u}, that can be (term) unified with \h{x} to arrive at the property that a sorted list is in fact sorted:
-\h{(\x -> sorted (sort x)) :: [a] -> Bool}.
+To cut a long story short, the first option allows us to discover the property \h{\x -> isPermutationOf x x :: [a] -> Bool}, and later on \h{\x -> isPermutationOf x (sort x) :: [a] -> Bool}.
+The second option allows us to discover the property \h{\x -> sorted (sort x)}.
 
-So far we have discovered the following properties:
-
-\begin{itemize}
-  \item \h{(\x -> x) :: Bool -> Bool}
-  \item \h{(\x -> sorted x) :: [a] -> Bool}
-  \item \h{(\x -> sorted (sort x)) :: [a] -> Bool}
-\end{itemize}
-
-When we continue this algorithm, the following properties could also be discovered:
+Even further along, also every property of the following form will be discovered.
 
 \begin{itemize}
-  \item \h{(\x -> isPermutationOf (sort x) x) :: [a] -> Bool}
   \item \h{(\x -> sorted (sort (sort x))) :: [a] -> Bool}
   \item \h{(\x -> sorted (sort (sort (sort x)))) :: [a] -> Bool}
+  \item \h{(\x -> sorted (sort (sort (sort (sort x))))) :: [a] -> Bool}
   \item ...
 \end{itemize}
-
-Note that there are indeed an infinite number of properties to be found given these functions as input.
-However, the properties are discovered in increasing size, so by arbitrarily bounding the output properties to a given size, we can make this algorithm terminate.
-It makes sense to assume that we are only looking for properties of a relatively small size.
-The properties that we are looking for here are \h{(\x -> sorted (sort x)) :: [a] -> Bool}, and \h{(\x -> isPermutationOf (sort x) x) :: [a] -> Bool}, both of which are much smaller that 10 terms.
-
-\TODO{Bound the type variables wherever possible}
 
 \section{Assignment}
 \subsection{Objective}
