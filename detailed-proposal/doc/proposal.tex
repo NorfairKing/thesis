@@ -174,8 +174,7 @@ In particular, given that we know the desired type-judgement of the property tha
 non-terminal expansion will explore all possible ways in which this type-judgement could have been made.
 
 For example, the following is the most common type judgement:
-[App] in the Hindley-Milner type system. \TODO{Check to make sure that this actually makes sense.}
-\TODO{cite Hindley milner if it does make sense.}
+[T-App] in the Hindley-Milner type system. \cite{HM}
 
 \[
   \frac{f : a \rightarrow b,\ x : a}{f x : b}
@@ -266,7 +265,7 @@ Even further along, also every property of the following form will be discovered
 
 A lot has been said about type constraints and their satisfiability.
 However, type constraint satisfiability is not a trivial problem.
-Luckily, version 8 of the Glasgow Haskell Compiler \cite{ghc8}\TODO{cite} has a very powerful type constraint satisfiability solver\cite{gadtsMeetTheirMatch}\TODO{cite}.
+Luckily, version 8 of the Glasgow Haskell Compiler \cite{GHC8} has a very powerful type constraint satisfiability solver\cite{Schrijvers2015}.
 In reality, the algorithm above does not solve any constraints during its operation, but rather collects the possible properties and the appropriate constraints.
 Only after the properties and constraints have been discovered, is an attempt made to solve the constraints.
 Only the properties with satisfiable type constraints will be proposed as properties of the scope.
@@ -274,7 +273,7 @@ Only the properties with satisfiable type constraints will be proposed as proper
 \subsection{Proof of concept}
 
 Because this is the most risk-involved part of this proposal, I have created a proof of concept of this algorithm.
-\TODO{inject proof of concept}
+See appendix \ref{app:poc}.
 
 \section{Test generation}
 
@@ -287,10 +286,15 @@ It has to be possible to arbitrarily generate values of the type of the input to
 In code, that means that for a property of type \h{a -> Bool}, we need a value of type \h{Gen a} to make a property test.
 Luckily QuickCheck\cite{QuickCheck} has defined a type class \h{Arbitrary} of which the members allow for a function called \h{arbitrary :: Gen a} that allows for the arbitrary generation of values.
 
-To generate the test code for a property \h{\x -> y} and generator \h{gen}, the test code is \h{forAll gen $ \x -> y} using the standard hspec\cite{hspec}\TODO{cite hspec} test framework.
+To generate the test code for a property \h{\x -> y} and generator \h{gen}, the test code is \h{forAll gen $ \x -> y} using QuickCheck \cite{QuickCheck}.
 
-\TODO{what do we do with parametric code?}
-
+Some times properties still have type variables in their type.
+For example, in the case of \h{\x -> reverse (reverse x) == x}, the property's type is parametric in the type of the contents of the list.
+Because there are no constraints on the type parameter, we can use any type to fill it in.
+\h{Int}, for example.
+In the case of \h{\x -> sorted (sort x)}, there is an \h{Ord a} contraint on the type parameter \h{a}.
+In that we need only fill it in with a type that has a law-abiding instance of \h{Ord}.
+These arbitrary choices work because there is no way to inspect the type without a \h{Typeable} constraint.
 
 \section{Triaging properties}
 
@@ -350,5 +354,12 @@ After the programmer has selected the appropriate properties, the tool generates
 \bibliographystyle{plain}
 \bibliography{proposal}
 
+\newpage
+\appendix
+
+\section{Proof of concept}
+
+\label{app:poc}
+\inputminted{Haskell}{poc.hs}
 
 \end{document}
