@@ -10,6 +10,38 @@
 
 \section{Introduction and Motivation}
 
+
+Correctness of code is currently too expensive.
+Current options, in order of decreasing rigour and decreasing cost, include formal methods, testing and having users file bug reports after failures have already ocurred.
+
+When formal methods are too expensive, testing is the most reliable way to ensure that a software system does what it should.
+Traditional unit tests have two problems.
+The first problem is that unit tests can only be used to show the presence of failures, but can never show the absence of failures.
+The second problem is that unit tests require a programmer to provide many examples for the unit tests to be of real value in providing confidence in the implementation.
+This requires great discipline on the programmer's part.
+Traditional unit tests are still too expensive.
+As a result, programmers will all too often omit tests.
+
+Property-based testing \cite{QuickCheck} can probabilistically solve the first problem by automatically generating examples instead of having the programmer think of them.
+As such, property-based testing can show failures that the programmers did not anticipate and that the programmer would not have tested for.
+However, it exacerbates the second problem.
+Now programmers have to come up with mathematical properties of their code.
+The transaction costs of writing property tests are even higher than for unit tests.
+As a result, however great their benefits, property tests are barely used.
+
+Automatic property tests could resolve the second problem of traditional unit tests.
+If properties could automatically be discovered, and their corresponding property tests automatically generated, then programmers would not have to think of any properties, but only decide to enforce the properties.
+Relieving a programmer from having to think of examples or properties would make it much cheaper to test software.
+
+Previous work \cite{QuickSpec} has explored automatic discovery of equational properties.
+These are properties of the form \mintinline{Haskell}{\x -> f x == g x}, e.g. \mintinline{Haskell}{\xs -> reverse (reverse xs) == xs}.
+Equational properties, while certainly useful, fall short in describing real workings of even simple programs.
+For example, there is no way to specify the correctness of a sorting algorithm using an equational property.
+
+The first goal of this thesis is to explore automatic discovery of general properties.
+General properties allow for more expressive properties such as the correctness of a sorting algorithm.\footnote{The property \mintinline{Haskell}{\xs -> sort xs `isPermutationOf` xs && ordered (sort xs)}, for example, serves to assess the correctness of a sorting algorithm, but can not be expressed as an equational property.}
+The second goal is to, once properties have been discovered, generate the code necessary to test that these properties hold.
+
 \newpage
 
 \section{Type-guided property discovery}
@@ -203,6 +235,23 @@ Even further along, also every property of the following form will be discovered
   \item \h{(\x -> sorted (sort (sort (sort (sort x))))) :: [a] -> Bool}
   \item ...
 \end{itemize}
+
+\section{Test generation}
+
+Once properties are discovered for a given scope, we can already propose them to a user.
+However, generating property tests is not necessarily possible for every property.
+
+To be able to generate a property test for a given property, we require one more additional constraint.
+It has to be possible to arbitrarily generate values of the type of the input to the property.
+
+In code, that means that for a property of type \h{a -> Bool}, we need a value of type \h{Gen a} to make a property test.
+Luckily QuickCheck\cite{QuickCheck} has defined a type class \h{Arbitrary} of which the members allow for a function called \h{arbitrary :: Gen a} that allows for the arbitrary generation of values.
+
+To generate the test code for a property \h{\x -> y} and generator \h{gen}, the test code is \h{forAll gen $ \x -> y} using the standard hspec\cite{hspec}\TODO{cite hspec} test framework.
+
+\section{Scope determination}
+
+
 
 \section{Assignment}
 \subsection{Objective}
