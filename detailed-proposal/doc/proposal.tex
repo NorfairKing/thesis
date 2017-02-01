@@ -121,13 +121,12 @@ The first step of this algorithm is to try to replace non-terminal variables wit
 If we can replace any non-terminal variables with terminals, then the resulting function will be a property of the scope.
 
 In the running example, we can first try to replace \h{y} with any of the terminals.
-Replacement occurs in two steps.
-The first step is type unification and, if that succeeds, the second step is term unification.
 
+This replacement happens by unifying the type of the non-terminal with the replacement non-terminal.
+If the constraints associated with this unification are satisfiable, then the terms can be replaced as-is.
+The result will have the right type.
 
-\subsubsection{Type unification}
-
-In order to type-unify \h{y} with any terminal, we have to record the appropriate type constraint, and then check if it is satisfiable.
+In the case of the running example, we collect the following type constraints when trying to replace \h{y} with the available terminal variables.
 
 In general, there could be more than one non-terminal to try to unify.
 The details of how to handle this case are handled at the end of this section.
@@ -152,15 +151,10 @@ In this case, when trying to unify \h{y :: Bool} with any of the terminals we fi
   \end{tabular}
 \end{figure}
 
-Of these options, only the (type) unification of \h{Bool} with \h{a} is satisfiable.
+Of these options, only the constraints associated with using \h{x} as a replacement are satisfiable.
 This means that, of these options, only the replacement by \h{x} can result in an expression that type-checks.
 
-
-\subsubsection{Term unification}
-
-Given that the types of the non-terminal that is being replaced and the replacement match, we can replace the terms appropriately.
-
-In this case, because \h{a ~ Bool} is satisfiable, we can transform \h{(\x -> y) :: a -> Bool} into \h{(\x -> x) :: Bool -> Bool}.
+As a result, we can transform \h{(\x -> y) :: a -> Bool} into \h{(\x -> x) :: Bool -> Bool}.
 This is just the identity function specialized to \h{Bool} and it is indeed a property of the scope.
 
 
@@ -192,7 +186,7 @@ Using the above type-judgement rule, we can now construct the ways in which this
 
 If we follow this rule backward, and we start with the expression \h{y} in \h{\x -> y}, that we know is of type \h{Bool}, then it could be the case that \h{y} is of the form \h{f z} where \h{f} is of type \h{c -> Bool} and \h{z} is of type \h{c} for some \h{c}.
 
-After a phase of non-terminal expansion, another phase of terminal replacement should occur.
+After a phase of non-terminal expansion, another phase of terminal replacement occurs.
 Because it is possible that there exists an infinite number of properties of a given scope, an arbitrary limit must be imposed on the number of phases of the algorithm.
 Given that desired properties are usually small, this is not a restrictive limitation.
 
@@ -209,7 +203,7 @@ The second phase of terminal replacement works on the expression \h{\x -> f z} w
 \end{itemize}
 
 When replacing these non-terminals with terminals, we explore all possible assignments of terminals to non-terminals.
-In this case that results in the following options for unification:
+In this case that results in the following options:
 
 \begin{figure}[H]
   \centering
@@ -235,11 +229,10 @@ In this case that results in the following options for unification:
   \end{tabular}
 \end{figure}
 
-Only one of these sixteen sets of constraints is satisfiable.
+Only one of the sixteen corresponding sets of constraints is satisfiable:\\ \h{(forall a. Ord a => [a] -> Bool) ~ (b -> Bool), b ~ a}.
 This is when \h{f} is being replaced by \h{sorted} and \h{z} by \h{x}.
 After term unification, we find the property \h{(\x -> sorted x) :: [a] -> Bool}.
 This is indeed a property of the set of input functions, even if it does not hold.
-
 
 \subsubsection{Multiple non-terminal replacement}
 
@@ -274,6 +267,38 @@ Only the properties with satisfiable type constraints will be proposed as proper
 
 Because this is the most risk-involved part of this proposal, I have created a proof of concept of this algorithm.
 See appendix \ref{app:poc}.
+The proof of concept succeeds in discovering possible properties and their type constraints.
+Here are some excerpts of the output for the running example:
+
+\begin{minted}{text}
+  \x -> x
+  [a ~ Bool]
+
+  [...]
+
+  \x -> (sorted x)
+  [ ([Int] -> Bool) ~ (t1 -> Bool)
+  , a ~ t1
+  ]
+
+  [...]
+
+  \x -> (sort (sort x))
+  [ ([Int] -> [Int]) ~ (t1 -> Bool)
+  , ([Int] -> [Int]) ~ (t3 -> t1)
+  , a ~ t3
+  ]
+
+  [...]
+
+  \x -> ((isPermutationOf x) (sort x))
+  [ ([Int] -> ([Int] -> Bool)) ~ (t2 -> (t1 -> Bool))
+  , a ~ t2
+  , ([Int] -> [Int]) ~ (t6 -> t1)
+  , a ~ t6
+  ]
+
+\end{minted}
 
 \section{Test generation}
 

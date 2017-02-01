@@ -1,11 +1,20 @@
+#!/usr/bin/env stack
+{- stack
+    --install-ghc
+    runghc
+    --package containers
+    --package mtl
+-}
 import Control.Monad.Reader
 import Control.Monad.State
+import qualified Data.Sequence as S
 import Data.Traversable
 import Debug.Trace
 
 data DState = DState
     { stateFreshCounter :: Int
     , stateFreshTypeCounter :: Int
+    , stateExprsToExplore :: S.Seq Expr
     } deriving (Show, Eq)
 
 data DContext = DContext
@@ -59,7 +68,12 @@ instance Show Expr where
 runDiscover :: Int -> [Function] -> Discover a -> a
 runDiscover maxsize ps func = runReader (evalStateT func initS) initC
   where
-    initS = DState {stateFreshCounter = 0, stateFreshTypeCounter = 0}
+    initS =
+        DState
+        { stateFreshCounter = 0
+        , stateFreshTypeCounter = 0
+        , stateExprsToExplore = S.empty
+        }
     initC =
         DContext
         { contextScope = ps
@@ -87,9 +101,20 @@ findProperties' :: Discover [(Expr, [TyConraint])]
 findProperties' = do
     vs <- terminalReplacement
     newExprs <- nonTerminalExpansion
-    (((vs ++) . concat) <$>) $
-        for newExprs $ \newE ->
-            local (\c -> c {contextCurrentExpr = newE}) findProperties'
+    modify
+        (\s ->
+             s
+             { stateExprsToExplore =
+                   stateExprsToExplore s S.>< S.fromList newExprs
+             })
+    mh <- gets (S.viewl . stateExprsToExplore)
+    rest <-
+        case mh of
+            S.EmptyL -> pure []
+            hseq S.:< tseq -> do
+                modify (\s -> s {stateExprsToExplore = tseq})
+                local (\c -> c {contextCurrentExpr = hseq}) findProperties'
+    pure $ vs ++ rest
 
 terminalReplacement :: Discover [(Expr, [TyConraint])]
 terminalReplacement = do
@@ -161,8 +186,11 @@ expandNonTerminal (n, t) = do
     pure $ go curExp
 
 main :: IO ()
-main =
-    forM_ (take 50 $ runDiscover 5 sortFuncs findProperties') $ \(p, cs) ->
+main = test 1000
+
+test :: Int -> IO ()
+test i =
+    forM_ (take i $ runDiscover 5 sortFuncs findProperties') $ \(p, cs) ->
         putStrLn $ unlines [show p, show cs]
 
 sortFuncs :: [Function]
