@@ -12,7 +12,7 @@
 
 
 Correctness of code is currently too expensive.
-Current options, in order of decreasing rigour and decreasing cost, include formal methods, testing and having users file bug reports after failures have already ocurred.
+Current options, in order of decreasing rigour and decreasing cost, include formal methods, testing and having users file bug reports after failures have already occurred.
 
 When formal methods are too expensive, testing is the most reliable way to ensure that a software system does what it should.
 Traditional unit tests have two problems.
@@ -107,7 +107,7 @@ in particular, for the property to be of the input scope, the functions that mak
 
 Throughout the algorithm, new variables will be needed.
 These will be fresh variables and they will necessarily be distinct from any terminals and from each other.
-For the algorithm to discover a property, all of these variables will have to dissappear.
+For the algorithm to discover a property, all of these variables will have to disappear.
 As such they will be called \emph{non-terminals}.
 
 \begin{ex}
@@ -158,7 +158,7 @@ This means that, of these options, only the replacement by \h{x} can result in a
 
 \subsubsection{Term unification}
 
-Given that the types of the non-terminal that is being replaced and the replacement match, we can replace the terms appropirately.
+Given that the types of the non-terminal that is being replaced and the replacement match, we can replace the terms appropriately.
 
 In this case, because \h{a ~ Bool} is satisfiable, we can transform \h{(\x -> y) :: a -> Bool} into \h{(\x -> x) :: Bool -> Bool}.
 This is just the identity function specialized to \h{Bool} and it is indeed a property of the scope.
@@ -177,7 +177,7 @@ For example, the following is the most common type judgement:
 [T-App] in the Hindley-Milner type system. \cite{HM}
 
 \[
-  \frac{f : a \rightarrow b,\ x : a}{f x : b}
+  \frac{\Gamma \vdash f : a \rightarrow b,\ \Gamma \vdash x : a}{\Gamma \vdash f x : b}
 \]
 
 This rule entails that if \h{y} is an expression of type \h{b}, that means that it is possible that it consists of a function application of a function \h{f} of type \h{a -> b} to an expression \h{x} of type \h{a}.
@@ -208,7 +208,7 @@ The second phase of terminal replacement works on the expression \h{\x -> f z} w
   \item \h{z :: b}
 \end{itemize}
 
-When replacing these non-terminals with terminals, we explore all possible asignments of terminals to non-terminals.
+When replacing these non-terminals with terminals, we explore all possible assignments of terminals to non-terminals.
 In this case that results in the following options for unification:
 
 \begin{figure}[H]
@@ -284,7 +284,7 @@ To be able to generate a property test for a given property, we require one more
 It has to be possible to arbitrarily generate values of the type of the input to the property.
 
 In code, that means that for a property of type \h{a -> Bool}, we need a value of type \h{Gen a} to make a property test.
-Luckily QuickCheck\cite{QuickCheck} has defined a type class \h{Arbitrary} of which the members allow for a function called \h{arbitrary :: Gen a} that allows for the arbitrary generation of values.
+Luckily QuickCheck \cite{QuickCheck} has defined a type class \h{Arbitrary} of which the members allow for a function called \h{arbitrary :: Gen a} that allows for the arbitrary generation of values.
 
 To generate the test code for a property \h{\x -> y} and generator \h{gen}, the test code is \h{forAll gen $ \x -> y} using QuickCheck \cite{QuickCheck}.
 
