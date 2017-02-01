@@ -1,4 +1,4 @@
-\documentclass[a4paper, 11pt]{article}
+\documentclass[a4paper, 11pt, onepage]{article}
 
 \input{packages.tex}
 \input{header.tex}
@@ -65,9 +65,6 @@ The second goal is to, once properties have been discovered, generate the code n
   \footnote{How functions are `made-up' is not strictly defined here. We could restrict this to function application, but choosing to allow more syntax may allow for more building blocks.}
 \end{de}
 
-
-\section{Type-guided property discovery}
-
 The following algorithm will allow for the discovery of properties given a scope of functions.
 It can be generalised to discover functions given their type, but the example that follows is restricted to properties for brevety's sake.
 
@@ -86,9 +83,9 @@ The following running example will be used, but the algorithm is explained suffi
 Consider the following scope as input.
 
 \begin{itemize}
-  \item \h{sorted :: Ord a => [a] -> Bool}
-  \item \h{sort :: Ord a => [a] -> [a]}
-  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}
+  \item \h{sorted :: Ord a => [a] -> Bool}:\\ Checks if a list is sorted.
+  \item \h{sort :: Ord a => [a] -> [a]}:\\ Sorts a list.
+  \item \h{isPermutationOf :: Eq a => [a] -> [a] -> Bool}:\\ Checks if one list is a permutation of an other list.
 \end{itemize}
 
 Only these three functions are in scope, we limit the scope to these explicitly mentioned functions.
@@ -132,34 +129,38 @@ The first step is type unification and, if that succeeds, the second step is ter
 
 In order to type-unify \h{y} with any terminal, we have to record the appropriate type constraint, and then check if it is satisfiable.
 
-In this case, when trying to unify \h{y :: Bool} with any of the terminals we find the following constraints and solutions:
-
-\begin{tabular}{|l|l|l|}
-  \hline
-  Replacement & Type Constraints & Solution \\
-  \hline
-  \hline
-  \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ Bool} & Unsatisfiable \\
-  \hline
-  \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ Bool} & Unsatisfiable \\
-  \hline
-  \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ Bool} & Unsatisfiable \\
-  \hline
-  \h{x} & \h{a ~ Bool} & \h{a ~ Bool} \\
-  \hline
-\end{tabular}
-
 In general, there could be more than one non-terminal to try to unify.
 The details of how to handle this case are handled at the end of this section.
 
-In the table above, we can see that only the unification of \h{y :: Bool} with \h{x :: a} can result in an expression that type-checks.
+In this case, when trying to unify \h{y :: Bool} with any of the terminals we find the following constraints:
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Replacement & Type Constraints \\
+    \hline
+    \hline
+    \h{sorted} & \h{(forall a. Ord a => [a] -> Bool) ~ Bool} \\
+    \hline
+    \h{sort} & \h{(forall a. Ord a => [a] -> [a]) ~ Bool} \\
+    \hline
+    \h{isPermutationOf} & \h{(forall a. Eq a => [a] -> [a] -> Bool) ~ Bool} \\
+    \hline
+    \h{x} & \h{a ~ Bool} \\
+    \hline
+  \end{tabular}
+\end{figure}
+
+Of these options, only the (type) unification of \h{Bool} with \h{a} is satisfiable.
+This means that, of these options, only the replacement by \h{x} can result in an expression that type-checks.
 
 
 \subsubsection{Term unification}
 
-Given that the types of the non-terminal that is being replaced and the replacement match, we remember the used constraints, and replace the terms appropirately.
+Given that the types of the non-terminal that is being replaced and the replacement match, we can replace the terms appropirately.
 
-In this case, we would record \h{a ~ Bool} and end up with the expression \h{(\x -> x) :: Bool ~ a => a -> Bool}.
+In this case, because \h{a ~ Bool} is satisfiable, we can transform \h{(\x -> y) :: a -> Bool} into \h{(\x -> x) :: Bool -> Bool}.
 This is just the identity function specialized to \h{Bool} and it is indeed a property of the scope.
 
 
@@ -167,20 +168,22 @@ This is just the identity function specialized to \h{Bool} and it is indeed a pr
 
 Once all the options for terminal replacement have run out, we move on to the second phase of the algorithm: Non-terminal expansion.
 This phase attempts to add complexity to the property that is being discovered.
-The resulting expression containing non-terminals will allow for the discovery of more complex properties in the next phase.
+The resulting expression containing more non-terminals will allow for the discovery of more complex properties in the next phase.
 
 In particular, given that we know the desired type-judgement of the property that is being discovered,
 non-terminal expansion will explore all possible ways in which this type-judgement could have been made.
 
 For example, the following is the most common type judgement:
 [App] in the Hindley-Milner type system. \TODO{Check to make sure that this actually makes sense.}
+\TODO{cite Hindley milner if it does make sense.}
 
 \[
   \frac{f : a \rightarrow b,\ x : a}{f x : b}
 \]
 
 This rule entails that if \h{y} is an expression of type \h{b}, that means that it is possible that it consists of a function application of a function \h{f} of type \h{a -> b} to an expression \h{x} of type \h{a}.
-This means that we can expand any non-terminal variable \h{a :: p} to the function application \h{f b :: p} where \h{f} is a fresh non-terminal of type \h{q -> p} and \h{b} is a fresh non-terminal of type \h{q}.
+This means that we can expand any non-terminal variable \h{a :: p} to the function application \h{f b :: p} where \h{f} is a fresh non-terminal of type \h{q -> p} and \h{b} is a fresh non-terminal of type \h{q} where \h{q} is undetermined.
+Note that \h{q} is not known but still potentially fixed.
 
 If there are more options for non-terminal expansion, they should all be explored.
 
@@ -206,24 +209,36 @@ The second phase of terminal replacement works on the expression \h{\x -> f z} w
   \item \h{z :: b}
 \end{itemize}
 
-When replacing these non-terminals with terminals, we explore the cross-product of all the options for terminals for each non-terminal.
-In this case that results in the following type-unification solutions:
+When replacing these non-terminals with terminals, we explore all possible asignments of terminals to non-terminals.
+In this case that results in the following options for unification:
 
-\begin{tabular}{lll}
-  Replacement for \h{f} & Replacement for \h{z} & Solution \\
-  \h{sorted}            & \h{sorted}            &  Not satisfiable \\
-  \h{sorted}            & \h{sort}              &  Not satisfiable \\
-  \h{sorted}            & \h{isPermutationOf}   &  Not satisfiable \\
-  \h{sorted}            & \h{x}                 &  \h{b ~ [a]}     \\
-  \h{sort}              & *                     &  Not satisfiable \\
-  \h{isPermutationOf}   & *                     &  Not satisfiable \\
-  \h{x}                 & *                     &  Not satisfiable \\
-\end{tabular}
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    Replacement for \h{f} & Replacement for \h{z} \\
+    \hline
+    \hline
+    \h{sorted}            & \h{sorted}          \\
+    \hline
+    \h{sorted}            & \h{sort}            \\
+    \hline
+    \h{sorted}            & \h{isPermutationOf} \\
+    \hline
+    \h{sorted}            & \h{x}               \\
+    \hline
+    \h{sort}              & *                   \\
+    \hline
+    \h{isPermutationOf}   & *                   \\
+    \hline
+    \h{x}                 & *                   \\
+    \hline
+  \end{tabular}
+\end{figure}
 
-This leaves us with exactly one option for a property.
-After term unification, we find that this is the property \h{\x -> sorted x :: [a] -> Bool}.
-
-This results in the expression \h{\a -> sorted x :: [a] -> Bool}.
+Only one of these sixteen sets of constraints is satisfiable.
+This is when \h{f} is being replaced by \h{sorted} and \h{z} by \h{x}.
+After term unification, we find the property \h{(\x -> sorted x) :: [a] -> Bool}.
 This is indeed a property of the set of input functions, even if it does not hold.
 
 
@@ -232,7 +247,7 @@ This is indeed a property of the set of input functions, even if it does not hol
 From the expression \h{\x -> f z} onwards, there are two options for non-terminal expansion.
 Using [App] as before, we can expand \h{f :: b -> Bool} to \h{g u :: b -> Bool} with \h{g :: c -> b -> Bool} and \h{u :: c}.
 ... Or we can expand \h{z :: b} to \h{h v :: b} with \h{h :: d -> b} and \h{v :: d}.
-The algorithm should try both.
+The algorithm tries both.
 
 To cut a long story short, the first option allows us to discover the property \h{\x -> isPermutationOf x x :: [a] -> Bool}, and later on \h{\x -> isPermutationOf x (sort x) :: [a] -> Bool}.
 The second option allows us to discover the property \h{\x -> sorted (sort x)}.
@@ -318,6 +333,7 @@ After the programmer has selected the appropriate properties, the tool generates
   \item Implement test code generation.
   \item Assess the feasibility of the property discovery mechanism for increasingly large input programs.
   \item (Optional) Assess the relative advantage of general property testing over equational property testing in a quantitative manner.
+  \item (Optional) Explore the tradeoffs of different scope determination options.
   \item Write the final report and prepare a presentation
 \end{itemize}
 
