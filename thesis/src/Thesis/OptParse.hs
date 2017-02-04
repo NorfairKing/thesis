@@ -35,6 +35,7 @@ runArgumentsParser = execParserPure prefs_ argParser
         { prefMultiSuffix = ""
         , prefDisambiguate = True
         , prefShowHelpOnError = True
+        , prefShowHelpOnEmpty = True
         , prefBacktrack = True
         , prefColumns = 80
         }
