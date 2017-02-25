@@ -1,11 +1,8 @@
 module Thesis.ShakeBuild where
 
+import Import
+
 import Development.Shake
 
-import Thesis.DetailedProposal
-import Thesis.Proposal
-
 thesisShakeBuildRules :: Rules ()
-thesisShakeBuildRules = do
-    proposalRules
-    detailedProposalRules
+thesisShakeBuildRules = pure ()

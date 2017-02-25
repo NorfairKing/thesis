@@ -15,11 +15,9 @@ library
         Import
         Thesis
         Thesis.Constants
-        Thesis.DetailedProposal
         Thesis.LaTeX
         Thesis.OptParse
         Thesis.OptParse.Types
-        Thesis.Proposal
         Thesis.ShakeBuild
         Thesis.Types
         Thesis.Utils

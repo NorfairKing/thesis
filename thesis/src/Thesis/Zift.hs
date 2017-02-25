@@ -8,9 +8,7 @@ import Zifter
 
 import Development.Shake
 
-import Thesis.DetailedProposal
 import Thesis.LaTeX
-import Thesis.Proposal
 import Thesis.ShakeBuild
 
 thesisZiftScript :: ZiftScript ()
@@ -20,7 +18,4 @@ thesisZiftScript = do
         liftIO $
         shakeArgs shakeOptions $ do
             thesisShakeBuildRules
-            want
-                [ toFilePath $ pdfOutFile detailedProposalSpec
-                , toFilePath $ pdfOutFile proposalSpec
-                ]
+            want []
