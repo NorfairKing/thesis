@@ -8,6 +8,8 @@ import Zifter
 
 import Development.Shake
 
+import Thesis.Document
+import Thesis.LaTeX
 import Thesis.ShakeBuild
 
 thesisZiftScript :: ZiftScript ()
@@ -17,4 +19,4 @@ thesisZiftScript = do
         liftIO $
         shakeArgs shakeOptions $ do
             thesisShakeBuildRules
-            want []
+            wantLaTeX documentSpec

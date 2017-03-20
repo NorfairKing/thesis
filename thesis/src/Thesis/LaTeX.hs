@@ -1,8 +1,8 @@
 {-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.LaTeX
     ( LaTeXRulesSpec(..)
+    , wantLaTeX
     , pdfOutFile
     , simpleLaTeXRules
     ) where
@@ -21,19 +21,17 @@ data LaTeXRulesSpec = LaTeXRulesSpec
     , latexMainTexFileName :: Path Rel File
     } deriving (Show, Eq)
 
+wantLaTeX :: LaTeXRulesSpec -> Rules ()
+wantLaTeX = wantP . (: []) . pdfOutFile
+
 pdfOutFile :: LaTeXRulesSpec -> Path Rel File
-pdfOutFile LaTeXRulesSpec {..} =
-    latexTopDir </> $(mkRelDir "out") </> latexPdfOutFile
+pdfOutFile LaTeXRulesSpec {..} = outDir </> latexPdfOutFile
 
 simpleLaTeXRules :: LaTeXRulesSpec -> Rules ()
 simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
     here <- liftIO getCurrentDir
-    let dir :: Path Rel Dir
-        dir = latexTopDir
-        tmpDir :: Path Rel Dir
-        tmpDir = dir </> $(mkRelDir "tmp")
-        docDir :: Path Rel Dir
-        docDir = dir </> $(mkRelDir "doc")
+    let docDir :: Path Rel Dir
+        docDir = latexTopDir
         outFile :: Path Rel File
         outFile = pdfOutFile spec
     tmpOutFile <- liftIO $ latexMainTexFileName <.> pdfExt

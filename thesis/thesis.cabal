@@ -15,6 +15,7 @@ library
         Import
         Thesis
         Thesis.Constants
+        Thesis.Document
         Thesis.LaTeX
         Thesis.OptParse
         Thesis.OptParse.Types

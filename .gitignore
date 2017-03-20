@@ -1,2 +1,4 @@
 .shake/
 .stack-work
+tmp/
+out/
