@@ -13,6 +13,7 @@ import Development.Shake
 import Development.Shake.Path
 
 import Thesis.Constants
+import Thesis.GitInfo
 import Thesis.Utils
 
 data LaTeXRulesSpec = LaTeXRulesSpec
@@ -40,6 +41,8 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
     tmpOut $%> do
         fs <-
             fmap (filter (not . hidden)) $ liftIO $ snd <$> listDirRecur docDir
+        needP
+            [gitHashFile, gitBranchFile, gitCommitCountFile, gitCommitDateFile]
         needP fs
         forM_ fs $ \f ->
             case stripDir (here </> docDir) f of
