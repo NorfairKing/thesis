@@ -7,10 +7,12 @@
 
 \includegraphics{assets/eth-logo.png}
 
+ifdef(`INCLUDEGITDATA',
 \input{git/hash}
 \input{git/branch}
 \input{git/commit-count}
 \input{git/commit-date}
+  )
 
 Thesis.
 

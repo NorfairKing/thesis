@@ -15,6 +15,15 @@ documentSpec :: LaTeXRulesSpec
 documentSpec =
     LaTeXRulesSpec
     { latexTopDir = $(mkRelDir "document")
-    , latexPdfOutFile = $(mkRelFile "thesis-tom-sydney-kerckhove.pdf")
-    , latexMainTexFileName = $(mkRelFile "thesis")
+    , latexMainTexFileName = $(mkRelFile "thesis.tex")
+    , latexRunConfigs =
+          [ LaTeXRunConfig
+            { latexPdfOutFile = $(mkRelFile "final.pdf")
+            , latexInternalFlags = ["FINAL"]
+            }
+          , LaTeXRunConfig
+            { latexPdfOutFile = $(mkRelFile "draft.pdf")
+            , latexInternalFlags = ["INCLUDEGITDATA"]
+            }
+          ]
     }
