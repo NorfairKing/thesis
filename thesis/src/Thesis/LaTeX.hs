@@ -38,12 +38,16 @@ simpleLaTeXRules spec@LaTeXRulesSpec {..} = do
     let tmpOut :: Path Rel File
         tmpOut = tmpDir </> tmpOutFile
     tmpOut $%> do
-        fs <- liftIO $ snd <$> listDirRecur docDir
+        fs <-
+            fmap (filter (not . hidden)) $ liftIO $ snd <$> listDirRecur docDir
         needP fs
         forM_ fs $ \f ->
             case stripDir (here </> docDir) f of
-                Nothing -> pure ()
-                Just fn -> copyFile f $ tmpDir </> fn
+                Nothing -> fail "Should not happen."
+                Just fn -> do
+                    let res = here </> tmpDir </> fn
+                    ensureDir $ parent res
+                    copyFile f $ tmpDir </> fn
         cmd
             (Cwd $ toFilePath tmpDir)
             "latexmk"
@@ -58,3 +62,6 @@ byCopying to from =
     to $%> do
         needP [from]
         copyFile from to
+
+hidden :: Path r File -> Bool
+hidden f = ".swp" `isSuffixOf` toFilePath f

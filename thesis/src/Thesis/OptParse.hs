@@ -5,6 +5,8 @@ module Thesis.OptParse
 
 import Import
 
+import System.Environment (getArgs)
+
 import Options.Applicative
 
 import Thesis.OptParse.Types
