@@ -3,9 +3,32 @@
 \usepackage{pdfpages}
 \usepackage{graphicx}
 
+% Don't indent every sentence.
+\setlength\parindent{0pt}
+
 \begin{document}
 
-\includegraphics{assets/eth-logo.png}
+
+\begin{titlepage}
+  \includegraphics[width=0.4\textwidth]{assets/eth-logo.png}
+  \vfill
+  \begin{center}
+    {\Huge Signature Inference for Functional Property Discovery}\\[\baselineskip]
+    {\Large Tom Sydney Kerckhove}
+  \end{center}
+  \vfill
+  \begin{flushright}
+    \begin{tabular}{lr}
+      Advisor & Dr. Dmitriy Trayel\\
+      Supervisor & Prof. David Basin\\
+      Department: & Information Security\\
+      Date & 2017-09-09\\
+    \end{tabular}
+  \end{flushright}
+\end{titlepage}
+
+\tableofcontents
+\newpage
 
 ifdef(`INCLUDEGITDATA',
 \input{git/hash}
