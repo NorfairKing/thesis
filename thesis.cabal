@@ -16,8 +16,6 @@ library
         Thesis
         Thesis.Constants
         Thesis.Document
-        Thesis.GitInfo
-        Thesis.LaTeX
         Thesis.OptParse
         Thesis.OptParse.Types
         Thesis.ShakeBuild

@@ -2,39 +2,29 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Thesis.Document.Main
-    ( buildThesisDocument
+    ( buildThesisDocumentIn
     ) where
 
 import Import hiding (All)
 
-import Development.Shake
-
 import Text.LaTeX
 import Text.LaTeX.LambdaTeX
 
-buildThesisDocument :: IO ()
-buildThesisDocument = do
-    let tmpDir = $(mkRelDir "tmp")
-    ensureDir tmpDir
-    withCurrentDir tmpDir $ do
-        let config =
-                ProjectConfig
-                { projectGenerationConfig =
-                      GenerationConfig {generationSelection = [All]}
-                , projectBibFileName = "thesis"
-                , projectTexFileName = "thesis"
-                }
-        eet <- buildLaTeXProject entireDocument config
-        case eet of
-            Left errs -> die $ unlines $ map show errs
-            Right () -> do
-                cmd
-                    [ "latexmk" :: String
-                    , "-pdf"
-                    , "thesis.tex"
-                    , "-shell-escape"
-                    , "-halt-on-error"
-                    ]
+buildThesisDocumentIn :: Path s Dir -> IO ()
+buildThesisDocumentIn bdir = do
+    let config =
+            ProjectConfig
+            { projectGenerationConfig =
+                  GenerationConfig {generationSelection = [All]}
+            , projectBibFileName = "thesis"
+            , projectTexFileName = "thesis"
+            , projectBuildDir = toFilePath bdir
+            }
+    print config
+    eet <- buildLaTeXProject entireDocument config
+    case eet of
+        Left errs -> die $ unlines $ map show errs
+        Right () -> pure ()
 
 type Thesis = Thesis' ()
 
