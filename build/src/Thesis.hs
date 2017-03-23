@@ -1,3 +1,5 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Thesis where
 
 import Import
@@ -8,12 +10,18 @@ import Development.Shake
 import Development.Shake.Path
 
 import Thesis.Document
-import Thesis.Document.Main
 import Thesis.ShakeBuild
 
 thesis :: IO ()
-thesis =
+thesis = do
+    versionFiles <-
+        snd <$>
+        liftM2
+            (<>)
+            (listDirRecur $(mkRelDir "build"))
+            (listDirRecur $(mkRelDir "document"))
+    version <- getHashedShakeVersion $ map toFilePath versionFiles
     withArgs ["--color"] $
-    shakeArgs shakeOptions {shakeVerbosity = Loud} $ do
-        thesisShakeBuildRules
-        wantP [thesisOut]
+        shakeArgs shakeOptions {shakeVerbosity = Loud, shakeVersion = version} $ do
+            thesisShakeBuildRules
+            wantP [thesisOut]

@@ -10,6 +10,8 @@ import Import hiding (All)
 import Text.LaTeX
 import Text.LaTeX.LambdaTeX
 
+import Thesis.Document.EntireDocument
+
 buildThesisDocumentIn :: Path s Dir -> IO ()
 buildThesisDocumentIn bdir = do
     let config =
@@ -20,7 +22,6 @@ buildThesisDocumentIn bdir = do
             , projectTexFileName = "thesis"
             , projectBuildDir = toFilePath bdir
             }
-    print config
     eet <- buildLaTeXProject entireDocument config
     case eet of
         Left errs -> die $ unlines $ map show errs
@@ -29,10 +30,3 @@ buildThesisDocumentIn bdir = do
 type Thesis = Thesis' ()
 
 type Thesis' = ΛTeXT IO
-
-entireDocument :: Thesis
-entireDocument = do
-    documentclass [oneside, a4paper] Text.LaTeX.article
-    document $ do
-        "hello"
-        "world"
