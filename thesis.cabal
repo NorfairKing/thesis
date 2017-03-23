@@ -24,20 +24,23 @@ library
         Thesis.Types
         Thesis.Utils
         Thesis.Zift
+        Thesis.Document.Main
     build-depends:
         base >=4.9 && <=5,
+        exceptions -any,
+        filepath >=1.4 && <1.5,
+        gitrev >=1.2 && <1.4,
+        lambdatex -any,
         optparse-applicative -any,
-        shake -any,
-        zifter -any,
         path -any,
         path-io -any,
-        exceptions -any,
+        shake -any,
         shake-path -any,
-        filepath >=1.4 && <1.5,
-        gitrev >=1.2 && <1.4
+        zifter -any,
+        HaTeX >= 3.17 && < 3.18
     default-language: Haskell2010
     default-extensions: NoImplicitPrelude
-    hs-source-dirs: build/src/
+    hs-source-dirs: build/src/ document/
     ghc-options: -Wall
 
 executable thesis

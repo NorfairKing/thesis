@@ -9,5 +9,7 @@ import Control.Monad.Catch as X
 import Data.List as X
 import Data.Monoid as X
 
+import System.Exit as X
+
 import Path as X
 import Path.IO as X
