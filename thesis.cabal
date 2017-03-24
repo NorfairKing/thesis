@@ -13,31 +13,46 @@ author: Tom Sydney Kerckhove
 library
     exposed-modules:
         Import
+        DocImport
         Thesis
         Thesis.Constants
         Thesis.Document
-        Thesis.GitInfo
-        Thesis.LaTeX
         Thesis.OptParse
         Thesis.OptParse.Types
         Thesis.ShakeBuild
         Thesis.Types
         Thesis.Utils
         Thesis.Zift
+        Thesis.Document.DocTechDetails
+        Thesis.Document.Assets
+        Thesis.Document.Abstract
+        Thesis.Document.EntireDocument
+        Thesis.Document.Main
+        Thesis.Document.TitlePage
+        Thesis.Document.Types
     build-depends:
         base >=4.9 && <=5,
+        exceptions -any,
+        filepath >=1.4 && <1.5,
+        gitrev >=1.2 && <1.4,
+        lambdatex -any,
         optparse-applicative -any,
-        shake -any,
-        zifter -any,
         path -any,
         path-io -any,
-        exceptions -any,
+        shake -any,
         shake-path -any,
-        filepath >=1.4 && <1.5,
-        gitrev >=1.2 && <1.4
+        zifter -any,
+        HaTeX >=3.17 && <3.18,
+        text >=1.2 && <1.3,
+        template-haskell >=2.11 && <2.12,
+        hostname >=1.0 && <1.1,
+        time >=1.6 && <1.7,
+        file-embed >=0.0.10 && <0.1,
+        bytestring >=0.10 && <0.11,
+        directory >=1.3 && <1.4
     default-language: Haskell2010
     default-extensions: NoImplicitPrelude
-    hs-source-dirs: build/src/
+    hs-source-dirs: build/src/ document/
     ghc-options: -Wall
 
 executable thesis
