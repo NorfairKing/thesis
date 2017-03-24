@@ -6,8 +6,9 @@ module Thesis.Document.EntireDocument
 
 import DocImport
 
-import Thesis.Document.TitlePage
 import Thesis.Document.DocTechDetails
+import Thesis.Document.TitlePage
+import Thesis.Document.Abstract
 
 import Text.LaTeX as HaTeX (article)
 
@@ -17,3 +18,4 @@ entireDocument = do
     document $ do
         titlePage
         docTechDetails
+        thesisAbstract

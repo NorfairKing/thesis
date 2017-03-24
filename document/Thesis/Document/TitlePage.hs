@@ -24,6 +24,8 @@ titlePage =
             (assetPath logo)
         vfill
         center $ do
+            large "Master thesis"
+            raw "\\\\[\\baselineskip]"
             huge $ "Signature Inference for Functional Property Discovery"
             raw "\\\\[\\baselineskip]"
             large $ "Tom Sydney Kerckhove"

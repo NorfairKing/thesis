@@ -25,6 +25,7 @@ library
         Thesis.Zift
         Thesis.Document.DocTechDetails
         Thesis.Document.Assets
+        Thesis.Document.Abstract
         Thesis.Document.EntireDocument
         Thesis.Document.Main
         Thesis.Document.TitlePage

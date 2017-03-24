@@ -19,7 +19,7 @@ import System.Info
 docTechDetails :: Thesis
 docTechDetails = do
     comm1 "section*" "Circumstances"
-    comm1 "subsection*" "Generatnr version"
+    comm1 "subsection*" "Generator version"
     "The following information describes the version of the thesis generator that was used to compile this document."
     verbatim $
         T.pack $

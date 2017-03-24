@@ -7,16 +7,24 @@ module DocImport
     , s
     , quoted
     , dquoted
+    , DocImport.abstract
+    , DocImport.section
+    , DocImport.subsection
+    , DocImport.subsubsection
+    , DocImport.paragraph
     ) where
 
 import Import as X
 
 import Text.LaTeX as X
-       hiding (ref, pageref, cite, article, label, titlepage, article)
+       hiding (ref, pageref, cite, article, label, titlepage, article,
+               abstract, section, subsection, subsubsection, paragraph)
 import Text.LaTeX.LambdaTeX as X hiding (Selector(..))
 
+import qualified Text.LaTeX as HT
+       (abstract, paragraph, section, subsection, subsubsection)
 import Text.LaTeX.Base
-import Text.LaTeX.Base.Class  as X (comm0, comm1)
+import Text.LaTeX.Base.Class as X (comm0, comm1)
 import Text.LaTeX.Base.Class
 import Text.LaTeX.Base.Syntax
 import Text.LaTeX.Packages.Graphicx as X (IGOption(..))
@@ -44,3 +52,36 @@ quoted n = "`" <> n <> "'"
 
 dquoted :: Thesis -> Thesis
 dquoted n = raw "``" <> n <> raw "''"
+
+abstract :: Thesis -> Thesis
+abstract func = do
+    raw "\n"
+    note "abstract" $ HT.abstract func
+
+section :: Text -> Thesis -> Thesis
+section n func = do
+    raw "\n"
+    note n $ do
+        HT.section (raw n)
+        func
+
+subsection :: Text -> Thesis -> Thesis
+subsection n func = do
+    raw "\n"
+    note n $ do
+        HT.subsection (raw n)
+        func
+
+subsubsection :: Text -> Thesis -> Thesis
+subsubsection n func = do
+    raw "\n"
+    note n $ do
+        HT.subsubsection (raw n)
+        func
+
+paragraph :: Text -> Thesis -> Thesis
+paragraph n func = do
+    raw "\n"
+    note n $ do
+        HT.paragraph (raw n)
+        func
