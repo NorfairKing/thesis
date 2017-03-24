@@ -7,5 +7,4 @@ module Thesis.Document.Introduction
 import DocImport
 
 thesisIntroduction :: Thesis
-thesisIntroduction = do
-    section "Introduction" "Signature inference..."
+thesisIntroduction = section "Introduction" "Signature inference..."
