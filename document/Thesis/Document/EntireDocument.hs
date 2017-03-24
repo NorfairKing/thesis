@@ -7,7 +7,10 @@ module Thesis.Document.EntireDocument
 import DocImport
 
 import Thesis.Document.Abstract
+import Thesis.Document.Bibliography
+import Thesis.Document.Conclusion
 import Thesis.Document.DocTechDetails
+import Thesis.Document.Introduction
 import Thesis.Document.TitlePage
 
 import Text.LaTeX as HaTeX (article)
@@ -19,3 +22,9 @@ entireDocument = do
         titlePage
         docTechDetails
         thesisAbstract
+        newpage
+        tableofcontents
+        newpage
+        thesisIntroduction
+        thesisConclusion
+        thesisBibliography

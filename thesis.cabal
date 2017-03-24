@@ -23,10 +23,13 @@ library
         Thesis.Types
         Thesis.Utils
         Thesis.Zift
-        Thesis.Document.DocTechDetails
-        Thesis.Document.Assets
         Thesis.Document.Abstract
+        Thesis.Document.Assets
+        Thesis.Document.Bibliography
+        Thesis.Document.Conclusion
+        Thesis.Document.DocTechDetails
         Thesis.Document.EntireDocument
+        Thesis.Document.Introduction
         Thesis.Document.Main
         Thesis.Document.TitlePage
         Thesis.Document.Types
