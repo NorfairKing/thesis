@@ -7,10 +7,7 @@ module Thesis.Document.TitlePage
 
 import DocImport
 
-import Data.ByteString (ByteString)
-
 import Thesis.Document.Assets
-import Thesis.Document.Types
 
 logo :: Asset
 logo = $(embedAsset "eth-logo.png")
@@ -26,9 +23,9 @@ titlePage =
         center $ do
             large "Master thesis"
             raw "\\\\[\\baselineskip]"
-            huge $ "Signature Inference for Functional Property Discovery"
+            huge "Signature Inference for Functional Property Discovery"
             raw "\\\\[\\baselineskip]"
-            large $ "Tom Sydney Kerckhove"
+            large "Tom Sydney Kerckhove"
         vfill
         flushright $
             tabular Nothing [LeftColumn, RightColumn] $ do

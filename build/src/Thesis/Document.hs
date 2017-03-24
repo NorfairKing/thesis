@@ -7,7 +7,6 @@ import Import
 import Development.Shake
 import Development.Shake.Path
 
-import Thesis.Constants
 import Thesis.Document.Main
 import Thesis.Utils
 

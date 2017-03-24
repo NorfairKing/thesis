@@ -23,7 +23,6 @@ import Text.LaTeX.LambdaTeX as X hiding (Selector(..))
 
 import qualified Text.LaTeX as HT
        (abstract, paragraph, section, subsection, subsubsection)
-import Text.LaTeX.Base
 import Text.LaTeX.Base.Class as X (comm0, comm1)
 import Text.LaTeX.Base.Class
 import Text.LaTeX.Base.Syntax

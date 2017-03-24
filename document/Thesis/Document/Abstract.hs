@@ -9,4 +9,4 @@ import DocImport
 thesisAbstract :: Thesis
 thesisAbstract = do
     newpage
-    abstract $ "We contribute ..."
+    abstract "We contribute ..."

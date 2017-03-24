@@ -1,4 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Thesis.Document.Main
@@ -7,7 +6,6 @@ module Thesis.Document.Main
 
 import Import hiding (All)
 
-import Text.LaTeX
 import Text.LaTeX.LambdaTeX
 
 import Thesis.Document.EntireDocument
@@ -26,7 +24,3 @@ buildThesisDocumentIn bdir = do
     case eet of
         Left errs -> die $ unlines $ map show errs
         Right () -> pure ()
-
-type Thesis = Thesis' ()
-
-type Thesis' = ΛTeXT IO
