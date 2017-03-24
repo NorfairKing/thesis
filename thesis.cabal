@@ -31,6 +31,7 @@ library
         Thesis.Document.EntireDocument
         Thesis.Document.Introduction
         Thesis.Document.Main
+        Thesis.Document.References
         Thesis.Document.TitlePage
         Thesis.Document.Types
     build-depends:
