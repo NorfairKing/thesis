@@ -18,8 +18,10 @@ thesis = do
         snd <$>
         liftM2
             (<>)
-            (listDirRecur $(mkRelDir "build"))
-            (listDirRecur $(mkRelDir "document"))
+            (fromMaybe ([], []) <$>
+             forgivingAbsence (listDirRecur $(mkRelDir "build")))
+            (fromMaybe ([], []) <$>
+             forgivingAbsence (listDirRecur $(mkRelDir "document")))
     version <- getHashedShakeVersion $ map toFilePath versionFiles
     withArgs ["--color"] $
         shakeArgs shakeOptions {shakeVerbosity = Loud, shakeVersion = version} $ do
