@@ -3,6 +3,7 @@
 module Thesis.Document.References
     ( quickcheckRef
     , quickspecRef
+    , theHumbleProgrammerRef
     ) where
 
 import DocImport
@@ -42,6 +43,29 @@ quickspecRef =
 
 inproceedings :: ReferenceType
 inproceedings = "inproceedings"
+
+theHumbleProgrammerRef :: Reference
+theHumbleProgrammerRef =
+    Reference
+        article
+        "TheHumbleProgrammer"
+        [ "author" .= "Dijkstra, Edsger W."
+        , "title" .= "The Humble Programmer"
+        , "journal" .= "Commun. ACM"
+        , "issue_date" .= "Oct. 1972"
+        , "volume" .= "15"
+        , "number" .= "10"
+        , "month" .= "oct"
+        , "year" .= "1972"
+        , "issn" .= "0001-0782"
+        , "pages" .= "859--866"
+        , "numpages" .= "8"
+        , "url" .= "http://doi.acm.org/10.1145/355604.361591"
+        , "doi" .= "10.1145/355604.361591"
+        , "acmid" .= "361591"
+        , "publisher" .= "ACM"
+        , "address" .= "New York, NY, USA"
+        ]
 
 (.=) :: a -> b -> (a, b)
 (.=) = (,)

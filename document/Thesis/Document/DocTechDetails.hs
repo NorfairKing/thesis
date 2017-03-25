@@ -76,6 +76,6 @@ docTechDetails = do
     verbatim $ T.pack $ show zonedTime
     raw "\n"
     packageDep ["yyyymmdd", "hhmmss"] "datetime"
-    s [comm0 "LaTeX", "compiled on", comm0 "today", " at ", comm0 "currenttime"]
+    l [comm0 "LaTeX", "compiled on", comm0 "today", " at ", comm0 "currenttime"]
     newline
-    s ["The", quoted "thesis", "project was started on", "2017-03-09"]
+    l ["The", quoted "thesis", "project was started on", "2017-03-09"]

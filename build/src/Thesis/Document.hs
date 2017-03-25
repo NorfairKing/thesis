@@ -24,11 +24,23 @@ thesisOut = outDir </> $(mkRelFile "thesis.pdf")
 
 documentRules :: Rules ()
 documentRules = do
-    [thesisBib, thesisTex] $&%> liftIO (buildThesisDocumentIn tmpDir)
+    [thesisBib, thesisTex] $&%> do
+        putLoud $
+            unwords
+                [ "Running thesis generator to make"
+                , toFilePath thesisTex
+                , "and"
+                , toFilePath thesisBib
+                ]
+        liftIO (buildThesisDocumentIn tmpDir)
     thesisPdf $%> do
         needP [thesisBib, thesisTex]
         cmd
             (Cwd $ toFilePath tmpDir)
+            (WithStdout True)
+            (WithStderr True)
+            (EchoStdout False)
+            (EchoStderr False)
             [ "latexmk"
             , "-pdf"
             , "-shell-escape"

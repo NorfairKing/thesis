@@ -4,6 +4,7 @@ module DocImport
     ( module X
     , DocImport.includegraphics
     , DocImport.titlepage
+    , l
     , s
     , quoted
     , dquoted
@@ -12,9 +13,14 @@ module DocImport
     , DocImport.subsection
     , DocImport.subsubsection
     , DocImport.paragraph
+    , declarePart
+    , citationNeeded
     ) where
 
 import Import as X
+
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
 
 import Text.LaTeX as X
        hiding (ref, pageref, cite, article, label, titlepage, article,
@@ -40,11 +46,20 @@ titlepage :: Thesis -> Thesis
 titlepage = liftL $ TeXEnv "titlepage" []
 
 -- Shorter than sequence_
--- To model a sentence.
-s :: [Thesis] -> Thesis
-s ns = do
+-- To model a sentence with arbitrary contents.
+l :: [Thesis] -> Thesis
+l ns = do
     sequence_ $ intersperse " " ns
     ". "
+
+-- To model a sentence that can be inspected
+s :: Text -> Thesis
+s t = do
+    when (T.null t) $ fail "Sentence cannot be empty."
+    unless (isUpper $ T.head t) $ fail "Sentence must start with a capital."
+    unless (T.last t == '.') $ fail "Sentence must end in a full stop."
+    fromString $ T.unpack t
+    " "
 
 quoted :: Thesis -> Thesis
 quoted n = "`" <> n <> "'"
@@ -55,32 +70,55 @@ dquoted n = raw "``" <> n <> raw "''"
 abstract :: Thesis -> Thesis
 abstract func = do
     raw "\n"
-    note "abstract" $ HT.abstract func
+    declarePart "abstract" $ HT.abstract func
 
 section :: Text -> Thesis -> Thesis
 section n func = do
     raw "\n"
-    note n $ do
+    declarePart n $ do
         HT.section (raw n)
         func
 
 subsection :: Text -> Thesis -> Thesis
 subsection n func = do
     raw "\n"
-    note n $ do
+    declarePart n $ do
         HT.subsection (raw n)
         func
 
 subsubsection :: Text -> Thesis -> Thesis
 subsubsection n func = do
     raw "\n"
-    note n $ do
+    declarePart n $ do
         HT.subsubsection (raw n)
         func
 
 paragraph :: Text -> Thesis -> Thesis
 paragraph n func = do
     raw "\n"
-    note n $ do
+    declarePart n $ do
         HT.paragraph (raw n)
         func
+
+declarePart :: Text -> Thesis -> Thesis
+declarePart partname func = do
+    let name = T.pack . kebabCase . sanitize . T.unpack $ partname
+    note name $ do
+        currentPart <- λgets stateCurrentPart
+        let d = length $ unPart currentPart
+        liftIO $ T.putStrLn $ T.replicate (2 * d) " " <> name
+        func
+
+sanitize :: String -> String
+sanitize = concatMap replaceBad
+  where
+    replaceBad :: Char -> String
+    replaceBad '-' = " "
+    replaceBad '\'' = ""
+    replaceBad c = [c]
+
+kebabCase :: String -> String
+kebabCase str = intercalate "-" $ words $ map toLower str
+
+citationNeeded :: Thesis
+citationNeeded = "[CITATION NEEDED]"

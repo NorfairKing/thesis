@@ -23,8 +23,13 @@ entireDocument = do
         docTechDetails
         thesisAbstract
         newpage
-        tableofcontents
-        newpage
+        thesisTableOfContents
         thesisIntroduction
         thesisConclusion
         thesisBibliography
+
+thesisTableOfContents :: Thesis
+thesisTableOfContents = do
+    packageDep ["hidelinks"] "hyperref" -- To make table of contents clickable
+    tableofcontents
+    newpage
