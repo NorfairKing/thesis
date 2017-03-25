@@ -21,6 +21,7 @@ entireDocument = do
     document $ do
         titlePage
         docTechDetails
+        addDraftWatermark
         thesisAbstract
         newpage
         thesisTableOfContents

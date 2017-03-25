@@ -15,6 +15,7 @@ module DocImport
     , DocImport.paragraph
     , declarePart
     , citationNeeded
+    , addDraftWatermark
     ) where
 
 import Import as X
@@ -123,3 +124,21 @@ kebabCase str = intercalate "-" $ words $ map toLower str
 
 citationNeeded :: Thesis
 citationNeeded = "[CITATION NEEDED]"
+
+addDraftWatermark :: Thesis
+addDraftWatermark = do
+    packageDep ["printwatermark"] "xwatermark"
+    packageDep_ "xcolor"
+    fromLaTeX $
+        TeXComm
+            "newwatermark"
+            [ MOptArg
+                  [ "allpages"
+                  , "color=red!20"
+                  , "angle=45"
+                  , "scale=7"
+                  , "xpos=-15"
+                  , "ypos=0"
+                  ]
+            , FixArg "DRAFT"
+            ]
