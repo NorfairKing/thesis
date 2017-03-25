@@ -10,7 +10,16 @@ import Thesis.Document.References
 
 thesisBibliography :: Thesis
 thesisBibliography = do
-    nocite quickcheckRef
-    nocite quickspecRef
+    mapM_
+        nocite
+        [ quickcheckRef
+        , quickspecRef
+        , hipspecRef
+        , smartcheckRef
+        , fitspecRef
+        , ghcRef
+        , filteringRef
+        , mash2Ref
+        ]
     comm1 "bibliographystyle" "plain"
     comm1 "bibliography" $ raw "thesis"
