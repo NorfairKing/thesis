@@ -42,7 +42,7 @@ thesisIntroduction =
                     s
                         "Indeed, unit tests often fail to address all possible aspects of the code under test."
                     s
-                        "One would have to write at least one unit test for every possible code path of the code under test to have a chance at covering all possible aspectsof the code under test."
+                        "One would have to write at least one unit test for every possible code path of the code under test to have a chance at covering all possible aspects of the code under test."
                     s "This brings us to the next problem."
                 paragraph "Developer-time Costs" $ do
                     s
@@ -52,7 +52,7 @@ thesisIntroduction =
                     s
                         "The programmer has to think of as many different scenarios as possible, and implement the corresponding unit tests."
                     s
-                        "Not only does this process take a lot of time, it is also a mentally taxing taxing task since the process is repetitive and often unrewarding."
+                        "Not only does this process take a lot of time, it is also a mentally taxing task since the process is repetitive and often unrewarding."
                     s
                         "As a result, automated tests are all-to-often omitted from a software project."
             subsubsection "Property Testing" $ do
@@ -66,7 +66,7 @@ thesisIntroduction =
                     "We say that the property test passes if it passes for a given number of arbitrarily chosen input values."
                 lnbk
                 s
-                    "Property testing probabillistically solves the coverage problem of unit testing, but exacerbates the second problem of unit testing."
+                    "Property testing probabilistically solves the coverage problem of unit testing, but exacerbates the second problem of unit testing."
                 s
                     "As the number of executions of a property test increases, the probability of covering all possible aspects of the code under test should tend to one."
                 s
@@ -117,11 +117,11 @@ thesisIntroduction =
                         "The process of figuring out which functions are relevant in property discover is often only marginally easier than to think of the properties manually."
                 paragraph "Code as input" $ do
                     s
-                        "The third problem with property discover, as it currently stands, is that the input is itself a piece of code."
+                        "The third problem with property discovery, as it currently stands, is that the input is itself a piece of code."
                     s
                         "This code contains the names of, types of, and references to the implementations of all the functions in the signature upon which one wishes to run the property algorithm."
                     s
-                        "Writing this code imposes a transaction cost that ensures that property discovery is not feasible in practice from a developers perspective."
+                        "Writing this code imposes a transaction cost that ensures that property discovery is not feasible in practice from a developer's perspective."
             subsubsection "Signature Inference" $ do
                 s
                     "Signature inference is a new approach to taming the complexity of property discovery, while simultaneously solving the input problem."
@@ -134,4 +134,4 @@ thesisIntroduction =
                 s
                     "Because signature inference requires access to the compile-time information about the code under test, a simple extension involves generating the code that is required to run the property discovery algorithm."
                 s
-                    "All together, signature inference has the potential to solve the problems with property discover and, by extension, property testing and unit testing."
+                    "All together, signature inference has the potential to solve the problems with property discovery and, by extension, property testing and unit testing."
