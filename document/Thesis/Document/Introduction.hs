@@ -17,7 +17,7 @@ thesisIntroduction =
         subsection "Motivation" $ do
             subsubsection "Testing" $ do
                 s
-                    "The romantic idea of automated testing is that programmers could tell if their code was faulty before running the code in production"
+                    "The romantic idea of automated testing is that programmers could tell if their code was faulty before running the code in production."
                 s
                     "Alternatives to testing include formal verification, model checking static analysis, etc..."
                 s
@@ -42,8 +42,8 @@ thesisIntroduction =
                     s
                         "Indeed, unit tests often fail to address all possible aspects of the code under test."
                     s
-                        "One would have to write at least one unit test for every possible code path of the code under test to have a chance at covering all possible aspectsof the code under test"
-                    s "This brings us to the next problem"
+                        "One would have to write at least one unit test for every possible code path of the code under test to have a chance at covering all possible aspectsof the code under test."
+                    s "This brings us to the next problem."
                 paragraph "Developer-time Costs" $ do
                     s
                         "Unit testing, but testing in general, is quite expensive when it comes to developer time."
@@ -52,7 +52,7 @@ thesisIntroduction =
                     s
                         "The programmer has to think of as many different scenarios as possible, and implement the corresponding unit tests."
                     s
-                        "Not only does this process take a lot of time, it is also a mentally taxing taxing task since the process is repetitive and often unrewarding"
+                        "Not only does this process take a lot of time, it is also a mentally taxing taxing task since the process is repetitive and often unrewarding."
                     s
                         "As a result, automated tests are all-to-often omitted from a software project."
             subsubsection "Property Testing" $ do
@@ -75,5 +75,63 @@ thesisIntroduction =
                     "This sounds like it is easier on the programmer, and for some it is, but coming up with properties of code, as opposed to input-output examples is often much harder."
                 s
                     "Consequently, the developer-time costs of property testing is even higher and, as a result, property testing is rarely done in practice."
-            subsubsection "Property Discovery" $ pure ()
-            subsubsection "Signature Inference" $ pure ()
+            subsubsection "Property Discovery" $ do
+                s
+                    "Taking the human element out of the equation would solve the problem with developer-time costs."
+                s
+                    "Property discovery means that property tests can automatically be generated."
+                s
+                    "This process relieves the programmer from having to think of examples or properties and only requires them to select the properties that they think should hold."
+                s
+                    "While property discovery solves the problems with unit testing and property testing, it comes with a new problems."
+                paragraph "Complexity" $ do
+                    l
+                        [ "Previous work"
+                        , cite quickspecRef
+                        , "has explored automatic discovery of equational properties, and has shown that property discovery is a complex problem"
+                        ]
+                    s
+                        "The first attempt failed to discover large properties or properties of a large codebase in a reasonable amount of time."
+                    l
+                        [ "Subsequent research"
+                        , cite quickspec2Ref
+                        , "has improved upon these limitations, but remains unable to discover properties of realistic codebases"
+                        ]
+                paragraph "Signatures" $ do
+                    l
+                        [ "The input to the property discovery algorithm that is mentioned in"
+                        , cite quickspecRef
+                        , "and"
+                        , cite quickspec2Ref
+                        , "is a so-called"
+                        , dquoted "signature"
+                        , "of functions"
+                        ]
+                    s
+                        "A signature is a set of functions that are defined to be relevant in property discovery."
+                    s
+                        "All functions that are not in the signature are completely ignored."
+                    s
+                        "This means that, to discover the properties of a single function, the programmer has to specify which functions are relevant."
+                    s
+                        "The process of figuring out which functions are relevant in property discover is often only marginally easier than to think of the properties manually."
+                paragraph "Code as input" $ do
+                    s
+                        "The third problem with property discover, as it currently stands, is that the input is itself a piece of code."
+                    s
+                        "This code contains the names of, types of, and references to the implementations of all the functions in the signature upon which one wishes to run the property algorithm."
+                    s
+                        "Writing this code imposes a transaction cost that ensures that property discovery is not feasible in practice from a developers perspective."
+            subsubsection "Signature Inference" $ do
+                s
+                    "Signature inference is a new approach to taming the complexity of property discovery, while simultaneously solving the input problem."
+                s
+                    "The premise is that a programmer should not have to specify all relevant functions in order to perform property discovery."
+                s
+                    "Ideally, the programmer should also not have to write an extra piece of code just to run the property algorithm."
+                s
+                    "Signature inference consists of inferring which functions are relevant to a given function, and combining them into a signature."
+                s
+                    "Because signature inference requires access to the compile-time information about the code under test, a simple extension involves generating the code that is required to run the property discovery algorithm."
+                s
+                    "All together, signature inference has the potential to solve the problems with property discover and, by extension, property testing and unit testing."

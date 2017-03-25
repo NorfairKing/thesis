@@ -3,6 +3,7 @@
 module Thesis.Document.References
     ( quickcheckRef
     , quickspecRef
+    , quickspec2Ref
     , theHumbleProgrammerRef
     ) where
 
@@ -39,6 +40,18 @@ quickspecRef =
         , "author" .= "Koen Claessen and Nicholas Smallbone and John Hughes"
         , "booktitle" .= "TAP"
         , "year" .= "2010"
+        ]
+
+quickspec2Ref :: Reference
+quickspec2Ref =
+    Reference
+        article
+        "QuickSpec2"
+        [ "title" .= "Quick Specifications for the Busy Programmer"
+        , "author" .=
+          "Nicholas Smallbone, Moa Johansson, Koen Claesson and Maximilian Algehed"
+        , "booktitle" .= "Journal of Functional Programming"
+        , "year" .= "2016"
         ]
 
 inproceedings :: ReferenceType

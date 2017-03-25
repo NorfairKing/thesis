@@ -55,9 +55,10 @@ l ns = do
 -- To model a sentence that can be inspected
 s :: Text -> Thesis
 s t = do
-    when (T.null t) $ fail "Sentence cannot be empty."
-    unless (isUpper $ T.head t) $ fail "Sentence must start with a capital."
-    unless (T.last t == '.') $ fail "Sentence must end in a full stop."
+    let f m = liftIO $ fail $ unlines [m, T.unpack t]
+    when (T.null t) $ f "Sentence cannot be empty."
+    unless (isUpper $ T.head t) $ f "Sentence must start with a capital."
+    unless (T.last t == '.') $ f "Sentence must end in a full stop."
     fromString $ T.unpack t
     " "
 
