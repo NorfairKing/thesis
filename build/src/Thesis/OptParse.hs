@@ -1,10 +1,15 @@
 module Thesis.OptParse
-    ( module Thesis.OptParse
-    , module Thesis.OptParse.Types
+    ( getInstructions
+    , Dispatch(..)
+    , Settings(..)
+    , SendArgs(..)
+    , SendRecipient(..)
     ) where
 
 import Import
 
+import qualified Data.Text as T
+import Network.Mail.Mime
 import System.Environment (getArgs)
 
 import Options.Applicative
@@ -23,7 +28,21 @@ combineToInstructions cmd Flags Configuration = pure (disp, Settings)
     disp =
         case cmd of
             CommandBuild -> DispatchBuild
-            CommandSendDraft -> DispatchSendDraft
+            CommandSendDraft sfs ->
+                DispatchSendDraft
+                    SendArgs
+                    { sendTo =
+                          case sendFlagTo sfs of
+                              SendRepByName srbn ->
+                                  ToAddress
+                                      Address
+                                      { addressName =
+                                            T.pack <$> sendFlagToName srbn
+                                      , addressEmail =
+                                            T.pack $ sendFlagToMail srbn
+                                      }
+                              SendRepPreset preset -> ToPreset preset
+                    }
 
 getConfiguration :: Command -> Flags -> IO Configuration
 getConfiguration _ _ = pure Configuration
@@ -73,9 +92,36 @@ parseCommandBuild = info parser modifier
 parseCommandSendDraft :: ParserInfo Command
 parseCommandSendDraft = info parser modifier
   where
-    parser = pure CommandSendDraft
+    parser = CommandSendDraft <$> parseSendFlags
     modifier =
         fullDesc <> progDesc "Build a draft document and send it via email."
+
+parseSendFlags :: Parser SendFlags
+parseSendFlags =
+    fmap SendFlags $
+    subparser $
+    mconcat
+        [ command "by-name" $
+          info
+              (fmap SendRepByName $
+               SendRecipientByName <$>
+               argument
+                   (Just <$> str)
+                   (mconcat [metavar "NAME", help "The name of the recipient"]) <*>
+               strArgument
+                   (mconcat
+                        [ metavar "EMAIL"
+                        , help "The email address of the recipient"
+                        ]))
+              briefDesc
+        , command "by-preset" $
+          info
+              (SendRepPreset <$>
+               strArgument
+                   (mconcat
+                        [help "The name of the preset to use for the recipient"]))
+              briefDesc
+        ]
 
 parseFlags :: Parser Flags
 parseFlags = pure Flags
