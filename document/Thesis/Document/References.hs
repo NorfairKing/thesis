@@ -8,6 +8,7 @@ module Thesis.Document.References
     , hipspecRef
     , smartcheckRef
     , fitspecRef
+    , smallcheckRef
     , theHumbleProgrammerRef
     , filteringRef
     , mash2Ref
@@ -120,6 +121,32 @@ fitspecRef =
         , "address" .= "New York, NY, USA"
         , "keywords" .=
           "Haskell, formal specification, mutation testing, property-based testing, systematic testing"
+        ]
+
+smallcheckRef :: Reference
+smallcheckRef =
+    Reference
+        inproceedings
+        "SmallCheck"
+        [ "author" .=
+          "Runciman, Colin and Naylor, Matthew and Lindblad, Fredrik"
+        , "title" .=
+          "Smallcheck and Lazy Smallcheck: Automatic Exhaustive Testing for Small Values"
+        , "booktitle" .=
+          "Proceedings of the First ACM SIGPLAN Symposium on Haskell"
+        , "series" .= "Haskell '08"
+        , "year" .= "2008"
+        , "isbn" .= "978-1-60558-064-7"
+        , "location" .= "Victoria, BC, Canada"
+        , "pages" .= "37--48"
+        , "numpages" .= "12"
+        , "url" .= "http://doi.acm.org/10.1145/1411286.1411292"
+        , "doi" .= "10.1145/1411286.1411292"
+        , "acmid" .= "1411292"
+        , "publisher" .= "ACM"
+        , "address" .= "New York, NY, USA"
+        , "keywords" .=
+          "embedded language, exhaustive search, lazy evaluation, property-based testing, type classes"
         ]
 
 filteringRef :: Reference

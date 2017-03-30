@@ -17,8 +17,9 @@ thesisBibliography = do
         , hipspecRef
         , smartcheckRef
         , fitspecRef
-        , ghcRef
         , filteringRef
+        , smallcheckRef
+        , ghcRef
         , mash2Ref
         ]
     comm1 "bibliographystyle" "plain"
