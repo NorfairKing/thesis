@@ -6,8 +6,9 @@ type Arguments = (Command, Flags)
 
 type Instructions = (Dispatch, Settings)
 
-data Command =
-    Command
+data Command
+    = CommandBuild
+    | CommandSendDraft
     deriving (Show, Eq)
 
 data Flags =
@@ -18,8 +19,9 @@ data Configuration =
     Configuration
     deriving (Show, Eq)
 
-data Dispatch =
-    Dispatch
+data Dispatch
+    = DispatchBuild
+    | DispatchSendDraft
     deriving (Show, Eq)
 
 data Settings =

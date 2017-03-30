@@ -18,7 +18,12 @@ getInstructions = do
     combineToInstructions cmd flags config
 
 combineToInstructions :: Command -> Flags -> Configuration -> IO Instructions
-combineToInstructions Command Flags Configuration = pure (Dispatch, Settings)
+combineToInstructions cmd Flags Configuration = pure (disp, Settings)
+  where
+    disp =
+        case cmd of
+            CommandBuild -> DispatchBuild
+            CommandSendDraft -> DispatchSendDraft
 
 getConfiguration :: Command -> Flags -> IO Configuration
 getConfiguration _ _ = pure Configuration
@@ -52,13 +57,25 @@ parseArgs :: Parser Arguments
 parseArgs = (,) <$> parseCommand <*> parseFlags
 
 parseCommand :: Parser Command
-parseCommand = hsubparser $ mconcat [command "command" parseCommandCommand]
+parseCommand =
+    hsubparser $
+    mconcat
+        [ command "build" parseCommandBuild
+        , command "send-draft" parseCommandSendDraft
+        ]
 
-parseCommandCommand :: ParserInfo Command
-parseCommandCommand = info parser modifier
+parseCommandBuild :: ParserInfo Command
+parseCommandBuild = info parser modifier
   where
-    parser = pure Command
-    modifier = fullDesc <> progDesc "Command example."
+    parser = pure CommandBuild
+    modifier = fullDesc <> progDesc "Build a draft document"
+
+parseCommandSendDraft :: ParserInfo Command
+parseCommandSendDraft = info parser modifier
+  where
+    parser = pure CommandSendDraft
+    modifier =
+        fullDesc <> progDesc "Build a draft document and send it via email."
 
 parseFlags :: Parser Flags
 parseFlags = pure Flags

@@ -15,10 +15,12 @@ library
         Import
         DocImport
         Thesis
+        Thesis.Build
         Thesis.Constants
         Thesis.Document
         Thesis.OptParse
         Thesis.OptParse.Types
+        Thesis.SendDraft
         Thesis.ShakeBuild
         Thesis.Types
         Thesis.Utils

@@ -1,29 +1,16 @@
-{-# LANGUAGE TemplateHaskell #-}
-
 module Thesis where
 
 import Import
 
-import System.Environment (withArgs)
-
-import Development.Shake
-import Development.Shake.Path
-
-import Thesis.Document
-import Thesis.ShakeBuild
+import Thesis.Build
+import Thesis.OptParse
+import Thesis.SendDraft
 
 thesis :: IO ()
 thesis = do
-    versionFiles <-
-        snd <$>
-        liftM2
-            (<>)
-            (fromMaybe ([], []) <$>
-             forgivingAbsence (listDirRecur $(mkRelDir "build")))
-            (fromMaybe ([], []) <$>
-             forgivingAbsence (listDirRecur $(mkRelDir "document")))
-    version <- getHashedShakeVersion $ map toFilePath versionFiles
-    withArgs ["--color"] $
-        shakeArgs shakeOptions {shakeVerbosity = Loud, shakeVersion = version} $ do
-            thesisShakeBuildRules
-            wantP [thesisOut]
+    (disp, Settings) <- getInstructions
+    dispatch disp
+
+dispatch :: Dispatch -> IO ()
+dispatch DispatchBuild = build
+dispatch DispatchSendDraft = sendDraft
