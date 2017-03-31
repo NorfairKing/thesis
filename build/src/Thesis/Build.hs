@@ -22,7 +22,7 @@ build = do
              forgivingAbsence (listDirRecur $(mkRelDir "build")))
             (fromMaybe ([], []) <$>
              forgivingAbsence (listDirRecur $(mkRelDir "document")))
-    version <- getHashedShakeVersion $ map toFilePath versionFiles
+    version <- getHashedShakeVersionP versionFiles
     withArgs ["--color"] $
         shakeArgs shakeOptions {shakeVerbosity = Loud, shakeVersion = version} $ do
             thesisShakeBuildRules
