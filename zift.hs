@@ -18,9 +18,12 @@ import Zifter.Hindent
 import Zifter.Hlint
 import Zifter.Stack
 
+import Thesis.Zift
+
 main :: IO ()
 main =
     ziftWith $ do
+        thesisZiftScript
         recursiveZift
         preprocessor $ ziftP [hindentZift, cabalFormatZift]
         prechecker gitAddAllZift
