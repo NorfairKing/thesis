@@ -1,0 +1,4 @@
+2017-03-09: Start date
+2017-08-10: Deadline for functionality. From now on it should be just writing .
+2017-09-09: Deadline for submission
+http://itsalmo.st/#mythesisdeadline
