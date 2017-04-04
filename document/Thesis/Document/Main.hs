@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.Main
     ( buildThesisDocumentIn
@@ -12,13 +13,14 @@ import Control.Monad.Reader
 
 import Text.LaTeX.LambdaTeX
 
+import Thesis.Document.Assets
 import Thesis.Document.EntireDocument
 import Thesis.Document.Types
 
 import qualified Language.Aspell as Aspell
 import qualified Language.Aspell.Options as Aspell
 
-buildThesisDocumentIn :: Path s Dir -> IO ()
+buildThesisDocumentIn :: Path Abs Dir -> IO ()
 buildThesisDocumentIn bdir = do
     let config =
             ProjectConfig
@@ -28,20 +30,17 @@ buildThesisDocumentIn bdir = do
             , projectTexFileName = "thesis"
             , projectBuildDir = toFilePath bdir
             }
-    sc <- startAspell
+    sc <- startAspell bdir
     let env = ThesisEnv {spellChecker = sc}
     eet <- runReaderT (buildLaTeXProject entireDocument config) env
     case eet of
         Left errs -> die $ unlines $ map show errs
         Right () -> pure ()
 
-startAspell :: IO Aspell.SpellChecker
-startAspell = do
-    dictFile <-
-        resolveFile'
-            -- TODO embed this file into the binary and then make sure you're using the right one.
-            "/home/syd/cs-syd/code/publications/thesis/document/custom_dictionary.pws"
-    print dictFile
+startAspell :: Path Abs Dir -> IO Aspell.SpellChecker
+startAspell rd = do
+    let dictAsset = $(embedAsset "custom_dictionary.pws")
+    dictFile <- makeAsset rd dictAsset
     errOrSc <-
         Aspell.spellCheckerWithOptions
             [ Aspell.Dictionary "en_GB"

@@ -32,7 +32,8 @@ documentRules = do
                 , "and"
                 , toFilePath thesisBib
                 ]
-        liftIO (buildThesisDocumentIn tmpDir)
+        absTmpDir <- liftIO $ makeAbsolute tmpDir
+        liftIO $ buildThesisDocumentIn absTmpDir
     thesisPdf $%> do
         needP [thesisBib, thesisTex]
         cmd

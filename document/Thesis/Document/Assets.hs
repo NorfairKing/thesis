@@ -5,6 +5,7 @@
 module Thesis.Document.Assets
     ( Asset(assetPath)
     , embedAsset
+    , makeAsset
     , registerAsset
     ) where
 
@@ -16,11 +17,10 @@ import Language.Haskell.TH.Syntax
 import Data.ByteString (ByteString)
 import qualified Data.ByteString as SB
 import Data.FileEmbed (makeRelativeToProject, bsToExp)
-import qualified System.Directory as D
 import qualified System.FilePath as FP
 
 data Asset = Asset
-    { assetPath :: FilePath
+    { assetPath :: FilePath -- Relative to the directory that 'assets' is in.
     , assetContents :: ByteString
     } deriving (Show, Eq)
 
@@ -35,8 +35,15 @@ embedAsset assetFp = do
 instance Lift ByteString where
     lift = bsToExp
 
+makeAsset :: Path Abs Dir -> Asset -> IO (Path Abs File)
+makeAsset rd Asset {..} = do
+    dstPath <- resolveFile rd assetPath
+    ensureDir $ parent dstPath
+    SB.writeFile (toFilePath dstPath) assetContents
+    pure dstPath
+
 registerAsset :: Asset -> Thesis
-registerAsset Asset {..} =
-    registerAction assetPath $ \rd -> do
-        D.createDirectoryIfMissing True $ FP.takeDirectory $ rd FP.</> assetPath
-        SB.writeFile (rd FP.</> assetPath) assetContents
+registerAsset asset =
+    registerAction (assetPath asset) $ \rootdir -> do
+        rd <- resolveDir' rootdir
+        void $ makeAsset rd asset
