@@ -54,7 +54,7 @@ thesisIntroduction =
                     s
                         "Not only does this process take a lot of time, it is also a mentally taxing task since the process is repetitive and often unrewarding."
                     s
-                        "As a result, automated tests are all-to-often omitted from a software project."
+                        "As a result, automated tests are all too often omitted from a software project."
             subsubsection "Property Testing" $ do
                 s
                     "Property testing is similar to unit testing but the concept differs in one key aspect."
@@ -66,18 +66,18 @@ thesisIntroduction =
                     "We say that the property test passes if it passes for a given number of arbitrarily chosen input values."
                 lnbk
                 s
-                    "Property testing probabilistically solves the coverage problem of unit testing, but exacerbates the second problem of unit testing."
+                    "Property testing solves the coverage problem of unit testing probabilistically, but exacerbates the second problem of unit testing."
                 s
                     "As the number of executions of a property test increases, the probability of covering all possible aspects of the code under test should tend to one."
                 s
                     "This means that a programmer now only needs to write a limited number of property tests, instead of a large number of unit tests."
                 s
-                    "This sounds like it is easier on the programmer, and for some it is, but coming up with properties of code, as opposed to input-output examples is often much harder."
+                    "This sounds like it is easier on the programmer, and for some it is, but coming up with properties of code, as opposed to input and output examples, is often much harder."
                 s
-                    "Consequently, the developer-time costs of property testing is even higher and, as a result, property testing is rarely done in practice."
+                    "Consequently, the developer time costs of property testing is even higher and, as a result, property testing is rarely done in practice."
             subsubsection "Property Discovery" $ do
                 s
-                    "Taking the human element out of the equation would solve the problem with developer-time costs."
+                    "Taking the human element out of the equation would solve the problem with developer time costs."
                 s
                     "Property discovery means that property tests can automatically be generated."
                 s
@@ -132,6 +132,6 @@ thesisIntroduction =
                 s
                     "Signature inference consists of inferring which functions are relevant to a given function, and combining them into a signature."
                 s
-                    "Because signature inference requires access to the compile-time information about the code under test, a simple extension involves generating the code that is required to run the property discovery algorithm."
+                    "Because signature inference requires access to the compile time information about the code under test, a simple extension involves generating the code that is required to run the property discovery algorithm."
                 s
                     "All together, signature inference has the potential to solve the problems with property discovery and, by extension, property testing and unit testing."

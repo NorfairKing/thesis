@@ -20,7 +20,10 @@ module DocImport
 
 import Import as X
 
+import Control.Monad.Reader
+
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
 import qualified Data.Text.IO as T
 
 import Text.LaTeX as X
@@ -35,6 +38,8 @@ import Text.LaTeX.Base.Class
 import Text.LaTeX.Base.Syntax
 import Text.LaTeX.Packages.Graphicx as X (IGOption(..))
 import Text.LaTeX.Packages.Graphicx as HaTeX
+
+import qualified Language.Aspell as Aspell
 
 import Thesis.Document.Types as X
 
@@ -60,8 +65,32 @@ s t = do
     when (T.null t) $ f "Sentence cannot be empty."
     unless (isUpper $ T.head t) $ f "Sentence must start with a capital."
     unless (T.last t == '.') $ f "Sentence must end in a full stop."
+    spellCheck t
     fromString $ T.unpack t
     " "
+
+spellCheck :: Text -> Thesis
+spellCheck text = do
+    sc <- asks spellChecker
+    forM_ (T.words text) $ \w -> do
+        let wbs = T.encodeUtf8 $ filterBad w
+        sugs <- liftIO $ Aspell.suggest sc wbs
+        case find (== wbs) sugs of
+            Just _ -> pure ()
+            Nothing ->
+                liftIO $
+                fail $
+                unlines $
+                unwords
+                    [ "Aspell had suggestions for"
+                    , show w
+                    , "in the sentence:"
+                    , show text
+                    ] :
+                map show sugs
+  where
+    filterBad = T.filter (not . (`elem` badChars))
+    badChars = ['.', ',']
 
 quoted :: Thesis -> Thesis
 quoted n = "`" <> n <> "'"
