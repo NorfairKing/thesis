@@ -5,7 +5,9 @@ addons:
   apt:
     packages:
     - libgmp-dev
-    - aspell-dev
+    - aspell
+    - aspell-en
+    - libaspell-dev
 
 cache:
   directories:
@@ -27,5 +29,4 @@ install:
 script:
   - git --version
   - stack --version
-  - stack build
   - ./zift.hs run
