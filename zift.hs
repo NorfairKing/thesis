@@ -29,12 +29,10 @@ main =
         prechecker gitAddAllZift
         checker $ do
             do rd <- getRootDir
-               Stdout out1 <-
-                   liftIO $
-                   cmd (Cwd $ toFilePath rd) "stack" "install" ":thesis"
-               printZift out1
                 -- This automatically runs it in the weird tmp dir, so we make sure that it works anywhere.
-               Stdout out2 <- liftIO $ cmd "thesis" "build"
-               printZift out2
+               Stdout out <-
+                   liftIO $
+                   cmd (Cwd $ toFilePath rd) "stack" "exec" "thesis" "build"
+               printZift out
             hlintZift
             stackBuildZift
