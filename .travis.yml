@@ -5,6 +5,7 @@ addons:
   apt:
     packages:
     - libgmp-dev
+    - aspell-dev
 
 cache:
   directories:
