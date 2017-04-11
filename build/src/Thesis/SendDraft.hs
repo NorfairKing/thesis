@@ -13,12 +13,11 @@ import Development.GitRev
 import Network.Mail.Mime
 
 import Thesis.Build
-import Thesis.Document
 import Thesis.OptParse
 
 sendDraft :: SendArgs -> IO ()
 sendDraft SendArgs {..} = do
-    build
+    buildWithThesisShake ["draft"]
     let from =
             Address
             { addressName = Just "Tom Sydney Kerckhove"
@@ -42,7 +41,7 @@ sendDraft SendArgs {..} = do
                   [("Subject", T.unwords ["Thesis draft", T.pack $(gitHash)])]
             , mailParts = [[plainPart $ makeMailContent from to]]
             }
-    mail <- addAttachment "application/pdf" (toFilePath thesisOut) clearMail
+    mail <- addAttachment "application/pdf" "out/draft.pdf" clearMail
     renderSendMail mail
 
 makeMailContent :: Address -> Address -> LT.Text

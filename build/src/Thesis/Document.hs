@@ -1,5 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
-
 module Thesis.Document where
 
 import Import
@@ -8,36 +6,42 @@ import Development.Shake
 import Development.Shake.Path
 
 import Thesis.Document.Main
+import Thesis.Document.Types
 import Thesis.Utils
 
-thesisBib :: Path Rel File
-thesisBib = tmpDir </> $(mkRelFile "thesis.bib")
+thesisDraftRule :: String
+thesisDraftRule = "draft"
 
-thesisTex :: Path Rel File
-thesisTex = tmpDir </> $(mkRelFile "thesis.tex")
-
-thesisPdf :: Path Rel File
-thesisPdf = tmpDir </> $(mkRelFile "thesis.pdf")
-
-thesisOut :: Path Rel File
-thesisOut = outDir </> $(mkRelFile "thesis.pdf")
+thesisFinalRule :: String
+thesisFinalRule = "final"
 
 documentRules :: Rules ()
 documentRules = do
-    [thesisBib, thesisTex] $&%> do
+    rulesForDocumentWithName "draft" BuildDraft >>=
+        (\df -> thesisDraftRule ~> needP [df])
+    rulesForDocumentWithName "final" BuildFinal >>=
+        (\df -> thesisFinalRule ~> needP [df])
+
+rulesForDocumentWithName :: String -> BuildKind -> Rules (Path Abs File)
+rulesForDocumentWithName name bkind = do
+    absTmpDir <- liftIO $ makeAbsolute tmpDir
+    let tmpFile = liftIO . resolveFile absTmpDir
+    texFile <- tmpFile $ name ++ ".tex"
+    bibFile <- tmpFile $ name ++ ".bib"
+    [texFile, bibFile] $&%> do
         putLoud $
             unwords
                 [ "Running thesis generator to make"
-                , toFilePath thesisTex
+                , toFilePath texFile
                 , "and"
-                , toFilePath thesisBib
+                , toFilePath bibFile
                 ]
-        absTmpDir <- liftIO $ makeAbsolute tmpDir
-        liftIO $ buildThesisDocumentIn absTmpDir
-    thesisPdf $%> do
-        needP [thesisBib, thesisTex]
+        liftIO $ buildThesisDocumentWithNameIn name absTmpDir bkind
+    tmpPdfFile <- tmpFile $ name ++ ".pdf"
+    tmpPdfFile $%> do
+        needP [texFile, bibFile]
         cmd
-            (Cwd $ toFilePath tmpDir)
+            (Cwd $ toFilePath absTmpDir)
             (WithStdout True)
             (WithStderr True)
             (EchoStdout False)
@@ -46,6 +50,9 @@ documentRules = do
             , "-pdf"
             , "-shell-escape"
             , "-halt-on-error"
-            , toFilePath $ filename thesisTex
+            , toFilePath $ filename texFile
             ]
-    thesisOut `byCopying` thesisPdf
+    absOutDir <- liftIO $ makeAbsolute outDir
+    outPdfFile <- liftIO $ resolveFile absOutDir $ name ++ ".pdf"
+    outPdfFile `byCopying` tmpPdfFile
+    pure outPdfFile

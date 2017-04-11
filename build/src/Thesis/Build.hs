@@ -9,11 +9,17 @@ import System.Environment (withArgs)
 import Development.Shake
 import Development.Shake.Path
 
-import Thesis.Document
 import Thesis.ShakeBuild
 
-build :: IO ()
-build = do
+build :: Maybe String -> IO ()
+build mtarget =
+    buildWithThesisShake $
+    case mtarget of
+        Nothing -> ["draft"]
+        Just target -> [target]
+
+buildWithThesisShake :: [String] -> IO ()
+buildWithThesisShake args = do
     versionFiles <-
         snd <$>
         liftM2
@@ -23,7 +29,7 @@ build = do
             (fromMaybe ([], []) <$>
              forgivingAbsence (listDirRecur $(mkRelDir "document")))
     version <- getHashedShakeVersionP versionFiles
-    withArgs ["--color"] $
-        shakeArgs shakeOptions {shakeVerbosity = Loud, shakeVersion = version} $ do
+    withArgs (args ++ ["--color"]) $
+        shakeArgs
+            shakeOptions {shakeVerbosity = Loud, shakeVersion = version}
             thesisShakeBuildRules
-            wantP [thesisOut]

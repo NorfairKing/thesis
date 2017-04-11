@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.Main
-    ( buildThesisDocumentIn
+    ( buildThesisDocumentWithNameIn
     ) where
 
 import Import hiding (All)
@@ -20,18 +20,20 @@ import Thesis.Document.Types
 import qualified Language.Aspell as Aspell
 import qualified Language.Aspell.Options as Aspell
 
-buildThesisDocumentIn :: Path Abs Dir -> IO ()
-buildThesisDocumentIn bdir = do
+buildThesisDocumentWithNameIn :: String -> Path Abs Dir -> BuildKind -> IO ()
+buildThesisDocumentWithNameIn name bdir bkind = do
     let config =
             ProjectConfig
             { projectGenerationConfig =
                   GenerationConfig {generationSelection = [All]}
-            , projectBibFileName = "thesis"
-            , projectTexFileName = "thesis"
+            , projectBibFileName = name
+            , projectTexFileName = name
             , projectBuildDir = toFilePath bdir
             }
     sc <- startAspell bdir
-    let env = ThesisEnv {spellChecker = sc}
+    let env =
+            ThesisEnv
+            {spellChecker = sc, buildKind = bkind, projectConfig = config}
     eet <- runReaderT (buildLaTeXProject entireDocument config) env
     case eet of
         Left errs -> die $ unlines $ map show errs

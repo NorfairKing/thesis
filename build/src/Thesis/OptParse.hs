@@ -27,7 +27,7 @@ combineToInstructions cmd Flags Configuration = pure (disp, Settings)
   where
     disp =
         case cmd of
-            CommandBuild -> DispatchBuild
+            CommandBuild as -> DispatchBuild as
             CommandSendDraft sfs ->
                 DispatchSendDraft
                     SendArgs
@@ -86,7 +86,12 @@ parseCommand =
 parseCommandBuild :: ParserInfo Command
 parseCommandBuild = info parser modifier
   where
-    parser = pure CommandBuild
+    parser =
+        CommandBuild <$>
+        argument
+            (Just <$> str)
+            (mconcat
+                 [metavar "TARGET", value Nothing, help "the targets to build"])
     modifier = fullDesc <> progDesc "Build a draft document"
 
 parseCommandSendDraft :: ParserInfo Command

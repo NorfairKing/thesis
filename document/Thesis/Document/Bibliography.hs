@@ -6,6 +6,9 @@ module Thesis.Document.Bibliography
 
 import DocImport
 
+import Control.Monad.Reader
+import qualified Data.Text as T
+
 import Thesis.Document.References
 
 thesisBibliography :: Thesis
@@ -23,4 +26,5 @@ thesisBibliography = do
         , mash2Ref
         ]
     comm1 "bibliographystyle" "plain"
-    comm1 "bibliography" $ raw "thesis"
+    bibFileName <- asks (projectBibFileName . projectConfig)
+    comm1 "bibliography" $ raw $ T.pack bibFileName

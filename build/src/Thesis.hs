@@ -12,5 +12,5 @@ thesis = do
     dispatch disp
 
 dispatch :: Dispatch -> IO ()
-dispatch DispatchBuild = build
+dispatch (DispatchBuild mtarget) = build mtarget
 dispatch (DispatchSendDraft sas) = sendDraft sas

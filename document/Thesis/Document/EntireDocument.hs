@@ -6,6 +6,8 @@ module Thesis.Document.EntireDocument
 
 import DocImport
 
+import Control.Monad.Reader
+
 import Thesis.Document.Abstract
 import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
@@ -21,7 +23,8 @@ entireDocument = do
     document $ do
         titlePage
         docTechDetails
-        addDraftWatermark
+        bkind <- asks buildKind
+        when (bkind == BuildDraft) addDraftWatermark
         thesisAbstract
         newpage
         thesisTableOfContents

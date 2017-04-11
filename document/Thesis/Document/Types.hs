@@ -12,6 +12,13 @@ type Thesis = Thesis' ()
 
 type Thesis' = ΛTeXT (ReaderT ThesisEnv IO)
 
-newtype ThesisEnv = ThesisEnv
+data ThesisEnv = ThesisEnv
     { spellChecker :: Aspell.SpellChecker
+    , buildKind :: BuildKind
+    , projectConfig :: ProjectConfig
     }
+
+data BuildKind
+    = BuildDraft
+    | BuildFinal
+    deriving (Show, Eq)
