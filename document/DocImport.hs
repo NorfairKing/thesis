@@ -15,7 +15,7 @@ module DocImport
     , DocImport.paragraph
     , declarePart
     , citationNeeded
-    , addDraftWatermark
+    , headersAndFooters
     ) where
 
 import Import as X
@@ -154,20 +154,13 @@ kebabCase str = intercalate "-" $ words $ map toLower str
 citationNeeded :: Thesis
 citationNeeded = "[CITATION NEEDED]"
 
-addDraftWatermark :: Thesis
-addDraftWatermark = do
-    packageDep ["printwatermark"] "xwatermark"
-    packageDep_ "xcolor"
-    fromLaTeX $
-        TeXComm
-            "newwatermark"
-            [ MOptArg
-                  [ "allpages"
-                  , "color=red!3"
-                  , "angle=45"
-                  , "scale=4"
-                  , "xpos=-15"
-                  , "ypos=0"
-                  ]
-            , FixArg $ raw "DRAFT\\\\UNFINISHED\\\\DRAFT"
-            ]
+headersAndFooters :: Thesis
+headersAndFooters = do
+    packageDep_ "fancyhdr"
+    comm1 "pagestyle" "fancy"
+    comm0 "fancyhf"
+    bkind <- asks buildKind
+    when (bkind == BuildDraft) $
+        comm1
+            "cfoot"
+            "This is an unfinished draft. Please do not distribute it."

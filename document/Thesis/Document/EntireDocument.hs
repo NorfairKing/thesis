@@ -6,8 +6,6 @@ module Thesis.Document.EntireDocument
 
 import DocImport
 
-import Control.Monad.Reader
-
 import Thesis.Document.Abstract
 import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
@@ -20,11 +18,10 @@ import Text.LaTeX as HaTeX (article)
 entireDocument :: Thesis
 entireDocument = do
     documentclass [oneside, a4paper] HaTeX.article
+    headersAndFooters
     document $ do
         titlePage
         docTechDetails
-        bkind <- asks buildKind
-        when (bkind == BuildDraft) addDraftWatermark
         thesisAbstract
         newpage
         thesisTableOfContents
