@@ -24,7 +24,6 @@ library
         Thesis.ShakeBuild
         Thesis.Types
         Thesis.Utils
-        Thesis.Zift
         Thesis.Document.Abstract
         Thesis.Document.Assets
         Thesis.Document.Bibliography
