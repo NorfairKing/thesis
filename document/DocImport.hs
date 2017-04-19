@@ -163,11 +163,11 @@ addDraftWatermark = do
             "newwatermark"
             [ MOptArg
                   [ "allpages"
-                  , "color=red!20"
+                  , "color=red!3"
                   , "angle=45"
-                  , "scale=7"
+                  , "scale=4"
                   , "xpos=-15"
                   , "ypos=0"
                   ]
-            , FixArg "DRAFT"
+            , FixArg $ raw "DRAFT\\\\UNFINISHED\\\\DRAFT"
             ]
