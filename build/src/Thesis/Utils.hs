@@ -8,7 +8,9 @@ import Development.Shake
 import Development.Shake.Path
 
 -- TODO make it also possible to do this with absolute paths.
-(<.>) :: MonadThrow m => Path Rel File -> String -> m (Path Rel File)
+(<.>)
+    :: MonadThrow m
+    => Path Rel File -> String -> m (Path Rel File)
 (<.>) f e = parseRelFile $ toFilePath f ++ "." ++ e
 
 tmpDir :: Path Rel Dir

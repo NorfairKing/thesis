@@ -26,6 +26,7 @@ library
         Thesis.Utils
         Thesis.Document.Abstract
         Thesis.Document.Assets
+        Thesis.Document.Background
         Thesis.Document.Bibliography
         Thesis.Document.Conclusion
         Thesis.Document.DocTechDetails

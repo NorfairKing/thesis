@@ -7,6 +7,7 @@ module Thesis.Document.EntireDocument
 import DocImport
 
 import Thesis.Document.Abstract
+import Thesis.Document.Background
 import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
 import Thesis.Document.DocTechDetails
@@ -26,6 +27,7 @@ entireDocument = do
         newpage
         thesisTableOfContents
         thesisIntroduction
+        thesisBackground
         thesisConclusion
         thesisBibliography
 
