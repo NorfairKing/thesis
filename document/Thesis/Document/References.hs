@@ -13,6 +13,7 @@ module Thesis.Document.References
     , theHumbleProgrammerRef
     , filteringRef
     , mash2Ref
+    , typeableHackageRef
     ) where
 
 import DocImport
@@ -43,7 +44,7 @@ quickcheckHackageRef :: Reference
 quickcheckHackageRef =
     Reference
         miscelaneous
-        "claessen2010QuickCheck-2.9.G"
+        "claessen2016QuickCheck-2.9.2"
         [ "author" .= "Koen Claessen"
         , "title" .= "{QuickCheck: Automatic testing of Haskell programs}"
         , "howpublished" .=
@@ -235,6 +236,22 @@ ghcRef =
         , "url" .=
           "https://mail.haskell.org/pipermail/ghc-devs/2016-May/012098.html"
         , "urldate" .= "2017-02-01"
+        ]
+
+typeableHackageRef :: Reference
+typeableHackageRef =
+    Reference
+        miscelaneous
+        "unknown-2017-base-4.9.1.0-typeable"
+        [ "author" .= "unknown"
+        , "title" .= "{Typeable @ base-4.9.1.0}"
+        , "howpublished" .=
+          "\\url{http://hackage.haskell.org/package/base-4.9.1.0/Data-Typeable.html#t:Typeable}"
+        , "year" .= "2017"
+        , "month" .= "January"
+        , "version" .= "4.9.1.0"
+        , "keywords" .= "Prelude"
+        , "subtype" .= "program"
         ]
 
 (.=) :: a -> b -> (a, b)
