@@ -31,12 +31,22 @@ main =
             do rd <- getRootDir
                Stdout out1 <-
                    liftIO $
-                   cmd (Cwd $ toFilePath rd) "stack" "install" ":thesis"
+                   cmd (Cwd $ toFilePath rd) "stack" "build" "thesis:exe:thesis"
                printZift out1
-                -- This automatically runs it in the weird tmp dir, so we make sure that it works anywhere.
                Stdout out2 <-
                    liftIO $
-                   cmd (Cwd $ toFilePath rd) "stack" "exec" "thesis" "build"
+                   cmd
+                       (Cwd $ toFilePath rd)
+                       "stack"
+                       "path"
+                       "--local-install-root"
                printZift out2
+               Stdout out3 <-
+                   liftIO $
+                   cmd
+                       (Cwd $ toFilePath rd)
+                       (init out2 ++ "/bin/thesis")
+                       "build"
+               printZift out3
             hlintZift
             stackBuildZift
