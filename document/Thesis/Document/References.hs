@@ -3,6 +3,7 @@
 module Thesis.Document.References
     ( ghcRef
     , quickcheckRef
+    , quickcheckHackageRef
     , quickspecRef
     , quickspec2Ref
     , hipspecRef
@@ -37,6 +38,25 @@ quickcheckRef =
         , "publisher" .= "ACM"
         , "address" .= "New York, NY, USA"
         ]
+
+quickcheckHackageRef :: Reference
+quickcheckHackageRef =
+    Reference
+        miscelaneous
+        "claessen2010QuickCheck-2.9.G"
+        [ "author" .= "Koen Claessen"
+        , "title" .= "{QuickCheck: Automatic testing of Haskell programs}"
+        , "howpublished" .=
+          "\\url{http://hackage.haskell.org/package/QuickCheck-2.9.2}"
+        , "year" .= "2016"
+        , "month" .= "September"
+        , "version" .= "2.9.2"
+        , "keywords" .= "Haskell, Testing"
+        , "subtype" .= "program"
+        ]
+
+miscelaneous :: ReferenceType
+miscelaneous = "Misc"
 
 quickspecRef :: Reference
 quickspecRef =

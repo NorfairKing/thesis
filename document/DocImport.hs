@@ -16,6 +16,8 @@ module DocImport
     , declarePart
     , citationNeeded
     , headersAndFooters
+    , hask
+    , haskInline
     ) where
 
 import Import as X
@@ -164,3 +166,21 @@ headersAndFooters = do
         comm1
             "cfoot"
             "This is an unfinished draft. Please do not distribute it."
+
+hask :: Thesis -> Thesis
+hask code = do
+    packageDep_ "minted"
+    "\n"
+    let f =
+            liftL2 $ \lang cont ->
+                TeXEnv "minted" [FixArg lang] $ "\n" <> cont <> "\n"
+    f "haskell" code
+    "\n"
+
+haskInline :: Thesis -> Thesis
+haskInline code = do
+    packageDep_ "minted"
+    comm2 "mintinline" "haskell" code
+
+comm2 :: LaTeXC l => String -> l -> l -> l
+comm2 name = liftL2 $ \l1 l2 -> TeXComm name [FixArg l1, FixArg l2]
