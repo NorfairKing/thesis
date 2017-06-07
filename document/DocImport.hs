@@ -21,6 +21,7 @@ module DocImport
     , mintedText
     , minted
     , mintedInline
+    , DocImport.item
     ) where
 
 import Import as X
@@ -33,11 +34,11 @@ import qualified Data.Text.IO as T
 
 import Text.LaTeX as X
        hiding (ref, pageref, cite, article, label, titlepage, article,
-               abstract, section, subsection, subsubsection, paragraph)
+               item, abstract, section, subsection, subsubsection, paragraph)
 import Text.LaTeX.LambdaTeX as X hiding (Selector(..))
 
 import qualified Text.LaTeX as HT
-       (abstract, paragraph, section, subsection, subsubsection)
+       (abstract, paragraph, section, subsection, subsubsection, item)
 import Text.LaTeX.Base.Class as X (comm0, comm1)
 import Text.LaTeX.Base.Class
 import Text.LaTeX.Base.Syntax
@@ -196,3 +197,8 @@ mintedInline language code = do
 
 comm2 :: LaTeXC l => String -> l -> l -> l
 comm2 name = liftL2 $ \l1 l2 -> TeXComm name [FixArg l1, FixArg l2]
+
+item :: Thesis -> Thesis
+item i = do
+    HT.item Nothing
+    i

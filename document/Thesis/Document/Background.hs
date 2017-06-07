@@ -71,7 +71,8 @@ thesisBackground =
                 "QuickSpec was written because writing property tests can be even more difficult than writing unit tests."
             s
                 "The idea was that properties could be discovered using a combination of intelligently looking at types, and using properties to validate the properties using QuickCheck."
-            s "The input to a QuickSpec is called a signature."
+            s
+                "To run QuickSpec, a programmer is required to write a piece of code that calls QuickSpec with a record that is called a signature."
             newline
             s
                 "A signature mainly consists of a set of functions, confusingly also sometimes called the signature."
@@ -126,7 +127,7 @@ thesisBackground =
                 "One way for a signature to contain background properties, is by using the properties that a previous run of QuickSpec discovered."
             newline
             s
-                "Using a signature, QuickSpec will discover all properties that relate the functions in that signature."
+                "Using a signature, QuickSpec will discover all properties that relate the functions in that signature, up to a given size."
             s
                 "A property, in QuickSpec, is defined as an equation of the following form."
             mintedText "leftTerm = rightTerm"
