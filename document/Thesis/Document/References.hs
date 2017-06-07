@@ -6,6 +6,7 @@ module Thesis.Document.References
     , quickcheckHackageRef
     , quickspecRef
     , quickspec2Ref
+    , quickspecHackageRef
     , hipspecRef
     , smartcheckRef
     , fitspecRef
@@ -83,6 +84,21 @@ quickspec2Ref =
           "Nicholas Smallbone, Moa Johansson, Koen Claesson and Maximilian Algehed"
         , "booktitle" .= "Journal of Functional Programming"
         , "year" .= "2016"
+        ]
+
+quickspecHackageRef :: Reference
+quickspecHackageRef =
+    Reference
+        miscelaneous
+        "smallbone2016QuickSpec-2"
+        [ "author" .= "Nick Smallbone"
+        , "title" .= "{QuickCheck: Automatic testing of Haskell programs}"
+        , "howpublished" .=
+          "\\url{https://github.com/nick8325/quickspec/tree/3c6e0105374bcf1ed0d4f8d2a1a1d2875764fa56}"
+        , "year" .= "2016"
+        , "version" .= "2"
+        , "keywords" .= "Haskell, Testing"
+        , "subtype" .= "program"
         ]
 
 hipspecRef :: Reference
@@ -242,7 +258,7 @@ typeableHackageRef :: Reference
 typeableHackageRef =
     Reference
         miscelaneous
-        "unknown-2017-base-4.9.1.0-typeable"
+        "unknown2017base-4.9.1.0-typeable"
         [ "author" .= "unknown"
         , "title" .= "{Typeable @ base-4.9.1.0}"
         , "howpublished" .=

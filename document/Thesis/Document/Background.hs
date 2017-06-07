@@ -124,3 +124,46 @@ thesisBackground =
                 "These are properties that the signature somehow knows about already, and will use in its discovery."
             s
                 "One way for a signature to contain background properties, is by using the properties that a previous run of QuickSpec discovered."
+            newline
+            s
+                "Using a signature, QuickSpec will discover all properties that relate the functions in that signature."
+            s
+                "A property, in QuickSpec, is defined as an equation of the following form."
+            mintedText "leftTerm = rightTerm"
+            l
+                [ "Here,"
+                , haskInline "leftTerm"
+                , "and"
+                , haskInline "rightTerm"
+                , "must be of the same type, and that type must be of the following form"
+                ]
+            hask "A -> B"
+            l
+                [ "In this type,"
+                , haskInline "A"
+                , "must be in"
+                , haskInline "Arbitrary"
+                , "such that arbitrary values can be generated as input"
+                ]
+            l
+                [ "Furthermore,"
+                , haskInline "B"
+                , "must be in"
+                , haskInline "Eq"
+                , "such that they results of the respective functions may be compared for equality"
+                ]
+            s
+                "Note that the shape of these properties is not a limitation with respect to their expressiveness."
+            l
+                [ "Indeed, any general property"
+                , haskInline "p :: A -> Bool"
+                , "can be expressed in the above form as follows"
+                ]
+            hask $ raw "p = \\_ -> True"
+            l
+                [ "For further details, please refer to the QuickSpec papers"
+                , cite quickspecRef
+                , cite quickspec2Ref
+                , ", and the QuickCheck package on hackage"
+                , cite quickspecHackageRef
+                ]

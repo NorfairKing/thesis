@@ -34,6 +34,7 @@ library
         Thesis.Document.Introduction
         Thesis.Document.Main
         Thesis.Document.References
+        Thesis.Document.SignatureInference
         Thesis.Document.TitlePage
         Thesis.Document.Types
     build-depends:

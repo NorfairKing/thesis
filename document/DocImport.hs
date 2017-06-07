@@ -18,6 +18,9 @@ module DocImport
     , headersAndFooters
     , hask
     , haskInline
+    , mintedText
+    , minted
+    , mintedInline
     ) where
 
 import Import as X
@@ -168,19 +171,28 @@ headersAndFooters = do
             "This is an unfinished draft. Please do not distribute it."
 
 hask :: Thesis -> Thesis
-hask code = do
+hask = minted "haskell"
+
+haskInline :: Thesis -> Thesis
+haskInline = mintedInline "haskell"
+
+mintedText :: Thesis -> Thesis
+mintedText = minted "text"
+
+minted :: Thesis -> Thesis -> Thesis
+minted language code = do
     packageDep_ "minted"
     "\n"
     let f =
             liftL2 $ \lang cont ->
                 TeXEnv "minted" [FixArg lang] $ "\n" <> cont <> "\n"
-    f "haskell" code
+    f language code
     "\n"
 
-haskInline :: Thesis -> Thesis
-haskInline code = do
+mintedInline :: Thesis -> Thesis -> Thesis
+mintedInline language code = do
     packageDep_ "minted"
-    comm2 "mintinline" "haskell" code
+    comm2 "mintinline" language code
 
 comm2 :: LaTeXC l => String -> l -> l -> l
 comm2 name = liftL2 $ \l1 l2 -> TeXComm name [FixArg l1, FixArg l2]

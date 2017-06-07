@@ -12,6 +12,7 @@ import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
 import Thesis.Document.DocTechDetails
 import Thesis.Document.Introduction
+import Thesis.Document.SignatureInference
 import Thesis.Document.TitlePage
 
 import Text.LaTeX as HaTeX (article)
@@ -28,6 +29,7 @@ entireDocument = do
         thesisTableOfContents
         thesisIntroduction
         thesisBackground
+        thesisSignatureInference
         thesisConclusion
         thesisBibliography
 
