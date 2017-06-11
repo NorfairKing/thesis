@@ -27,6 +27,8 @@ library
         Thesis.Document.Abstract
         Thesis.Document.Assets
         Thesis.Document.Background
+        Thesis.Document.Background.PropertyDiscovery
+        Thesis.Document.Background.PropertyTesting
         Thesis.Document.Bibliography
         Thesis.Document.Conclusion
         Thesis.Document.DocTechDetails
