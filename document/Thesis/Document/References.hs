@@ -1,7 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Thesis.Document.References
-    ( ghcRef
+    ( haskellOrgRef
+    , haskellOrgClasses
+    , ghcRef
     , quickcheckRef
     , quickcheckHackageRef
     , quickspecRef
@@ -18,6 +20,26 @@ module Thesis.Document.References
     ) where
 
 import DocImport
+
+haskellOrgRef :: Reference
+haskellOrgRef =
+    Reference
+        "online"
+        "HaskellOrg"
+        [ "title" .= "{Haskell Language}"
+        , "url" .= "https://www.haskell.org/"
+        , "urldate" .= "2017-06-11"
+        ]
+
+haskellOrgClasses :: Reference
+haskellOrgClasses =
+    Reference
+        "online"
+        "HaskellOrgTypeClasess"
+        [ "title" .= "{Type Classes and Overloading}"
+        , "url" .= "https://www.haskell.org/tutorial/classes.html"
+        , "urldate" .= "2017-06-11"
+        ]
 
 quickcheckRef :: Reference
 quickcheckRef =
