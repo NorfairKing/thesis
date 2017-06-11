@@ -3,6 +3,10 @@
 module Thesis.Document.References
     ( haskellOrgRef
     , haskellOrgClasses
+    , haskellTypeClassesProposal
+    , haskellTypeClasses
+    , haskellTypeClassesTypeInference
+    , haskellTypeClassesImplementation
     , ghcRef
     , quickcheckRef
     , quickcheckHackageRef
@@ -39,6 +43,75 @@ haskellOrgClasses =
         [ "title" .= "{Type Classes and Overloading}"
         , "url" .= "https://www.haskell.org/tutorial/classes.html"
         , "urldate" .= "2017-06-11"
+        ]
+
+haskellTypeClassesProposal :: Reference
+haskellTypeClassesProposal =
+    Reference
+        miscelaneous
+        "haskellTypeClassesProposal"
+        [ "author" .= "Philip Lee Wadler"
+        , "howpublished" .= "Letter to Haskell working group"
+        , "year" .= "1988"
+        , "month" .= "Februari"
+        , "day" .= "27"
+        , "url" .=
+          "http://homepages.inf.ed.ac.uk/wadler/papers/class-letter/class-letter.txt"
+        , "urldate" .= "2017-06-11"
+        ]
+
+haskellTypeClasses :: Reference
+haskellTypeClasses =
+    Reference
+        inproceedings
+        "haskellTypeClasses"
+        [ "author" .= "{Wadler, P. and Blott, S.}"
+        , "title" .= "{How to Make Ad-hoc Polymorphism Less Ad Hoc}"
+        , "booktitle" .=
+          "{Proceedings of the 16th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages}"
+        , "series" .= "{POPL '89}"
+        , "year" .= "{1989}"
+        , "isbn" .= "{0-89791-294-2}"
+        , "location" .= "{Austin, Texas, USA}"
+        , "pages" .= "{60--76}"
+        , "numpages" .= "{17}"
+        , "url" .= "{http://doi.acm.org/10.1145/75277.75283}"
+        , "doi" .= "{10.1145/75277.75283}"
+        , "acmid" .= "{75283}"
+        , "publisher" .= "{ACM}"
+        , "address" .= "{New York, NY, USA}"
+        ]
+
+haskellTypeClassesTypeInference :: Reference
+haskellTypeClassesTypeInference =
+    Reference
+        article
+        "hall1996type"
+        [ "title" .= "{Type classes in Haskell}"
+        , "author" .=
+          "{Hall, Cordelia V and Hammond, Kevin and Peyton Jones, Simon L and Wadler, Philip L}"
+        , "journal" .=
+          "{ACM Transactions on Programming Languages and Systems (TOPLAS)}"
+        , "volume" .= "{18}"
+        , "number" .= "{2}"
+        , "pages" .= "{109--138}"
+        , "year" .= "{1996}"
+        , "publisher" .= "{ACM}"
+        ]
+
+haskellTypeClassesImplementation :: Reference
+haskellTypeClassesImplementation =
+    Reference
+        inproceedings
+        "peterson1993implementing"
+        [ "title" .= "{Implementing type classes}"
+        , "author" .= "{Peterson, John and Jones, Mark}"
+        , "booktitle" .= "{ACM SIGPLAN Notices}"
+        , "volume" .= "{28}"
+        , "number" .= "{6}"
+        , "pages" .= "{227--236}"
+        , "year" .= "{1993}"
+        , "organization" .= "{ACM}"
         ]
 
 quickcheckRef :: Reference

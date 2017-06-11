@@ -23,7 +23,12 @@ thesisBackgroundHaskell =
             , cite haskellOrgRef
             ]
         subsubsection "Type classes" $ do
-            s "Haskell famously has support for type classes."
+            l
+                [ "Haskell famously has support for type classes"
+                , cite haskellTypeClassesProposal
+                , cite haskellTypeClasses
+                , cite haskellTypeClassesTypeInference
+                ]
             s
                 "Type classes are a way to support ad hoc polymorphism, as opposed to the parametric polymorphism that type parameters provide."
             s
@@ -79,3 +84,39 @@ thesisBackgroundHaskell =
                 [ "When a type supports equality, we say that this type is in the type class"
                 , haskInline "Eq"
                 ]
+        subsubsection "Type class evidence dictionaries" $ do
+            l
+                [ "Haskell's flagship compiler: The Glasgow Haskell Compiler, implements type classes using a desugaring method called evidence dictionaries"
+                , cite haskellTypeClassesImplementation
+                ]
+            s
+                "These evidence dictionaries will become important in what follows, so they are introduced here briefly."
+            s
+                "Take the previous example of a function with a type parameter that has a type class constraint."
+            hask "elem :: Eq a => a -> [a] -> Bool"
+            l
+                [ "The compiler can compile this function without knowing which type will eventually inhabit the parameter"
+                , haskInline "a"
+                ]
+            l
+                [ "However, in order to do that, the compiler needs to know which concrete function to use in place of the"
+                , haskInline "=="
+                , "function in the"
+                , haskInline "Eq"
+                , "type class"
+                ]
+            l
+                [ "The type of the"
+                , haskInline "elem"
+                , "function is desugared to the following"
+                ]
+            hask "elem :: Dict Eq -> a -> [a] -> Bool"
+            l
+                [ "In the above, the new"
+                , haskInline "Dict Eq"
+                , "argument is a dictionary that contains the concrete implementations of the functions in the"
+                , haskInline "Eq"
+                , "type class"
+                ]
+            s
+                "This dictionary is called an evidence dictionary, because it contains the evidence that the corresponding type class inhabits the given type."
