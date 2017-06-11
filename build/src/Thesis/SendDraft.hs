@@ -78,4 +78,9 @@ presets =
         { addressName = Just "Dmitriy Traytel"
         , addressEmail = "traytel@inf.ethz.ch"
         })
+    , ( "alix"
+      , Address
+        { addressName = Just "Alix Robinson"
+        , addressEmail = "juicesteps@gmail.com"
+        })
     ]
