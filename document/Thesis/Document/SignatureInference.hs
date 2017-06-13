@@ -57,7 +57,7 @@ thesisSignatureInference = do
             l
                 [ "A value of type"
                 , haskInline "InferredSignature"
-                , "is not a signature for quickspec"
+                , "is not a signature for QuickSpec"
                 ]
             l
                 [ "In fact, an"

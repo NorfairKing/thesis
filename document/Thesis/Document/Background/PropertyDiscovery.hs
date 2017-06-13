@@ -6,6 +6,8 @@ module Thesis.Document.Background.PropertyDiscovery
 
 import DocImport
 
+import qualified Data.Text as T
+
 import Thesis.Document.References
 
 thesisBackgroundPropertyDiscovery :: Thesis
@@ -23,7 +25,7 @@ thesisBackgroundPropertyDiscovery =
         l
             [ "Each of the functions in a signature must be named, and its type must be in the"
             , haskInline "Typeable"
-            , "typeclass"
+            , "type class"
             ]
         l
             [ "Specifically, a type with a"
@@ -56,10 +58,8 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "Eq Int"
             , "then it contains a record with the following two functions"
             ]
-        hask $ do
-            "(==) :: Int -> Int -> Int"
-            raw "\n"
-            "(/=) :: Int -> Int -> Int"
+        hask $
+            T.unlines ["(==) :: Int -> Int -> Int", "(/=) :: Int -> Int -> Int"]
         s
             "QuickSpec only knows about the instances that it gets supplied with via the signature."
         newline
@@ -104,11 +104,11 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "p :: A -> Bool"
             , "can be expressed in the above form as follows"
             ]
-        hask $ raw "p = \\_ -> True"
+        hask "p = \\_ -> True"
         l
             [ "For further details, please refer to the QuickSpec papers"
             , cite quickspecRef
             , cite quickspec2Ref
-            , ", and the QuickCheck package on hackage"
+            , ", and the QuickCheck package on Hackage"
             , cite quickspecHackageRef
             ]

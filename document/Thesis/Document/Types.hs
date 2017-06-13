@@ -12,9 +12,9 @@ import GHC.Generics
 
 import Data.String
 
+import qualified Data.ByteString as SB
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
-import qualified Data.Text.IO as T
 
 import Control.Monad.Reader
 
@@ -65,20 +65,21 @@ spellCheck text = do
     sc <- asks spellChecker
     forM_ (T.words text) $ \w -> do
         let wbs = T.encodeUtf8 $ filterBad w
-        sugs <- liftIO $ Aspell.suggest sc wbs
-        case find (== wbs) sugs of
-            Just _ -> pure ()
-            Nothing ->
-                liftIO $
-                fail $
-                unlines $
-                unwords
-                    [ "Aspell had suggestions for"
-                    , show w
-                    , "in the sentence:"
-                    , show text
-                    ] :
-                map show sugs
+        unless (SB.null wbs) $ do
+            sugs <- liftIO $ Aspell.suggest sc wbs
+            case find (== wbs) sugs of
+                Just _ -> pure ()
+                Nothing ->
+                    liftIO $
+                    fail $
+                    unlines $
+                    unwords
+                        [ "Aspell had suggestions for"
+                        , show wbs
+                        , "in the sentence:"
+                        , show text
+                        ] :
+                    map show sugs
   where
     filterBad = T.filter (not . (`elem` badChars))
-    badChars = ['.', ',']
+    badChars = ['.', ',', ':', '?']

@@ -6,6 +6,8 @@ module Thesis.Document.Background.Haskell
 
 import DocImport
 
+import qualified Data.Text as T
+
 import Thesis.Document.References
 
 thesisBackgroundHaskell :: Thesis
@@ -47,10 +49,7 @@ thesisBackgroundHaskell =
                 , haskInline "Eq"
                 , "type class solves this problem by allowing the programmer to define what equality means for a type"
                 ]
-            hask $ do
-                "class Eq a where"
-                raw "\n"
-                "    (==) :: a -> a -> Bool"
+            hask $ T.unlines ["class Eq a where", "    (==) :: a -> a -> Bool"]
             l
                 [ "To define equality is to instantiate the"
                 , haskInline "Eq"
@@ -61,12 +60,12 @@ thesisBackgroundHaskell =
                 , haskInline "Eq"
                 , "type class"
                 ]
-            hask $ do
-                "instance Eq Int where"
-                raw "\n"
-                "    (==) :: Int -> Int -> Bool"
-                raw "\n"
-                "    i == j = eqInt i j"
+            hask $
+                T.unlines
+                    [ "instance Eq Int where"
+                    , "    (==) :: Int -> Int -> Bool"
+                    , "    i == j = eqInt i j"
+                    ]
             l
                 [ "Once equality is defined, the programmer can use the"
                 , haskInline "=="

@@ -16,7 +16,7 @@ import Language.Haskell.TH.Syntax
 
 import Data.ByteString (ByteString)
 import qualified Data.ByteString as SB
-import Data.FileEmbed (makeRelativeToProject, bsToExp)
+import Data.FileEmbed (bsToExp, makeRelativeToProject)
 import qualified System.FilePath as FP
 
 data Asset = Asset
@@ -44,6 +44,7 @@ makeAsset rd Asset {..} = do
 
 registerAsset :: Asset -> Thesis
 registerAsset asset =
-    t $ registerAction (assetPath asset) $ \rootdir -> do
+    t $
+    registerAction (assetPath asset) $ \rootdir -> do
         rd <- resolveDir' rootdir
         void $ makeAsset rd asset

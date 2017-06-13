@@ -19,7 +19,7 @@ thesisIntroduction =
                 s
                     "The romantic idea of automated testing is that programmers could tell if their code was faulty before running the code in production."
                 s
-                    "Alternatives to testing include formal verification, model checking static analysis, etc..."
+                    "Alternatives to testing include formal verification, model checking static analysis, etc."
                 s
                     "When these formal methods are too expensive, testing is the most reliable way to ensure that a software system does what it should."
                 s
@@ -94,7 +94,7 @@ thesisIntroduction =
                     l
                         [ "Subsequent research"
                         , cite quickspec2Ref
-                        , "has improved upon these limitations, but remains unable to discover properties of realistic codebases"
+                        , "has improved upon these limitations, but remains unable to discover properties of realistic code bases"
                         ]
                 paragraph "Signatures" $ do
                     l
@@ -102,7 +102,7 @@ thesisIntroduction =
                         , cite quickspecRef
                         , "and"
                         , cite quickspec2Ref
-                        , "is a so-called"
+                        , "is called a"
                         , dquoted "signature"
                         , "of functions"
                         ]

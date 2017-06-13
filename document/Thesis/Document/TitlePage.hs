@@ -29,7 +29,7 @@ titlePage =
         vfill
         flushright $
             tabular Nothing [LeftColumn, RightColumn] $ do
-                "Advisor" & "Dr Dmitriy Trayel" <> lnbk
+                "Adviser" & "Dr Dmitriy Traytel" <> lnbk
                 "Supervisor" & "Prof. David Basin" <> lnbk
                 "Department" & "Information Security" <> lnbk
-                "Date" & "2017-09-09" <> lnbk
+                "Date" & raw "2017-09-09" <> lnbk

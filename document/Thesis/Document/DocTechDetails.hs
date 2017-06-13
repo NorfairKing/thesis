@@ -78,4 +78,4 @@ docTechDetails = do
     packageDep ["yyyymmdd", "hhmmss"] "datetime"
     l [comm0 "LaTeX", "compiled on", comm0 "today", " at ", comm0 "currenttime"]
     newline
-    l ["The", quoted "thesis", "project was started on", "2017-03-09"]
+    l ["The", quoted "thesis", "project was started on", raw "2017-03-09"]

@@ -33,28 +33,23 @@ import Import as X
 import Control.Monad.Reader
 
 import qualified Data.Text as T
-import qualified Data.Text.Encoding as T
 import qualified Data.Text.IO as T
 
 import Text.LaTeX as X
-       hiding (abstract, article, article, cite, item, label, nocite,
-               pageref, paragraph, ref, section, subsection, subsubsection,
-               titlepage)
+       hiding (abstract, article, article, cite, item, label, pageref,
+               paragraph, ref, section, subsection, subsubsection, titlepage)
 import Text.LaTeX.LambdaTeX as X
        hiding (Selector(..), cite, nocite, packageDep, packageDep_)
 import qualified Text.LaTeX.LambdaTeX as LT
        (cite, nocite, packageDep, packageDep_)
 
 import qualified Text.LaTeX as HT
-       (abstract, cite, item, paragraph, section, subsection,
-        subsubsection)
+       (abstract, item, paragraph, section, subsection, subsubsection)
 import Text.LaTeX.Base.Class as X (comm0, comm1)
 import Text.LaTeX.Base.Class
 import Text.LaTeX.Base.Syntax
 import Text.LaTeX.Packages.Graphicx as X (IGOption(..))
 import Text.LaTeX.Packages.Graphicx as HaTeX
-
-import qualified Language.Aspell as Aspell
 
 import Thesis.Document.Types as X
 
@@ -71,21 +66,21 @@ titlepage = liftL $ TeXEnv "titlepage" []
 l :: [Thesis] -> Thesis
 l ns = do
     sequence_ $ intersperse " " ns
-    ". "
+    raw ". "
 
 -- To model a sentence that can be inspected
 s :: Text -> Thesis
-s t = do
-    let f m = liftIO $ fail $ unlines [m, T.unpack t]
-    when (T.null t) $ f "Sentence cannot be empty."
-    unless (isUpper $ T.head t) $ f "Sentence must start with a capital."
-    unless (T.last t == '.') $ f "Sentence must end in a full stop."
-    spellCheck t
-    fromString $ T.unpack t
-    " "
+s t_ = do
+    let f m = liftIO $ fail $ unlines [m, T.unpack t_]
+    when (T.null t_) $ f "Sentence cannot be empty."
+    unless (isUpper $ T.head t_) $ f "Sentence must start with a capital."
+    unless (T.last t_ == '.') $ f "Sentence must end in a full stop."
+    spellCheck t_
+    fromString $ T.unpack t_
+    raw " "
 
 quoted :: Thesis -> Thesis
-quoted n = "`" <> n <> "'"
+quoted n = raw "`" <> n <> raw "'"
 
 dquoted :: Thesis -> Thesis
 dquoted n = raw "``" <> n <> raw "''"
@@ -145,7 +140,7 @@ kebabCase :: String -> String
 kebabCase str = intercalate "-" $ words $ map toLower str
 
 citationNeeded :: Thesis
-citationNeeded = "[CITATION NEEDED]"
+citationNeeded = raw "[CITATION NEEDED]"
 
 headersAndFooters :: Thesis
 headersAndFooters = do
@@ -158,29 +153,29 @@ headersAndFooters = do
             "cfoot"
             "This is an unfinished draft. Please do not distribute it."
 
-hask :: Thesis -> Thesis
+hask :: Text -> Thesis
 hask = minted "haskell"
 
-haskInline :: Thesis -> Thesis
+haskInline :: Text -> Thesis
 haskInline = mintedInline "haskell"
 
-mintedText :: Thesis -> Thesis
+mintedText :: Text -> Thesis
 mintedText = minted "text"
 
-minted :: Thesis -> Thesis -> Thesis
+minted :: Text -> Text -> Thesis
 minted language code = do
     packageDep_ "minted"
     "\n"
     let f =
             liftL2 $ \lang cont ->
                 TeXEnv "minted" [FixArg lang] $ "\n" <> cont <> "\n"
-    f language code
+    f (raw language) (raw code)
     "\n"
 
-mintedInline :: Thesis -> Thesis -> Thesis
+mintedInline :: Text -> Text -> Thesis
 mintedInline language code = do
     packageDep_ "minted"
-    comm2 "mintinline" language code
+    comm2 "mintinline" (raw language) (raw code)
 
 comm2 :: LaTeXC l => String -> l -> l -> l
 comm2 name = liftL2 $ \l1 l2 -> TeXComm name [FixArg l1, FixArg l2]
@@ -196,6 +191,8 @@ cite = Thesis . LT.cite
 nocite :: Reference -> Thesis
 nocite = Thesis . LT.nocite
 
+packageDep :: [LaTeX] -> Text -> Thesis
 packageDep args = Thesis . LT.packageDep args
 
+packageDep_ :: Text -> Thesis
 packageDep_ = Thesis . LT.packageDep_

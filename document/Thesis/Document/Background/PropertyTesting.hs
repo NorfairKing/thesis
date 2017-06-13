@@ -29,7 +29,7 @@ thesisBackgroundPropertyTesting =
             , haskInline "A"
             , "to be in the"
             , haskInline "Arbitrary"
-            , "typeclass"
+            , "type class"
             ]
         l
             [ "When instructed to do so using the"
@@ -37,7 +37,7 @@ thesisBackgroundPropertyTesting =
             , "function, the QuickCheck testing framework will generate random inputs to the supplied function"
             ]
         l
-            [ "For each of the inputs, the function will evaluate to a boolean value which QuickCheck asserts to be"
+            [ "For each of the inputs, the function will evaluate to a Boolean value which QuickCheck asserts to be"
             , haskInline "True"
             ]
         l
@@ -59,6 +59,6 @@ thesisBackgroundPropertyTesting =
         l
             [ "For further details, please refer to the original QuickCheck paper"
             , cite quickcheckRef
-            , ", and the QuickCheck package on hackage"
+            , ", and the QuickCheck package on Hackage"
             , cite quickcheckHackageRef
             ]

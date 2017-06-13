@@ -1,4 +1,10 @@
-personal_ws-1.1 en 7 utf-8
+personal_ws-1.1 en 18 utf-8
+Kerckhove
+GHC
+Dmitriy
+Hackage
+Traytel
+Edsger
 probabilistically
 codebase
 QuickCheck
@@ -6,3 +12,8 @@ QuickSpec
 hoc
 polymorphism
 parametrically
+equational
+desugared
+desugaring
+monomorphic
+QuickSpec
