@@ -169,7 +169,7 @@ minted language code = do
     let f =
             liftL2 $ \lang cont ->
                 TeXEnv "minted" [FixArg lang] $ "\n" <> cont <> "\n"
-    f (raw language) (raw code)
+    f (raw language) (raw $ T.unlines (map ("    " <>) (T.lines code)))
     "\n"
 
 mintedInline :: Text -> Text -> Thesis
