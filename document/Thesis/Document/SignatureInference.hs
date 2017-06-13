@@ -77,6 +77,29 @@ thesisSignatureInference = do
                 "In every node of the graph, the equations that are discovered by QuickSpec at the nodes that the node has edges to, are added to the signature in that node as background properties."
             s
                 "After running QuickSpec on each node like that, the equations from all nodes without any incoming edges are combined into the final output."
+    section "Basic inference strategies" $ do
+        subsection "Empty background" $ do
+            l
+                [ "The simplest inference strategy, is the"
+                , mintedTextInline "empty-background"
+                , "strategy"
+                ]
+            s
+                "It infers a DAG with one node, and that one node only contains the focus functions."
+            s
+                "This means that this strategy will only find properties that relate the focus functions."
+            s "It will completely ignore the rest of the scope."
+        subsection "Full background" $ do
+            l
+                [ "The next simplest strategy is the"
+                , mintedTextInline "full-background"
+                , "strategy"
+                ]
+            s "This strategy resembles the workings of QuickSpec the best."
+            s
+                "It also infers a DAG with one node, but this time that node contains the focus functions and also the entire scope."
+            s
+                "It will find all of the properties that relate any of the functions in scope."
     section "Evaluation of inference strategies" $ do
         s
             "In this section I will explain how difference inference strategies can be evaluated objectively."
