@@ -22,6 +22,10 @@ module DocImport
     , minted
     , mintedInline
     , DocImport.item
+    , DocImport.cite
+    , DocImport.nocite
+    , DocImport.packageDep
+    , DocImport.packageDep_
     ) where
 
 import Import as X
@@ -33,12 +37,17 @@ import qualified Data.Text.Encoding as T
 import qualified Data.Text.IO as T
 
 import Text.LaTeX as X
-       hiding (ref, pageref, cite, article, label, titlepage, article,
-               item, abstract, section, subsection, subsubsection, paragraph)
-import Text.LaTeX.LambdaTeX as X hiding (Selector(..))
+       hiding (abstract, article, article, cite, item, label, nocite,
+               pageref, paragraph, ref, section, subsection, subsubsection,
+               titlepage)
+import Text.LaTeX.LambdaTeX as X
+       hiding (Selector(..), cite, nocite, packageDep, packageDep_)
+import qualified Text.LaTeX.LambdaTeX as LT
+       (cite, nocite, packageDep, packageDep_)
 
 import qualified Text.LaTeX as HT
-       (abstract, paragraph, section, subsection, subsubsection, item)
+       (abstract, cite, item, paragraph, section, subsection,
+        subsubsection)
 import Text.LaTeX.Base.Class as X (comm0, comm1)
 import Text.LaTeX.Base.Class
 import Text.LaTeX.Base.Syntax
@@ -74,29 +83,6 @@ s t = do
     spellCheck t
     fromString $ T.unpack t
     " "
-
-spellCheck :: Text -> Thesis
-spellCheck text = do
-    sc <- asks spellChecker
-    forM_ (T.words text) $ \w -> do
-        let wbs = T.encodeUtf8 $ filterBad w
-        sugs <- liftIO $ Aspell.suggest sc wbs
-        case find (== wbs) sugs of
-            Just _ -> pure ()
-            Nothing ->
-                liftIO $
-                fail $
-                unlines $
-                unwords
-                    [ "Aspell had suggestions for"
-                    , show w
-                    , "in the sentence:"
-                    , show text
-                    ] :
-                map show sugs
-  where
-    filterBad = T.filter (not . (`elem` badChars))
-    badChars = ['.', ',']
 
 quoted :: Thesis -> Thesis
 quoted n = "`" <> n <> "'"
@@ -138,13 +124,14 @@ paragraph n func = do
         func
 
 declarePart :: Text -> Thesis -> Thesis
-declarePart partname func = do
+declarePart partname (Thesis func) = do
     let name = T.pack . kebabCase . sanitize . T.unpack $ partname
-    note name $ do
-        currentPart <- λgets stateCurrentPart
-        let d = length $ unPart currentPart
-        liftIO $ T.putStrLn $ T.replicate (2 * d) " " <> name
-        func
+    t $
+        note name $ do
+            currentPart <- λgets stateCurrentPart
+            let d = length $ unPart currentPart
+            liftIO $ T.putStrLn $ T.replicate (2 * d) " " <> name
+            func
 
 sanitize :: String -> String
 sanitize = concatMap replaceBad
@@ -202,3 +189,13 @@ item :: Thesis -> Thesis
 item i = do
     HT.item Nothing
     i
+
+cite :: Reference -> Thesis
+cite = Thesis . LT.cite
+
+nocite :: Reference -> Thesis
+nocite = Thesis . LT.nocite
+
+packageDep args = Thesis . LT.packageDep args
+
+packageDep_ = Thesis . LT.packageDep_

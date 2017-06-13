@@ -44,6 +44,6 @@ makeAsset rd Asset {..} = do
 
 registerAsset :: Asset -> Thesis
 registerAsset asset =
-    registerAction (assetPath asset) $ \rootdir -> do
+    t $ registerAction (assetPath asset) $ \rootdir -> do
         rd <- resolveDir' rootdir
         void $ makeAsset rd asset

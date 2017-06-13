@@ -34,7 +34,7 @@ buildThesisDocumentWithNameIn name bdir bkind = do
     let env =
             ThesisEnv
             {spellChecker = sc, buildKind = bkind, projectConfig = config}
-    eet <- runReaderT (buildLaTeXProject entireDocument config) env
+    eet <- runReaderT (buildLaTeXProject (unThesis entireDocument) config) env
     case eet of
         Left errs -> die $ unlines $ map show errs
         Right () -> pure ()
