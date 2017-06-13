@@ -76,6 +76,19 @@ thesisSignatureInference = do
                 "In every node of the graph, the equations that are discovered by QuickSpec at the nodes that the node has edges to, are added to the signature in that node as background properties."
             s
                 "After running QuickSpec on each node like that, the equations from all nodes without any incoming edges are combined into the final output."
-    section "Evaluation of inference strategies" $
+    section "Evaluation of inference strategies" $ do
         s
             "In this section I will explain how difference inference strategies can be evaluated objectively."
+        s "It is hard to quantify which of two inference strategies is better."
+        l
+            [ "In fact, it is so hard to define what"
+            , quoted "better"
+            , "means when it comes to inference strategies, that the concept of evaluators was developed"
+            ]
+        s
+            "For every run of EasySpec, the evaluation framework remembers the input to EasySpec, the equations that were discovered, and how long the run took."
+        l
+            [ "An evaluator has a name and a way to create a"
+            , haskInline "Maybe Double"
+            , ", given this information about a run of EasySpec"
+            ]
