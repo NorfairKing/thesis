@@ -19,6 +19,7 @@ module DocImport
     , hask
     , haskInline
     , mintedText
+    , mintedTextInline
     , minted
     , mintedInline
     , DocImport.item
@@ -161,6 +162,9 @@ haskInline = mintedInline "haskell"
 
 mintedText :: Text -> Thesis
 mintedText = minted "text"
+
+mintedTextInline :: Text -> Thesis
+mintedTextInline = mintedInline "text"
 
 minted :: Text -> Text -> Thesis
 minted language code = do

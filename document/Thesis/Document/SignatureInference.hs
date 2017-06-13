@@ -6,7 +6,8 @@ module Thesis.Document.SignatureInference
 
 import DocImport
 
--- import Thesis.Document.References
+import qualified Data.Text as T
+
 thesisSignatureInference :: Thesis
 thesisSignatureInference = do
     section "Signature Inference" $ do
@@ -92,3 +93,30 @@ thesisSignatureInference = do
             , haskInline "Maybe Double"
             , ", given this information about a run of EasySpec"
             ]
+        hask $
+            T.unlines
+                [ "data Evaluator = Evaluator"
+                , "    { name :: String"
+                , "    , evaluator :: EvaluationInput -> Maybe Double"
+                , "    }"
+                ]
+        s "We define the following evaluators."
+        itemize $ do
+            item $
+                mintedTextInline "equations" <>
+                ": The number of equations that were found"
+            item $
+                mintedTextInline "runtime" <>
+                ": The amount of time that the run took"
+            item $
+                mintedTextInline "relevant-equations" <>
+                ": The number of relevant equations that were found"
+            item $
+                mintedTextInline "relevant-functions" <>
+                ": The number of relevant functions that were found"
+            item $
+                mintedTextInline "equations-minus-relevant-equations" <>
+                ": The number of irrelevant equations that were found"
+            item $
+                mintedTextInline "relevant-equations-divided-by-runtime" <>
+                ": The number of relevant equations found per unit of time"
