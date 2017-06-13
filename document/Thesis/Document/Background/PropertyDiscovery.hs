@@ -105,6 +105,10 @@ thesisBackgroundPropertyDiscovery =
             , "can be expressed in the above form as follows"
             ]
         hask "p = \\_ -> True"
+        s "Also note that QuickSpec does not show properties in this form."
+        s
+            "In fact, QuickSpec leaves out the left side of the lambda expression, so it would show the above equation as follows."
+        hask "p = True"
         l
             [ "For further details, please refer to the QuickSpec papers"
             , cite quickspecRef
