@@ -43,7 +43,7 @@ thesisSignatureInference = do
                 "It is defined to contain a function that infers a signature from two pieces of data, The focus functions and the complete scope of functions that are available."
             s
                 "The type signature of a signature inference strategy looks a bit like the following."
-            hask "Id -> Id -> InferredSignature"
+            hask "[Id] -> [Id] -> InferredSignature"
             l
                 [ "Here,"
                 , haskInline "Id"
@@ -62,7 +62,7 @@ thesisSignatureInference = do
             l
                 [ "In fact, an"
                 , haskInline "InferredSignature"
-                , "more closely resembles a forest of signatures"
+                , "more closely resembles a directed acyclic graph where nodes represent signatures"
                 ]
         subsection "Running QuickSpec on an inferred signature" $ do
             l
@@ -70,12 +70,12 @@ thesisSignatureInference = do
                 , haskInline "InferredSignature"
                 , "QuickSpec is run as follows"
                 ]
+            s "First, the signatures are sorted topologically."
+            s "Next, QuickSpec is run on each node."
             s
-                "First, QuickSpec is run on the leaves of each tree of signatures."
+                "In every node of the graph, the equations that are discovered by QuickSpec at the nodes that the node has edges to, are added to the signature in that node as background properties."
             s
-                "In every branch of a tree, the equations that are discovered by QuickSpec at the nodes below that branch are added to the signature in that node as background properties."
-            s
-                "After running QuickSpec on each tree of signatures in that way, the discovered properties are simply combined to form the final list of discovered equations."
+                "After running QuickSpec on each node like that, the equations from all nodes without any incoming edges are combined into the final output."
     section "Evaluation of inference strategies" $
         s
             "In this section I will explain how difference inference strategies can be evaluated objectively."
