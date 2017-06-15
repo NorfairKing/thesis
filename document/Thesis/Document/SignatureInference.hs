@@ -22,12 +22,23 @@ thesisSignatureInference = do
             s
                 "The assumption is that a programmer is more interested in the properties that relate a very small number of functions, say one."
             s "This function is called the focus function."
+            s
+                "The new goal is to find the properties that relate the focus functions to the rest of the codebase."
+            s
+                "With respect to this new goal, QuickSpec has at least two problems."
+            itemize $ do
+                item $
+                    s
+                        "QuickSpec will most likely find (a lot) of properties that do not relate the focus functions at all."
+                item $
+                    s
+                        "QuickSpec will take an immense amount of time to run, with respect to the size of the signature it is given."
             l
-                [ "The question then becomes"
+                [ "The question that this work tries to answer is"
                 , dquoted
-                      "How do we choose the signature to give to QuickSpec such that it will find properties of that one focus function?"
+                      "How do we choose the inputs to give to QuickSpec intelligently, such that it will find properties of that one focus function in a reasonable amount of time?"
                 ]
-            "Ideally the signature will be chosen such that:"
+            "Ideally the inputs will be chosen such that:"
             itemize $ do
                 item $
                     s
@@ -35,13 +46,11 @@ thesisSignatureInference = do
                 item $
                     s
                         "QuickSpec does not waste any time finding the properties of the codebase that do not involve the focus function."
-            s
-                "Signature inference is the process of choosing the right signatures to give to QuickSpec, with the above goals."
         subsection "Signature inference strategies" $ do
             s
                 "A signature inference strategy is the general data type that will drive signature inference."
             s
-                "It is defined to contain a function that infers a signature from two pieces of data, The focus functions and the complete scope of functions that are available."
+                "It is defined to contain a function that infers signatures from two pieces of data, The focus functions and the complete scope of functions that are available."
             s
                 "The type signature of a signature inference strategy looks a bit like the following."
             hask "[Id] -> [Id] -> InferredSignature"
@@ -68,7 +77,7 @@ thesisSignatureInference = do
         subsection "Running QuickSpec on an inferred signature" $ do
             l
                 [ "Given an"
-                , haskInline "InferredSignature"
+                , haskInline "InferredSignature" <> ","
                 , "QuickSpec is run as follows"
                 ]
             s "First, the signatures are sorted topologically."

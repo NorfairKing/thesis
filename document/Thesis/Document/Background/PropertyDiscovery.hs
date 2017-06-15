@@ -113,6 +113,6 @@ thesisBackgroundPropertyDiscovery =
             [ "For further details, please refer to the QuickSpec papers"
             , cite quickspecRef
             , cite quickspec2Ref
-            , ", and the QuickCheck package on Hackage"
+            , "and the QuickCheck package on Hackage"
             , cite quickspecHackageRef
             ]

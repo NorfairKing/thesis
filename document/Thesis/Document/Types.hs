@@ -82,4 +82,4 @@ spellCheck text = do
                     map show sugs
   where
     filterBad = T.filter (not . (`elem` badChars))
-    badChars = ['.', ',', ':', '?']
+    badChars = ['.', ',', ':', '?', '(', ')']

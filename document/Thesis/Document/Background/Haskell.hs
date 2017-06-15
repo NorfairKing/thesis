@@ -109,7 +109,7 @@ thesisBackgroundHaskell =
                 , haskInline "elem"
                 , "function is desugared to the following"
                 ]
-            hask "elem :: Dict Eq -> a -> [a] -> Bool"
+            hask "elem :: Dict (Eq a) -> a -> [a] -> Bool"
             l
                 [ "In the above, the new"
                 , haskInline "Dict Eq"
