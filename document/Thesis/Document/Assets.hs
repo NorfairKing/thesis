@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module Thesis.Document.Assets
-    ( Asset(assetPath)
+    ( Asset(..)
     , embedAsset
     , makeAsset
     , registerAsset

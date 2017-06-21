@@ -41,8 +41,7 @@ buildThesisDocumentWithNameIn name bdir bkind = do
 
 startAspell :: Path Abs Dir -> IO Aspell.SpellChecker
 startAspell rd = do
-    let dictAsset = $(embedAsset "custom_dictionary.pws")
-    dictFile <- makeAsset rd dictAsset
+    dictFile <- makeAsset rd $ dictAsset $(embedAsset "custom_wordlist.txt")
     errOrSc <-
         Aspell.spellCheckerWithOptions
             [ Aspell.Dictionary "en_GB"
@@ -52,3 +51,16 @@ startAspell rd = do
     case errOrSc of
         Left err -> die $ unwords ["Unable to start aspell:", show err]
         Right sc -> pure sc
+  where
+    dictAsset wordListAsset =
+        Asset
+        { assetPath = "custom_dictionary.pws"
+        , assetContents =
+              SB8.concat
+                  [ "personal_ws-1.1 en " <>
+                    SB8.pack
+                        (show (length (SB8.lines (assetContents wordListAsset)))) <>
+                    " utf-8\n"
+                  , assetContents wordListAsset
+                  ]
+        }

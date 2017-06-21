@@ -1,4 +1,3 @@
-personal_ws-1.1 en 23 utf-8
 Kerckhove
 GHC
 Dmitriy
