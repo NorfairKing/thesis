@@ -17,6 +17,7 @@ module Thesis.Document.References
     , smartcheckRef
     , fitspecRef
     , smallcheckRef
+    , leancheckRef
     , theHumbleProgrammerRef
     , filteringRef
     , mash2Ref
@@ -279,6 +280,23 @@ smallcheckRef =
         , "address" .= "New York, NY, USA"
         , "keywords" .=
           "embedded language, exhaustive search, lazy evaluation, property-based testing, type classes"
+        ]
+
+leancheckRef :: Reference
+leancheckRef =
+    Reference
+        miscelaneous
+        "matela2017LeanCheck-0.6.2"
+        [ "author" .= "Rudy Matela"
+        , "title" .=
+          "{LeanCheck: Cholesterol-free property-based testing for Haskell}"
+        , "howpublished" .=
+          "\\url{https://hackage.haskell.org/package/leancheck-0.6.2}"
+        , "year" .= "2017"
+        , "month" .= "March"
+        , "version" .= "0.6.2"
+        , "keywords" .= "Haskell, Testing"
+        , "subtype" .= "library"
         ]
 
 filteringRef :: Reference
