@@ -20,9 +20,10 @@ thesisBibliography = do
         , hipspecRef
         , smartcheckRef
         , fitspecRef
-        , leancheckRef
         , filteringRef
         , smallcheckRef
+        , leancheckRef
+        , speculateRef
         , ghcRef
         , mash2Ref
         ]

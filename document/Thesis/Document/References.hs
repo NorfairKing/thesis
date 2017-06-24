@@ -18,6 +18,7 @@ module Thesis.Document.References
     , fitspecRef
     , smallcheckRef
     , leancheckRef
+    , speculateRef
     , theHumbleProgrammerRef
     , filteringRef
     , mash2Ref
@@ -297,6 +298,19 @@ leancheckRef =
         , "version" .= "0.6.2"
         , "keywords" .= "Haskell, Testing"
         , "subtype" .= "library"
+        ]
+
+speculateRef :: Reference
+speculateRef =
+    Reference
+        inproceedings
+        "matela2017Speculate"
+        [ "author" .= "{Rudy Braquehais and Colin Runciman}"
+        , "title" .=
+          "{Speculate: discovering conditional equations and inequalities about black-box functions by reasoning from test results}"
+        , "booktitle" .= "{Haskell'17}"
+        , "year" .= "{2017}"
+        , "publisher" .= "{ACM}"
         ]
 
 filteringRef :: Reference
