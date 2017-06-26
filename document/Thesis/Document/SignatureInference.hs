@@ -90,7 +90,7 @@ thesisSignatureInference = do
         subsection "Empty background" $ do
             l
                 [ "The simplest inference strategy, is the"
-                , mintedTextInline "empty-background"
+                , emptyBackground
                 , "strategy"
                 ]
             s
@@ -99,11 +99,7 @@ thesisSignatureInference = do
                 "This means that this strategy will only find properties that relate the focus functions."
             s "It will completely ignore the rest of the scope."
         subsection "Full background" $ do
-            l
-                [ "The next simplest strategy is the"
-                , mintedTextInline "full-background"
-                , "strategy"
-                ]
+            l ["The next simplest strategy is the", fullBackground, "strategy"]
             s "This strategy resembles the workings of QuickSpec the best."
             s
                 "It also infers a DAG with one node, but this time that node contains the focus functions and also the entire scope."

@@ -27,6 +27,8 @@ module DocImport
     , DocImport.nocite
     , DocImport.packageDep
     , DocImport.packageDep_
+    , emptyBackground
+    , fullBackground
     ) where
 
 import Import as X
@@ -200,3 +202,9 @@ packageDep args = Thesis . LT.packageDep args
 
 packageDep_ :: Text -> Thesis
 packageDep_ = Thesis . LT.packageDep_
+
+emptyBackground :: Thesis
+emptyBackground = mintedTextInline "empty-background"
+
+fullBackground :: Thesis
+fullBackground = mintedTextInline "full-background"

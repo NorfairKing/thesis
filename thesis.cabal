@@ -34,6 +34,7 @@ library
         Thesis.Document.Conclusion
         Thesis.Document.DocTechDetails
         Thesis.Document.EntireDocument
+        Thesis.Document.Evaluation
         Thesis.Document.Introduction
         Thesis.Document.Main
         Thesis.Document.References
