@@ -5,8 +5,9 @@
 module Thesis.Document.Assets
     ( Asset(..)
     , embedAsset
+    , embedExternalAsset
     , makeAsset
-    , registerAsset
+    , withRegisteredAsset
     ) where
 
 import DocImport
@@ -32,6 +33,13 @@ embedAsset assetFp = do
     contents <- runIO (SB.readFile relFile)
     [|Asset {assetPath = fp, assetContents = contents}|]
 
+embedExternalAsset :: Path Abs File -> FilePath -> Q Exp
+embedExternalAsset p relPath = do
+    let fp = toFilePath p
+    qAddDependentFile fp
+    contents <- runIO $ SB.readFile fp
+    [|Asset {assetPath = relPath, assetContents = contents}|]
+
 instance Lift ByteString where
     lift = bsToExp
 
@@ -48,3 +56,8 @@ registerAsset asset =
     registerAction (assetPath asset) $ \rootdir -> do
         rd <- resolveDir' rootdir
         void $ makeAsset rd asset
+
+withRegisteredAsset :: Asset -> (FilePath -> Thesis) -> Thesis
+withRegisteredAsset a func = do
+    registerAsset a
+    func $ assetPath a

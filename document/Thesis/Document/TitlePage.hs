@@ -15,10 +15,12 @@ logo = $(embedAsset "eth-logo.png")
 titlePage :: Thesis
 titlePage =
     titlepage $ do
-        registerAsset logo
-        includegraphics
-            [KeepAspectRatio True, IGWidth $ CustomMeasure $ "0.5" <> textwidth]
-            (assetPath logo)
+        withRegisteredAsset logo $ \logoPath ->
+            includegraphics
+                [ KeepAspectRatio True
+                , IGWidth $ CustomMeasure $ "0.5" <> textwidth
+                ]
+                logoPath
         vfill
         center $ do
             large "Master thesis"

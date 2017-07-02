@@ -6,6 +6,9 @@ module Thesis.Document.Evaluation
 
 import DocImport
 
+import Thesis.Document.Assets
+import Thesis.Document.Dependencies
+
 thesisEvaluation :: Thesis
 thesisEvaluation =
     section "Evaluation" $ do
@@ -16,3 +19,8 @@ thesisEvaluation =
                 , fullBackground
                 , "signature inference strategy still makes it completely unusable for practical use"
                 ]
+        center $
+            withRegisteredAsset assetRuntimePlot $ \runtimePlotFile ->
+                includegraphics
+                    [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+                    runtimePlotFile
