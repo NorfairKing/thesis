@@ -1,6 +1,13 @@
 resolver: lts-8.7
 packages:
 - .
+- location:
+      git: git@github.com:NorfairKing/easyspec.git
+      commit: 94282d47be5ca37aa3c46e2309fd09d3bd5ea876
+  subdirs:
+    - easyspec
+    - easyspec-evaluate
+  extra-dep: true
 extra-deps:
 - haspell-1.1.0
 - lambdatex-0.2.0.0

@@ -24,7 +24,6 @@ import Path
 main :: IO ()
 main =
     ziftWith $ do
-        recursiveZift
         preprocessor $ ziftP [hindentZift, cabalFormatZift]
         prechecker gitAddAllZift
         checker $ do
