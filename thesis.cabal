@@ -61,6 +61,7 @@ library
         optparse-applicative -any,
         path -any,
         path-io -any,
+        quickspec >=2,
         shake -any,
         shake-path -any,
         template-haskell >=2.11 && <2.12,

@@ -1,22 +1,19 @@
 resolver: lts-8.7
 packages:
 - .
-- location: /home/syd/cs-syd/code/open-source/easyspec/easyspec-evaluate
+- location:
+      git: git@github.com:NorfairKing/easyspec.git
+      commit: 37eb4bdf1fe61e7a6b93fa94ed14dde5591931e3
+  subdirs:
+    - easyspec
+    - easyspec-evaluate
   extra-dep: true
-- location: /home/syd/cs-syd/code/open-source/easyspec/easyspec
-  extra-dep: true
-  # - location:
-  #       git: git@github.com:NorfairKing/easyspec.git
-  #       commit: 94282d47be5ca37aa3c46e2309fd09d3bd5ea876
-  #   subdirs:
-  #     - easyspec
-  #     - easyspec-evaluate
 - location:
     git: git@github.com:NorfairKing/quickspec.git
     commit: 58d2c4ef66da806f938281159dc66bf2a9d062a1
   extra-dep: true
 extra-deps:
-- quickspec-0.9.6
+- quickspec-2
 - easyspec-0.0.0.0
 - easyspec-evaluate-0.0.0.0
 - haspell-1.1.0

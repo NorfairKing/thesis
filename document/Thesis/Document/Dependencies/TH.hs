@@ -1,10 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Thesis.Document.Dependencies.TH
     ( makeDependencyAssets
     ) where
 
 import Import
+
+import Development.Shake
 
 import Language.Haskell.TH
 
@@ -20,6 +20,12 @@ makeDependencyAssets trips = do
         withCurrentDir bd $ do
             cd <- getCurrentDir
             print cd
+            cmd
+                "stack"
+                "build"
+                ":easyspec-evaluate"
+                "--exec"
+                ["easyspec-evaluate build raw-data"] :: IO ()
             EE.runBuildEverything
     fmap concat $
         forM trips $ \(n, p, genPath) -> do
