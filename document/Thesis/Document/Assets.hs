@@ -47,7 +47,14 @@ makeAsset :: Path Abs Dir -> Asset -> IO (Path Abs File)
 makeAsset rd Asset {..} = do
     dstPath <- resolveFile rd assetPath
     ensureDir $ parent dstPath
-    SB.writeFile (toFilePath dstPath) assetContents
+    exists <- doesFileExist dstPath
+    let makeIt = SB.writeFile (toFilePath dstPath) assetContents
+    if exists
+    then do
+        contents <- SB.readFile (toFilePath dstPath)
+        unless (contents == assetContents)
+            makeIt
+    else makeIt
     pure dstPath
 
 registerAsset :: Asset -> Thesis
@@ -56,6 +63,7 @@ registerAsset asset =
     registerAction (assetPath asset) $ \rootdir -> do
         rd <- resolveDir' rootdir
         void $ makeAsset rd asset
+
 
 withRegisteredAsset :: Asset -> (FilePath -> Thesis) -> Thesis
 withRegisteredAsset a func = do

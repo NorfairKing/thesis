@@ -32,3 +32,9 @@ usecolortheme =
 
 url :: Text -> Thesis
 url = comm1 "url" . raw
+
+f :: Thesis -> Thesis -> Thesis
+f title content =
+    frame $ do
+        frametitle title
+        content
