@@ -1,14 +1,14 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE ConstraintKinds #-}
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE ConstraintKinds #-}
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE ScopedTypeVariables
+ , ConstraintKinds
+ , RankNTypes
+ , ConstraintKinds
+ , FlexibleContexts #-}
 
 module MySortQuickSpec where
 
+import Control.Monad
 import MySort
 import QuickSpec
-import Control.Monad
 
 main :: IO ()
 main =
@@ -16,7 +16,10 @@ main =
     quickSpec
         signature
         { constants =
-              [ constant "mySort" (mkDict mySort :: Dict (Ord A) -> [A] -> [A])
+              [ constant "True" (True :: Bool)
+              , constant "<" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)
+              , constant "<=" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)
+              , constant "mySort" (mkDict mySort :: Dict (Ord A) -> [A] -> [A])
               , constant
                     "myIsSorted"
                     (mkDict myIsSorted :: Dict (Ord A) -> [A] -> Bool)

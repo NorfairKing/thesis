@@ -10,6 +10,7 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Assets
+import Thesis.Document.Dependencies
 
 propertyDiscovery :: Thesis
 propertyDiscovery =
@@ -26,13 +27,31 @@ propertyDiscovery =
                     , "    assertTrue itWorked"
                     ]
         g "Example code" $ haskFile $(embedAsset "MySort.hs")
-        g "Properties" $ verbatimFile $(embedAsset "MySortQuickSpecOutput.txt")
-        g "QuickSpec" $
-            tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
+        g "Properties" $
+            footnotesize $
+            verbatimFile $(embedAsset "MySortQuickSpecOutput.txt")
+        g "QuickSpec" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
+        g "Problems" $
+            enumerate $ do
+                item
+                    "Programmer has to write code for all functions of interest"
+                item "Only for monomorphic functions"
+                footnotesize $
+                    hask
+                        "constant \"<\" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)"
+                item "Slow"
+                lnbk
+                center $ withRegisteredAsset assetRuntimePlot $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure $ "0.64" <> textwidth
+                        ]
+                        fp
 
 haskFile :: Asset -> Thesis
 haskFile = mintedFile "haskell"
 
+verbatimFile :: Asset -> Thesis
 verbatimFile = mintedFile "text"
 
 mintedFile :: Text -> Asset -> Thesis
