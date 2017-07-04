@@ -5,8 +5,10 @@ import Import
 import Development.Shake
 import Development.Shake.Path
 
-import Thesis.Document.Main
+import Thesis.Document.EntireDocument
 import Thesis.Document.Types
+import Thesis.LaTeXTarget
+import Thesis.Presentation.EntirePresentation
 import Thesis.Utils
 
 thesisDraftRule :: String
@@ -17,13 +19,18 @@ thesisFinalRule = "final"
 
 documentRules :: Rules ()
 documentRules = do
-    rulesForDocumentWithName "draft" BuildDraft >>=
-        (\df -> thesisDraftRule ~> needP [df])
-    rulesForDocumentWithName "final" BuildFinal >>=
-        (\df -> thesisFinalRule ~> needP [df])
+    simpleRule "draft" BuildDraft entireDocument
+    simpleRule "final" BuildFinal entireDocument
+    simpleRule "draft-presentation" BuildDraft entirePresentation
+    simpleRule "final-presentation" BuildFinal entirePresentation
 
-rulesForDocumentWithName :: String -> BuildKind -> Rules (Path Abs File)
-rulesForDocumentWithName name bkind = do
+simpleRule :: String -> BuildKind -> Thesis -> Rules ()
+simpleRule name build doc =
+    rulesForDocumentWithName name build doc >>= (\df -> name ~> needP [df])
+
+rulesForDocumentWithName ::
+       String -> BuildKind -> Thesis -> Rules (Path Abs File)
+rulesForDocumentWithName name bkind document = do
     absTmpDir <- liftIO $ makeAbsolute tmpDir
     let tmpFile = liftIO . resolveFile absTmpDir
     texFile <- tmpFile $ name ++ ".tex"
@@ -36,7 +43,7 @@ rulesForDocumentWithName name bkind = do
                 , "and"
                 , toFilePath bibFile
                 ]
-        liftIO $ buildThesisDocumentWithNameIn name absTmpDir bkind
+        liftIO $ buildLaTexTargetWithNameIn name absTmpDir bkind document
     tmpPdfFile <- tmpFile $ name ++ ".pdf"
     tmpPdfFile $%> do
         needP [texFile, bibFile]
@@ -50,6 +57,7 @@ rulesForDocumentWithName name bkind = do
             , "-pdf"
             , "-shell-escape"
             , "-halt-on-error"
+            , "-interaction=nonstopmode"
             , toFilePath $ filename texFile
             ]
     absOutDir <- liftIO $ makeAbsolute outDir

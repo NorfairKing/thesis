@@ -1,9 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Thesis.Document.Main
-    ( buildThesisDocumentWithNameIn
-    ) where
+module Thesis.LaTeXTarget where
 
 import Import hiding (All)
 
@@ -14,14 +12,14 @@ import Control.Monad.Reader
 import Text.LaTeX.LambdaTeX
 
 import Thesis.Document.Assets
-import Thesis.Document.EntireDocument
 import Thesis.Document.Types
 
 import qualified Language.Aspell as Aspell
 import qualified Language.Aspell.Options as Aspell
 
-buildThesisDocumentWithNameIn :: String -> Path Abs Dir -> BuildKind -> IO ()
-buildThesisDocumentWithNameIn name bdir bkind = do
+buildLaTexTargetWithNameIn ::
+       String -> Path Abs Dir -> BuildKind -> Thesis -> IO ()
+buildLaTexTargetWithNameIn name bdir bkind document = do
     let config =
             ProjectConfig
             { projectGenerationConfig =
@@ -34,7 +32,7 @@ buildThesisDocumentWithNameIn name bdir bkind = do
     let env =
             ThesisEnv
             {spellChecker = sc, buildKind = bkind, projectConfig = config}
-    eet <- runReaderT (buildLaTeXProject (unThesis entireDocument) config) env
+    eet <- runReaderT (buildLaTeXProject (unThesis document) config) env
     case eet of
         Left errs -> die $ unlines $ map show errs
         Right () -> pure ()

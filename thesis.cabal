@@ -12,18 +12,18 @@ author: Tom Sydney Kerckhove
 
 library
     exposed-modules:
-        Import
-        DocImport
         Thesis
         Thesis.Build
         Thesis.Constants
         Thesis.Document
         Thesis.OptParse
+        Thesis.LaTeXTarget
         Thesis.OptParse.Types
         Thesis.SendDraft
         Thesis.ShakeBuild
         Thesis.Types
         Thesis.Utils
+        Thesis.Presentation.EntirePresentation
         Thesis.Document.Abstract
         Thesis.Document.Assets
         Thesis.Document.Background
@@ -38,7 +38,6 @@ library
         Thesis.Document.EntireDocument
         Thesis.Document.Evaluation
         Thesis.Document.Introduction
-        Thesis.Document.Main
         Thesis.Document.References
         Thesis.Document.SignatureInference
         Thesis.Document.TitlePage
@@ -71,6 +70,10 @@ library
     default-language: Haskell2010
     default-extensions: NoImplicitPrelude
     hs-source-dirs: build/src/ document/
+    other-modules:
+        Import
+        DocImport
+        PresImport
     ghc-options: -Wall
 
 executable thesis

@@ -12,11 +12,7 @@ import Development.Shake.Path
 import Thesis.ShakeBuild
 
 build :: Maybe String -> IO ()
-build mtarget =
-    buildWithThesisShake $
-    case mtarget of
-        Nothing -> ["draft"]
-        Just target -> [target]
+build mtarget = buildWithThesisShake $ (: []) $ fromMaybe "draft" mtarget
 
 buildWithThesisShake :: [String] -> IO ()
 buildWithThesisShake args = do
