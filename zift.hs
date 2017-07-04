@@ -47,5 +47,12 @@ main =
                        (init out2 ++ "/bin/thesis")
                        "build"
                printZift out3
+               Stdout out4 <-
+                   liftIO $
+                   cmd
+                       (Cwd $ toFilePath rd)
+                       (init out2 ++ "/bin/thesis")
+                       "build draft-presentation"
+               printZift out4
             hlintZift
             stackBuildZift

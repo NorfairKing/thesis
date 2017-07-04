@@ -34,7 +34,19 @@ url :: Text -> Thesis
 url = comm1 "url" . raw
 
 f :: Thesis -> Thesis -> Thesis
-f title content =
+f t_ content =
     frame $ do
-        frametitle title
+        frametitle t_
         content
+
+g :: Thesis -> Thesis -> Thesis
+g t_ content =
+    fragileFrame $ do
+        frametitle t_
+        content
+
+fragileFrame :: Thesis -> Thesis
+fragileFrame content = do
+    raw "\n\\begin{frame}[fragile]\n"
+    content
+    raw "\n\\end{frame}\n" -- This must not be indented or have comments behind it.

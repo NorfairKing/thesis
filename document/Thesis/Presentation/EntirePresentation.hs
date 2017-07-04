@@ -7,9 +7,7 @@ module Thesis.Presentation.EntirePresentation
 
 import PresImport
 
-import Development.Shake
-import System.Directory
-import System.FilePath
+import qualified Data.Text as T
 
 import Thesis.Document.Assets
 
@@ -55,23 +53,24 @@ entirePresentation = do
 motivation :: Thesis
 motivation = do
     let d :: Thesis -> Thesis -> Thesis
-        d a t = do
+        d a_ t_ = do
             pause
-            a <> ": "
-            t
+            a_ <> ": "
+            t_
             lnbk
     let user = d "user"
     let mach = d "machine"
     let math = d "maths"
     section "Motivation" $ do
         f "Motivation" $ center "Writing correct software is hard for humans."
+        comment "Bear with me, this part is relevant!"
         lightbulbslide
         f "Motivation" $ center "Make machines do it!"
         comment
             "I like to imagine the process of software development as a dialogue between me and a very picky and very literal person"
         f "Making machines write correct code" $ do
             user "I want a function to sort stuff"
-            mach "What does 'sort' mean?"
+            mach "What does it mean to sort?"
             mach "What stuff?"
             mach "What is a function?"
             user "Oh dear, never mind, I will just do it myself."
@@ -93,47 +92,71 @@ motivation = do
         f "Motivation" $
             center
                 "I will write the code myself, and get the machine to test that it works."
-        f "Making machines test that my code works" $ do
-            insertGif $(embedAsset "typing.gif")
+        g "Making machines test that my code works" $ do
+            only [FromSlide 2] $ raw "\\setminted{highlightlines=3}"
+            hask $
+                T.unlines
+                    [ "runMyTests :: IO ()"
+                    , "runMyTests = do"
+                    , "  result <- runMyCode anExampleInput"
+                    , "  itWorked <- didItWork anExampleInput result"
+                    , "  assertTrue itWorked"
+                    ]
+            pause
+            pause
+            vfill
+            withRegisteredAsset $(embedAsset "code-coverage.png") $ \fp1 ->
+                includegraphics
+                    [ KeepAspectRatio True
+                    , IGWidth $ CustomMeasure $ "0.64" <> textwidth
+                    ]
+                    fp1
+            hfill
+            pause
+            withRegisteredAsset $(embedAsset "cost.png") $ \fp2 ->
+                includegraphics
+                    [ KeepAspectRatio True
+                    , IGWidth $ CustomMeasure $ "0.30" <> textwidth
+                    ]
+                    fp2
+        pictureSlide
+            "Fixing the coverage problem"
+            $(embedAsset "code-coverage.png")
+        g "Property testing" $ do
+            only [OneSlide 2] $ raw "\\setminted{highlightlines=3}"
+            only [OneSlide 3] $ raw "\\setminted{highlightlines=5}"
+            hask $
+                T.unlines
+                    [ "runMyTests :: IO ()"
+                    , "runMyTests ="
+                    , "  forall genValid $ \\validInput ->"
+                    , "    result <- runMyCode validInput"
+                    , "    itWorked <- didItWork validInput result"
+                    , "    assertTrue itWorked"
+                    ]
+            only [FromSlide 2] $
+                center $
+                withRegisteredAsset $(embedAsset "cost2.png") $ \fp2 ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure $ "0.20" <> textwidth
+                        ]
+                        fp2
+        pictureSlide "The last piece of the puzzle" $(embedAsset "puzzle.jpg")
 
-insertGif :: Asset -> Thesis
-insertGif asset = do
-    let rap = assetPath asset
-    let pngp = rap -<.> "png"
-    t $
-        registerAction (assetPath asset) $ \rootdir -> do
-            rd <- resolveDir' rootdir
-            makeAsset rd asset
-            cmd
-                (Cwd rootdir)
-                ("convert" :: String)
-                ("-coalesce" :: String)
-                rap
-                pngp :: IO ()
-    packageDep_ "animate"
-    let prefix = dropExtensions pngp <> "-"
-    n <-
-        liftIO $ do
-            cd <- getCurrentDirectory
-            fs <- listDirectory (takeDirectory rap)
-            let fs' = catMaybes $ map (stripPrefix cd) fs
-            pure $ length $ filter (isPrefixOf prefix) fs'
-    raw $
-        mconcat
-            [ "\\animategraphics[loop,controls,width=\\linewidth]{12}{"
-            , fromString prefix
-            , "}{0}{"
-            , fromString (show n)
-            , "}"
-            ]
+pictureSlide :: Thesis -> Asset -> Thesis
+pictureSlide title_ asset =
+    f title_ $
+    withRegisteredAsset asset $ \fp ->
+        includegraphics
+            [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+            fp
 
 lightbulbslide :: Thesis
 lightbulbslide =
     f "Idea" $
-    figure (Just Center) $ do
-        withRegisteredAsset $(embedAsset "lightbulb.png") $ \fp ->
-            includegraphics
-                [ KeepAspectRatio True
-                , IGWidth $ CustomMeasure $ "0.3" <> textwidth
-                ]
-                fp
+    figure (Just Center) $
+    withRegisteredAsset $(embedAsset "lightbulb.png") $ \fp ->
+        includegraphics
+            [KeepAspectRatio True, IGWidth $ CustomMeasure $ "0.3" <> textwidth]
+            fp
