@@ -16,14 +16,6 @@ library
         Thesis.Build
         Thesis.Constants
         Thesis.Document
-        Thesis.OptParse
-        Thesis.LaTeXTarget
-        Thesis.OptParse.Types
-        Thesis.SendDraft
-        Thesis.ShakeBuild
-        Thesis.Types
-        Thesis.Utils
-        Thesis.Presentation.EntirePresentation
         Thesis.Document.Abstract
         Thesis.Document.Assets
         Thesis.Document.Background
@@ -42,6 +34,16 @@ library
         Thesis.Document.SignatureInference
         Thesis.Document.TitlePage
         Thesis.Document.Types
+        Thesis.LaTeXTarget
+        Thesis.OptParse
+        Thesis.OptParse.Types
+        Thesis.Presentation.EntirePresentation
+        Thesis.Presentation.Motivation
+        Thesis.Presentation.PropertyDiscovery
+        Thesis.SendDraft
+        Thesis.ShakeBuild
+        Thesis.Types
+        Thesis.Utils
     build-depends:
         base >=4.9 && <=5,
         HaTeX >=3.17 && <3.18,

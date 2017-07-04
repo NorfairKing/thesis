@@ -50,3 +50,20 @@ fragileFrame content = do
     raw "\n\\begin{frame}[fragile]\n"
     content
     raw "\n\\end{frame}\n" -- This must not be indented or have comments behind it.
+
+pictureSlide :: Thesis -> Asset -> Thesis
+pictureSlide title_ asset =
+    f title_ $
+    withRegisteredAsset asset $ \fp ->
+        includegraphics
+            [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+            fp
+
+lightbulbslide :: Thesis
+lightbulbslide =
+    f "Idea" $
+    figure (Just Center) $
+    withRegisteredAsset $(embedAsset "lightbulb.png") $ \fp ->
+        includegraphics
+            [KeepAspectRatio True, IGWidth $ CustomMeasure $ "0.3" <> textwidth]
+            fp

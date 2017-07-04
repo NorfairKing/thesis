@@ -22,6 +22,7 @@ module DocImport
     , mintedTextInline
     , minted
     , mintedInline
+    , comm2
     , DocImport.item
     , DocImport.cite
     , DocImport.nocite

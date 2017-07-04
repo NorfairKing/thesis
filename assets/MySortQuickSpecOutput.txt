@@ -1,0 +1,6 @@
+== Signature ==                                                                   
+    mySort :: Ord a => [a] -> [a]
+myIsSorted :: Ord a => [a] -> Bool
+
+== Laws ==
+  1. mySort (mySort xs) = mySort xs
