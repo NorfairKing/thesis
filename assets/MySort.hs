@@ -13,4 +13,3 @@ myIsSorted :: Ord a => [a] -> Bool
 myIsSorted [] = True
 myIsSorted [_] = True
 myIsSorted (x:y:ls) = x <= y && myIsSorted (y : ls)
-
