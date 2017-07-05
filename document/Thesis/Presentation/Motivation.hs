@@ -90,7 +90,7 @@ motivation = do
                 T.unlines
                     [ "runMyTests :: IO ()"
                     , "runMyTests ="
-                    , "  forall genInput $ \\input ->"
+                    , "  forAll genInput $ \\input ->"
                     , "    result <- runMyCode input"
                     , "    itWorked <- didItWork validInput result"
                     , "    assertTrue itWorked"

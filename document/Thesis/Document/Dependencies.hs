@@ -6,6 +6,8 @@ module Thesis.Document.Dependencies
     ( assetRuntimePlot
     ) where
 
+import EasySpec.Discover.SignatureInference
+
 import EasySpec.Evaluate.Analyse.Plots.BarsPerGroup
 import EasySpec.Evaluate.Analyse.Plots.Plotter
 import EasySpec.Evaluate.Evaluate.Evaluator
@@ -17,6 +19,8 @@ $(makeDependencyAssets
       [ ( "assetRuntimePlot"
         , "runtime-plot.png"
         , plotFileFor
-              barsPerGroupEvaluatorsPlotter
-              ("runtime", UnorderedDistinct scopeSizeEvaluator runtimeEvaluator))
+              barsPerGroupEvaluatorsStrategyPlotter
+              ( "runtime"
+              , inferFullBackground
+              , UnorderedDistinct scopeSizeEvaluator runtimeEvaluator))
       ])

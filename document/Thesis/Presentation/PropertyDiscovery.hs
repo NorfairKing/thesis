@@ -21,7 +21,7 @@ propertyDiscovery =
                 T.unlines
                     [ "runMyTests :: IO ()"
                     , "runMyTests ="
-                    , "  forall genInput $ \\input ->"
+                    , "  forAll genInput $ \\input ->"
                     , "    result <- runMyCode input"
                     , "    itWorked <- didItWork validInput result"
                     , "    assertTrue itWorked"
@@ -41,12 +41,13 @@ propertyDiscovery =
                         "constant \"<\" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)"
                 item "Slow"
                 lnbk
-                center $ withRegisteredAsset assetRuntimePlot $ \fp ->
-                    includegraphics
-                        [ KeepAspectRatio True
-                        , IGWidth $ CustomMeasure $ "0.64" <> textwidth
-                        ]
-                        fp
+                center $
+                    withRegisteredAsset assetRuntimePlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure $ "0.64" <> textwidth
+                            ]
+                            fp
 
 haskFile :: Asset -> Thesis
 haskFile = mintedFile "haskell"
