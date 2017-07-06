@@ -1,5 +1,7 @@
-{-# LANGUAGE ScopedTypeVariables, ConstraintKinds, RankNTypes,
-  ConstraintKinds, FlexibleContexts #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE ConstraintKinds #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 module MySortQuickSpec where
 

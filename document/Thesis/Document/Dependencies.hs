@@ -22,5 +22,5 @@ $(makeDependencyAssets
               barsPerGroupEvaluatorsStrategyPlotter
               ( "runtime"
               , inferFullBackground
-              , UnorderedDistinct scopeSizeEvaluator runtimeEvaluator))
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
       ])

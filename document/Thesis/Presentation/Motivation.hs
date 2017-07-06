@@ -22,11 +22,11 @@ motivation = do
     let user = d "user"
     let mach = d "machine"
     let math = d "maths"
-    section "Long-term vision to wake the audience up" $
-        f "Long-term vision" $ do
+    section "Long term vision to wake the audience up" $
+        f "Long term vision" $ do
             center "Never come up with tests manually again."
-            comment "Spoiler: we're well on our way, and I'm going to show you a significant step in that direction."
-
+            comment
+                "Spoiler: we're well on our way, and I'm going to show you a significant step in that direction."
     section "Motivation" $ do
         f "Motivation" $ center "Writing correct software is hard for humans."
         comment "Bear with me, this part is relevant!"

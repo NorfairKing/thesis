@@ -37,7 +37,8 @@ propertyDiscovery =
                 T.unlines
                     [ "constant \"<\" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)"
                     ]
-        f "Problems with QuickSpec: code" $
+        f
+            "Problems with QuickSpec: code"
             "Programmer has to write code for all functions of interest"
         f "Problems with QuickSpec: speed" $ do
             "QuickSpec is slow"
