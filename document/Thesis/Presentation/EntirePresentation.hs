@@ -6,11 +6,11 @@ module Thesis.Presentation.EntirePresentation
 
 import PresImport
 
-import qualified Data.Text as T
-
 import Thesis.Document.Assets
+import Thesis.Presentation.AboutMe
 import Thesis.Presentation.Motivation
 import Thesis.Presentation.PropertyDiscovery
+import Thesis.Presentation.Vision
 
 entirePresentation :: Thesis
 entirePresentation = do
@@ -39,20 +39,7 @@ entirePresentation = do
     -- The presentation
     document $ do
         maketitle
-        f "Me" $ do
-            "I have a vague idea about what I am talking about."
-            lnbk
-            "Student at ETH"
-            lnbk
-            "Previously at Facebook, writing Haskell"
-            lnbk
-            "Teaching Assistant at ETH, teaching Haskell"
-            lnbk
-            "Research Assistant at ETH, writing Haskell"
-            lnbk
-            "Consultant at CS Kerckhove, consulting in Haskell"
-            lnbk
-            "Looking for a job!"
-            lnbk
+        vision
+        aboutme
         motivation
         propertyDiscovery

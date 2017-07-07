@@ -37,9 +37,11 @@ library
         Thesis.LaTeXTarget
         Thesis.OptParse
         Thesis.OptParse.Types
+        Thesis.Presentation.AboutMe
         Thesis.Presentation.EntirePresentation
         Thesis.Presentation.Motivation
         Thesis.Presentation.PropertyDiscovery
+        Thesis.Presentation.Vision
         Thesis.SendDraft
         Thesis.ShakeBuild
         Thesis.Types

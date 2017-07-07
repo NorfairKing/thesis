@@ -16,15 +16,17 @@ propertyDiscovery :: Thesis
 propertyDiscovery =
     section "Property Discovery" $ do
         g "Property Discovery" $ do
-            only [OneSlide 1] $ raw "\\setminted{highlightlines=5}"
+            only [OneSlide 1] $ raw "\\setminted{highlightlines=8}"
             hask $
                 T.unlines
                     [ "runMyTests :: IO ()"
                     , "runMyTests ="
-                    , "  forAll genInput $ \\input ->"
-                    , "    result <- runMyCode input"
-                    , "    itWorked <- didItWork validInput result"
-                    , "    assertTrue itWorked"
+                    , "  forAll"
+                    , "    arbitrary"
+                    , "      $ \\ls ->"
+                    , "        sort ls"
+                    , "          `shouldSatisfy`"
+                    , "            isSorted"
                     ]
         g "Example code" $ haskFile $(embedAsset "MySort.hs")
         g "Properties" $

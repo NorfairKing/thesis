@@ -22,11 +22,6 @@ motivation = do
     let user = d "user"
     let mach = d "machine"
     let math = d "maths"
-    section "Long term vision to wake the audience up" $
-        f "Long term vision" $ do
-            center "Never come up with tests manually again."
-            comment
-                "Spoiler: we're well on our way, and I'm going to show you a significant step in that direction."
     section "Motivation" $ do
         f "Motivation" $ center "Writing correct software is hard for humans."
         comment "Bear with me, this part is relevant!"
@@ -63,10 +58,10 @@ motivation = do
             hask $
                 T.unlines
                     [ "runMyTests :: IO ()"
-                    , "runMyTests = do"
-                    , "  result <- runMyCode anExampleInput"
-                    , "  itWorked <- didItWork anExampleInput result"
-                    , "  assertTrue itWorked"
+                    , "runMyTests ="
+                    , " sort [4, 1, 6]"
+                    , "   `shouldBe`"
+                    , "     [1, 4, 6]"
                     ]
             pause
             pause
@@ -89,16 +84,18 @@ motivation = do
             "Fixing the coverage problem"
             $(embedAsset "code-coverage.png")
         g "Property testing" $ do
-            only [OneSlide 2] $ raw "\\setminted{highlightlines=3}"
-            only [OneSlide 3] $ raw "\\setminted{highlightlines=5}"
+            only [OneSlide 2] $ raw "\\setminted{highlightlines=4}"
+            only [OneSlide 3] $ raw "\\setminted{highlightlines=8}"
             hask $
                 T.unlines
                     [ "runMyTests :: IO ()"
                     , "runMyTests ="
-                    , "  forAll genInput $ \\input ->"
-                    , "    result <- runMyCode input"
-                    , "    itWorked <- didItWork validInput result"
-                    , "    assertTrue itWorked"
+                    , "  forAll"
+                    , "    arbitrary"
+                    , "      $ \\ls ->"
+                    , "        sort ls"
+                    , "          `shouldSatisfy`"
+                    , "            isSorted"
                     ]
             only [FromSlide 2] $
                 center $
