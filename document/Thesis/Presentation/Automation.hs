@@ -72,5 +72,24 @@ automation = do
             hask $ "quickSpec :: Signature -> IO Signature"
             comment
                 "QuickSpec finds all properties of all functions in the signature"
-        g "Automatic Monomorphisation" $ pure ()
-        g "Signature Expression Generation" $ pure ()
+        g "Automatic Monomorphisation" $ do
+            hask "filter :: (a -> Bool) -> [a] -> [a]"
+            center "becomes"
+            hask "filter :: (A -> Bool) -> [A] -> [A]"
+            vfill
+            hask "sort :: Ord a => [a] -> [a]"
+            center "becomes"
+            hask "sort :: Dict (Ord A) => [A] -> [A]"
+        g "Signature Expression Generation" $ do
+            enumerate $ do
+                item "Find all functions in scope"
+                hask "sort :: Ord a => [a] -> [a]"
+                item "Make them Monomorphic"
+                hask "sort :: Dict (Ord A) => [A] -> [A]"
+                item "Make expressions for QuickSpec"
+                hask $
+                    T.unlines
+                        [ "constant \"sort\""
+                        , "  (mkDict sort :: Dict (Ord A) => [A] -> [A])"
+                        ]
+                item "Make a signature expression"
