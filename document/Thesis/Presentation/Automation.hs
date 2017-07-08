@@ -90,6 +90,14 @@ automation = do
                 hask $
                     T.unlines
                         [ "constant \"sort\""
-                        , "  (mkDict sort :: Dict (Ord A) => [A] -> [A])"
+                        , "  (mkDict sort :: Dict (Ord A) -> [A] -> [A])"
                         ]
                 item "Make a signature expression"
+        g "Current situation" $ do
+            mintedTextInline "$ cat Reverse.hs"
+            haskFile $(embedAsset "Reverse.hs")
+            vfill
+            mintedTextInline "$ easyspec discover Reverse.hs"
+            mintedText $
+                T.unlines
+                    ["reverse (reverse xs) = xs", "sort (reverse xs) = sort xs"]

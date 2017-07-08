@@ -11,6 +11,7 @@ import Thesis.Presentation.AboutMe
 import Thesis.Presentation.Automation
 import Thesis.Presentation.Motivation
 import Thesis.Presentation.PropertyDiscovery
+import Thesis.Presentation.SignatureInference
 import Thesis.Presentation.Vision
 
 entirePresentation :: Thesis
@@ -45,3 +46,4 @@ entirePresentation = do
         motivation
         propertyDiscovery
         automation
+        signatureInference

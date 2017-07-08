@@ -42,6 +42,7 @@ library
         Thesis.Presentation.EntirePresentation
         Thesis.Presentation.Motivation
         Thesis.Presentation.PropertyDiscovery
+        Thesis.Presentation.SignatureInference
         Thesis.Presentation.Vision
         Thesis.SendDraft
         Thesis.ShakeBuild
