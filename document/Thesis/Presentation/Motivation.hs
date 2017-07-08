@@ -54,17 +54,10 @@ motivation = do
             center
                 "I will write the code myself, and get the machine to test that it works."
         g "Making machines test that my code works" $ do
-            only [FromSlide 2] $ raw "\\setminted{highlightlines=3}"
+            only [FromSlide 1] $ do raw "\\setminted{highlightlines={2,4}}"
             hask $
                 T.unlines
-                    [ "runMyTests :: IO ()"
-                    , "runMyTests ="
-                    , " sort [4, 1, 6]"
-                    , "   `shouldBe`"
-                    , "     [1, 4, 6]"
-                    ]
-            pause
-            pause
+                    [" sort", "  [4, 1, 6]", "   `shouldBe`", "     [1, 4, 6]"]
             vfill
             withRegisteredAsset $(embedAsset "code-coverage.png") $ \fp1 ->
                 includegraphics
@@ -73,8 +66,7 @@ motivation = do
                     ]
                     fp1
             hfill
-            pause
-            withRegisteredAsset $(embedAsset "cost.png") $ \fp2 ->
+            withRegisteredAsset $(embedAsset "bitcoin-coin-single.pdf") $ \fp2 ->
                 includegraphics
                     [ KeepAspectRatio True
                     , IGWidth $ CustomMeasure $ "0.30" <> textwidth
@@ -84,25 +76,26 @@ motivation = do
             "Fixing the coverage problem"
             $(embedAsset "code-coverage.png")
         g "Property testing" $ do
-            only [OneSlide 2] $ raw "\\setminted{highlightlines=4}"
-            only [OneSlide 3] $ raw "\\setminted{highlightlines=8}"
+            only [OneSlide 1] $ raw "\\setminted{highlightlines=1}"
+            only [OneSlide 2] $ raw "\\setminted{highlightlines=2}"
+            only [OneSlide 3] $ raw "\\setminted{highlightlines=6}"
             hask $
                 T.unlines
-                    [ "runMyTests :: IO ()"
-                    , "runMyTests ="
-                    , "  forAll"
+                    [ "  forAll"
                     , "    arbitrary"
                     , "      $ \\ls ->"
                     , "        sort ls"
                     , "          `shouldSatisfy`"
                     , "            isSorted"
                     ]
+            pause
             only [FromSlide 2] $
                 center $
-                withRegisteredAsset $(embedAsset "cost2.png") $ \fp2 ->
+                withRegisteredAsset $(embedAsset "bitcoin-coin.pdf") $ \fp2 ->
                     includegraphics
                         [ KeepAspectRatio True
-                        , IGWidth $ CustomMeasure $ "0.20" <> textwidth
+                        , IGWidth $ CustomMeasure $ "0.40" <> textwidth
                         ]
                         fp2
-        pictureSlide "The last piece of the puzzle" $(embedAsset "puzzle.jpg")
+            pause
+        pictureSlide "Fixing the cost problem" $(embedAsset "bitcoin-coin.pdf")

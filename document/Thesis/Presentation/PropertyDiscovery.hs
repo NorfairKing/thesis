@@ -16,36 +16,49 @@ propertyDiscovery :: Thesis
 propertyDiscovery =
     section "Property Discovery" $ do
         g "Property Discovery" $ do
-            only [OneSlide 1] $ raw "\\setminted{highlightlines=8}"
+            only [OneSlide 1] $ raw "\\setminted{highlightlines=6}"
             hask $
                 T.unlines
-                    [ "runMyTests :: IO ()"
-                    , "runMyTests ="
-                    , "  forAll"
+                    [ "  forAll"
                     , "    arbitrary"
                     , "      $ \\ls ->"
                     , "        sort ls"
                     , "          `shouldSatisfy`"
                     , "            isSorted"
                     ]
-        g "Example code" $ haskFile $(embedAsset "MySort.hs")
-        g "Properties" $
+        g "Example code" $ do
+            raw "\\setminted{highlightlines={3, 12}}"
+            haskFile $(embedAsset "MySort.hs")
+        g "QuickSpec Code" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
+        g "Property discovery using QuickSpec" $ do
+            raw "\\setminted{highlightlines={12-15}}"
             footnotesize $
-            verbatimFile $(embedAsset "MySortQuickSpecOutput.txt")
-        g "QuickSpec" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
-        g "Problems with QuickSpec: monomorphisation" $ do
+                verbatimFile $(embedAsset "MySortQuickSpecOutput.txt")
+        g "Problems with QuickSpec: Monomorphisation" $ do
             "Only for monomorphic functions"
             hask $
                 T.unlines
-                    [ "constant \"<\" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)"
+                    [ "constant \"<\""
+                    , "  (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)"
                     ]
-        f
-            "Problems with QuickSpec: code"
+        f "Problems with QuickSpec: Code" $ do
             "Programmer has to write code for all functions of interest"
-        f "Problems with QuickSpec: speed" $ do
-            "QuickSpec is slow"
-            pause
-            "Dumb version of the approach:"
+            lnbk
+            withRegisteredAsset $(embedAsset "MySort.hs") $ \fp -> do
+                contents <- liftIO $ readFile fp
+                l
+                    [ raw $ fromString $ show $ length $ lines contents
+                    , "lines of subject code"
+                    ]
+            lnbk
+            withRegisteredAsset $(embedAsset "MySortQuickSpec.hs") $ \fp -> do
+                contents <- liftIO $ readFile fp
+                l
+                    [ raw $ fromString $ show $ length $ lines contents
+                    , "lines of QuickSpec code"
+                    ]
+        f "Problems with QuickSpec: Speed" $ do
+            "Dumb version of the QuickSpec approach:"
             enumerate $ do
                 item "Generate all possible terms"
                 item "Generate all possible equations (tuples) of terms"
@@ -53,14 +66,7 @@ propertyDiscovery =
                 item
                     "Check that the input can be generated and the output compared for equality"
                 item "Run QuickCheck to see if the equation holds"
-        f "Problems with QuickSpec: speed" $
-            center $
-            withRegisteredAsset assetRuntimePlot $ \fp ->
-                includegraphics
-                    [ KeepAspectRatio True
-                    , IGWidth $ CustomMeasure $ "0.64" <> textwidth
-                    ]
-                    fp
+        pictureSlide "Problems with QuickSpec: speed" assetRuntimePlot
 
 haskFile :: Asset -> Thesis
 haskFile = mintedFile "haskell"
