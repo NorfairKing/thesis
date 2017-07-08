@@ -8,6 +8,7 @@ import PresImport
 
 import Thesis.Document.Assets
 import Thesis.Presentation.AboutMe
+import Thesis.Presentation.Automation
 import Thesis.Presentation.Motivation
 import Thesis.Presentation.PropertyDiscovery
 import Thesis.Presentation.Vision
@@ -43,3 +44,4 @@ entirePresentation = do
         aboutme
         motivation
         propertyDiscovery
+        automation

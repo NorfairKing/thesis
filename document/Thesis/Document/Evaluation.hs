@@ -20,7 +20,7 @@ thesisEvaluation =
                 , "signature inference strategy still makes it completely unusable for practical use"
                 ]
         center $
-            withRegisteredAsset assetRuntimePlot $ \runtimePlotFile ->
+            withRegisteredAsset assetRuntimeFullBackgroundPlot $ \runtimePlotFile ->
                 includegraphics
                     [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
                     runtimePlotFile

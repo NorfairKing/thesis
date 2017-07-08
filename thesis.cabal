@@ -38,6 +38,7 @@ library
         Thesis.OptParse
         Thesis.OptParse.Types
         Thesis.Presentation.AboutMe
+        Thesis.Presentation.Automation
         Thesis.Presentation.EntirePresentation
         Thesis.Presentation.Motivation
         Thesis.Presentation.PropertyDiscovery

@@ -67,3 +67,14 @@ lightbulbslide =
         includegraphics
             [KeepAspectRatio True, IGWidth $ CustomMeasure $ "0.3" <> textwidth]
             fp
+
+haskFile :: Asset -> Thesis
+haskFile = mintedFile "haskell"
+
+verbatimFile :: Asset -> Thesis
+verbatimFile = mintedFile "text"
+
+mintedFile :: Text -> Asset -> Thesis
+mintedFile lang asset =
+    withRegisteredAsset asset $ \fp ->
+        comm2 "inputminted" (raw lang) $ raw $ fromString fp

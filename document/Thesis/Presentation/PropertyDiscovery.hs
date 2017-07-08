@@ -66,15 +66,7 @@ propertyDiscovery =
                 item
                     "Check that the input can be generated and the output compared for equality"
                 item "Run QuickCheck to see if the equation holds"
-        pictureSlide "Problems with QuickSpec: speed" assetRuntimePlot
+        pictureSlide
+            "Problems with QuickSpec: speed"
+            assetRuntimeFullBackgroundPlot
 
-haskFile :: Asset -> Thesis
-haskFile = mintedFile "haskell"
-
-verbatimFile :: Asset -> Thesis
-verbatimFile = mintedFile "text"
-
-mintedFile :: Text -> Asset -> Thesis
-mintedFile lang asset =
-    withRegisteredAsset asset $ \fp ->
-        comm2 "inputminted" (raw lang) $ raw $ fromString fp
