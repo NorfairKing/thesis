@@ -136,7 +136,5 @@ signatureInference =
         pictureSlide
             "The outcome of full breakthrough: Relevant equations"
             assetRelevantEquationsFullBreakthroughFullBreakthroughPlot
-        pictureSlide
-            "The outcome of full breakthrough: Total equations"
+        pictureSlide "Why does full breakthrough find more relevant equations?" $
             assetEquationsFullBreakthroughFullBreakthroughPlot
-        g "Why does full breakthrough find more relevant equations?" $ pure ()
