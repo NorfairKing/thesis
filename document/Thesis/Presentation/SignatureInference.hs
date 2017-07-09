@@ -78,3 +78,53 @@ signatureInference =
         pictureSlide
             "Different functions in properties"
             assetNrDifferentFunctionsPlot
+        comment
+            "60-70% of all properties involve onle one or 2 different functions"
+        comment
+            "90% of all properties involve three or fewer different functions"
+        comment
+            "That means that it doesn't make sense to ever put your entire codebase into a signature."
+        lightbulbslide
+        f "" $ large $ center "We can run QuickSpec more than once!"
+        g "Inferred Signature" $
+            small $ do
+                "Combine the results of a run:"
+                hask $ "type InferredSignature = [Signature]"
+                "Combine the results of a run, and use them as background properties:"
+                hask $ "type InferredSignature = Forrest Signature"
+                "Combine the results, use them for optimisation, and share previous runs:"
+                hask $ "type InferredSignature = DAG Signature"
+                vspace $ Cm 0.5
+                hask $
+                    T.unlines
+                        [ "type SignatureInferenceStrategy"
+                        , "    = [Function] -> [Function] -> InferredSignature"
+                        ]
+        g "Trivial Strategies" $ do
+            hask $
+                T.unlines
+                    ["emptyBackground focus _", "    = DAG.singleton focus"]
+            hask $
+                T.unlines
+                    ["fullBackground _ scope", "    = DAG.singleton scope"]
+        g "Full Breakthrough" $ do
+            small $ hask "fullBreakthrough :: Int -> SignatureInferenceStrategy"
+            vspace $ Cm 0.5
+            footnotesize $
+                hask $
+                T.unlines
+                    [ "> fullBreakthrough 1"
+                    , "    [sort :: a -> a]"
+                    , "    [reverse :: [a] -> [a], id :: Ord a => [a] -> [a]]"
+                    ]
+            footnotesize $
+                mintedText $
+                T.unlines
+                    [ "[sort, reverse]"
+                    , "        |"
+                    , "        v"
+                    , "     -> [sort]"
+                    , "     |"
+                    , "     |"
+                    , "[sort, id]"
+                    ]
