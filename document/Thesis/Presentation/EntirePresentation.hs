@@ -47,3 +47,4 @@ entirePresentation = do
         propertyDiscovery
         automation
         signatureInference
+        maketitle

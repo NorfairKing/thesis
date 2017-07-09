@@ -9,10 +9,7 @@ import PresImport
 
 import qualified Data.Text as T
 
-import Thesis.Document.Assets
 import Thesis.Document.Dependencies
-
-import Thesis.Presentation.Motivation
 
 signatureInference :: Thesis
 signatureInference =
@@ -179,3 +176,28 @@ signatureInference =
                         , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
                         ]
                 "All relevant"
+        f "Great Promise, but:" $ do
+            enumerate $ do
+                item
+                    "Only works for functions in scope, of which the type is in scope too."
+                item "Just crashes on partial functions."
+                item "Only works for built in instances."
+                item "Data has to have an Arbitrary instance in scope."
+                item "Does not play with CPP."
+                item "Does not play well with higher kinded type variables"
+            "All technical problems, not theoretical problems."
+        f "Further Research" $
+            enumerate $ do
+                item "Can we go faster?"
+                item "Which constants do we choose for built in types?"
+                item "Can we apply this to effectful code?"
+        g "Call to action" $ do
+            "Proofs of concept:"
+            mintedText $
+                T.unlines
+                    [ "https://github.com/nick8325/quickcheck"
+                    , "https://github.com/nick8325/quickspec"
+                    , "https://github.com/NorfairKing/easyspec"
+                    ]
+            "Now we need to make it production ready!"
+        maketitle
