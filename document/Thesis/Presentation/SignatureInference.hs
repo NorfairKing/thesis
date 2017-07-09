@@ -133,3 +133,10 @@ signatureInference =
         pictureSlide
             "The runtime of full breakthrough"
             assetRuntimeFullBreakthroughFullBreakthroughPlot
+        pictureSlide
+            "The outcome of full breakthrough: Relevant equations"
+            assetRelevantEquationsFullBreakthroughFullBreakthroughPlot
+        pictureSlide
+            "The outcome of full breakthrough: Total equations"
+            assetEquationsFullBreakthroughFullBreakthroughPlot
+        g "Why does full breakthrough find more relevant equations?" $ pure ()

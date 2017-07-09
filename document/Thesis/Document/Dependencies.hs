@@ -6,6 +6,8 @@ module Thesis.Document.Dependencies
     ( assetRuntimeFullBackgroundPlot
     , assetNrDifferentFunctionsPlot
     , assetRuntimeFullBreakthroughFullBreakthroughPlot
+    , assetRelevantEquationsFullBreakthroughFullBreakthroughPlot
+    , assetEquationsFullBreakthroughFullBreakthroughPlot
     ) where
 
 import EasySpec.Discover.SignatureInference
@@ -15,6 +17,7 @@ import EasySpec.Evaluate.Analyse.Plots.BarsPerGroup
 import EasySpec.Evaluate.Analyse.Plots.DistributionFromRawPlotter
 import EasySpec.Evaluate.Analyse.Plots.DistributionNrDifferentFunctions
 import EasySpec.Evaluate.Analyse.Plots.Plotter
+import EasySpec.Evaluate.Analyse.Plots.SingleEvaluatorBox
 import EasySpec.Evaluate.Evaluate.Evaluator
 import EasySpec.Evaluate.Types
 
@@ -42,6 +45,22 @@ $(makeDependencyAssets
               barsPerGroupEvaluatorsStrategiesPlotter
               ( "runtime"
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
-              , UnorderedDistinct
+              , OrderedDistinct
+                    (Pair inferFullBackground (inferFullBreakthrough 1))))
+      , ( "assetRelevantEquationsFullBreakthroughFullBreakthroughPlot"
+        , "relevant-equations-plot-full-background-full-breakthrough.pdf"
+        , plotFileFor
+              boxPlotterPerEvaluatorStrategies
+              ( "evaluation"
+              , relevantEquationsEvaluator
+              , OrderedDistinct
+                    (Pair inferFullBackground (inferFullBreakthrough 1))))
+      , ( "assetEquationsFullBreakthroughFullBreakthroughPlot"
+        , "equations-plot-full-background-full-breakthrough.pdf"
+        , plotFileFor
+              boxPlotterPerEvaluatorStrategies
+              ( "evaluation"
+              , equationsEvaluator
+              , OrderedDistinct
                     (Pair inferFullBackground (inferFullBreakthrough 1))))
       ])
