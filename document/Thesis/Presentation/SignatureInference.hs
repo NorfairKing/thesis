@@ -75,6 +75,8 @@ signatureInference =
                 item "Syntactical similarity of the name by character"
                 item "Syntactical similarity of the implementation by symbol"
                 item "Syntactical similarity of the type by symbol"
+                item "Similarity using a different metric"
+                item "Combinations of the above"
         pictureSlide
             "Different functions in properties"
             assetNrDifferentFunctionsPlot
@@ -128,3 +130,6 @@ signatureInference =
                     , "     |"
                     , "[sort, id]"
                     ]
+        pictureSlide
+            "The runtime of full breakthrough"
+            assetRuntimeFullBreakthroughFullBreakthroughPlot
