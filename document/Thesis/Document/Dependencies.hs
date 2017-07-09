@@ -1,35 +1,46 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
-{-# OPTIONS_GHC -ddump-splices #-}
+{-# LANGUAGE TypeApplications #-}
 
 module Thesis.Document.Dependencies
     ( assetRuntimeFullBackgroundPlot
     , assetRuntimeFullBreakthroughPlot
+    , assetNrDifferentFunctionsPlot
     ) where
 
 import EasySpec.Discover.SignatureInference
 
 import EasySpec.Discover.SignatureInference.FullBreakthrough
 import EasySpec.Evaluate.Analyse.Plots.BarsPerGroup
+import EasySpec.Evaluate.Analyse.Plots.DistributionNrDifferentFunctions
 import EasySpec.Evaluate.Analyse.Plots.Plotter
 import EasySpec.Evaluate.Evaluate.Evaluator
+import EasySpec.Evaluate.Analyse.Plots.DistributionFromRawPlotter
+import EasySpec.Evaluate.Types
 
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies.TH
 
 $(makeDependencyAssets
       [ ( "assetRuntimeFullBackgroundPlot"
-        , "runtime-plot.png"
+        , "runtime-plot.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategyPlotter
               ( "runtime"
               , inferFullBackground
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
       , ( "assetRuntimeFullBreakthroughPlot"
-        , "runtime-plot-full-breakthrough.png"
+        , "runtime-plot-full-breakthrough.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategyPlotter
               ( "runtime"
               , inferFullBreakthrough 1
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
+      , ( "assetNrDifferentFunctionsPlot"
+        , "evaluation-nr-different-functions.pdf"
+        , plotFileFor
+              (dfrgCartPlotter
+                   @(GroupName, SignatureInferenceStrategy)
+                   dfrgNrDifferentFunctions)
+              ("evaluation", inferFullBackground))
       ])
