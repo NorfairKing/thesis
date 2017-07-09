@@ -138,3 +138,44 @@ signatureInference =
             assetRelevantEquationsFullBreakthroughFullBreakthroughPlot
         pictureSlide "Why does full breakthrough find more relevant equations?" $
             assetEquationsFullBreakthroughFullBreakthroughPlot
+        g "Why does full breakthrough find more relevant equations?" $
+            tiny $ do
+                "Scope:"
+                hask $
+                    T.unlines
+                        [ "i = (+ 1)"
+                        , "j = (+ 2)"
+                        , "k = (+ 3)"
+                        , "l = (+ 4)"
+                        , "m = (+ 5)"
+                        , "n = (+ 6)"
+                        , "o = (+ 7)"
+                        , "p = (+ 8)"
+                        , "q = (+ 9)"
+                        , "r = (+ 10)"
+                        ]
+                "Full background for r:"
+                mintedText $
+                    T.unlines
+                        [ "i (i x) = j x"
+                        , "i (j x) = k x"
+                        , "i (k x) = l x"
+                        , "i (l x) = m x"
+                        , "i (m x) = n x"
+                        , "i (n x) = o x"
+                        , "i (o x) = p x"
+                        , "i (p x) = q x"
+                        , "i (q x) = r x"
+                        ]
+                "Relevant:"
+                mintedText "i (q x) = r x"
+                "Full breakthrough for r:"
+                mintedText $
+                    T.unlines
+                        [ "q (i x) = r x"
+                        , "q (q x) = p (r x)"
+                        , "q (q (q x)) = o (r (r x))"
+                        , "q (q (q (q (q x)))) = m (r (r (r (r x))))"
+                        , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
+                        ]
+                "All relevant"
