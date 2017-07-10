@@ -113,8 +113,8 @@ signatureInference =
                 hask $
                 T.unlines
                     [ "> fullBreakthrough 1"
-                    , "    [sort :: a -> a]"
-                    , "    [reverse :: [a] -> [a], id :: Ord a => [a] -> [a]]"
+                    , "    [sort :: Ord a => [a] -> [a]]"
+                    , "    [reverse :: [a] -> [a], id :: a -> a]"
                     ]
             footnotesize $
                 mintedText $
