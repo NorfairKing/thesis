@@ -14,10 +14,11 @@ import Thesis.Document.Dependencies
 signatureInference :: Thesis
 signatureInference =
     section "Signature Inference" $ do
-        f "" $ center "Automated, but still slow"
+        pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
         f "Biggest Problems" $
             enumerate $ do
                 item "Maximum size of the properties discovered"
+                pause
                 item "Size of the signature"
         lightbulbslide
         f "Critical insight" $ do
@@ -89,10 +90,13 @@ signatureInference =
             small $ do
                 "Combine the results of a run:"
                 hask $ "type InferredSignature = [Signature]"
+                pause
                 "Combine the results of a run, and use them as background properties:"
                 hask $ "type InferredSignature = Forrest Signature"
+                pause
                 "Combine the results, use them for optimisation, and share previous runs:"
                 hask $ "type InferredSignature = DAG Signature"
+                pause
                 vspace $ Cm 0.5
                 hask $
                     T.unlines
@@ -103,6 +107,7 @@ signatureInference =
             hask $
                 T.unlines
                     ["emptyBackground focus _", "    = DAG.singleton focus"]
+            pause
             hask $
                 T.unlines
                     ["fullBackground _ scope", "    = DAG.singleton scope"]
@@ -151,6 +156,7 @@ signatureInference =
                         , "q = (+ 9)"
                         , "r = (+ 10)"
                         ]
+                pause
                 "Full background for r:"
                 mintedText $
                     T.unlines
@@ -164,8 +170,9 @@ signatureInference =
                         , "i (p x) = q x"
                         , "i (q x) = r x"
                         ]
-                "Relevant:"
+                "Relevant to r:"
                 mintedText "i (q x) = r x"
+                pause
                 "Full breakthrough for r:"
                 mintedText $
                     T.unlines
@@ -176,20 +183,28 @@ signatureInference =
                         , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
                         ]
                 "All relevant"
-        f "Great Promise, but:" $ do
+        f "Great promise, but ..." $ do
             enumerate $ do
                 item
-                    "Only works for functions in scope, of which the type is in scope too."
+                    "Only works for functions in scope of which the type is in scope too."
+                pause
                 item "Just crashes on partial functions."
+                pause
                 item "Only works for built in instances."
+                pause
                 item "Data has to have an Arbitrary instance in scope."
+                pause
                 item "Does not play with CPP."
+                pause
                 item "Does not play well with higher kinded type variables"
+            pause
             "All technical problems, not theoretical problems."
         f "Further Research" $
             enumerate $ do
                 item "Can we go faster?"
+                pause
                 item "Which constants do we choose for built in types?"
+                pause
                 item "Can we apply this to effectful code?"
         g "Call to action" $ do
             "Proofs of concept:"

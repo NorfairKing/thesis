@@ -29,9 +29,10 @@ automation = do
             " In general:"
             hask $
                 T.unlines
-                    [ "(f :: A -> Bool) = (g :: A -> Bool)"
-                    , "for some A with"
+                    [ "(f :: A -> B) = (g :: A -> B)"
+                    , "for some A and B with"
                     , "instance Arbitrary A"
+                    , "instance Eq B"
                     ]
             vfill
         g "Definitions: Property of a function" $ do
@@ -47,17 +48,19 @@ automation = do
             hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0", "h = id"]
             "Properties:"
             hask $
-                T.unlines
-                    ["f (g x) = g (f x)", "f z = z", "g z = z", "id x = x"]
+                T.unlines ["f (g x) = g (f x)", "f z = z", "g z = z", "h x = x"]
             vfill
             haskInline "g" <> " and " <> haskInline "z" <> " are relevant to " <>
                 haskInline "f" <>
                 " but " <>
-                "h" <>
+                haskInline "h" <>
                 " is not."
     section "Automation" $ do
         f "" $ huge $ center $ raw "Step 1: Automation"
-        g "Signatures" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
+        g "Signatures" $ do
+            only [OneSlide 2] $ raw "\\setminted{highlightlines={16-26}}"
+            tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
+            pause
         g "A QuickSpec Signature" $ do
             hask $
                 T.unlines
@@ -65,8 +68,9 @@ automation = do
                     , "  Signature {"
                     , "    constants           :: [Constant],"
                     , "    instances           :: [[Instance]],"
-                    , "    -- [...]"
+                    , "    [...]"
                     , "    background          :: [Prop],"
+                    , "    [...]"
                     , "  }"
                     ]
             hask $ "quickSpec :: Signature -> IO Signature"
@@ -76,27 +80,29 @@ automation = do
             hask "filter :: (a -> Bool) -> [a] -> [a]"
             center "becomes"
             hask "filter :: (A -> Bool) -> [A] -> [A]"
+            pause
             vfill
             hask "sort :: Ord a => [a] -> [a]"
             center "becomes"
-            hask "sort :: Dict (Ord A) => [A] -> [A]"
+            hask "sort :: Dict (Ord A) -> [A] -> [A]"
         g "Signature Expression Generation" $ do
-            enumerate $ do
-                item "Find all functions in scope"
-                hask "sort :: Ord a => [a] -> [a]"
-                item "Make them Monomorphic"
-                hask "sort :: Dict (Ord A) => [A] -> [A]"
-                item "Make expressions for QuickSpec"
-                hask $
-                    T.unlines
-                        [ "constant \"sort\""
-                        , "  (mkDict sort :: Dict (Ord A) -> [A] -> [A])"
-                        ]
-                item "Make a signature expression"
+            pause
+            hask "sort :: Ord a => [a] -> [a]"
+            pause
+            hask "sort :: Dict (Ord A) => [A] -> [A]"
+            pause
+            hask $
+                T.unlines
+                    [ "constant \"sort\""
+                    , "  (mkDict sort :: Dict (Ord A) -> [A] -> [A])"
+                    ]
+            pause
+            hask "signature { constants = [...] }"
         g "Current situation" $ do
             mintedTextInline "$ cat Reverse.hs"
             haskFile $(embedAsset "Reverse.hs")
             vfill
+            pause
             mintedTextInline "$ easyspec discover Reverse.hs"
             mintedText $
                 T.unlines

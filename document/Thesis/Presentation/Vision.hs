@@ -13,7 +13,7 @@ vision =
             center $ do
                 "Software works"
                 pause
-                " because tests are cheaper to have than to not have"
+                " because to test is cheaper than not to"
                 pause
                 ", even in the short term."
         f "Long term goal:" $ do

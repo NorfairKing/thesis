@@ -33,11 +33,6 @@ entirePresentation = do
         url "https://cs-syd.eu/"
         lnbk
         url "https://github.com/NorfairKing"
-    -- Set template
-    raw "\\beamertemplatenavigationsymbolsempty"
-    raw "\\setbeamertemplate{footline}[frame number]"
-    raw "\\setbeamerfont{page number in head/foot}{size=\\normalsize}"
-    raw "\\setbeamercolor{page number in head/foot}{fg=black}"
     -- The presentation
     document $ do
         maketitle

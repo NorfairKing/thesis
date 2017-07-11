@@ -54,10 +54,11 @@ motivation = do
             center
                 "I will write the code myself, and get the machine to test that it works."
         g "Making machines test that my code works" $ do
-            only [FromSlide 1] $ do raw "\\setminted{highlightlines={2,4}}"
+            only [FromSlide 2] $ do raw "\\setminted{highlightlines={2,4}}"
             hask $
                 T.unlines
                     [" sort", "  [4, 1, 6]", "   `shouldBe`", "     [1, 4, 6]"]
+            pause
             vfill
             withRegisteredAsset $(embedAsset "code-coverage.png") $ \fp1 ->
                 includegraphics
@@ -65,6 +66,7 @@ motivation = do
                     , IGWidth $ CustomMeasure $ "0.64" <> textwidth
                     ]
                     fp1
+            pause
             hfill
             withRegisteredAsset $(embedAsset "bitcoin-coin-single.pdf") $ \fp2 ->
                 includegraphics

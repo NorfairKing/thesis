@@ -66,7 +66,4 @@ propertyDiscovery =
                 item
                     "Check that the input can be generated and the output compared for equality"
                 item "Run QuickCheck to see if the equation holds"
-        pictureSlide
-            "Problems with QuickSpec: speed"
-            assetRuntimeFullBackgroundPlot
 

@@ -19,7 +19,9 @@ aboutme =
         lnbk
         "Research Assistant at ETH, writing Haskell"
         lnbk
-        "Consultant at CS Kerckhove, consulting in Haskell"
+        "Freelancer, writing Haskell"
+        lnbk
+        "... and some non Haskell too!"
         lnbk
         "Looking for a job!"
         lnbk
