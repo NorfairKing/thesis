@@ -37,9 +37,8 @@ entirePresentation = do
     document $ do
         maketitle
         vision
-        aboutme
         motivation
         propertyDiscovery
         automation
         signatureInference
-        maketitle
+        aboutme

@@ -157,32 +157,35 @@ signatureInference =
                         , "r = (+ 10)"
                         ]
                 pause
-                "Full background for r:"
-                mintedText $
-                    T.unlines
-                        [ "i (i x) = j x"
-                        , "i (j x) = k x"
-                        , "i (k x) = l x"
-                        , "i (l x) = m x"
-                        , "i (m x) = n x"
-                        , "i (n x) = o x"
-                        , "i (o x) = p x"
-                        , "i (p x) = q x"
-                        , "i (q x) = r x"
-                        ]
-                "Relevant to r:"
-                mintedText "i (q x) = r x"
+                vfill
+                minipage Nothing (raw "0.4" <> textwidth) $ do
+                    "Full background:"
+                    mintedText $
+                        T.unlines
+                            [ "i (i x) = j x"
+                            , "i (j x) = k x"
+                            , "i (k x) = l x"
+                            , "i (l x) = m x"
+                            , "i (m x) = n x"
+                            , "i (n x) = o x"
+                            , "i (o x) = p x"
+                            , "i (p x) = q x"
+                            , "i (q x) = r x"
+                            ]
+                    "Relevant to r:"
+                    mintedText "i (q x) = r x"
                 pause
-                "Full breakthrough for r:"
-                mintedText $
-                    T.unlines
-                        [ "q (i x) = r x"
-                        , "q (q x) = p (r x)"
-                        , "q (q (q x)) = o (r (r x))"
-                        , "q (q (q (q (q x)))) = m (r (r (r (r x))))"
-                        , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
-                        ]
-                "All relevant"
+                minipage Nothing (raw "0.4" <> textwidth) $ do
+                    "Full breakthrough for r:"
+                    mintedText $
+                        T.unlines
+                            [ "q (i x) = r x"
+                            , "q (q x) = p (r x)"
+                            , "q (q (q x)) = o (r (r x))"
+                            , "q (q (q (q (q x)))) = m (r (r (r (r x))))"
+                            , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
+                            ]
+                    "All relevant"
         f "Great promise, but ..." $ do
             enumerate $ do
                 item
@@ -190,7 +193,7 @@ signatureInference =
                 pause
                 item "Just crashes on partial functions."
                 pause
-                item "Only works for built in instances."
+                item "Only works with built in instances."
                 pause
                 item "Data has to have an Arbitrary instance in scope."
                 pause
@@ -215,4 +218,3 @@ signatureInference =
                     , "https://github.com/NorfairKing/easyspec"
                     ]
             "Now we need to make it production ready!"
-        maketitle
