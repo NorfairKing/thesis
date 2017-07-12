@@ -191,7 +191,7 @@ signatureInference =
                 item
                     "Only works for functions in scope of which the type is in scope too."
                 pause
-                item "Just crashes on partial functions."
+                item "Crashes on partial functions."
                 pause
                 item "Only works with built in instances."
                 pause
@@ -201,7 +201,7 @@ signatureInference =
                 pause
                 item "Does not play well with higher kinded type variables"
             pause
-            "All technical problems, not theoretical problems."
+            "All technical problems, not theoretical problems!"
         f "Further Research" $
             enumerate $ do
                 item "Can we go faster?"
