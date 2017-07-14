@@ -176,11 +176,14 @@ quickspec2Ref =
     Reference
         article
         "QuickSpec2"
-        [ "title" .= "Quick Specifications for the Busy Programmer"
+        [ "title" .= "{Quick Specifications for the Busy Programmer}"
+        , "volume" .= "{27}"
+        , "DOI" .= "{10.1017/S0956796817000090}"
+        , "journal" .= "{Journal of Functional Programming}"
+        , "publisher" .= "{Cambridge University Press}"
         , "author" .=
-          "Nicholas Smallbone, Moa Johansson, Koen Claesson and Maximilian Algehed"
-        , "booktitle" .= "Journal of Functional Programming"
-        , "year" .= "2016"
+          "{SMALLBONE,\nNICHOLAS and JOHANSSON,\nMOA and CLAESSEN,\nKOEN and ALGEHED,\nMAXIMILIAN}"
+        , "year" .= "{2017}"
         ]
 
 quickspecHackageRef :: Reference
