@@ -12,7 +12,7 @@ module Thesis.Document.Dependencies
 
 import EasySpec.Discover.SignatureInference
 
-import EasySpec.Discover.SignatureInference.FullBreakthrough
+import EasySpec.Discover.SignatureInference.Chunks
 import EasySpec.Evaluate.Analyse.Plots.BarsPerGroup
 import EasySpec.Evaluate.Analyse.Plots.DistributionFromRawPlotter
 import EasySpec.Evaluate.Analyse.Plots.DistributionNrDifferentFunctions
@@ -45,22 +45,19 @@ $(makeDependencyAssets
               barsPerGroupEvaluatorsStrategiesPlotter
               ( "runtime"
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
-              , OrderedDistinct
-                    (Pair inferFullBackground (inferFullBreakthrough 1))))
+              , OrderedDistinct (Pair inferFullBackground inferChunks)))
       , ( "assetRelevantEquationsFullBreakthroughFullBreakthroughPlot"
         , "relevant-equations-plot-full-background-full-breakthrough.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
               ( "evaluation"
               , relevantEquationsEvaluator
-              , OrderedDistinct
-                    (Pair inferFullBackground (inferFullBreakthrough 1))))
+              , OrderedDistinct (Pair inferFullBackground inferChunks)))
       , ( "assetEquationsFullBreakthroughFullBreakthroughPlot"
         , "equations-plot-full-background-full-breakthrough.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
               ( "evaluation"
               , equationsEvaluator
-              , OrderedDistinct
-                    (Pair inferFullBackground (inferFullBreakthrough 1))))
+              , OrderedDistinct (Pair inferFullBackground inferChunks)))
       ])
