@@ -44,7 +44,7 @@ automation = do
             "Not properties of " <> haskInline "f" <> ":"
             hask $ T.unlines ["g z = z"]
             vfill
-            "relevant property = property of focus function"
+            raw "relevant property = property of focus function"
         g "Definitions: Relevant function" $ do
             "Functions:"
             hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0", "h = id"]
