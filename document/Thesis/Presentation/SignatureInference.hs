@@ -9,6 +9,7 @@ import PresImport
 
 import qualified Data.Text as T
 
+import Thesis.Document.Assets
 import Thesis.Document.Dependencies
 import Thesis.Presentation.Utils
 
@@ -91,17 +92,63 @@ signatureInference = do
                     , "  -> [Function] -- Functions in scope"
                     , "  -> [Function] -- Chosen functions"
                     ]
-            vfill
-            "Possible proxies for relevancy"
+        g "Full background and empty background" $ do
+            hask $ "inferFullBackground _ scope = scope"
+            hask $ "inferEmptyBackground focus _ = focus"
+            pause
+            only [OneSlide 2] $
+                withRegisteredAsset
+                    assetRuntimeFullBreakthroughEmptyBackgroundPlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+            pause
+            only [OneSlide 3] $
+                withRegisteredAsset
+                    assetRelevantEquationsFullBackgroundEmptyBackgroundPlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+        g "Syntactic similarity: Name" $ do
+            hask $
+                T.unlines
+                    [ "inferSyntacticSimilarityName [focus] scope"
+                    , "    = take 5 $ sortOn"
+                    , "      (\\sf ->"
+                    , "        hammingDistance"
+                    , "          (name focus) (name sf))"
+                    , "      scope "
+                    ]
+            pause
+            only [OneSlide 2] $
+                withRegisteredAsset
+                    assetRuntimeFullBreakthroughSyntacticSimilarityNamePlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+            pause
+            only [OneSlide 3] $
+                withRegisteredAsset
+                    assetRelevantEquationsFullBackgroundSyntacticSimilarityNamePlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+        f "delete this slide" $
             enumerate $ do
                 item "Syntactical similarity of the name by character"
                 item "Syntactical similarity of the implementation by symbol"
                 item "Syntactical similarity of the type by symbol"
                 item "Similarity using a different metric"
                 item "Combinations of the above"
-        pictureSlide
-            "Breakthrough"
-            assetNrDifferentFunctionsPlot
+        pictureSlide "Breakthrough" assetNrDifferentFunctionsPlot
         comment
             "60-70% of all properties involve onle one or 2 different functions"
         comment
