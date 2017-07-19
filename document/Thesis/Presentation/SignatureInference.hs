@@ -82,7 +82,7 @@ signatureInference = do
         lightbulbslide
         f "Critical insight" $ do
             center "We are not interested in the entire codebase."
-            center "We are interested in the newest bit of code."
+            center "We are interested in a relatively small amount of code."
         g "Reducing the size of the signature" $ do
             hask $
                 T.unlines
@@ -100,7 +100,7 @@ signatureInference = do
                 item "Similarity using a different metric"
                 item "Combinations of the above"
         pictureSlide
-            "Different functions in properties"
+            "Breakthrough"
             assetNrDifferentFunctionsPlot
         comment
             "60-70% of all properties involve onle one or 2 different functions"

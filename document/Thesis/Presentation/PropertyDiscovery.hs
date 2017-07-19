@@ -16,15 +16,13 @@ propertyDiscovery :: Thesis
 propertyDiscovery =
     section "Property Discovery" $ do
         g "Property Discovery" $ do
-            only [OneSlide 1] $ raw "\\setminted{highlightlines=6}"
+            only [OneSlide 1] $ raw "\\setminted{highlightlines=4}"
             hask $
                 T.unlines
                     [ "  forAll"
                     , "    arbitrary"
                     , "      $ \\ls ->"
-                    , "        sort ls"
-                    , "          `shouldSatisfy`"
-                    , "            isSorted"
+                    , "        sort ls == ls"
                     ]
         f "" $ center $ huge "Property Discovery with QuickSpec"
         g "Example code" $ do

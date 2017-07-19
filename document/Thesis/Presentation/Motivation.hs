@@ -41,7 +41,11 @@ motivation = do
             only [FromSlide 2] $ do raw "\\setminted{highlightlines={2,4}}"
             hask $
                 T.unlines
-                    [" sort", "  [4, 1, 6]", "   `shouldBe`", "     [1, 4, 6]"]
+                    [ "sort"
+                    , "    [4, 1, 6]"
+                    , "        =="
+                    , "            [1, 4, 6]"
+                    ]
             pause
             vfill
             withRegisteredAsset $(embedAsset "code-coverage.png") $ \fp1 ->
@@ -64,15 +68,13 @@ motivation = do
         g "Property testing" $ do
             only [OneSlide 1] $ raw "\\setminted{highlightlines=1}"
             only [OneSlide 2] $ raw "\\setminted{highlightlines=2}"
-            only [OneSlide 3] $ raw "\\setminted{highlightlines=6}"
+            only [OneSlide 3] $ raw "\\setminted{highlightlines=4}"
             hask $
                 T.unlines
                     [ "  forAll"
                     , "    arbitrary"
                     , "      $ \\ls ->"
-                    , "        sort ls"
-                    , "          `shouldSatisfy`"
-                    , "            isSorted"
+                    , "        sort ls == ls"
                     ]
             pause
             only [FromSlide 2] $
