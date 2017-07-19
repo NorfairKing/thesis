@@ -26,14 +26,15 @@ propertyDiscovery =
                     , "          `shouldSatisfy`"
                     , "            isSorted"
                     ]
+        f "" $ center $ huge "Property Discovery with QuickSpec"
         g "Example code" $ do
             raw "\\setminted{highlightlines={3, 12}}"
             haskFile $(embedAsset "MySort.hs")
-        g "QuickSpec Code" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
         g "Property discovery using QuickSpec" $ do
-            raw "\\setminted{highlightlines={12-15}}"
+            raw "\\setminted{highlightlines={12-17}}"
             footnotesize $
                 verbatimFile $(embedAsset "MySortQuickSpecOutput.txt")
+        g "QuickSpec Code" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
         g "Problems with QuickSpec: Monomorphisation" $ do
             "Only for monomorphic functions"
             hask $
@@ -66,4 +67,3 @@ propertyDiscovery =
                 item
                     "Check that the input can be generated and the output compared for equality"
                 item "Run QuickCheck to see if the equation holds"
-

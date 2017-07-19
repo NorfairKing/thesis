@@ -15,9 +15,66 @@ signatureInference :: Thesis
 signatureInference =
     section "Signature Inference" $ do
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
-        f "Biggest Problems" $
+        f "" $ huge $ center "Definitions"
+        g "Definitions: Property" $ do
+            vfill
+            " Example:"
+            hask "reverse (reverse ls) = ls"
+            vfill
+            " Short for:"
+            hask "(\\ls -> reverse (reverse ls)) = (\\ls -> ls)"
+            vfill
+            " In general:"
+            hask $
+                T.unlines
+                    [ "(f :: A -> B) = (g :: A -> B)"
+                    , "for some A and B with"
+                    , "instance Arbitrary A"
+                    , "instance Eq B"
+                    ]
+            vfill
+        g "Definitions: Size of property" $ do
+            " Example:"
+            hask "xs <= mySort xs = myIsSorted xs"
+            pause
+            raw "Size: 4"
+            pause
+            vfill
+            " In general: It's complicated"
+        g "Definitions: Property of a function" $ do
+            "Functions:"
+            hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0"]
+            vfill
+            "Properties of " <> haskInline "f" <> ":"
+            hask $ T.unlines ["f (g x) = g (f x)", "f z = z"]
+            "Not properties of " <> haskInline "f" <> ":"
+            hask $ T.unlines ["g z = z"]
+            vfill
+            raw "relevant property = property of focus function"
+        g "Definitions: Relevant function" $ do
+            "Functions:"
+            hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0", "h = id"]
+            "Properties:"
+            hask $
+                T.unlines ["f (g x) = g (f x)", "f z = z", "g z = z", "h x = x"]
+            vfill
+            haskInline "g" <> " and " <> haskInline "z" <> " are relevant to " <>
+                haskInline "f" <>
+                " but " <>
+                haskInline "h" <>
+                " is not."
+        g "Definitions: Scope" $ do
+            "Scope: Functions in scope"
+            vfill
+            pause
+            "Size of scope: Number of functions in scope"
+            vfill
+            pause
+            "Size of signature: Number of functions in signature"
+        pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
+        f "Why is this slow?" $
             enumerate $ do
-                item "Maximum size of the properties discovered"
+                item "Maximum size of the discovered properties"
                 pause
                 item "Size of the signature"
         lightbulbslide

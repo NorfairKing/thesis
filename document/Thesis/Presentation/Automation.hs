@@ -14,49 +14,7 @@ import Thesis.Document.Dependencies
 
 automation :: Thesis
 automation = do
-    section "Definitions" $ do
-        f "" $ huge $ center $ raw "Step 0: Definitions"
-        comment
-            "This was not step 0 in our research, but for explanations, it helps."
-        g "Definitions: Property" $ do
-            vfill
-            " Example:"
-            hask "reverse (reverse ls) = ls"
-            vfill
-            " Short for:"
-            hask "(\\ls -> reverse (reverse ls)) = (\\ls -> ls)"
-            vfill
-            " In general:"
-            hask $
-                T.unlines
-                    [ "(f :: A -> B) = (g :: A -> B)"
-                    , "for some A and B with"
-                    , "instance Arbitrary A"
-                    , "instance Eq B"
-                    ]
-            vfill
-        g "Definitions: Property of a function" $ do
-            "Functions:"
-            hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0"]
-            vfill
-            "Properties of " <> haskInline "f" <> ":"
-            hask $ T.unlines ["f (g x) = g (f x)", "f z = z"]
-            "Not properties of " <> haskInline "f" <> ":"
-            hask $ T.unlines ["g z = z"]
-            vfill
-            raw "relevant property = property of focus function"
-        g "Definitions: Relevant function" $ do
-            "Functions:"
-            hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0", "h = id"]
-            "Properties:"
-            hask $
-                T.unlines ["f (g x) = g (f x)", "f z = z", "g z = z", "h x = x"]
-            vfill
-            haskInline "g" <> " and " <> haskInline "z" <> " are relevant to " <>
-                haskInline "f" <>
-                " but " <>
-                haskInline "h" <>
-                " is not."
+    f "" $ center $ huge "Property Discovery with EasySpec"
     section "Automation" $ do
         f "" $ huge $ center $ raw "Step 1: Automation"
         g "Signatures" $ do

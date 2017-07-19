@@ -16,8 +16,8 @@ main =
         signature
         { constants =
               [ constant "True" (True :: Bool)
-              , constant "<" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)
-              , constant "<=" (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)
+              , constant "<=" (mkDict (<=) :: Dict (Ord A) -> A -> A -> Bool)
+              , constant ":" ((:) :: A -> [A] -> [A])
               , constant "mySort" (mkDict mySort :: Dict (Ord A) -> [A] -> [A])
               , constant
                     "myIsSorted"

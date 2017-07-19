@@ -27,27 +27,10 @@ motivation = do
         comment "Bear with me, this part is relevant!"
         lightbulbslide
         f "Motivation" $ center "Make machines do it!"
-        comment
-            "I like to imagine the process of software development as a dialogue between me and a very picky and very literal person"
-        f "Making machines write correct code" $ do
-            user "I want a function to sort stuff"
-            mach "What does it mean to sort?"
-            mach "What stuff?"
-            mach "What is a function?"
-            user "Oh dear, never mind, I will just do it myself."
         lightbulbslide
         f "Motivation" $
             center
                 "I will write the code myself, and get the machine to prove that it is correct."
-        f "Making machines check if my code is correct" $ do
-            user "Let's see, I have code to sort stuff."
-            user "I know what it means for this code to be correct."
-            user "Now I just write code that proves that this code is correct."
-            math "That will not work."
-            user "Why is that?"
-            math "You cannot use code to prove things about code.*"
-            user "Oh, never?"
-            math "Well, sometimes, but good luck with that!"
         comment "The point is that formal methods are expensive."
         lightbulbslide
         f "Motivation" $
