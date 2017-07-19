@@ -10,6 +10,7 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Assets
+import Thesis.Presentation.Utils
 
 motivation :: Thesis
 motivation = do

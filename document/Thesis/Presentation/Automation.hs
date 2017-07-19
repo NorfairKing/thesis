@@ -11,9 +11,11 @@ import qualified Data.Text as T
 
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
+import Thesis.Presentation.Utils
 
 automation :: Thesis
 automation = do
+    pauseSlide 1
     f "" $ center $ huge "Property Discovery with EasySpec"
     section "Automation" $ do
         f "" $ huge $ center $ raw "Step 1: Automation"

@@ -10,9 +10,11 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Dependencies
+import Thesis.Presentation.Utils
 
 signatureInference :: Thesis
-signatureInference =
+signatureInference = do
+    pauseSlide 2
     section "Signature Inference" $ do
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
         f "" $ huge $ center "Definitions"

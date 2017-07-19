@@ -59,15 +59,6 @@ pictureSlide title_ asset =
             [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
             fp
 
-lightbulbslide :: Thesis
-lightbulbslide =
-    f "Idea" $
-    figure (Just Center) $
-    withRegisteredAsset $(embedAsset "lightbulb.png") $ \fp ->
-        includegraphics
-            [KeepAspectRatio True, IGWidth $ CustomMeasure $ "0.3" <> textwidth]
-            fp
-
 haskFile :: Asset -> Thesis
 haskFile = mintedFile "haskell"
 
