@@ -83,41 +83,6 @@ signatureInference = do
         f "Critical insight" $ do
             center "We are not interested in the entire codebase."
             center "We are interested in the newest bit of code."
-        g "Codebase" $ do
-            "Usual Example:"
-            tiny $
-                mintedText $
-                T.unlines
-                    [ "$ cloc examples/evaluation/Monoid.hs"
-                    , "       1 text file."
-                    , "       1 unique file."
-                    , "       0 files ignored."
-                    , ""
-                    , "github.com/AlDanial/cloc v 1.72  T=0.00 s (298.3 files/s, 1491.7 lines/s)"
-                    , "-------------------------------------------------------------------------------"
-                    , "Language                     files          blank        comment           code"
-                    , "-------------------------------------------------------------------------------"
-                    , "Haskell                          1              2              0             13"
-                    , "-------------------------------------------------------------------------------"
-                    ]
-            "Real code:"
-            tiny $
-                mintedText $
-                T.unlines
-                    [ "$ cloc easyspec/{src,test} easyspec-evaluate/{src,test}"
-                    , "      87 text files."
-                    , "      86 unique files."
-                    , "       1 file ignored."
-                    , ""
-                    , "github.com/AlDanial/cloc v 1.72  T=0.09 s (941.4 files/s, 76775.7 lines/s)"
-                    , "-------------------------------------------------------------------------------"
-                    , "Language                     files          blank        comment           code"
-                    , "-------------------------------------------------------------------------------"
-                    , "Haskell                         86           1018            163           5833"
-                    , "-------------------------------------------------------------------------------"
-                    , "SUM:                            86           1018            163           5833"
-                    , "-------------------------------------------------------------------------------"
-                    ]
         g "Reducing the size of the signature" $ do
             hask $
                 T.unlines
@@ -147,6 +112,12 @@ signatureInference = do
         f "" $ large $ center "We can run QuickSpec more than once!"
         g "Inferred Signature" $
             small $ do
+                hask $
+                    T.unlines
+                        [ "type SignatureInferenceStrategy"
+                        , "    = [Function] -> [Function] -> InferredSignature"
+                        ]
+                pause
                 "Combine the results of a run:"
                 hask $ "type InferredSignature = [Signature]"
                 pause
@@ -156,29 +127,33 @@ signatureInference = do
                 "Combine the results, use them for optimisation, and share previous runs:"
                 hask $ "type InferredSignature = DAG Signature"
                 pause
-                vspace $ Cm 0.5
+                "Combine the results, use them for optimisation, share previous runs and allow for reflection:"
                 hask $
                     T.unlines
-                        [ "type SignatureInferenceStrategy"
-                        , "    = [Function] -> [Function] -> InferredSignature"
+                        [ "type InferredSignature ="
+                        , "    DAG ([Signature, [Equation]) -> Signature)"
                         ]
         g "Trivial Strategies" $ do
             hask $
                 T.unlines
-                    ["emptyBackground focus _", "    = DAG.singleton focus"]
+                    [ "emptyBackground focus _"
+                    , "    = DAG.singleton $ const focus"
+                    ]
             pause
             hask $
                 T.unlines
-                    ["fullBackground _ scope", "    = DAG.singleton scope"]
-        g "Full Breakthrough" $ do
-            small $ hask "fullBreakthrough :: Int -> SignatureInferenceStrategy"
+                    [ "fullBackground _ scope"
+                    , "    = DAG.singleton $ const scope"
+                    ]
+        g "Chunks" $ do
+            small $ hask "chunks :: SignatureInferenceStrategy"
             vspace $ Cm 0.5
             footnotesize $
                 hask $
                 T.unlines
-                    [ "> fullBreakthrough 1"
-                    , "    [sort :: Ord a => [a] -> [a]]"
-                    , "    [reverse :: [a] -> [a], id :: a -> a]"
+                    [ "> chunks"
+                    , ">     [sort :: Ord a => [a] -> [a]]"
+                    , ">     [reverse :: [a] -> [a], id :: a -> a]"
                     ]
             footnotesize $
                 mintedText $
@@ -191,6 +166,20 @@ signatureInference = do
                     , "     |"
                     , "[sort, id]"
                     ]
+        g "Inferred Signature" $
+            small $ do
+                hask $
+                    T.unlines
+                        [ "type SignatureInferenceStrategy"
+                        , "    = [Function] -> [Function] -> InferredSignature"
+                        ]
+                pause
+                "Combine the results, use them for optimisation, share previous runs and allow for reflection:"
+                hask $
+                    T.unlines
+                        [ "type InferredSignature ="
+                        , "    DAG ([Signature, [Equation]) -> Signature)"
+                        ]
         pictureSlide
             "The runtime of full breakthrough"
             assetRuntimeFullBreakthroughFullBreakthroughPlot
