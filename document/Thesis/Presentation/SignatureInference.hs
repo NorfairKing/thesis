@@ -97,7 +97,8 @@ signatureInference = do
             hask $ "inferEmptyBackground focus _ = focus"
             pause
             only [OneSlide 2] $
-                withRegisteredAsset assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp -> do
+                withRegisteredAsset
+                    assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp -> do
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -314,11 +315,32 @@ signatureInference = do
                     [ "type InferredSignature ="
                     , "    DAG ([Signature, [Equation]) -> Signature)"
                     ]
+        g "Chunks" $ do
+            small $ hask "chunks :: SignatureInferenceStrategy"
+            vspace $ Cm 0.5
+            footnotesize $
+                hask $
+                T.unlines
+                    [ "> chunksPlus"
+                    , ">     [sort :: Ord a => [a] -> [a]]"
+                    , ">     [reverse :: [a] -> [a], id :: a -> a]"
+                    ]
+            footnotesize $
+                mintedText $
+                T.unlines
+                    [ "                     ->  [sort, reverse]"
+                    , "                    /            |"
+                    , "                   /             v"
+                    , "[sort, reverse, id]            -> [sort]"
+                    , "                   \\          |"
+                    , "                    \\         |"
+                    , "                     ->  [sort, id]"
+                    ]
         pictureSlide
-            "The runtime of chunks"
+            "The runtime of chunks plus"
             assetRuntimeFullBackgroundChunksPlusPlot
         pictureSlide
-            "The outcome of chunks: Relevant equations"
+            "The outcome of chunks plus: Relevant equations"
             assetRelevantEquationsFullBackgroundChunksPlusPlot
         g "Inferred Signature" $ do
             hask $
