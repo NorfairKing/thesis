@@ -97,8 +97,7 @@ signatureInference = do
             hask $ "inferEmptyBackground focus _ = focus"
             pause
             only [OneSlide 2] $
-                withRegisteredAsset
-                    assetRuntimeFullBreakthroughEmptyBackgroundPlot $ \fp -> do
+                withRegisteredAsset assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp -> do
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -126,7 +125,7 @@ signatureInference = do
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeFullBreakthroughSyntacticSimilarityNamePlot $ \fp -> do
+                    assetRuntimeChunksSyntacticSimilarityNamePlot $ \fp -> do
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -155,7 +154,7 @@ signatureInference = do
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeFullBreakthroughSyntacticSimilaritySymbolsPlot $ \fp -> do
+                    assetRuntimeChunksSyntacticSimilaritySymbolsPlot $ \fp -> do
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -184,7 +183,7 @@ signatureInference = do
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeFullBreakthroughSyntacticSimilarityTypePlot $ \fp -> do
+                    assetRuntimeChunksSyntacticSimilarityTypePlot $ \fp -> do
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -211,42 +210,22 @@ signatureInference = do
         comment
             "That means that it doesn't make sense to ever put your entire codebase into a signature."
         lightbulbslide
-        f "" $ large $ center "We can run QuickSpec more than once!"
-        g "Inferred Signature" $
-            small $ do
-                hask $
-                    T.unlines
-                        [ "type SignatureInferenceStrategy"
-                        , "    = [Function] -> [Function] -> InferredSignature"
-                        ]
-                pause
-                "Combine the results of a run:"
-                hask $ "type InferredSignature = [Signature]"
-                pause
-                "Combine the results of a run, and use them as background properties:"
-                hask $ "type InferredSignature = Forrest Signature"
-                pause
-                "Combine the results, use them for optimisation, and share previous runs:"
-                hask $ "type InferredSignature = DAG Signature"
-                pause
-                "Combine the results, use them for optimisation, share previous runs and allow for reflection:"
-                hask $
-                    T.unlines
-                        [ "type InferredSignature ="
-                        , "    DAG ([Signature, [Equation]) -> Signature)"
-                        ]
-        g "Trivial Strategies" $ do
+        f "" $ huge $ center "We can run QuickSpec more than once!"
+        g "Inferred Signature" $ do
             hask $
                 T.unlines
-                    [ "emptyBackground focus _"
-                    , "    = DAG.singleton $ const focus"
+                    [ "type SignatureInferenceStrategy"
+                    , "    = [Function] -> [Function] -> InferredSignature"
                     ]
             pause
-            hask $
-                T.unlines
-                    [ "fullBackground _ scope"
-                    , "    = DAG.singleton $ const scope"
-                    ]
+            "Combine the results of multiple runs:"
+            hask $ "type InferredSignature = [Signature]"
+            pause
+            "User previous results as background properties:"
+            hask $ "type InferredSignature = Forrest Signature"
+            pause
+            "Share previous runs:"
+            hask $ "type InferredSignature = DAG Signature"
         g "Chunks" $ do
             small $ hask "chunks :: SignatureInferenceStrategy"
             vspace $ Cm 0.5
@@ -268,29 +247,15 @@ signatureInference = do
                     , "     |"
                     , "[sort, id]"
                     ]
-        g "Inferred Signature" $
-            small $ do
-                hask $
-                    T.unlines
-                        [ "type SignatureInferenceStrategy"
-                        , "    = [Function] -> [Function] -> InferredSignature"
-                        ]
-                pause
-                "Combine the results, use them for optimisation, share previous runs and allow for reflection:"
-                hask $
-                    T.unlines
-                        [ "type InferredSignature ="
-                        , "    DAG ([Signature, [Equation]) -> Signature)"
-                        ]
         pictureSlide
-            "The runtime of full breakthrough"
-            assetRuntimeFullBreakthroughFullBreakthroughPlot
+            "The runtime of chunks"
+            assetRuntimeFullBackgroundChunksPlot
         pictureSlide
-            "The outcome of full breakthrough: Relevant equations"
-            assetRelevantEquationsFullBreakthroughFullBreakthroughPlot
-        pictureSlide "Why does full breakthrough find more relevant equations?" $
-            assetEquationsFullBreakthroughFullBreakthroughPlot
-        g "Why does full breakthrough find more relevant equations?" $
+            "The outcome of chunks: Relevant equations"
+            assetRelevantEquationsFullBackgroundChunksPlot
+        pictureSlide "Why does chunks find more relevant equations?" $
+            assetEquationsFullBackgroundChunksPlot
+        g "Why does chunks find more relevant equations?" $
             tiny $ do
                 "Scope:"
                 hask $
@@ -336,6 +301,33 @@ signatureInference = do
                             , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
                             ]
                     "All relevant"
+        g "Inferred Signature" $ do
+            hask $
+                T.unlines
+                    [ "type SignatureInferenceStrategy"
+                    , "    = [Function] -> [Function] -> InferredSignature"
+                    ]
+            pause
+            "Allow for reflection:"
+            hask $
+                T.unlines
+                    [ "type InferredSignature ="
+                    , "    DAG ([Signature, [Equation]) -> Signature)"
+                    ]
+        pictureSlide
+            "The runtime of chunks"
+            assetRuntimeFullBackgroundChunksPlusPlot
+        pictureSlide
+            "The outcome of chunks: Relevant equations"
+            assetRelevantEquationsFullBackgroundChunksPlusPlot
+        g "Inferred Signature" $ do
+            hask $
+                T.unlines
+                    [ "type SignatureInferenceStrategy"
+                    , "    = [Function] -> [Function] -> InferM ()"
+                    ]
+            pause
+            hask $ "runQuickSpecOn :: Signature -> InferM [Equation]"
         f "Great promise, but ..." $ do
             enumerate $ do
                 item
