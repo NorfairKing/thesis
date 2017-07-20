@@ -141,13 +141,68 @@ signatureInference = do
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        f "delete this slide" $
+        g "Syntactic similarity: Implementation" $ do
+            raw "\\setminted{highlightlines=5}"
+            hask $
+                T.unlines
+                    [ "inferSyntacticSimilarityName [focus] scope"
+                    , "    = take 5 $ sortOn"
+                    , "      (\\sf ->"
+                    , "        hammingDistance"
+                    , "          (symbols focus) (symbols sf))"
+                    , "      scope "
+                    ]
+            pause
+            only [OneSlide 2] $
+                withRegisteredAsset
+                    assetRuntimeFullBreakthroughSyntacticSimilaritySymbolsPlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+            pause
+            only [OneSlide 3] $
+                withRegisteredAsset
+                    assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+        g "Syntactic similarity: Type" $ do
+            raw "\\setminted{highlightlines=5}"
+            hask $
+                T.unlines
+                    [ "inferSyntacticSimilarityName [focus] scope"
+                    , "    = take 5 $ sortOn"
+                    , "      (\\sf ->"
+                    , "        hammingDistance"
+                    , "          (getTypeParts focus) (getTypeParts sf))"
+                    , "      scope "
+                    ]
+            pause
+            only [OneSlide 2] $
+                withRegisteredAsset
+                    assetRuntimeFullBreakthroughSyntacticSimilarityTypePlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+            pause
+            only [OneSlide 3] $
+                withRegisteredAsset
+                    assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot $ \fp -> do
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+        f "Other things we tried" $ do
             enumerate $ do
-                item "Syntactical similarity of the name by character"
-                item "Syntactical similarity of the implementation by symbol"
-                item "Syntactical similarity of the type by symbol"
-                item "Similarity using a different metric"
-                item "Combinations of the above"
+                item "Similarity using a different metric: edit distance"
+                item "Unions of the previous strategies"
         pictureSlide "Breakthrough" assetNrDifferentFunctionsPlot
         comment
             "60-70% of all properties involve onle one or 2 different functions"
