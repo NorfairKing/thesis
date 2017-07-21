@@ -25,4 +25,6 @@ aboutme =
         center $ do
             url "https://cs-syd.eu/"
             lnbk
+            url "https://cs-syd.eu/cv"
+            lnbk
             url "https://github.com/NorfairKing"

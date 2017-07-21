@@ -379,6 +379,7 @@ signatureInference = do
                 T.unlines
                     [ "https://github.com/nick8325/quickcheck"
                     , "https://github.com/nick8325/quickspec"
+                    , ""
                     , "https://github.com/NorfairKing/easyspec"
                     ]
             "Now we need to make it production ready!"
