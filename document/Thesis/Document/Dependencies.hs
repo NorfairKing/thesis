@@ -69,7 +69,7 @@ $(makeDependencyAssets
               ( "runtime"
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
-                    (Pair inferSyntacticSimilarityName inferFullBackground)))
+                    (Pair (inferSyntacticSimilarityName 5) inferFullBackground)))
       , ( "assetRelevantEquationsFullBackgroundSyntacticSimilarityNamePlot"
         , "relevant-equations-plot-full-background-syntactic-similarity-name.pdf"
         , plotFileFor
@@ -77,7 +77,7 @@ $(makeDependencyAssets
               ( "evaluation"
               , relevantEquationsEvaluator
               , OrderedDistinct
-                    (Pair inferSyntacticSimilarityName inferFullBackground)))
+                    (Pair (inferSyntacticSimilarityName 5)inferFullBackground)))
       , ( "assetRuntimeChunksSyntacticSimilaritySymbolsPlot"
         , "runtime-plot-full-background-syntactic-similarity-symbols.pdf"
         , plotFileFor
@@ -85,7 +85,7 @@ $(makeDependencyAssets
               ( "runtime"
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
-                    (Pair inferFullBackground inferSyntacticSimilaritySymbols)))
+                    (Pair inferFullBackground (inferSyntacticSimilaritySymbols 5))))
       , ( "assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot"
         , "relevant-equations-plot-full-background-syntactic-similarity-symbols.pdf"
         , plotFileFor
@@ -93,7 +93,7 @@ $(makeDependencyAssets
               ( "evaluation"
               , relevantEquationsEvaluator
               , OrderedDistinct
-                    (Pair inferFullBackground inferSyntacticSimilaritySymbols)))
+                    (Pair inferFullBackground (inferSyntacticSimilaritySymbols 5))))
       , ( "assetRuntimeChunksSyntacticSimilarityTypePlot"
         , "runtime-plot-full-background-syntactic-similarity-type.pdf"
         , plotFileFor
@@ -101,7 +101,7 @@ $(makeDependencyAssets
               ( "runtime"
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
-                    (Pair inferFullBackground inferSyntacticSimilarityType)))
+                    (Pair inferFullBackground (inferSyntacticSimilarityType 5))))
       , ( "assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot"
         , "relevant-equations-plot-full-background-syntactic-similarity-type.pdf"
         , plotFileFor
@@ -109,7 +109,7 @@ $(makeDependencyAssets
               ( "evaluation"
               , relevantEquationsEvaluator
               , OrderedDistinct
-                    (Pair inferFullBackground inferSyntacticSimilarityType)))
+                    (Pair inferFullBackground (inferSyntacticSimilarityType 5))))
       , ( "assetNrDifferentFunctionsPlot"
         , "evaluation-nr-different-functions.pdf"
         , plotFileFor
