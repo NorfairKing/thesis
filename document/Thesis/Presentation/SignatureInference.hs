@@ -223,7 +223,7 @@ signatureInference = do
             hask $ "type InferredSignature = [Signature]"
             pause
             "User previous results as background properties:"
-            hask $ "type InferredSignature = Forrest Signature"
+            hask $ "type InferredSignature = Forest Signature"
             pause
             "Share previous runs:"
             hask $ "type InferredSignature = DAG Signature"
