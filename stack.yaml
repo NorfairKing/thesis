@@ -2,9 +2,7 @@ resolver: lts-8.21
 packages:
 - .
 - location: /home/syd/cs-syd/code/open-source/easyspec/easyspec
-  extra-dep: true
 - location: /home/syd/cs-syd/code/open-source/easyspec/easyspec-evaluate
-  extra-dep: true
 - location:
     git: git@github.com:NorfairKing/quickspec.git
     commit: 58d2c4ef66da806f938281159dc66bf2a9d062a1

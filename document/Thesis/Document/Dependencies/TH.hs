@@ -14,23 +14,16 @@ import EasySpec.Evaluate.Build as EE
 import Thesis.Document.Assets
 
 makeDependencyAssets :: [(String, FilePath, IO (Path Abs File))] -> Q [Dec]
-makeDependencyAssets trips = do
+makeDependencyAssets trips' = do
+    trips <- runIO $ forM trips' $ \(n, p, genPath) -> (,,) n p <$> genPath
     runIO $ do
         bd <- EE.buildDir
         withCurrentDir bd $ do
             cd <- getCurrentDir
             print cd
-            cmd
-                "stack"
-                "build"
-                ":easyspec-evaluate"
-                "--exec"
-                ["easyspec-evaluate build raw-data"] :: IO ()
-            EE.runBuildEverything
-    fmap concat $
-        forM trips $ \(n, p, genPath) -> do
-            absp <- runIO genPath
-            makeAssetDec n p absp
+            EE.runBuild $
+                 map (toFilePath . (\(_, _, thd) -> thd)) trips
+    fmap concat $ forM trips $ \(n, p, absp) -> makeAssetDec n p absp
 
 makeAssetDec :: String -> FilePath -> Path Abs File -> Q [Dec]
 makeAssetDec name relPath assetFile = do
