@@ -7,7 +7,7 @@ module PresImport
     , module X
     ) where
 
-import DocImport
+import DocImport hiding (note)
 
 import System.FilePath
 
@@ -69,3 +69,6 @@ mintedFile :: Text -> Asset -> Thesis
 mintedFile lang asset =
     withRegisteredAsset asset $ \fp ->
         comm2 "inputminted" (raw lang) $ raw $ fromString fp
+
+note :: [Thesis] -> Thesis
+note = comm1 "note" . large . enumerate . mapM_ item

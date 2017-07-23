@@ -18,6 +18,7 @@ signatureInference = do
     pauseSlide 2
     section "Signature Inference" $ do
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
+        note ["Now we have automated QuickSpec, but it still slow"]
         f "" $ huge $ center "Definitions"
         g "Definitions: Property" $ do
             vfill
@@ -52,8 +53,6 @@ signatureInference = do
             hask $ T.unlines ["f (g x) = g (f x)", "f z = z"]
             "Not properties of " <> haskInline "f" <> ":"
             hask $ T.unlines ["g z = z"]
-            vfill
-            raw "relevant property = property of focus function"
         g "Definitions: Relevant function" $ do
             "Functions:"
             hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0", "h = id"]
@@ -66,6 +65,8 @@ signatureInference = do
                 " but " <>
                 haskInline "h" <>
                 " is not."
+            vfill
+            raw "relevant property = property of focus function"
         g "Definitions: Scope" $ do
             "Scope: Functions in scope"
             vfill
@@ -75,6 +76,10 @@ signatureInference = do
             pause
             "Size of signature: Number of functions in signature"
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
+        note
+            [ "We set out to find eighty percent of the properties in twenty percent of the time."
+            , "Of course, later we realised that even twenty percent does not change the time complexity and therefore is too slow in practice."
+            ]
         f "Why is this slow?" $
             enumerate $ do
                 item "Maximum size of the discovered properties"
@@ -145,8 +150,8 @@ signatureInference = do
             raw "\\setminted{highlightlines=5}"
             hask $
                 T.unlines
-                    [ "inferSyntacticSimilarityName [focus] scope"
-                    , "    = take 5 $ sortOn"
+                    [ "inferSyntacticSimilaritySymbols i [focus] scope"
+                    , "    = take i $ sortOn"
                     , "      (\\sf ->"
                     , "        hammingDistance"
                     , "          (symbols focus) (symbols sf))"
@@ -174,8 +179,8 @@ signatureInference = do
             raw "\\setminted{highlightlines=5}"
             hask $
                 T.unlines
-                    [ "inferSyntacticSimilarityName [focus] scope"
-                    , "    = take 5 $ sortOn"
+                    [ "inferSyntacticSimilarityType i [focus] scope"
+                    , "    = take i $ sortOn"
                     , "      (\\sf ->"
                     , "        hammingDistance"
                     , "          (getTypeParts focus) (getTypeParts sf))"
@@ -292,7 +297,7 @@ signatureInference = do
                     mintedText "i (q x) = r x"
                 pause
                 minipage Nothing (raw "0.4" <> textwidth) $ do
-                    "Full breakthrough for r:"
+                    "Chunks for r:"
                     mintedText $
                         T.unlines
                             [ "q (i x) = r x"
@@ -313,10 +318,10 @@ signatureInference = do
             hask $
                 T.unlines
                     [ "type InferredSignature ="
-                    , "    DAG ([Signature, [Equation]) -> Signature)"
+                    , "    DAG ([(Signature, [Equation])] -> Signature)"
                     ]
-        g "Chunks" $ do
-            small $ hask "chunks :: SignatureInferenceStrategy"
+        g "Chunks Plus" $ do
+            small $ hask "chunksPlus :: SignatureInferenceStrategy"
             vspace $ Cm 0.5
             footnotesize $
                 hask $
@@ -352,6 +357,7 @@ signatureInference = do
             hask $ "runQuickSpecOn :: Signature -> InferM [Equation]"
         f "Great promise, but ..." $ do
             enumerate $ do
+                pause
                 item
                     "Only works for functions in scope of which the type is in scope too."
                 pause

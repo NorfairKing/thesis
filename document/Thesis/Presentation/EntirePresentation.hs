@@ -19,6 +19,9 @@ entirePresentation = do
     documentclass [] beamer
     -- No nav symbols
     comm0 "beamertemplatenavigationsymbolsempty"
+    packageDep_ "pgfpages"
+    comm1 "setbeameroption" $ raw "show notes"
+    comm1 "setbeameroption" $ raw "show notes on second screen=right"
     -- Color theme
     withRegisteredAsset solarizedtheme $
         const $ usecolortheme (raw "accent=yellow") (raw "solarized")
@@ -36,6 +39,10 @@ entirePresentation = do
     -- The presentation
     document $ do
         maketitle
+        note
+            [ "The presentation should take about one hour."
+            , "I have been working on this for the last four and a half months, so if I forget to explain anything, please ask me immediately."
+            ]
         vision
         motivation
         propertyDiscovery

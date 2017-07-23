@@ -24,19 +24,41 @@ motivation = do
     let mach = d "machine"
     let math = d "maths"
     section "Motivation" $ do
-        f "Motivation" $ center "Writing correct software is hard for humans."
-        comment "Bear with me, this part is relevant!"
+        f "Motivation" $ do
+            pause
+            center "Writing correct software is hard for humans."
+            note
+                [ "So why would we want to not want to come up with tests manually?"
+                ]
         lightbulbslide
-        f "Motivation" $ center "Make machines do it!"
+        note ["Here is an idea:"]
+        f "Motivation" $ do
+            center "Make machines do it!"
+            note
+                [ "It turns out that making machines write software is hard."
+                , "I read on hacker news: One day we will only have to give the machine a precise description of what we want code to do, and the machine will write it for us."
+                , "Well, we are already there. This precise description is called the code."
+                ]
         lightbulbslide
-        f "Motivation" $
+        note
+            [ "Alright, so maybe we cannot make machines write the code. New idea then."
+            ]
+        f "Motivation" $ do
             center
                 "I will write the code myself, and get the machine to prove that it is correct."
-        comment "The point is that formal methods are expensive."
+            note
+                [ "There are a few problems with this."
+                , "First of all, you will run into Rice's theorem at some point."
+                , "Second, you have to already know exactly what it means for your code to be correct."
+                , "I argue that, in practice, formal methods will not solve the problem that writing correct code is expensive in the short term."
+                ]
         lightbulbslide
-        f "Motivation" $
+        f "Motivation" $ do
             center
                 "I will write the code myself, and get the machine to test that it works."
+            note
+                [ "When formal methods are too expensive, what do we turn to? Testing!"
+                ]
         g "Making machines test that my code works" $ do
             only [FromSlide 2] $ do raw "\\setminted{highlightlines={2,4}}"
             hask $
@@ -74,7 +96,7 @@ motivation = do
                     [ "  forAll"
                     , "    arbitrary"
                     , "      $ \\ls ->"
-                    , "        sort ls == ls"
+                    , "        isSorted (sort ls)"
                     ]
             pause
             only [FromSlide 2] $
