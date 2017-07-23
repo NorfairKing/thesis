@@ -24,7 +24,7 @@ entirePresentation = do
         const $ usecolortheme (raw "accent=yellow") (raw "solarized")
     -- Basic info
     title "Signature Inference for Functional Property Discovery"
-    subtitle $ raw "or: How never to write tests manually anymore(*)"
+    subtitle $ raw "or: How never to come up with tests manually anymore(*)"
     date $ raw "27 July 2017"
     author "Tom Sydney Kerckhove"
     institute Nothing $ do
