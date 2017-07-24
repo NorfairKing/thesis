@@ -19,11 +19,14 @@ module Thesis.Document.Dependencies
     , assetRuntimeFullBackgroundChunksPlusPlot
     , assetRelevantEquationsFullBackgroundChunksPlusPlot
     , assetEquationsFullBackgroundChunksPlusPlot
+    , assetRuntimeAll
+    , assetRelevantEquationsAll
     ) where
 
 import EasySpec.Discover.SignatureInference
 import EasySpec.Discover.SignatureInference.Chunks
 import EasySpec.Discover.SignatureInference.ChunksPlus
+import EasySpec.Discover.SignatureInference.ChunksSimilarityName
 import EasySpec.Discover.SignatureInference.EmptyBackground
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityName
 import EasySpec.Discover.SignatureInference.SyntacticSimilaritySymbols
@@ -77,7 +80,7 @@ $(makeDependencyAssets
               ( "evaluation"
               , relevantEquationsEvaluator
               , OrderedDistinct
-                    (Pair (inferSyntacticSimilarityName 5)inferFullBackground)))
+                    (Pair (inferSyntacticSimilarityName 5) inferFullBackground)))
       , ( "assetRuntimeChunksSyntacticSimilaritySymbolsPlot"
         , "runtime-plot-full-background-syntactic-similarity-symbols.pdf"
         , plotFileFor
@@ -85,7 +88,9 @@ $(makeDependencyAssets
               ( "runtime"
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
-                    (Pair inferFullBackground (inferSyntacticSimilaritySymbols 5))))
+                    (Pair
+                         inferFullBackground
+                         (inferSyntacticSimilaritySymbols 5))))
       , ( "assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot"
         , "relevant-equations-plot-full-background-syntactic-similarity-symbols.pdf"
         , plotFileFor
@@ -93,7 +98,9 @@ $(makeDependencyAssets
               ( "evaluation"
               , relevantEquationsEvaluator
               , OrderedDistinct
-                    (Pair inferFullBackground (inferSyntacticSimilaritySymbols 5))))
+                    (Pair
+                         inferFullBackground
+                         (inferSyntacticSimilaritySymbols 5))))
       , ( "assetRuntimeChunksSyntacticSimilarityTypePlot"
         , "runtime-plot-full-background-syntactic-similarity-type.pdf"
         , plotFileFor
@@ -159,4 +166,14 @@ $(makeDependencyAssets
               ( "evaluation"
               , equationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
+      , ( "assetRuntimeAll"
+        , "runtime-all.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsPlotter
+              ("runtime", IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
+      , ( "assetRelevantEquationsAll"
+        , "relevant-equations-all.pdf"
+        , plotFileFor
+              boxPlotterPerEvaluator
+              ("evaluation", relevantEquationsEvaluator))
       ])

@@ -26,12 +26,42 @@ propertyDiscovery =
                     ]
         f "" $ center $ huge "Property Discovery with QuickSpec"
         g "Example code" $ do
-            raw "\\setminted{highlightlines={3, 12}}"
+            only [OneSlide 2] $ raw "\\setminted{highlightlines={3, 12}}"
             haskFile $(embedAsset "MySort.hs")
         g "Property discovery using QuickSpec" $ do
-            raw "\\setminted{highlightlines={12-17}}"
             footnotesize $
-                verbatimFile $(embedAsset "MySortQuickSpecOutput.txt")
+                mintedText $
+                T.unlines
+                    [ "== Signature =="
+                    , "      True :: Bool"
+                    , "      (<=) :: Ord a => a -> a -> Bool"
+                    , "       (:) :: a -> [a] -> [a]"
+                    , "    mySort :: Ord a => [a] -> [a]"
+                    , "myIsSorted :: Ord a => [a] -> Bool"
+                    ]
+            pause
+            only [OneSlide 3] $ raw "\\setminted{highlightlines={5-10}}"
+            footnotesize $
+                mintedText $
+                T.unlines
+                    [ "== Laws =="
+                    , "  1. y <= y = True"
+                    , "  2. y <= True = True"
+                    , "  3. True <= x = x"
+                    , "  4. myIsSorted (mySort xs) = True"
+                    , "  5. mySort (mySort xs) = mySort xs"
+                    , "  6. xs <= mySort xs = myIsSorted xs"
+                    , "  7. mySort xs <= xs = True"
+                    , "  8. myIsSorted (y : (y : xs)) = myIsSorted (y : xs)"
+                    , "  9. mySort (y : mySort xs) = mySort (y : xs)"
+                    ]
+            note
+                [ "Explain how would you use this"
+                , "Before I go on:"
+                , "This is Really cool!"
+                , "Really good at what it does"
+                , "Great foundation for what comes next"
+                ]
         g "QuickSpec Code" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
         g "Problems with QuickSpec: Monomorphisation" $ do
             "Only for monomorphic functions"

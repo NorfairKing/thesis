@@ -89,6 +89,10 @@ signatureInference = do
         f "Critical insight" $ do
             center "We are not interested in the entire codebase."
             center "We are interested in a relatively small amount of code."
+            note
+                [ "This means that we have an entirely different goal than QuickSpec"
+                , "Comparisons with QuickSpec are not really fair, but we have nothing else to compare to"
+                ]
         g "Reducing the size of the signature" $ do
             hask $
                 T.unlines
@@ -118,6 +122,7 @@ signatureInference = do
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
+        pauseSlide 3
         g "Syntactic similarity: Name" $ do
             hask $
                 T.unlines
@@ -312,13 +317,29 @@ signatureInference = do
                 T.unlines
                     [ "type SignatureInferenceStrategy"
                     , "    = [Function] -> [Function] -> InferredSignature"
-                    ]
-            pause
-            "Allow for reflection:"
-            hask $
-                T.unlines
-                    [ "type InferredSignature ="
+                    , ""
+                    , ""
+                    , ""
+                    , "type InferredSignature ="
                     , "    DAG ([(Signature, [Equation])] -> Signature)"
+                    ]
+        g "Inferred Signature" $ do
+            small $
+                hask $
+                T.unlines
+                    [ "type SignatureInferenceStrategy"
+                    , "    = [Function] -> [Function] -> InferM ()"
+                    , ""
+                    , "data InferM a where"
+                    , "    InferPure :: a -> InferM a"
+                    , "    InferFmap :: (a -> b) -> InferM a -> InferM b"
+                    , "    InferApp :: InferM (a -> b) -> InferM a -> InferM b"
+                    , "    InferBind :: InferM a -> (a -> InferM b) -> InferM b"
+                    , "    "
+                    , "    InferFrom"
+                    , "        :: [EasyNamedExp]"
+                    , "        -> [OptiToken]"
+                    , "        -> InferM (OptiToken, [EasyEq])"
                     ]
         g "Chunks Plus" $ do
             small $ hask "chunksPlus :: SignatureInferenceStrategy"
@@ -347,14 +368,8 @@ signatureInference = do
         pictureSlide
             "The outcome of chunks plus: Relevant equations"
             assetRelevantEquationsFullBackgroundChunksPlusPlot
-        g "Inferred Signature" $ do
-            hask $
-                T.unlines
-                    [ "type SignatureInferenceStrategy"
-                    , "    = [Function] -> [Function] -> InferM ()"
-                    ]
-            pause
-            hask $ "runQuickSpecOn :: Signature -> InferM [Equation]"
+        pictureSlide "All strategies" assetRelevantEquationsAll
+        pictureSlide "All strategies" assetRuntimeAll
         f "Great promise, but ..." $ do
             enumerate $ do
                 pause
@@ -379,6 +394,8 @@ signatureInference = do
                 item "Which constants do we choose for built in types?"
                 pause
                 item "Can we apply this to effectful code?"
+                pause
+                item "Relative importance of equations"
         g "Call to action" $ do
             "Proofs of concept:"
             mintedText $

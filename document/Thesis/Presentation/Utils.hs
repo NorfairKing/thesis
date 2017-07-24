@@ -25,7 +25,7 @@ pauseSlide i =
                 [ "safePerformIO :: IO a -> IO a"
                 , "safePerformIO ioa = ioa >>= return"
                 ]
-        3 -> T.unlines ["whatever :: Int ~ Char => Bool", "whatever = ()"]
+        3 -> T.unlines ["safeCoerce :: a ~ b => a -> b", "safeCoerce x = x"]
 
 lightbulbslide :: Thesis
 lightbulbslide =
