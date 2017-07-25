@@ -21,8 +21,8 @@ documentRules :: Rules ()
 documentRules = do
     simpleRule "draft" BuildDraft entireDocument
     simpleRule "final" BuildFinal entireDocument
-    simpleRule "draft-presentation" BuildDraft entirePresentation
-    simpleRule "final-presentation" BuildFinal entirePresentation
+    simpleRule "presenter-presentation" BuildDraft entirePresentation
+    simpleRule "public-presentation" BuildFinal entirePresentation
 
 simpleRule :: String -> BuildKind -> Thesis -> Rules ()
 simpleRule name build doc =

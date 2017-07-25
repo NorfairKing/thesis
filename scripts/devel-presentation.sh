@@ -1,3 +1,3 @@
 #!/bin/bash
 
-stack install :thesis --file-watch --exec='thesis build draft-presentation' --fast
+stack install :thesis --file-watch --exec='thesis build presenter-presentation' --fast
