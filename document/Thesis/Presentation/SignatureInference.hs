@@ -370,6 +370,19 @@ signatureInference = do
             assetRelevantEquationsFullBackgroundChunksPlusPlot
         pictureSlide "All strategies" assetRelevantEquationsAll
         pictureSlide "All strategies" assetRuntimeAll
+        g "Neat" $ do
+            mintedText $
+                T.unlines
+                    [ "$ time stack exec easyspec \\"
+                    , "      -- discover MySort.hs MySort.mySort"
+                    , ""
+                    , "xs <= mySort xs = myIsSorted xs"
+                    , "mySort xs <= xs = True"
+                    , "myIsSorted (mySort xs) = True"
+                    , "mySort (mySort xs) = mySort xs"
+                    , ""
+                    , "3.61s user 1.14s system 193% cpu 2.450 total"
+                    ]
         f "Great promise, but ..." $ do
             enumerate $ do
                 pause
