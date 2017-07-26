@@ -51,7 +51,7 @@ automation = do
             pause
             hask "sort :: Ord a => [a] -> [a]"
             pause
-            hask "sort :: Dict (Ord A) => [A] -> [A]"
+            hask "mkDict sort :: Dict (Ord A) -> [A] -> [A]"
             pause
             hask $
                 T.unlines

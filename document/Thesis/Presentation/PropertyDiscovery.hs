@@ -22,7 +22,7 @@ propertyDiscovery =
                     [ "  forAll"
                     , "    arbitrary"
                     , "      $ \\ls ->"
-                    , "        sort ls == ls"
+                    , "        isSorted (sort ls)"
                     ]
         f "" $ center $ huge "Property Discovery with QuickSpec"
         g "Example code" $ do

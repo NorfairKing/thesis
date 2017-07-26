@@ -337,9 +337,9 @@ signatureInference = do
                     , "    InferBind :: InferM a -> (a -> InferM b) -> InferM b"
                     , "    "
                     , "    InferFrom"
-                    , "        :: [EasyNamedExp]"
+                    , "        :: Signature"
                     , "        -> [OptiToken]"
-                    , "        -> InferM (OptiToken, [EasyEq])"
+                    , "        -> InferM (OptiToken, [Equation])"
                     ]
         g "Chunks Plus" $ do
             small $ hask "chunksPlus :: SignatureInferenceStrategy"
