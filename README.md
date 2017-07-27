@@ -5,5 +5,5 @@ Thesis
 ## Presenting:
 
 ```
-$ pdfpc out/draft-presentation.pdf --notes=right
+$ pdfpc pdfs/presenter-presentation.pdf --notes=right
 ```
