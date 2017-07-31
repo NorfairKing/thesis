@@ -13,16 +13,7 @@ import Thesis.Document.Assets
 import Thesis.Presentation.Utils
 
 motivation :: Thesis
-motivation = do
-    let d :: Thesis -> Thesis -> Thesis
-        d a_ t_ = do
-            pause
-            a_ <> ": "
-            t_
-            lnbk
-    let user = d "user"
-    let mach = d "machine"
-    let math = d "maths"
+motivation =
     section "Motivation" $ do
         f "Motivation" $ do
             pause
@@ -60,7 +51,7 @@ motivation = do
                 [ "When formal methods are too expensive, what do we turn to? Testing!"
                 ]
         g "Making machines test that my code works" $ do
-            only [FromSlide 2] $ do raw "\\setminted{highlightlines={2,4}}"
+            only [FromSlide 2] $ raw "\\setminted{highlightlines={2,4}}"
             hask $
                 T.unlines
                     [ "sort"

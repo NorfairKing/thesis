@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Presentation.SignatureInference
     ( signatureInference
@@ -93,21 +92,21 @@ signatureInference = do
                 [ "This means that we have an entirely different goal than QuickSpec"
                 , "Comparisons with QuickSpec are not really fair, but we have nothing else to compare to"
                 ]
-        g "Reducing the size of the signature" $ do
+        g "Reducing the size of the signature" $
             hask $
-                T.unlines
-                    [ "inferSignature"
-                    , "  :: [Function] -- Focus functions"
-                    , "  -> [Function] -- Functions in scope"
-                    , "  -> [Function] -- Chosen functions"
-                    ]
+            T.unlines
+                [ "inferSignature"
+                , "  :: [Function] -- Focus functions"
+                , "  -> [Function] -- Functions in scope"
+                , "  -> [Function] -- Chosen functions"
+                ]
         g "Full background and empty background" $ do
-            hask $ "inferFullBackground _ scope = scope"
-            hask $ "inferEmptyBackground focus _ = focus"
+            hask "inferFullBackground _ scope = scope"
+            hask "inferEmptyBackground focus _ = focus"
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp -> do
+                    assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -116,7 +115,7 @@ signatureInference = do
             pause
             only [OneSlide 3] $
                 withRegisteredAsset
-                    assetRelevantEquationsFullBackgroundEmptyBackgroundPlot $ \fp -> do
+                    assetRelevantEquationsFullBackgroundEmptyBackgroundPlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -136,7 +135,7 @@ signatureInference = do
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeChunksSyntacticSimilarityNamePlot $ \fp -> do
+                    assetRuntimeChunksSyntacticSimilarityNamePlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -145,7 +144,7 @@ signatureInference = do
             pause
             only [OneSlide 3] $
                 withRegisteredAsset
-                    assetRelevantEquationsFullBackgroundSyntacticSimilarityNamePlot $ \fp -> do
+                    assetRelevantEquationsFullBackgroundSyntacticSimilarityNamePlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -165,7 +164,7 @@ signatureInference = do
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeChunksSyntacticSimilaritySymbolsPlot $ \fp -> do
+                    assetRuntimeChunksSyntacticSimilaritySymbolsPlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -174,7 +173,7 @@ signatureInference = do
             pause
             only [OneSlide 3] $
                 withRegisteredAsset
-                    assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot $ \fp -> do
+                    assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -194,7 +193,7 @@ signatureInference = do
             pause
             only [OneSlide 2] $
                 withRegisteredAsset
-                    assetRuntimeChunksSyntacticSimilarityTypePlot $ \fp -> do
+                    assetRuntimeChunksSyntacticSimilarityTypePlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
@@ -203,13 +202,13 @@ signatureInference = do
             pause
             only [OneSlide 3] $
                 withRegisteredAsset
-                    assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot $ \fp -> do
+                    assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        f "Other things we tried" $ do
+        f "Other things we tried" $
             enumerate $ do
                 item "Similarity using a different metric: edit distance"
                 item "Unions of the previous strategies"
@@ -230,13 +229,13 @@ signatureInference = do
                     ]
             pause
             "Combine the results of multiple runs:"
-            hask $ "type InferredSignature = [Signature]"
+            hask "type InferredSignature = [Signature]"
             pause
             "User previous results as background properties:"
-            hask $ "type InferredSignature = Forest Signature"
+            hask "type InferredSignature = Forest Signature"
             pause
             "Share previous runs:"
-            hask $ "type InferredSignature = DAG Signature"
+            hask "type InferredSignature = DAG Signature"
         g "Chunks" $ do
             small $ hask "chunks :: SignatureInferenceStrategy"
             vspace $ Cm 0.5
@@ -264,7 +263,8 @@ signatureInference = do
         pictureSlide
             "The outcome of chunks: Relevant equations"
             assetRelevantEquationsFullBackgroundChunksPlot
-        pictureSlide "Why does chunks find more relevant equations?" $
+        pictureSlide
+            "Why does chunks find more relevant equations?"
             assetEquationsFullBackgroundChunksPlot
         g "Why does chunks find more relevant equations?" $
             tiny $ do
@@ -312,35 +312,35 @@ signatureInference = do
                             , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
                             ]
                     "All relevant"
-        g "Inferred Signature" $ do
+        g "Inferred Signature" $
             hask $
-                T.unlines
-                    [ "type SignatureInferenceStrategy"
-                    , "    = [Function] -> [Function] -> InferredSignature"
-                    , ""
-                    , ""
-                    , ""
-                    , "type InferredSignature ="
-                    , "    DAG ([(Signature, [Equation])] -> Signature)"
-                    ]
-        g "Inferred Signature" $ do
+            T.unlines
+                [ "type SignatureInferenceStrategy"
+                , "    = [Function] -> [Function] -> InferredSignature"
+                , ""
+                , ""
+                , ""
+                , "type InferredSignature ="
+                , "    DAG ([(Signature, [Equation])] -> Signature)"
+                ]
+        g "Inferred Signature" $
             small $
-                hask $
-                T.unlines
-                    [ "type SignatureInferenceStrategy"
-                    , "    = [Function] -> [Function] -> InferM ()"
-                    , ""
-                    , "data InferM a where"
-                    , "    InferPure :: a -> InferM a"
-                    , "    InferFmap :: (a -> b) -> InferM a -> InferM b"
-                    , "    InferApp :: InferM (a -> b) -> InferM a -> InferM b"
-                    , "    InferBind :: InferM a -> (a -> InferM b) -> InferM b"
-                    , "    "
-                    , "    InferFrom"
-                    , "        :: Signature"
-                    , "        -> [OptiToken]"
-                    , "        -> InferM (OptiToken, [Equation])"
-                    ]
+            hask $
+            T.unlines
+                [ "type SignatureInferenceStrategy"
+                , "    = [Function] -> [Function] -> InferM ()"
+                , ""
+                , "data InferM a where"
+                , "    InferPure :: a -> InferM a"
+                , "    InferFmap :: (a -> b) -> InferM a -> InferM b"
+                , "    InferApp :: InferM (a -> b) -> InferM a -> InferM b"
+                , "    InferBind :: InferM a -> (a -> InferM b) -> InferM b"
+                , "    "
+                , "    InferFrom"
+                , "        :: Signature"
+                , "        -> [OptiToken]"
+                , "        -> InferM (OptiToken, [Equation])"
+                ]
         g "Chunks Plus" $ do
             small $ hask "chunksPlus :: SignatureInferenceStrategy"
             vspace $ Cm 0.5
@@ -370,19 +370,19 @@ signatureInference = do
             assetRelevantEquationsFullBackgroundChunksPlusPlot
         pictureSlide "All strategies" assetRelevantEquationsAll
         pictureSlide "All strategies" assetRuntimeAll
-        g "Neat" $ do
+        g "Neat" $
             mintedText $
-                T.unlines
-                    [ "$ time stack exec easyspec \\"
-                    , "      -- discover MySort.hs MySort.mySort"
-                    , ""
-                    , "xs <= mySort xs = myIsSorted xs"
-                    , "mySort xs <= xs = True"
-                    , "myIsSorted (mySort xs) = True"
-                    , "mySort (mySort xs) = mySort xs"
-                    , ""
-                    , "3.61s user 1.14s system 193% cpu 2.450 total"
-                    ]
+            T.unlines
+                [ "$ time stack exec easyspec \\"
+                , "      -- discover MySort.hs MySort.mySort"
+                , ""
+                , "xs <= mySort xs = myIsSorted xs"
+                , "mySort xs <= xs = True"
+                , "myIsSorted (mySort xs) = True"
+                , "mySort (mySort xs) = mySort xs"
+                , ""
+                , "3.61s user 1.14s system 193% cpu 2.450 total"
+                ]
         f "Great promise, but ..." $ do
             enumerate $ do
                 pause

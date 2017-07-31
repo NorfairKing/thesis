@@ -4,8 +4,6 @@ module Thesis.Document.Dependencies.TH
 
 import Import
 
-import Development.Shake
-
 import Language.Haskell.TH
 
 import EasySpec.Evaluate.Analyse.Common as EE
@@ -21,8 +19,7 @@ makeDependencyAssets trips' = do
         withCurrentDir bd $ do
             cd <- getCurrentDir
             print cd
-            EE.runBuild $
-                 map (toFilePath . (\(_, _, thd) -> thd)) trips
+            EE.runBuild $ map (toFilePath . (\(_, _, thd) -> thd)) trips
     fmap concat $ forM trips $ \(n, p, absp) -> makeAssetDec n p absp
 
 makeAssetDec :: String -> FilePath -> Path Abs File -> Q [Dec]

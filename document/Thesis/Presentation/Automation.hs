@@ -10,7 +10,6 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Assets
-import Thesis.Document.Dependencies
 import Thesis.Presentation.Utils
 
 automation :: Thesis
@@ -35,7 +34,7 @@ automation = do
                     , "    [...]"
                     , "  }"
                     ]
-            hask $ "quickSpec :: Signature -> IO Signature"
+            hask "quickSpec :: Signature -> IO Signature"
             comment
                 "QuickSpec finds all properties of all functions in the signature"
         g "Automatic Monomorphisation" $ do

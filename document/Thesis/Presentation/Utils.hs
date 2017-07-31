@@ -6,11 +6,6 @@ module Thesis.Presentation.Utils where
 import PresImport
 
 import qualified Data.Text as T
-import System.FilePath
-
-import Text.LaTeX.Base.Class
-import Text.LaTeX.Base.Syntax
-import Text.LaTeX.Packages.Beamer as X
 
 import Thesis.Document.Assets
 
@@ -26,6 +21,7 @@ pauseSlide i =
                 , "safePerformIO ioa = ioa >>= return"
                 ]
         3 -> T.unlines ["safeCoerce :: a ~ b => a -> b", "safeCoerce x = x"]
+        _ -> ""
 
 lightbulbslide :: Thesis
 lightbulbslide =

@@ -10,7 +10,6 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Assets
-import Thesis.Document.Dependencies
 
 propertyDiscovery :: Thesis
 propertyDiscovery =

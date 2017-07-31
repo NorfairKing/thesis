@@ -26,7 +26,6 @@ module Thesis.Document.Dependencies
 import EasySpec.Discover.SignatureInference
 import EasySpec.Discover.SignatureInference.Chunks
 import EasySpec.Discover.SignatureInference.ChunksPlus
-import EasySpec.Discover.SignatureInference.ChunksSimilarityName
 import EasySpec.Discover.SignatureInference.EmptyBackground
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityName
 import EasySpec.Discover.SignatureInference.SyntacticSimilaritySymbols
@@ -170,7 +169,8 @@ $(makeDependencyAssets
         , "runtime-all.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsPlotter
-              ("runtime", IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
+              ( "runtime"
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
       , ( "assetRelevantEquationsAll"
         , "relevant-equations-all.pdf"
         , plotFileFor
