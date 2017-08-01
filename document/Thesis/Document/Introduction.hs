@@ -106,13 +106,16 @@ thesisIntroduction =
                     "Consequently, the developer time costs of property testing is even higher and, as a result, property testing is rarely ever done in practice."
             subsubsection "Property Discovery" $ do
                 s
-                    "Taking the human element out of the equation could solve the problem with developer time costs."
+                    "If one could somehow eliminate as much human effort from conceiving tests, then using that approach, combined with property testing, would solve both of the problems with unit testing."
                 s
-                    "Property discovery means that property tests can automatically be generated."
+                    "Property discovery is a technique to produce property tests for subject code automatically."
                 s
                     "This process relieves the programmer from having to think of examples or properties and only requires them to select the properties that they think should hold."
+                s "Property discovery is currently a product of research."
                 s
-                    "While property discovery solves the problems with unit testing and property testing, it comes with a new problems."
+                    "It is not ready to be used in practical software engineering just yet."
+                s
+                    "Current research on property has made great progress, but it has also shown that property discovery is a non trivial problem to solve."
                 paragraph "Complexity" $ do
                     l
                         [ "Previous work"
@@ -159,8 +162,6 @@ thesisIntroduction =
                 s
                     "Ideally, the programmer should also not have to write an extra piece of code just to run the property algorithm."
                 s
-                    "Signature inference consists of inferring which functions are relevant to a given function, and combining them into a signature."
-                s
-                    "Because signature inference requires access to the compile time information about the code under test, a simple extension involves generating the code that is required to run the property discovery algorithm."
+                    "Signature inference consists of inferring appropriate input for the current property discovery mechanism by using compile time information about the subject code."
                 s
                     "All together, signature inference has the potential to solve the problems with property discovery and, by extension, property testing and unit testing."
