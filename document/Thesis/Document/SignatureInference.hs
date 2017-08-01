@@ -17,6 +17,13 @@ thesisSignatureInference = do
                 "Signature inference is best introduced by explaining the thought process that lead to its definition."
             s
                 "QuickSpec requires a set of functions, and discovers all the equations that relate them."
+            s "Specifically, QuickSpec exposes the following function."
+            hask "quickSpec :: Signature -> Signature"
+            l
+                [ "Here, "
+                , haskInline "Signature"
+                , "is a datatype that contains all the necessary information to run an instance of the property discovery mechanism"
+                ]
             s
                 "This work, however, asserts that usually a programmer is not necessarily in all the equations relating all the functions in the entire codebase."
             s

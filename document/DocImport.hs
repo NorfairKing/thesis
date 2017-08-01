@@ -17,8 +17,10 @@ module DocImport
     , citationNeeded
     , headersAndFooters
     , hask
+    , haskL
     , haskInline
     , mintedText
+    , mintedTextL
     , mintedTextInline
     , minted
     , mintedInline
@@ -30,6 +32,7 @@ module DocImport
     , DocImport.packageDep_
     , emptyBackground
     , fullBackground
+    , slow
     ) where
 
 import Import as X
@@ -160,11 +163,17 @@ headersAndFooters = do
 hask :: Text -> Thesis
 hask = minted "haskell"
 
+haskL :: [Text] -> Thesis
+haskL = hask . T.unlines
+
 haskInline :: Text -> Thesis
 haskInline = mintedInline "haskell"
 
 mintedText :: Text -> Thesis
 mintedText = minted "text"
+
+mintedTextL :: [Text] -> Thesis
+mintedTextL = mintedText . T.unlines
 
 mintedTextInline :: Text -> Thesis
 mintedTextInline = mintedInline "text"
@@ -209,3 +218,8 @@ emptyBackground = mintedTextInline "empty-background"
 
 fullBackground :: Thesis
 fullBackground = mintedTextInline "full-background"
+
+slow :: Thesis -> Thesis
+slow func = do
+    f <- asks fastBuild
+    unless f func

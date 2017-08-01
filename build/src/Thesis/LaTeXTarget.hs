@@ -18,8 +18,14 @@ import qualified Language.Aspell as Aspell
 import qualified Language.Aspell.Options as Aspell
 
 buildLaTexTargetWithNameIn ::
-       String -> Path Abs Dir -> BuildKind -> Selection -> Thesis -> IO ()
-buildLaTexTargetWithNameIn name bdir bkind selection document = do
+       String
+    -> Path Abs Dir
+    -> BuildKind
+    -> Selection
+    -> Bool
+    -> Thesis
+    -> IO ()
+buildLaTexTargetWithNameIn name bdir bkind selection fast document = do
     let config =
             ProjectConfig
             { projectGenerationConfig =
@@ -31,7 +37,11 @@ buildLaTexTargetWithNameIn name bdir bkind selection document = do
     sc <- startAspell bdir
     let env =
             ThesisEnv
-            {spellChecker = sc, buildKind = bkind, projectConfig = config}
+            { spellChecker = sc
+            , buildKind = bkind
+            , projectConfig = config
+            , fastBuild = fast
+            }
     eet <- runReaderT (buildLaTeXProject (unThesis document) config) env
     case eet of
         Left errs -> die $ unlines $ map show errs

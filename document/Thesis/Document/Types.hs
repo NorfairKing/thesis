@@ -53,6 +53,7 @@ data ThesisEnv = ThesisEnv
     { spellChecker :: Aspell.SpellChecker
     , buildKind :: BuildKind
     , projectConfig :: ProjectConfig
+    , fastBuild :: Bool
     }
 
 data BuildKind

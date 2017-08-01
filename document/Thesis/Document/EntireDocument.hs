@@ -23,8 +23,8 @@ entireDocument = do
     documentclass [oneside, a4paper] HaTeX.article
     headersAndFooters
     document $ do
-        titlePage
-        docTechDetails
+        slow titlePage
+        slow docTechDetails
         thesisAbstract
         newpage
         thesisTableOfContents
@@ -38,5 +38,6 @@ entireDocument = do
 thesisTableOfContents :: Thesis
 thesisTableOfContents = do
     packageDep ["hidelinks"] "hyperref" -- To make table of contents clickable
-    tableofcontents
-    newpage
+    slow $ do
+        tableofcontents
+        newpage

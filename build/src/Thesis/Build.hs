@@ -15,13 +15,14 @@ import Development.Shake.Path
 
 import Thesis.ShakeBuild
 
-build :: Maybe String -> Maybe String -> IO ()
+build :: Maybe String -> Maybe String -> Bool -> IO ()
 build mtarget sel =
-    buildWithThesisShake ((: []) $ fromMaybe "draft" mtarget) $
-    fromMaybe [Selection.All] $ constructSelection <$> sel
+    buildWithThesisShake
+        ((: []) $ fromMaybe "draft" mtarget)
+        (fromMaybe [Selection.All] (constructSelection <$> sel))
 
-buildWithThesisShake :: [String] -> Selection -> IO ()
-buildWithThesisShake args sel = do
+buildWithThesisShake :: [String] -> Selection -> Bool -> IO ()
+buildWithThesisShake args sel f = do
     versionFiles <-
         snd <$>
         liftM2
@@ -33,4 +34,4 @@ buildWithThesisShake args sel = do
     version <- getHashedShakeVersionP versionFiles
     withArgs (args ++ ["--color"]) $
         shakeArgs shakeOptions {shakeVerbosity = Loud, shakeVersion = version} $
-        thesisShakeBuildRules sel
+        thesisShakeBuildRules sel f

@@ -11,6 +11,7 @@ type Instructions = (Dispatch, Settings)
 data Command
     = CommandBuild (Maybe String)
                    (Maybe String)
+                   (Maybe Bool)
     | CommandSendDraft SendFlags
     deriving (Show, Eq)
 
@@ -39,6 +40,7 @@ data Configuration =
 data Dispatch
     = DispatchBuild (Maybe String)
                     (Maybe String)
+                    Bool
     | DispatchSendDraft SendArgs
     deriving (Show, Eq)
 

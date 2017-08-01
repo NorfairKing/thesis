@@ -19,7 +19,7 @@ import Thesis.OptParse
 
 sendDraft :: SendArgs -> IO ()
 sendDraft SendArgs {..} = do
-    buildWithThesisShake ["draft"] [Selection.All]
+    buildWithThesisShake ["draft"] [Selection.All] False
     let from =
             Address
             { addressName = Just "Tom Sydney Kerckhove"

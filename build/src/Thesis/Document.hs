@@ -1,10 +1,19 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE StandaloneDeriving #-}
+{-# OPTIONS_GHC -fno-warn-orphans #-}
+
 module Thesis.Document where
 
 import Import
 
-import Text.LaTeX.LambdaTeX.Selection.Types (Selection)
+import GHC.Generics hiding (Selector)
+
+import Text.LaTeX.LambdaTeX.Selection.Types
+       (Selection, Selector(..))
 
 import Development.Shake
+import Development.Shake.Classes
 import Development.Shake.Path
 
 import Thesis.Document.EntireDocument
@@ -19,20 +28,38 @@ thesisDraftRule = "draft"
 thesisFinalRule :: String
 thesisFinalRule = "final"
 
-documentRules :: Selection -> Rules ()
-documentRules sel = do
-    simpleRule "draft" BuildDraft sel entireDocument
-    simpleRule "final" BuildFinal sel entireDocument
-    simpleRule "presenter-presentation" BuildDraft sel entirePresentation
-    simpleRule "public-presentation" BuildFinal sel entirePresentation
+documentRules :: Selection -> Bool -> Rules ()
+documentRules sel f = do
+    void $ addOracle $ \(SelectionQ ()) -> pure sel
+    void $ addOracle $ \(FastQ ()) -> pure f
+    simpleRule "draft" BuildDraft entireDocument
+    simpleRule "final" BuildFinal entireDocument
+    simpleRule "presenter-presentation" BuildDraft entirePresentation
+    simpleRule "public-presentation" BuildFinal entirePresentation
 
-simpleRule :: String -> BuildKind -> Selection -> Thesis -> Rules ()
-simpleRule name build sel doc =
-    rulesForDocumentWithName name build sel doc >>= (\df -> name ~> needP [df])
+simpleRule :: String -> BuildKind -> Thesis -> Rules ()
+simpleRule name build doc =
+    rulesForDocumentWithName name build doc >>= (\df -> name ~> needP [df])
+
+newtype SelectionQ =
+    SelectionQ ()
+    deriving (Show, Typeable, Eq, Hashable, Binary, NFData)
+
+deriving instance Generic Selector
+
+instance Hashable Selector
+
+instance NFData Selector
+
+instance Binary Selector
+
+newtype FastQ =
+    FastQ ()
+    deriving (Show, Typeable, Eq, Hashable, Binary, NFData)
 
 rulesForDocumentWithName ::
-       String -> BuildKind -> Selection -> Thesis -> Rules (Path Abs File)
-rulesForDocumentWithName name bkind sel document = do
+       String -> BuildKind -> Thesis -> Rules (Path Abs File)
+rulesForDocumentWithName name bkind document = do
     absTmpDir <- liftIO $ makeAbsolute tmpDir
     let tmpFile = liftIO . resolveFile absTmpDir
     texFile <- tmpFile $ name ++ ".tex"
@@ -45,7 +72,9 @@ rulesForDocumentWithName name bkind sel document = do
                 , "and"
                 , toFilePath bibFile
                 ]
-        liftIO $ buildLaTexTargetWithNameIn name absTmpDir bkind sel document
+        s <- askOracle $ SelectionQ ()
+        f <- askOracle $ FastQ ()
+        liftIO $ buildLaTexTargetWithNameIn name absTmpDir bkind s f document
     tmpPdfFile <- tmpFile $ name ++ ".pdf"
     tmpPdfFile $%> do
         needP [texFile, bibFile]

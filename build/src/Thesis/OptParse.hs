@@ -27,7 +27,7 @@ combineToInstructions cmd Flags Configuration = pure (disp, Settings)
   where
     disp =
         case cmd of
-            CommandBuild as sel -> DispatchBuild as sel
+            CommandBuild as sel b -> DispatchBuild as sel $ fromMaybe False b
             CommandSendDraft sfs ->
                 DispatchSendDraft
                     SendArgs
@@ -99,6 +99,14 @@ parseCommandBuild = info parser modifier
                  , metavar "SELECTION"
                  , value Nothing
                  , help "the selection of parts to build"
+                 ]) <*>
+        option
+            (Just <$> auto)
+            (mconcat
+                 [ long "fast"
+                 , metavar "BOOL"
+                 , value Nothing
+                 , help "build the document faster."
                  ])
     modifier = fullDesc <> progDesc "Build a draft document"
 

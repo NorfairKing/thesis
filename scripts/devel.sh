@@ -5,7 +5,7 @@ set -x
 
 sel=$*
 
-cmd="thesis build"
+cmd="thesis build --fast True"
 if [[ "$sel" != "" ]]
 then
   cmd="$cmd --selection $sel"
