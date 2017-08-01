@@ -6,8 +6,6 @@ module Thesis.Presentation.EntirePresentation
 
 import PresImport
 
-import Control.Monad.Reader
-
 import Thesis.Document.Assets
 import Thesis.Presentation.AboutMe
 import Thesis.Presentation.Automation
@@ -22,7 +20,7 @@ entirePresentation = do
     -- No nav symbols
     comm0 "beamertemplatenavigationsymbolsempty"
     packageDep_ "pgfpages"
-    bkind <- asks buildKind
+    bkind <- getBuildKind
     case bkind of
         BuildDraft -> do
             comm1 "setbeameroption" $ raw "show notes"

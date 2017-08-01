@@ -22,7 +22,9 @@ evaluators
 EasySpec
 runtime
 ETH
-monomorphisation
 CPP
 kinded
 effectful
+monomorphised
+monomorphising
+monomorphisation

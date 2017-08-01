@@ -7,7 +7,7 @@ import Import hiding (All)
 
 import qualified Data.ByteString.Char8 as SB8
 
-import Control.Monad.Reader
+import Control.Monad.State
 
 import Text.LaTeX.LambdaTeX
 
@@ -37,12 +37,12 @@ buildLaTexTargetWithNameIn name bdir bkind selection fast document = do
     sc <- startAspell bdir
     let env =
             ThesisEnv
-            { spellChecker = sc
+            { spellChecker = Just sc
             , buildKind = bkind
             , projectConfig = config
             , fastBuild = fast
             }
-    eet <- runReaderT (buildLaTeXProject (unThesis document) config) env
+    eet <- evalStateT (buildLaTeXProject (unThesis document) config) env
     case eet of
         Left errs -> die $ unlines $ map show errs
         Right () -> pure ()

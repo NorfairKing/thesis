@@ -17,6 +17,7 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 
 import Control.Monad.Reader
+import Control.Monad.State
 
 import qualified Language.Aspell as Aspell
 
@@ -26,16 +27,19 @@ import Text.LaTeX.LambdaTeX
 type Thesis = Thesis' ()
 
 newtype Thesis' a = Thesis
-    { unThesis :: ΛTeXT (ReaderT ThesisEnv IO) a
+    { unThesis :: ΛTeXT (StateT ThesisEnv IO) a
     } deriving ( Generic
                , Functor
                , Applicative
                , Monad
                , MonadIO
-               , MonadReader ThesisEnv
+               , MonadState ThesisEnv
                )
 
+-- TODO only make the spell checker switch a part of the state, not everything
 deriving instance a ~ () => LaTeXC (Thesis' a)
+
+deriving instance a ~ () => Num (Thesis' a)
 
 instance a ~ () => IsString (Thesis' a) where
     fromString s = do
@@ -46,11 +50,11 @@ instance Monoid (Thesis' ()) where
     mempty = Thesis mempty
     mappend (Thesis t1) (Thesis t2) = Thesis $ mappend t1 t2
 
-t :: ΛTeXT (ReaderT ThesisEnv IO) a -> Thesis' a
+t :: ΛTeXT (StateT ThesisEnv IO) a -> Thesis' a
 t = Thesis
 
 data ThesisEnv = ThesisEnv
-    { spellChecker :: Aspell.SpellChecker
+    { spellChecker :: Maybe Aspell.SpellChecker
     , buildKind :: BuildKind
     , projectConfig :: ProjectConfig
     , fastBuild :: Bool
@@ -63,24 +67,27 @@ data BuildKind
 
 spellCheck :: Text -> Thesis
 spellCheck text = do
-    sc <- asks spellChecker
-    forM_ (T.words text) $ \w -> do
-        let wbs = T.encodeUtf8 $ filterBad w
-        unless (SB.null wbs) $ do
-            sugs <- liftIO $ Aspell.suggest sc wbs
-            case find (== wbs) sugs of
-                Just _ -> pure ()
-                Nothing ->
-                    liftIO $
-                    fail $
-                    unlines $
-                    unwords
-                        [ "Aspell had suggestions for"
-                        , show wbs
-                        , "in the sentence:"
-                        , show text
-                        ] :
-                    map show sugs
+    msc <- gets spellChecker
+    case msc of
+        Nothing -> pure ()
+        Just sc ->
+            forM_ (T.words text) $ \w -> do
+                let wbs = T.encodeUtf8 $ filterBad w
+                unless (SB.null wbs) $ do
+                    sugs <- liftIO $ Aspell.suggest sc wbs
+                    case find (== wbs) sugs of
+                        Just _ -> pure ()
+                        Nothing ->
+                            liftIO $
+                            fail $
+                            unlines $
+                            unwords
+                                [ "Aspell had suggestions for"
+                                , show wbs
+                                , "in the sentence:"
+                                , show text
+                                ] :
+                            map show sugs
   where
     filterBad = T.filter (not . (`elem` badChars))
     badChars = ['.', ',', ':', '?', '(', ')', '!', '*']

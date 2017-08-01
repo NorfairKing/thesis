@@ -11,4 +11,4 @@ then
   cmd="$cmd --selection $sel"
 fi
 
-stack install :thesis --file-watch --exec="$cmd" --fast
+stack install :thesis --file-watch --exec="$cmd" --fast --ghc-options=-freverse-errors

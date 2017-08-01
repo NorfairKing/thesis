@@ -15,6 +15,7 @@ module DocImport
     , DocImport.paragraph
     , declarePart
     , citationNeeded
+    , citationNeeded'
     , headersAndFooters
     , hask
     , haskL
@@ -33,11 +34,20 @@ module DocImport
     , emptyBackground
     , fullBackground
     , slow
+    , todo
+    , hereFigure
+    , lab
+    , DocImport.ref
+    , m
+    , ma
+    , pars
+    , getBuildKind
     ) where
 
 import Import as X
 
 import Control.Monad.Reader
+import Control.Monad.State
 
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
@@ -46,9 +56,10 @@ import Text.LaTeX as X
        hiding (abstract, article, article, cite, item, label, pageref,
                paragraph, ref, section, subsection, subsubsection, titlepage)
 import Text.LaTeX.LambdaTeX as X
-       hiding (Selector(..), cite, nocite, packageDep, packageDep_)
+       hiding (Selector(..), cite, nocite, packageDep, packageDep_, ref)
 import qualified Text.LaTeX.LambdaTeX as LT
-       (cite, nocite, packageDep, packageDep_)
+       (cite, label, nocite, packageDep, packageDep_, ref)
+import Text.LaTeX.Packages.AMSMath as X
 
 import qualified Text.LaTeX as HT
        (abstract, item, paragraph, section, subsection, subsubsection)
@@ -78,7 +89,7 @@ l ns = do
 -- To model a sentence that can be inspected
 s :: Text -> Thesis
 s t_ = do
-    let f m = liftIO $ fail $ unlines [m, T.unpack t_]
+    let f m_ = liftIO $ fail $ unlines [m_, T.unpack t_]
     when (T.null t_) $ f "Sentence cannot be empty."
     unless (isUpper $ T.head t_) $ f "Sentence must start with a capital."
     unless (T.last t_ == '.') $ f "Sentence must end in a full stop."
@@ -147,14 +158,23 @@ kebabCase :: String -> String
 kebabCase str = intercalate "-" $ words $ map toLower str
 
 citationNeeded :: Thesis
-citationNeeded = raw "[CITATION NEEDED]"
+citationNeeded = do
+    raw "[CITATION NEEDED]"
+    todo "Make sure to find a citation here"
+
+citationNeeded' :: Thesis -> Thesis
+citationNeeded' t_ = do
+    raw "[CITATION NEEDED]"
+    todo $ do
+        "Make sure to find a citation here, about"
+        t_
 
 headersAndFooters :: Thesis
 headersAndFooters = do
     packageDep_ "fancyhdr"
     comm1 "pagestyle" "fancy"
     comm0 "fancyhf"
-    bkind <- asks buildKind
+    bkind <- gets buildKind
     when (bkind == BuildDraft) $
         comm1
             "cfoot"
@@ -221,5 +241,44 @@ fullBackground = mintedTextInline "full-background"
 
 slow :: Thesis -> Thesis
 slow func = do
-    f <- asks fastBuild
+    f <- gets fastBuild
     unless f func
+
+todo :: Thesis -> Thesis
+todo t_ = do
+    packageDep_ "todonotes"
+    comm1 "todo" t_
+
+hereFigure :: Thesis -> Thesis
+hereFigure n = do
+    packageDep_ "float"
+    fig n
+  where
+    fig =
+        liftL $ \n_ ->
+            TeXEnv "figure" [OptArg $ TeXRaw "H"] (comm0 "centering" <> n_)
+
+lab :: Text -> Thesis
+lab = t . LT.label
+
+ref :: Text -> Thesis
+ref = t . LT.ref
+
+m :: Thesis -> Thesis
+m = math . unSpellCheck
+
+ma :: Thesis -> Thesis
+ma = mathDisplay . unSpellCheck
+
+pars :: LaTeXC l => l -> l
+pars = autoParens
+
+unSpellCheck :: Thesis -> Thesis
+unSpellCheck func = do
+    sb <- get
+    put $ sb {spellChecker = Nothing}
+    func
+    put sb
+
+getBuildKind :: Thesis' BuildKind
+getBuildKind = gets buildKind

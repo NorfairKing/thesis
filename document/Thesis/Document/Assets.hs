@@ -48,13 +48,13 @@ makeAsset :: Path Abs Dir -> Asset -> IO (Path Abs File)
 makeAsset rd Asset {..} = do
     dstPath <- resolveFile rd assetPath
     ensureDir $ parent dstPath
-    exists <- doesFileExist dstPath
+    exists_ <- doesFileExist dstPath
     let dp = toFilePath dstPath
     let hp = hashPath dp
     let makeIt = do
             SB.writeFile dp assetContents
             writeFile hp (show $ hash assetContents)
-    if exists
+    if exists_
         then do
             h <- read <$> readFile hp
             unless (h == hash assetContents) makeIt
