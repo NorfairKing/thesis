@@ -2,6 +2,8 @@ module Thesis.Document where
 
 import Import
 
+import Text.LaTeX.LambdaTeX.Selection.Types (Selection)
+
 import Development.Shake
 import Development.Shake.Path
 
@@ -17,20 +19,20 @@ thesisDraftRule = "draft"
 thesisFinalRule :: String
 thesisFinalRule = "final"
 
-documentRules :: Rules ()
-documentRules = do
-    simpleRule "draft" BuildDraft entireDocument
-    simpleRule "final" BuildFinal entireDocument
-    simpleRule "presenter-presentation" BuildDraft entirePresentation
-    simpleRule "public-presentation" BuildFinal entirePresentation
+documentRules :: Selection -> Rules ()
+documentRules sel = do
+    simpleRule "draft" BuildDraft sel entireDocument
+    simpleRule "final" BuildFinal sel entireDocument
+    simpleRule "presenter-presentation" BuildDraft sel entirePresentation
+    simpleRule "public-presentation" BuildFinal sel entirePresentation
 
-simpleRule :: String -> BuildKind -> Thesis -> Rules ()
-simpleRule name build doc =
-    rulesForDocumentWithName name build doc >>= (\df -> name ~> needP [df])
+simpleRule :: String -> BuildKind -> Selection -> Thesis -> Rules ()
+simpleRule name build sel doc =
+    rulesForDocumentWithName name build sel doc >>= (\df -> name ~> needP [df])
 
 rulesForDocumentWithName ::
-       String -> BuildKind -> Thesis -> Rules (Path Abs File)
-rulesForDocumentWithName name bkind document = do
+       String -> BuildKind -> Selection -> Thesis -> Rules (Path Abs File)
+rulesForDocumentWithName name bkind sel document = do
     absTmpDir <- liftIO $ makeAbsolute tmpDir
     let tmpFile = liftIO . resolveFile absTmpDir
     texFile <- tmpFile $ name ++ ".tex"
@@ -43,7 +45,7 @@ rulesForDocumentWithName name bkind document = do
                 , "and"
                 , toFilePath bibFile
                 ]
-        liftIO $ buildLaTexTargetWithNameIn name absTmpDir bkind document
+        liftIO $ buildLaTexTargetWithNameIn name absTmpDir bkind sel document
     tmpPdfFile <- tmpFile $ name ++ ".pdf"
     tmpPdfFile $%> do
         needP [texFile, bibFile]

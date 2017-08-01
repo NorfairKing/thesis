@@ -9,6 +9,8 @@ import Import
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as LT
 
+import Text.LaTeX.LambdaTeX.Selection.Types as Selection
+
 import Development.GitRev
 import Network.Mail.Mime
 
@@ -17,7 +19,7 @@ import Thesis.OptParse
 
 sendDraft :: SendArgs -> IO ()
 sendDraft SendArgs {..} = do
-    buildWithThesisShake ["draft"]
+    buildWithThesisShake ["draft"] [Selection.All]
     let from =
             Address
             { addressName = Just "Tom Sydney Kerckhove"

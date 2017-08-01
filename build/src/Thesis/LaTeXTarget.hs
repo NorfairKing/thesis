@@ -18,12 +18,12 @@ import qualified Language.Aspell as Aspell
 import qualified Language.Aspell.Options as Aspell
 
 buildLaTexTargetWithNameIn ::
-       String -> Path Abs Dir -> BuildKind -> Thesis -> IO ()
-buildLaTexTargetWithNameIn name bdir bkind document = do
+       String -> Path Abs Dir -> BuildKind -> Selection -> Thesis -> IO ()
+buildLaTexTargetWithNameIn name bdir bkind selection document = do
     let config =
             ProjectConfig
             { projectGenerationConfig =
-                  GenerationConfig {generationSelection = [All]}
+                  GenerationConfig {generationSelection = selection}
             , projectBibFileName = name
             , projectTexFileName = name
             , projectBuildDir = toFilePath bdir
