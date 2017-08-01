@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Thesis.Document.Background.PropertyDiscovery
-    ( thesisBackgroundPropertyDiscovery
+module Thesis.Document.PropertyDiscovery
+    ( thesisPropertyDiscovery
     ) where
 
 import DocImport
@@ -10,20 +10,41 @@ import qualified Data.Text as T
 
 import Thesis.Document.References
 
-thesisBackgroundPropertyDiscovery :: Thesis
-thesisBackgroundPropertyDiscovery =
-    subsection "QuickSpec" $ do
-        s
-            "QuickSpec was written because writing property tests can be even more difficult than writing unit tests."
-        s
-            "The idea was that properties could be discovered using a combination of intelligently looking at types, and using properties to validate the properties using QuickCheck."
-        s
-            "To run QuickSpec, a programmer is required to write a piece of code that calls QuickSpec with a record that is called a signature."
-        newline
-        s
-            "A signature mainly consists of a set of functions, confusingly also sometimes called the signature."
+thesisPropertyDiscovery :: Thesis
+thesisPropertyDiscovery =
+    section "Property Discovery with QuickSpec" $ do
         l
-            [ "Each of the functions in a signature must be named, and its type must be in the"
+            [ "QuickSpec is the product of recent research on property discovery"
+            , cite quickspecRef
+            , cite quickspec2Ref
+            ]
+        s
+            "The idea is that properties could be discovered using a combination of intelligently looking at types, and using tests to validate the properties using QuickCheck."
+        s "QuickSpec exposes the following function as its entry point."
+        hask "quickSpec :: Signature -> IO Signature"
+        s
+            "To run QuickSpec, a programmer is required to write a piece of code that calls this function in order to discover any properties."
+        l
+            [ "To call the"
+            , haskInline "quickSpec"
+            , "function, the programmer has to define a value of the type"
+            , haskInline "Signature"
+            ]
+        newline
+        l
+            [ "The following is a simplified definition of"
+            , haskInline "Signature"
+            ]
+        haskL
+            [ "data Signature ="
+            , "  Signature {"
+            , "    constants           :: [Constant],"
+            , "    instances           :: [[Instance]],"
+            , "    background          :: [Property]"
+            , "  }"
+            ]
+        l
+            [ "A signature mainly consists of a list of functions that are called constants because they must be in the"
             , haskInline "Typeable"
             , "type class"
             ]
@@ -38,7 +59,7 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "Typeable"
             , "instance can automatically be generated with the"
             , haskInline "DeriveDataTypeable"
-            , "GHC language extension or written manually, but only if the type in question is monomorphic."
+            , "GHC language extension or written manually, but only if the type in question is monomorphic"
             ]
         l
             [ "For example, the type"
@@ -50,9 +71,18 @@ thesisBackgroundPropertyDiscovery =
             , "is not, because the latter has a type variable:"
             , haskInline "a"
             ]
+        s
+            "It is important to note that computing a concrete representation of a type with parameters does not make sense and, more importantly, generating values of such a type is impractical."
+        l
+            [ "A value of type"
+            , haskInline "Constant"
+            , "also contains a given name for the function that it represents"
+            ]
+        s
+            "This allows QuickSpec to output the discovered properties in a human readable manner."
         newline
         s
-            "A signature further also contains a set of type class instances, specifically the evidence dictionaries."
+            "A signature further also contains a set of type class instances, specifically the evidence dictionaries or information about how to construct them."
         l
             [ "For example, if a signature is said to contain the instance"
             , haskInline "Eq Int"
@@ -90,6 +120,10 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "Arbitrary"
             , "such that arbitrary values can be generated as input"
             ]
+        s
+            "Note that it is not a restriction to only allow properties where the input types of the both sides are the same."
+        s
+            "Indeed, for any property where the input types of the sides are different, there exists a property where this is not the case that expresses the same equation."
         l
             [ "Furthermore,"
             , haskInline "B"
@@ -110,9 +144,24 @@ thesisBackgroundPropertyDiscovery =
             "In fact, QuickSpec leaves out the left side of the lambda expression, so it would show the above equation as follows."
         hask "p = True"
         l
+            [ "When QuickSpec is run using the"
+            , haskInline "quickSpec"
+            , "function, the discovered properties are contained in the"
+            , haskInline "background"
+            , "field of the resulting"
+            , haskInline "Signature"
+            ]
+        l
+            [ "In fact, this resulting"
+            , haskInline "Signature"
+            , "is equal to the input"
+            , haskInline "Signature"
+            , "in all other respects"
+            ]
+        l
             [ "For further details, please refer to the QuickSpec papers"
             , cite quickspecRef
             , cite quickspec2Ref
-            , "and the QuickCheck package on Hackage"
+            , "and the QuickSpec package on Hackage"
             , cite quickspecHackageRef
             ]

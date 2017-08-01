@@ -7,7 +7,6 @@ module Thesis.Document.Background
 import DocImport
 
 import Thesis.Document.Background.Haskell
-import Thesis.Document.Background.PropertyDiscovery
 import Thesis.Document.Background.PropertyTesting
 
 thesisBackground :: Thesis
@@ -16,4 +15,3 @@ thesisBackground =
         s "In this section I will introduce the setting of our work."
         thesisBackgroundHaskell
         thesisBackgroundPropertyTesting
-        thesisBackgroundPropertyDiscovery

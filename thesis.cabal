@@ -20,9 +20,9 @@ library
         Thesis.Document.Assets
         Thesis.Document.Background
         Thesis.Document.Background.Haskell
-        Thesis.Document.Background.PropertyDiscovery
         Thesis.Document.Background.PropertyTesting
         Thesis.Document.Bibliography
+        Thesis.Document.PropertyDiscovery
         Thesis.Document.Conclusion
         Thesis.Document.Dependencies
         Thesis.Document.Dependencies.TH
