@@ -6,13 +6,11 @@ module Thesis.Document.SignatureInference
 
 import DocImport
 
-import qualified Data.Text as T
-
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
 
 thesisSignatureInference :: Thesis
-thesisSignatureInference = do
+thesisSignatureInference =
     section "Signature Inference" $ do
         s "In this section I will use the concept of signature inference."
         subsection "Premise" $ do
@@ -164,10 +162,65 @@ thesisSignatureInference = do
                     [ "This is still polynomial time, since we fix"
                     , m p_
                     , "to be"
-                    , m 7
-                    , ", but it is not practical for real code bases"
+                    , m 7 <> ","
+                    , "but it is not practical for real code bases"
                     ]
-        subsection "Signature inference strategies" $ do
+        subsection "Reducing Signature Inference Strategies" $ do
+            s
+                "The first attempt at speeding up the above process is to shrink the signature that is given to QuickSpec by omitting functions."
+            s
+                "This means that we looked for ways to select a smaller subset of the scope."
+            l
+                [ "The first definition of a"
+                , haskInline "SignatureInferenceStrategy"
+                , "looks as follows"
+                ]
+            haskL
+                [ "type SignatureInferenceStrategy"
+                , "    = [Function] -> [Function] -> [Function]"
+                ]
+            s
+                "The first argument to a signature inference strategy is the list of focus functions, and the second argument is a list of all the functions in scope."
+            s
+                "The result is supposed to be a list of elements of the scope, that is smaller than the entire scope."
+            s
+                "This kind of signature inference strategy is sometimes called a reducing signature inference strategy."
+            subsubsection "Empty background" $ do
+                l
+                    [ "The simplest reducing signature inference strategy is called"
+                    , emptyBackground
+                    ]
+                s "Its entire implementation can be written as follows."
+                haskL
+                    [ "emptyBackground :: SignatureInferenceStrategy"
+                    , "emptyBackground focus scope = focus"
+                    ]
+                let assetRuntimeFullBackgroundEmptyBackgroundPlotLabel =
+                        "fig:runtime-full-background-empty-background"
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+                    caption $ l ["Runtime of", emptyBackground]
+                    lab assetRuntimeFullBackgroundEmptyBackgroundPlotLabel
+                let assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel =
+                        "fig:relevant-equations-full-background-empty-background"
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRelevantEquationsFullBackgroundEmptyBackgroundPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+                    lab
+                        assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel
+                    caption $ l ["Relevant equations of", emptyBackground]
+{-
             s
                 "A signature inference strategy is the general data type that will drive signature inference."
             s
@@ -269,3 +322,4 @@ thesisSignatureInference = do
             item $
                 mintedTextInline "relevant-equations-divided-by-runtime" <>
                 ": The number of relevant equations found per unit of time"
+-}
