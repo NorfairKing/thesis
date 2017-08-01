@@ -18,6 +18,7 @@ import Language.Haskell.TH.Syntax
 import Data.ByteString (ByteString)
 import qualified Data.ByteString as SB
 import Data.FileEmbed (bsToExp, makeRelativeToProject)
+import Data.Hashable
 import qualified System.FilePath as FP
 
 data Asset = Asset
@@ -48,13 +49,19 @@ makeAsset rd Asset {..} = do
     dstPath <- resolveFile rd assetPath
     ensureDir $ parent dstPath
     exists <- doesFileExist dstPath
-    let makeIt = SB.writeFile (toFilePath dstPath) assetContents
+    let dp = toFilePath dstPath
+    let hp = hashPath dp
+    let makeIt = do
+            SB.writeFile dp assetContents
+            writeFile hp (show $ hash assetContents)
     if exists
         then do
-            contents <- SB.readFile (toFilePath dstPath)
-            unless (contents == assetContents) makeIt
+            h <- read <$> readFile hp
+            unless (h == hash assetContents) makeIt
         else makeIt
     pure dstPath
+  where
+    hashPath = (++ ".hash")
 
 registerAsset :: Asset -> Thesis
 registerAsset asset =
