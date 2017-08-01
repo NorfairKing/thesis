@@ -12,7 +12,7 @@ thesisSignatureInference :: Thesis
 thesisSignatureInference = do
     section "Signature Inference" $ do
         s "In this section I will use the concept of signature inference."
-        subsection "Premise" $ do
+        subsection "Running QuickSpec" $ do
             s
                 "Signature inference is best introduced by explaining the thought process that lead to its definition."
             s
@@ -24,6 +24,42 @@ thesisSignatureInference = do
                 , haskInline "Signature"
                 , "is a datatype that contains all the necessary information to run an instance of the property discovery mechanism"
                 ]
+            l
+                [ "The following is a simplified definition of"
+                , haskInline "Signature"
+                ]
+            haskL
+                [ "data Signature ="
+                , "  Signature {"
+                , "    constants           :: [Constant],"
+                , "    instances           :: [[Instance]],"
+                , "    background          :: [Property]"
+                , "  }"
+                ]
+            l
+                [ haskInline "constants"
+                , "is a list of functions or constants that are"
+                , haskInline "Typeable"
+                , raw "i.e."
+                , "they have no type variables but may have type class dictionary arguments"
+                ]
+            l
+                [ haskInline "instances"
+                , "is a list of records that describe type class instances that are available to construct type class dictionaries"
+                ]
+            l [haskInline "background", "is a list of properties"]
+            s
+                "When it is passed in as an argument, QuickSpec can use these properties for its own internal optimisation."
+            l
+                [ "The result of a QuickSpec run is also a"
+                , haskInline "Signature"
+                ]
+            l
+                [ "It is the same as the input signature, except now the"
+                , haskInline "background"
+                , "field contains the discovered properties"
+                ]
+        subsection "Premise" $ do
             s
                 "This work, however, asserts that usually a programmer is not necessarily in all the equations relating all the functions in the entire codebase."
             s
