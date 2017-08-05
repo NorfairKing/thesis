@@ -26,6 +26,7 @@ entireDocument = do
     document $ do
         slow titlePage
         slow docTechDetails
+        mintedColors
         thesisAbstract
         newpage
         thesisTableOfContents
@@ -43,3 +44,8 @@ thesisTableOfContents = do
     slow $ do
         tableofcontents
         newpage
+
+mintedColors :: Thesis
+mintedColors = do
+    packageDep_ "color"
+    comm3 "definecolor" (raw "mintedbgcolor") (raw "rgb") (raw "0.95,0.95,0.95")

@@ -28,3 +28,6 @@ effectful
 monomorphised
 monomorphising
 monomorphisation
+idempotency
+foci
+multiset

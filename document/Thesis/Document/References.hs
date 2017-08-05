@@ -8,6 +8,7 @@ module Thesis.Document.References
     , haskellTypeClassesTypeInference
     , haskellTypeClassesImplementation
     , ghcRef
+    , ghcAPIRef
     , quickcheckRef
     , quickcheckHackageRef
     , quickspecRef
@@ -377,11 +378,24 @@ ghcRef =
         "online"
         "GHC8"
         [ "author" .= "Ben Gamari"
-        , "title" .= "Glasgow Haskell Compiler version 8.0.1"
+        , "title" .= "Glasgow Haskell Compiler version 8.0.2"
         , "year" .= "2016"
         , "url" .=
           "https://mail.haskell.org/pipermail/ghc-devs/2016-May/012098.html"
         , "urldate" .= "2017-02-01"
+        ]
+
+ghcAPIRef :: Reference
+ghcAPIRef =
+    Reference
+        "online"
+        "GHCAPI"
+        [ "author" .= "GHC Devs"
+        , "title" .= "Glasgow Haskell Compiler API version 8.0.2"
+        , "year" .= "2017"
+        , "url" .=
+          "https://downloads.haskell.org/~ghc/8.0.2/docs/html/libraries/ghc-8.0.2/index.html"
+        , "urldate" .= "2017-08-05"
         ]
 
 typeableHackageRef :: Reference

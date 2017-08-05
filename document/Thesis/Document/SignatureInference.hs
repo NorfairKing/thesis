@@ -8,11 +8,12 @@ import DocImport
 
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
+import Thesis.Document.References
 
 thesisSignatureInference :: Thesis
 thesisSignatureInference =
     section "Signature Inference" $ do
-        s "In this section I will use the concept of signature inference."
+        s "In this section I will introduce the concept of signature inference."
         subsection "Premise" $ do
             s
                 "QuickSpec requires a programmer to specify all of the context that they are interested in."
@@ -61,7 +62,7 @@ thesisSignatureInference =
             newline
             l
                 [ "By hooking into the GHC API"
-                , citationNeeded' "GHC API"
+                , cite ghcAPIRef
                 , "one can find all functions that are in scope in a given module"
                 ]
             l
@@ -87,6 +88,8 @@ thesisSignatureInference =
                     , haskInline "newtype" <> "s"
                     , "over"
                     , haskInline "Integer"
+                    , footnote
+                          "Note that this is sound because values of a parametric type cannot be inspected at all."
                     ]
                 s
                     "This means that monomorphising such a type is as simple as turning the type parameters into the QuickSpec placeholders."
@@ -185,6 +188,13 @@ thesisSignatureInference =
                 "The result is supposed to be a list of elements of the scope, that is smaller than the entire scope."
             s
                 "This kind of signature inference strategy is sometimes called a reducing signature inference strategy."
+            subsubsection "Full background" $ do
+                s
+                    "Running QuickSpec in an automated manner can be described as a trivial reducing signature inference strategy as follows."
+                haskL
+                    [ "emptyBackground :: SignatureInferenceStrategy"
+                    , "emptyBackground focus scope = scope"
+                    ]
             subsubsection "Empty background" $ do
                 l
                     [ "The simplest reducing signature inference strategy is called"
@@ -195,131 +205,158 @@ thesisSignatureInference =
                     [ "emptyBackground :: SignatureInferenceStrategy"
                     , "emptyBackground focus scope = focus"
                     ]
-                let assetRuntimeFullBackgroundEmptyBackgroundPlotLabel =
-                        "fig:runtime-full-background-empty-background"
+                l
+                    [ "The"
+                    , emptyBackground
+                    , "strategy will only run QuickSpec on the focus functions"
+                    ]
+                s "As a result, it will find only relevant equations."
+                s
+                    "However, it will find only equations that only relate the focus functions."
+                s "Examples of such equations are idempotency and involution."
+                question
+                    "Should I explain what idempotency and involution mean?"
+            subsection "Distance-based reducing signature inference strategies" $ do
+                s
+                    "Given a general distance between functions, we can construct a reducing signature inference strategy."
+                s
+                    "The idea is that we may be able to use a distance to predict whether functions will be relevant to each other."
+                s
+                    "If this is true, then the functions that are closest to the focus functions should be chosen to run QuickSpec on."
+                s
+                    "A general distance based signature inference strategy has one parameter, namely the number of functions to choose around the focus functions."
+                let i_ = "i"
+                l ["We will call this parameter", m i_]
+                l
+                    [ "For each function in scope, the distance to the focus function is calculated and the"
+                    , m i_
+                    , "closed functions in scope are put together in the signature"
+                    ]
+                l
+                    [ "The following piece of code exhibits this principle"
+                    , footnote
+                          "This piece of code assumes that there is only a single focus function. In practice this is a valid assumption, but this code could also be extended to work on larger foci using a summation."
+                    ]
                 hereFigure $ do
-                    withRegisteredAsset
-                        assetRuntimeFullBackgroundEmptyBackgroundPlot $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure textwidth
+                    haskL
+                        [ "distanceBased"
+                        , "    :: (Function -> Function -> Double)"
+                        , "    -> Int -> SignatureInference"
+                        , "distanceBased dist i [focus] scope"
+                        , "    = take i"
+                        , "    $ sortOn"
+                        , "        (\\sf -> dist focus sf)"
+                        , "        scope"
+                        ]
+                    caption
+                        "General distance based signature inference strategy"
+                subsubsection "Syntactic Similarity Name" $ do
+                    l
+                        [ "The first distance based reducing signature inference strategy is called"
+                        , syntacticSimilarityName
+                        ]
+                    s
+                        "It is based on the assumption that mutual relevancy of functions can be predicted by the similarity of their names."
+                    l
+                        [ "For example, the functions"
+                        , haskInline "isPrime :: Int -> Bool"
+                        , "and"
+                        , haskInline "primeAtIndex :: Int -> Int"
+                        , "are most likely relevant to each other, and we may be able to predict this fact because the names both mention the word"
+                        , dquoted "prime"
+                        ]
+                    s
+                        "Because EasySpec has access to compile time information about code, it can introspect the name of functions."
+                    s
+                        "The following is pseudo code to define this signature inference strategy."
+                    hereFigure $ do
+                        haskL
+                            [ "inferSyntacticSimilarityName"
+                            , "    :: Int -> SignatureInference"
+                            , "inferSyntacticSimilarityName"
+                            , "    = distanceBased"
+                            , "        (\\ff sf ->"
+                            , "            hammingDistance (name ff) (name sf))"
                             ]
-                            fp
-                    caption $ l ["Runtime of", emptyBackground]
-                    lab assetRuntimeFullBackgroundEmptyBackgroundPlotLabel
-                let assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel =
-                        "fig:relevant-equations-full-background-empty-background"
-                hereFigure $ do
-                    withRegisteredAsset
-                        assetRelevantEquationsFullBackgroundEmptyBackgroundPlot $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure textwidth
+                        caption syntacticSimilarityName
+                subsubsection "Syntactic Similarity Symbols" $ do
+                    l
+                        [ "A second distance based reducing signature inference strategy is called"
+                        , syntacticSimilaritySymbols
+                        ]
+                    s
+                        "This strategy looks at the implementation of functions to determine a distance."
+                    s
+                        "It is based on the assumption that mutually relevant functions will have a similar looking implementation when it comes to the functions that they use."
+                    l
+                        [ "To use the same example,"
+                        , haskInline "isPrime :: Int -> Bool"
+                        , "and"
+                        , haskInline "primeAtIndex :: Int -> Int"
+                        , "both probably use"
+                        , haskInline "div :: Int -> Int -> Int"
+                        , "and"
+                        , haskInline "mod :: Int -> Int -> Int"
+                        , "and should therefore be judged to be close to each other"
+                        ]
+                    l
+                        [ syntacticSimilaritySymbols
+                        , "defines the distance between two functions as the hamming distance between the symbol vectors of these functions"
+                        ]
+                    hereFigure $ do
+                        haskL
+                            [ "inferSyntacticSimilaritySymbols"
+                            , "    :: Int -> SignatureInference"
+                            , "inferSyntacticSimilaritySymbols"
+                            , "    = distanceBased"
+                            , "        (\\ff sf ->"
+                            , "            hammingDistance (symbols ff) (symbols sf))"
                             ]
-                            fp
-                    lab
-                        assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel
-                    caption $ l ["Relevant equations of", emptyBackground]
-{-
-            s
-                "A signature inference strategy is the general data type that will drive signature inference."
-            s
-                "It is defined to contain a function that infers signatures from two pieces of data, The focus functions and the complete scope of functions that are available."
-            s
-                "The type signature of a signature inference strategy looks a bit like the following."
-            hask "[Id] -> [Id] -> InferredSignature"
-            l
-                [ "Here,"
-                , haskInline "Id"
-                , "is type of which the values represent Haskell functions"
-                ]
-            l
-                [ "In particular, an"
-                , haskInline "Id"
-                , "contains the name and type of the corresponding Haskell function"
-                ]
-            l
-                [ "A value of type"
-                , haskInline "InferredSignature"
-                , "is not a signature for QuickSpec"
-                ]
-            l
-                [ "In fact, an"
-                , haskInline "InferredSignature"
-                , "more closely resembles a directed acyclic graph where nodes represent signatures"
-                ]
-        subsection "Running QuickSpec on an inferred signature" $ do
-            l
-                [ "Given an"
-                , haskInline "InferredSignature" <> ","
-                , "QuickSpec is run as follows"
-                ]
-            s "First, the signatures are sorted topologically."
-            s "Next, QuickSpec is run on each node."
-            s
-                "In every node of the graph, the equations that are discovered by QuickSpec at the nodes that the node has edges to, are added to the signature in that node as background properties."
-            s
-                "After running QuickSpec on each node like that, the equations from all nodes without any incoming edges are combined into the final output."
-    section "Basic inference strategies" $ do
-        subsection "Empty background" $ do
-            l
-                [ "The simplest inference strategy, is the"
-                , emptyBackground
-                , "strategy"
-                ]
-            s
-                "It infers a DAG with one node, and that one node only contains the focus functions."
-            s
-                "This means that this strategy will only find properties that relate the focus functions."
-            s "It will completely ignore the rest of the scope."
-        subsection "Full background" $ do
-            l ["The next simplest strategy is the", fullBackground, "strategy"]
-            s "This strategy resembles the workings of QuickSpec the best."
-            s
-                "It also infers a DAG with one node, but this time that node contains the focus functions and also the entire scope."
-            s
-                "It will find all of the properties that relate any of the functions in scope."
-    section "Evaluation of inference strategies" $ do
-        s
-            "In this section I will explain how difference inference strategies can be evaluated objectively."
-        s "It is hard to quantify which of two inference strategies is better."
-        l
-            [ "In fact, it is so hard to define what"
-            , quoted "better"
-            , "means when it comes to inference strategies, that the concept of evaluators was developed"
-            ]
-        s
-            "For every run of EasySpec, the evaluation framework remembers the input to EasySpec, the equations that were discovered, and how long the run took."
-        l
-            [ "An evaluator has a name and a way to create a"
-            , haskInline "Maybe Double"
-            , ", given this information about a run of EasySpec"
-            ]
-        hask $
-            T.unlines
-                [ "data Evaluator = Evaluator"
-                , "    { name :: String"
-                , "    , evaluator :: EvaluationInput -> Maybe Double"
-                , "    }"
-                ]
-        s "We define the following evaluators."
-        itemize $ do
-            item $
-                mintedTextInline "equations" <>
-                ": The number of equations that were found"
-            item $
-                mintedTextInline "runtime" <>
-                ": The amount of time that the run took"
-            item $
-                mintedTextInline "relevant-equations" <>
-                ": The number of relevant equations that were found"
-            item $
-                mintedTextInline "relevant-functions" <>
-                ": The number of relevant functions that were found"
-            item $
-                mintedTextInline "equations-minus-relevant-equations" <>
-                ": The number of irrelevant equations that were found"
-            item $
-                mintedTextInline "relevant-equations-divided-by-runtime" <>
-                ": The number of relevant equations found per unit of time"
--}
+                        caption syntacticSimilaritySymbols
+                subsubsection "Syntactic Similarity Type" $ do
+                    l
+                        [ "A final second distance based reducing signature inference strategy is called"
+                        , syntacticSimilarityType
+                        ]
+                    s
+                        "This strategy is based on the assumption that functions that are relevant to each other will have similar types."
+                    l
+                        [ "In the example of"
+                        , haskInline "isPrime :: Int -> Bool"
+                        , "and"
+                        , haskInline "primeAtIndex :: Int -> Int"
+                        , "both of the types of these functions mention the type"
+                        , haskInline "Int"
+                        ]
+                    s
+                        "For each type, we define a multiset of parts of that type."
+                    l
+                        [ "For example, the type"
+                        , haskInline "[a] -> [a]"
+                        , "has the following parts multiset:"
+                        ]
+                    hereFigure $
+                        mintedTextL
+                            [ "[a] -> [a] : 1"
+                            , "([a] ->)   : 1"
+                            , "(-> [a])   : 1"
+                            , "(->)       : 2"
+                            , "[a]        : 2"
+                            , "a          : 2"
+                            ]
+                    s
+                        "This multiset is interpreted as a vector in an infinitely dimensional vector space."
+                    s
+                        "In this space, the hamming distance between two vectors is used as the distance between two functions."
+                    s
+                        "The resulting signature inference strategy looks as follows."
+                    hereFigure $ do
+                        haskL
+                            [ "inferSyntacticSimilarityType"
+                            , "    :: Int -> SignatureInference"
+                            , "inferSyntacticSimilarityType"
+                            , "    = distanceBased"
+                            , "        (\\ff sf ->"
+                            , "            hammingDistance (typeParts ff) (typeParts sf))"
+                            ]
+                        caption syntacticSimilarityType

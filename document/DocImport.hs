@@ -26,6 +26,7 @@ module DocImport
     , minted
     , mintedInline
     , comm2
+    , comm3
     , DocImport.item
     , DocImport.cite
     , DocImport.nocite
@@ -33,7 +34,11 @@ module DocImport
     , DocImport.packageDep_
     , emptyBackground
     , fullBackground
+    , syntacticSimilarityName
+    , syntacticSimilaritySymbols
+    , syntacticSimilarityType
     , slow
+    , question
     , todo
     , hereFigure
     , lab
@@ -204,17 +209,32 @@ minted language code = do
     raw "\n"
     let f =
             liftL2 $ \lang cont ->
-                TeXEnv "minted" [FixArg lang] $ "\n" <> cont <> "\n"
+                TeXEnv
+                    "minted"
+                    [OptArg (TeXRaw "bgcolor=mintedbgcolor"), FixArg lang] $
+                "\n" <> cont <> "\n"
     f (raw language) (raw $ T.unlines (map ("    " <>) (T.lines code)))
     raw "\n"
 
 mintedInline :: Text -> Text -> Thesis
 mintedInline language code = do
     packageDep_ "minted"
-    comm2 "mintinline" (raw language) (raw code)
+    let f =
+            liftL2 $ \lang cont ->
+                TeXComm
+                    "mintinline"
+                    [ OptArg (TeXRaw "bgcolor=mintedbgcolor")
+                    , FixArg lang
+                    , FixArg cont
+                    ]
+    f (raw language) (raw code)
 
 comm2 :: LaTeXC l => String -> l -> l -> l
 comm2 name = liftL2 $ \l1 l2 -> TeXComm name [FixArg l1, FixArg l2]
+
+comm3 :: LaTeXC l => String -> l -> l -> l -> l
+comm3 name =
+    liftL3 $ \l1 l2 l3 -> TeXComm name [FixArg l1, FixArg l2, FixArg l3]
 
 item :: Thesis -> Thesis
 item i = do
@@ -239,15 +259,31 @@ emptyBackground = mintedTextInline "empty-background"
 fullBackground :: Thesis
 fullBackground = mintedTextInline "full-background"
 
+syntacticSimilarityName :: Thesis
+syntacticSimilarityName = mintedTextInline "syntactic-similarity-name"
+
+syntacticSimilaritySymbols :: Thesis
+syntacticSimilaritySymbols = mintedTextInline "syntactic-similarity-symbols"
+
+syntacticSimilarityType :: Thesis
+syntacticSimilarityType = mintedTextInline "syntactic-similarity-type"
+
 slow :: Thesis -> Thesis
 slow func = do
     f <- gets fastBuild
     unless f func
 
+question :: Thesis -> Thesis
+question = todo_ [TeXRaw "linecolor=blue"]
+
 todo :: Thesis -> Thesis
-todo t_ = do
+todo = todo_ []
+
+todo_ :: [LaTeX] -> Thesis -> Thesis
+todo_ extraArgs t_ = do
     packageDep_ "todonotes"
-    comm1 "todo" t_
+    flip liftL t_ $ \rt_ ->
+        TeXComm "todo" [MOptArg $ TeXRaw "inline" : extraArgs, FixArg rt_]
 
 hereFigure :: Thesis -> Thesis
 hereFigure n = do

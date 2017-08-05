@@ -29,6 +29,7 @@ entirePresentation = do
     -- Color theme
     withRegisteredAsset solarizedtheme $
         const $ usecolortheme (raw "accent=yellow") (raw "solarized")
+    mintedColors
     -- Basic info
     title "Signature Inference for Functional Property Discovery"
     subtitle $ raw "or: How never to come up with tests manually anymore(*)"
@@ -53,3 +54,8 @@ entirePresentation = do
         automation
         signatureInference
         aboutme
+
+mintedColors :: Thesis
+mintedColors = do
+    packageDep_ "color"
+    comm3 "definecolor" (raw "mintedbgcolor") (raw "rgb") (raw "0.95,0.95,0.95")
