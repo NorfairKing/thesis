@@ -550,3 +550,15 @@ thesisSignatureInference =
                     , chunks
                     , "and potentially then runs QuickSpec some more based on the following procedure"
                     ]
+                l
+                    [ "For each set of two different scope functions, the corresponding nodes in the"
+                    , chunks
+                    , "strategy are considered"
+                    ]
+                s
+                    "If QuickSpec finds relevant equations in both of these nodes, a new node is created that contains both of these scope function and the focus function."
+                s
+                    "This new node then points to appropriate two nodes as a dependant."
+                todo $
+                    raw
+                        "A nice illustration of chunks, a graphviz graph or something."
