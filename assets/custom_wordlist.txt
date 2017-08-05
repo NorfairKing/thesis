@@ -31,3 +31,5 @@ monomorphisation
 idempotency
 foci
 multiset
+monad
+monadic

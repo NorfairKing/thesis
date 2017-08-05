@@ -457,4 +457,38 @@ thesisSignatureInference =
                     "Next, it creates a signature for every tuple of one focus function and one scope function and adds the initial node as a dependency."
                 s
                     "The resulting directed acyclic graph of signatures is star shaped and only contains signatures with two or fewer functions."
-                todo "A nice illustration of chunks, a graphviz graph or something."
+                todo $
+                    raw
+                        "A nice illustration of chunks, a graphviz graph or something."
+        subsection "Monadic Signature Inference Strategies" $ do
+            subsubsection "Motivation" $ do
+                s
+                    "Graph signature inference strategies are expressive enough to declare dependencies between QuickSpec runs, but they cannot use information from previous runs in subsequent runs."
+                s
+                    "One hypothesis suggests that the equations that are discovered in QuickSpec runs may teach more about the functions at hand, and what we can expect when we subsequently run QuickSpec."
+                s
+                    "The definition of a signature inference strategy would have to be adapted again, to make it even more expressive."
+            subsubsection "Definition" $ do
+                s
+                    "One standard abstraction that allows for the expression of composition is of course the monad."
+                s
+                    "We adapted the result of a signature inference strategy to be defined as a monadic piece of data that expresses how and when QuickSpec should be run."
+                hereFigure $
+                    haskL
+                        [ "type SignatureInferenceStrategy"
+                        , "    = [Function] -> [Function] -> InferM ()"
+                        , ""
+                        , "data InferM a where"
+                        , "    InferPure :: a -> InferM a"
+                        , "    InferFmap :: (a -> b) -> InferM a -> InferM b"
+                        , "    InferApp :: InferM (a -> b) -> InferM a -> InferM b"
+                        , "    InferBind :: InferM a -> (a -> InferM b) -> InferM b"
+                        , "    "
+                        , "    InferFrom"
+                        , "        :: Signature"
+                        , "        -> [OptiToken]"
+                        , "        -> InferM (OptiToken, [Equation])"
+                        ]
+                l ["To allow for monadic computation, but not for arbitrary input or output, the", haskInline "InferM", "monad represents a syntax tree that describes a computation."]
+
+            subsubsection "Chunks Plus" $ pure ()
