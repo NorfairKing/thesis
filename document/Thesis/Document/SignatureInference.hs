@@ -446,6 +446,15 @@ thesisSignatureInference =
                     "Note that any tree is a directed acyclic graph as well, so translations were trivial again."
                 s
                     "At this point, signature inference strategies were strictly more expressive, which allowed for more intricate signature inference strategies."
-            subsubsection "Chunks" $
+            subsubsection "Chunks" $ do
                 s
                     "Using the newfound knowledge that properties usually contain very few different functions, we set out to create a signature inference strategy that takes advantage of this fact."
+                s
+                    "It sets out to find the properties that contain two or fewer different functions."
+                s
+                    "As such, it first creates a node that only contains the focus functions."
+                s
+                    "Next, it creates a signature for every tuple of one focus function and one scope function and adds the initial node as a dependency."
+                s
+                    "The resulting directed acyclic graph of signatures is star shaped and only contains signatures with two or fewer functions."
+                todo "A nice illustration of chunks, a graphviz graph or something."
