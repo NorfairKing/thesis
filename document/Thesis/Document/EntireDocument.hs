@@ -24,8 +24,8 @@ entireDocument = do
     documentclass [oneside, a4paper] HaTeX.article
     headersAndFooters
     document $ do
-        slow titlePage
-        slow docTechDetails
+        titlePage
+        docTechDetails
         mintedColors
         thesisAbstract
         newpage
@@ -39,13 +39,15 @@ entireDocument = do
         thesisBibliography
 
 thesisTableOfContents :: Thesis
-thesisTableOfContents = do
-    packageDep ["hidelinks"] "hyperref" -- To make table of contents clickable
+thesisTableOfContents =
     slow $ do
-        tableofcontents
-        newpage
+        packageDep ["hidelinks"] "hyperref" -- To make table of contents clickable
+        slow $ do
+            tableofcontents
+            newpage
 
 mintedColors :: Thesis
 mintedColors = do
-    packageDep_ "color"
+    packageDep_ "minted"
+    packageDep_ "xcolor"
     comm3 "definecolor" (raw "mintedbgcolor") (raw "rgb") (raw "0.95,0.95,0.95")

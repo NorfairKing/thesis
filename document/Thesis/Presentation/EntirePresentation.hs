@@ -57,5 +57,6 @@ entirePresentation = do
 
 mintedColors :: Thesis
 mintedColors = do
-    packageDep_ "color"
+    packageDep_ "xcolor"
+    packageDep_ "minted"
     comm3 "definecolor" (raw "mintedbgcolor") (raw "rgb") (raw "0.95,0.95,0.95")

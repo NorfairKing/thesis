@@ -14,6 +14,7 @@ logo = $(embedAsset "eth-logo.png")
 
 titlePage :: Thesis
 titlePage =
+    slow $
     titlepage $ do
         withRegisteredAsset logo $ \logoPath ->
             includegraphics
