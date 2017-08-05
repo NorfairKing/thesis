@@ -37,6 +37,8 @@ module DocImport
     , syntacticSimilarityName
     , syntacticSimilaritySymbols
     , syntacticSimilarityType
+    , chunks
+    , chunksPlus
     , slow
     , question
     , todo
@@ -268,13 +270,19 @@ syntacticSimilaritySymbols = mintedTextInline "syntactic-similarity-symbols"
 syntacticSimilarityType :: Thesis
 syntacticSimilarityType = mintedTextInline "syntactic-similarity-type"
 
+chunks :: Thesis
+chunks = mintedTextInline "chunks"
+
+chunksPlus :: Thesis
+chunksPlus = mintedTextInline "chunks-plus"
+
 slow :: Thesis -> Thesis
 slow func = do
     f <- gets fastBuild
     unless f func
 
 question :: Thesis -> Thesis
-question = todo_ [TeXRaw "linecolor=blue"]
+question t_ = todo_ [TeXRaw "linecolor=blue"] $ "Question for Dmitriy: " <> t_
 
 todo :: Thesis -> Thesis
 todo = todo_ []
