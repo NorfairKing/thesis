@@ -358,6 +358,78 @@ thesisEvaluation =
                     ]
                 question
                     "How detailed do we want the explanation as to why this happens to be?"
+            subsubsection "Chunks-Plus" $ do
+                l
+                    [ "We expect the run time of"
+                    , chunksPlus
+                    , "to be quadratic in complexity"
+                    ]
+                l
+                    [ "As such,"
+                    , chunksPlus
+                    , "is most likely not a practical signature inference strategy to use by itself in the use cases that we had in mind"
+                    ]
+                l
+                    [ "However, as a building block,"
+                    , chunksPlus
+                    , "may still be useful"
+                    ]
+                let assetRuntimeFullBackgroundChunksPlusPlotLabel =
+                        "fig:runtime-full-background-chunks-plus"
+                hereFigure $ do
+                    withRegisteredAsset assetRuntimeFullBackgroundChunksPlusPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+                    caption $
+                        "The number of relevant equations of " <> chunksPlus
+                    lab assetRuntimeFullBackgroundChunksPlusPlotLabel
+                l
+                    [ "In figure"
+                    , ref assetRuntimeFullBackgroundChunksPlusPlotLabel <>
+                      ", we see that"
+                    , chunksPlus
+                    , "seems to have the complexity that we expected"
+                    ]
+                l
+                    [ "This plot also confirms that"
+                    , chunksPlus
+                    , "would be impractical to use by itself"
+                    ]
+                l
+                    [ "As for the relevant equations that"
+                    , chunksPlus
+                    , "finds, we expect that it finds at least as many as"
+                    , chunks
+                    , "does"
+                    ]
+                let assetRelevantEquationsFullBackgroundChunksPlusPlotLabel =
+                        "fig:relevant-equations-full-background-chunks-plus"
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRelevantEquationsFullBackgroundChunksPlusPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+                    caption $
+                        "The number of relevant equations of " <> chunksPlus
+                    lab assetRelevantEquationsFullBackgroundChunksPlusPlotLabel
+                l
+                    [ "In figure"
+                    , ref assetRelevantEquationsFullBackgroundChunksPlusPlotLabel <>
+                      ", we see that this is indeed the case"
+                    ]
+                l
+                    [ "While the runtime of"
+                    , chunksPlus
+                    , "prohibits it from being used in practice, its time complexity is still twelve factors of the scope size faster than"
+                    , fullBackground
+                    , "is, and it regularly finds more relevant equations"
+                    ]
 
 -- equations :: Thesis
 -- equations = mintedTextInline "equations"
