@@ -12,7 +12,8 @@ thesisBackgroundPropertyTesting :: Thesis
 thesisBackgroundPropertyTesting =
     subsection "Property testing" $ do
         s
-            "QuickCheck was the first implementation of property testing and it is written in Haskell."
+            "QuickCheck is an implementation of the concept of property testing and it is written in Haskell."
+        s "It is a particularly elegant example of a use case for type classes."
         s "The concept is simple."
         s
             "Instead of requiring a programmer to specify a specific example of the working of his code, the programmer now gets to specify a general property of his code."
