@@ -7,6 +7,7 @@ module Thesis.Document.EntireDocument
 import DocImport
 
 import Thesis.Document.Abstract
+import Thesis.Document.Acknowledgements
 import Thesis.Document.Background
 import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
@@ -28,6 +29,8 @@ entireDocument = do
         docTechDetails
         mintedColors
         thesisAbstract
+        newpage
+        thesisAcknowledgements
         newpage
         thesisTableOfContents
         thesisIntroduction

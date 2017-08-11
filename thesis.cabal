@@ -17,6 +17,7 @@ library
         Thesis.Constants
         Thesis.Document
         Thesis.Document.Abstract
+        Thesis.Document.Acknowledgements
         Thesis.Document.Assets
         Thesis.Document.Background
         Thesis.Document.Background.Haskell
