@@ -27,6 +27,7 @@ library
         Thesis.Document.Conclusion
         Thesis.Document.Dependencies
         Thesis.Document.Dependencies.TH
+        Thesis.Document.Discussion
         Thesis.Document.DocTechDetails
         Thesis.Document.EntireDocument
         Thesis.Document.Evaluation

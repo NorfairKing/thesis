@@ -11,6 +11,7 @@ import Thesis.Document.Acknowledgements
 import Thesis.Document.Background
 import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
+import Thesis.Document.Discussion
 import Thesis.Document.DocTechDetails
 import Thesis.Document.Evaluation
 import Thesis.Document.Introduction
@@ -36,6 +37,7 @@ entireDocument = do
         thesisBackground
         thesisSignatureInference
         thesisEvaluation
+        thesisDiscussion
         thesisConclusion
         thesisBibliography
 
