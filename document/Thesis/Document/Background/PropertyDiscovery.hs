@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Thesis.Document.PropertyDiscovery
-    ( thesisPropertyDiscovery
+module Thesis.Document.Background.PropertyDiscovery
+    ( thesisBackgroundPropertyDiscovery
     ) where
 
 import DocImport
@@ -10,9 +10,9 @@ import qualified Data.Text as T
 
 import Thesis.Document.References
 
-thesisPropertyDiscovery :: Thesis
-thesisPropertyDiscovery =
-    section "Property Discovery with QuickSpec" $ do
+thesisBackgroundPropertyDiscovery :: Thesis
+thesisBackgroundPropertyDiscovery =
+    subsection "Property Discovery with QuickSpec" $ do
         l
             [ "QuickSpec is the product of recent research on property discovery"
             , cite quickspecRef

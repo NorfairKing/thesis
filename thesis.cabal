@@ -21,6 +21,7 @@ library
         Thesis.Document.Assets
         Thesis.Document.Background
         Thesis.Document.Background.Haskell
+        Thesis.Document.Background.PropertyDiscovery
         Thesis.Document.Background.PropertyTesting
         Thesis.Document.Bibliography
         Thesis.Document.Conclusion
@@ -30,7 +31,6 @@ library
         Thesis.Document.EntireDocument
         Thesis.Document.Evaluation
         Thesis.Document.Introduction
-        Thesis.Document.PropertyDiscovery
         Thesis.Document.References
         Thesis.Document.SignatureInference
         Thesis.Document.TitlePage

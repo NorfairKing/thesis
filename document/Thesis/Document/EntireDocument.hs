@@ -14,7 +14,6 @@ import Thesis.Document.Conclusion
 import Thesis.Document.DocTechDetails
 import Thesis.Document.Evaluation
 import Thesis.Document.Introduction
-import Thesis.Document.PropertyDiscovery
 import Thesis.Document.SignatureInference
 import Thesis.Document.TitlePage
 
@@ -35,7 +34,6 @@ entireDocument = do
         thesisTableOfContents
         thesisIntroduction
         thesisBackground
-        thesisPropertyDiscovery
         thesisSignatureInference
         thesisEvaluation
         thesisConclusion

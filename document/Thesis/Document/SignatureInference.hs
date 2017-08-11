@@ -12,7 +12,7 @@ import Thesis.Document.References
 
 thesisSignatureInference :: Thesis
 thesisSignatureInference =
-    section "Signature Inference" $ do
+    section "Signature Inference with EasySpec" $ do
         s "In this section I will introduce the concept of signature inference."
         subsection "Premise" $ do
             s
