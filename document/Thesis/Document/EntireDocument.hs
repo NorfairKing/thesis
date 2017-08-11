@@ -47,6 +47,8 @@ thesisTableOfContents =
         packageDep ["hidelinks"] "hyperref" -- To make table of contents clickable
         slow $ do
             tableofcontents
+            comm0 "listoffigures"
+            -- comm0 "listoftables" TODO uncomment if I have any tables
             newpage
 
 mintedColors :: Thesis
