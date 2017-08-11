@@ -7,10 +7,11 @@ module Thesis.Document.Acknowledgements
 import DocImport
 
 thesisAcknowledgements :: Thesis
-thesisAcknowledgements = do
-    center $ large $ textbf "Acknowledgements"
-    raw "\n"
+thesisAcknowledgements =
     declarePart "Acknowledgements" $ do
+        raw "\n"
+        center $ large $ textbf "Acknowledgements"
+        raw "\n"
         s "I would first like to thank my thesis adviser Dr Dmitriy Traytel."
         s
             "His door was always open whenever I ran into a trouble spot or had a question about my research or writing."
