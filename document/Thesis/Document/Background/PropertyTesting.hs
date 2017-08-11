@@ -22,7 +22,16 @@ thesisBackgroundPropertyTesting =
         subsubsection "Generators and the Arbitrary Type Class" $ do
             s
                 "Generators are a central component of QuickCheck and property test in general."
-            -- TODO continue here
+            s
+                "In essence, a generator is a pure function that can use a pseudo random generator to produce values of a certain type."
+            l
+                [ "For example, a value of type"
+                , haskInline "Gen Int"
+                , "represents provides evidence that it is possible to generate pseudo random integers given a pseudo random generator of bits"
+                ]
+            s
+                "Users can write generators for their own data types such that values of those types can also be generated."
+            lnbk
             l
                 [ "Elements of the"
                 , haskInline "Arbitrary"
@@ -31,14 +40,15 @@ thesisBackgroundPropertyTesting =
                 , "that can generate random values of that type"
                 ]
             haskL ["class Arbitrary a where", "    arbitrary :: Gen a"]
+            lnbk
             l
-                [ "Users can instantiate the"
+                [ "QuickCheck will use the"
                 , haskInline "Arbitrary"
-                , "type class for their own data types such that values of those can also be generated"
+                , "type class by default, but users can also specify which generator to use in the random testing"
                 ]
         subsubsection "Properties" $ do
             s
-                "A property, in this case, is loosely defined as anything that can produce a Boolean value from randomness."
+                "A property, in this case, is loosely defined as anything that can produce a Boolean value from supplied pseudo randomness."
             s "A typical example is a function as follows."
             hask "f :: A -> Bool"
             s
@@ -49,19 +59,19 @@ thesisBackgroundPropertyTesting =
             l
                 [ "When instructed to do so using the"
                 , haskInline "quickCheck"
-                , "function, the QuickCheck testing framework will generate random inputs to the supplied function"
+                , "function, the QuickCheck testing framework will generate random inputs to the supplied property"
                 ]
             l
-                [ "For each of the inputs, the function will evaluate to a Boolean value which QuickCheck asserts to be"
+                [ "For each of the inputs, QuickCheck asserts that the resulting Boolean value is"
                 , haskInline "True"
                 ]
             l
                 [ "If all of the output values are"
                 , haskInline "True"
-                , "then the function passes the property test"
+                , "then we say that the property passes the property test"
                 ]
             l
-                [ "If the function evaluates any of the input values to"
+                [ "If the property evaluates any of the input values to"
                 , haskInline "False"
                 , "then the test fails"
                 ]
