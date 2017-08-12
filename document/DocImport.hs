@@ -118,6 +118,7 @@ abstract func = do
 section :: Text -> Thesis -> Thesis
 section n func = do
     raw "\n"
+    newpage
     declarePart n $ do
         HT.section (raw n)
         func

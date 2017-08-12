@@ -3,12 +3,12 @@
 set -e
 set -x
 
-sel=$*
+sel="$*"
 
 cmd="thesis build --fast True"
 if [[ "$sel" != "" ]]
 then
-  cmd="$cmd --selection $sel"
+  cmd="$cmd --selection \"$sel\""
 fi
 
 stack install :thesis --file-watch --exec="$cmd" --fast --ghc-options=-freverse-errors
