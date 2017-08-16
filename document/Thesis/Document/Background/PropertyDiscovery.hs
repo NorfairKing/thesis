@@ -18,8 +18,9 @@ thesisBackgroundPropertyDiscovery =
             , cite quickspecRef
             , cite quickspec2Ref
             ]
+        s "QuickSpec aims to simplify the process of writing property tests."
         s
-            "The idea is that properties could be discovered using a combination of intelligently looking at types, and using tests to validate the properties using QuickCheck."
+            "It is based on the idea is that properties could be discovered using a combination of intelligently looking at types, and using tests to validate the properties using QuickCheck."
         s "QuickSpec exposes the following function as its entry point."
         hask "quickSpec :: Signature -> IO Signature"
         s
@@ -91,7 +92,7 @@ thesisBackgroundPropertyDiscovery =
         hask $
             T.unlines ["(==) :: Int -> Int -> Int", "(/=) :: Int -> Int -> Int"]
         s
-            "QuickSpec only knows about the instances that it gets supplied with via the signature."
+            "QuickSpec only knows about those instances that it gets supplied with via the signature."
         newline
         s
             "The last important part of a signature is a set of background properties."
@@ -101,7 +102,7 @@ thesisBackgroundPropertyDiscovery =
             "One way for a signature to contain background properties, is by using the properties that a previous run of QuickSpec discovered."
         newline
         s
-            "Using a signature, QuickSpec will discover all properties that relate the functions in that signature, up to a given size."
+            "Using a signature, QuickSpec will enumerate all properties that relate the functions in that signature, up to a given size."
         s
             "A property, in QuickSpec, is defined as an equation of the following form."
         mintedText "leftTerm = rightTerm"

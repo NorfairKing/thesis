@@ -20,10 +20,10 @@ thesisSignatureInference =
             s
                 "If one were to automate the process of generating QuickSpec code from a code base, the result would discover all properties that relate any properties in that code base."
             s
-                "This work, however, asserts that usually a programmer is not necessarily in all the equations relating the functions in the entire codebase."
+                "This work, however, asserts that usually a programmer is not necessarily interested in all the equations relating the functions in the entire codebase."
             s
                 "The assumption is that a programmer is more interested in the properties that relate a very small number of functions, say one."
-            s "These functions are called the focus functions."
+            s "We call these functions the focus functions."
             s
                 "The new goal is to find the properties that relate the focus functions to the rest of the codebase."
             s "We will call these relevant equations."

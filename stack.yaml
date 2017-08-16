@@ -29,3 +29,6 @@ extra-deps:
 - twee-0.1
 - minisat-0.1.2
 - edit-distance-vector-1.0.0.4
+- genvalidity-hspec-0.3.1.0
+- genvalidity-path-0.1.0.2
+- genvalidity-0.3.2.0

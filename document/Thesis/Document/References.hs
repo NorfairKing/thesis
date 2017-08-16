@@ -53,8 +53,8 @@ haskellTypeClassesProposal =
     Reference
         miscelaneous
         "haskellTypeClassesProposal"
-        [ "author" .= "Philip Lee Wadler"
-        , "howpublished" .= "Letter to Haskell working group"
+        [ "author" .= "{Philip Lee Wadler}"
+        , "howpublished" .= "{Letter to Haskell working group}"
         , "year" .= "1988"
         , "month" .= "Februari"
         , "day" .= "27"
@@ -122,11 +122,11 @@ quickcheckRef =
     Reference
         inproceedings
         "QuickCheck"
-        [ "author" .= "Claessen, Koen and Hughes, John"
+        [ "author" .= "{Claessen, Koen and Hughes, John}"
         , "title" .=
-          "QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs"
+          "{QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs}"
         , "booktitle" .=
-          "Proceedings of the Fifth ACM SIGPLAN International Conference on Functional Programming"
+          "{Proceedings of the Fifth ACM SIGPLAN International Conference on Functional Programming}"
         , "series" .= "ICFP '00"
         , "year" .= "2000"
         , "isbn" .= "1-58113-202-6"
@@ -144,7 +144,7 @@ quickcheckHackageRef =
     Reference
         miscelaneous
         "claessen2016QuickCheck-2.9.2"
-        [ "author" .= "Koen Claessen"
+        [ "author" .= "{Koen Claessen}"
         , "title" .= "{QuickCheck: Automatic testing of Haskell programs}"
         , "howpublished" .=
           "\\url{http://hackage.haskell.org/package/QuickCheck-2.9.2}"
@@ -163,8 +163,8 @@ quickspecRef =
     Reference
         inproceedings
         "QuickSpec"
-        [ "title" .= "QuickSpec: Guessing Formal Specifications Using Testing"
-        , "author" .= "Koen Claessen and Nicholas Smallbone and John Hughes"
+        [ "title" .= "{QuickSpec: Guessing Formal Specifications Using Testing}"
+        , "author" .= "{Koen Claessen and Nicholas Smallbone and John Hughes}"
         , "booktitle" .= "TAP"
         , "year" .= "2010"
         ]
@@ -192,7 +192,7 @@ quickspecHackageRef =
     Reference
         miscelaneous
         "smallbone2016QuickSpec-2"
-        [ "author" .= "Nick Smallbone"
+        [ "author" .= "{Nick Smallbone}"
         , "title" .= "{QuickCheck: Automatic testing of Haskell programs}"
         , "howpublished" .=
           "\\url{https://github.com/nick8325/quickspec/tree/3c6e0105374bcf1ed0d4f8d2a1a1d2875764fa56}"
@@ -208,14 +208,14 @@ hipspecRef =
         inbook
         "HipSpec"
         [ "author" .=
-          "Claessen, Koen\nand Johansson, Moa\nand Ros{\'e}n, Dan\nand Smallbone, Nicholas"
-        , "editor" .= "Bonacina, Maria Paola"
-        , "title" .= "Automating Inductive Proofs Using Theory Exploration"
+          "{Claessen, Koen\nand Johansson, Moa\nand Ros{\'e}n, Dan\nand Smallbone, Nicholas}"
+        , "editor" .= "{Bonacina, Maria Paola}"
+        , "title" .= "{Automating Inductive Proofs Using Theory Exploration}"
         , "bookTitle" .=
-          "Automated Deduction -- CADE-24: 24th International Conference on Automated Deduction, Lake Placid, NY, USA, June 9-14, 2013. Proceedings"
+          "{Automated Deduction -- CADE-24: 24th International Conference on Automated Deduction, Lake Placid, NY, USA, June 9-14, 2013. Proceedings}"
         , "year" .= "2013"
-        , "publisher" .= "Springer Berlin Heidelberg"
-        , "address" .= "Berlin, Heidelberg"
+        , "publisher" .= "{Springer Berlin Heidelberg}"
+        , "address" .= "{Berlin, Heidelberg}"
         , "pages" .= "392--406"
         , "isbn" .= "978-3-642-38574-2"
         , "doi" .= "10.1007/978-3-642-38574-2_27"
@@ -227,10 +227,10 @@ smartcheckRef =
     Reference
         inproceedings
         "SmartCheck"
-        [ "author" .= "Lee Pike"
+        [ "author" .= "{Lee Pike}"
         , "title" .=
-          "{SmartCheck}: Automatic and Efficient Counterexample Reduction and Generalization"
-        , "booktitle" .= "Proceedings of the Haskell Symposium"
+          "{SmartCheck: Automatic and Efficient Counterexample Reduction and Generalization}"
+        , "booktitle" .= "{Proceedings of the Haskell Symposium}"
         , "publisher" .= "ACM"
         , "year" .= "2014"
         , "note" .=
@@ -242,14 +242,14 @@ fitspecRef =
     Reference
         inproceedings
         "FitSpec"
-        [ "author" .= "Braquehais, Rudy and Runciman, Colin"
-        , "title" .= "FitSpec: Refining Property Sets for Functional Testing"
+        [ "author" .= "{Braquehais, Rudy and Runciman, Colin}"
+        , "title" .= "{FitSpec: Refining Property Sets for Functional Testing}"
         , "booktitle" .=
-          "Proceedings of the 9th International Symposium on Haskell"
-        , "series" .= "Haskell 2016"
+          "{Proceedings of the 9th International Symposium on Haskell}"
+        , "series" .= "{Haskell 2016}"
         , "year" .= "2016"
         , "isbn" .= "978-1-4503-4434-0"
-        , "location" .= "Nara, Japan"
+        , "location" .= "{Nara, Japan}"
         , "pages" .= "1--12"
         , "numpages" .= "12"
         , "url" .= "http://doi.acm.org/10.1145/2976002.2976003"
@@ -267,22 +267,22 @@ smallcheckRef =
         inproceedings
         "SmallCheck"
         [ "author" .=
-          "Runciman, Colin and Naylor, Matthew and Lindblad, Fredrik"
+          "{Runciman, Colin and Naylor, Matthew and Lindblad, Fredrik}"
         , "title" .=
-          "Smallcheck and Lazy Smallcheck: Automatic Exhaustive Testing for Small Values"
+          "{Smallcheck and Lazy Smallcheck: Automatic Exhaustive Testing for Small Values}"
         , "booktitle" .=
-          "Proceedings of the First ACM SIGPLAN Symposium on Haskell"
+          "{Proceedings of the First ACM SIGPLAN Symposium on Haskell}"
         , "series" .= "Haskell '08"
         , "year" .= "2008"
         , "isbn" .= "978-1-60558-064-7"
-        , "location" .= "Victoria, BC, Canada"
+        , "location" .= "{Victoria, BC, Canada}"
         , "pages" .= "37--48"
         , "numpages" .= "12"
         , "url" .= "http://doi.acm.org/10.1145/1411286.1411292"
         , "doi" .= "10.1145/1411286.1411292"
         , "acmid" .= "1411292"
         , "publisher" .= "ACM"
-        , "address" .= "New York, NY, USA"
+        , "address" .= "{New York, NY, USA}"
         , "keywords" .=
           "embedded language, exhaustive search, lazy evaluation, property-based testing, type classes"
         ]
@@ -292,7 +292,7 @@ leancheckRef =
     Reference
         miscelaneous
         "matela2017LeanCheck-0.6.2"
-        [ "author" .= "Rudy Matela"
+        [ "author" .= "{Rudy Matela}"
         , "title" .=
           "{LeanCheck: Cholesterol-free property-based testing for Haskell}"
         , "howpublished" .=
@@ -322,11 +322,11 @@ filteringRef =
     Reference
         inproceedings
         "Filtering"
-        [ "author" .= "Jia Meng and Lawrence C. Paulson"
+        [ "author" .= "{Jia Meng and Lawrence C. Paulson}"
         , "title" .=
-          "Lightweight relevance filtering for machine-generated resolution problems"
+          "{Lightweight relevance filtering for machine-generated resolution problems}"
         , "booktitle" .=
-          "In ESCoR: Empirically Successful Computerized Reasoning"
+          "{In ESCoR: Empirically Successful Computerized Reasoning}"
         , "year" .= "2006"
         , "pages" .= "53--69"
         ]
@@ -337,8 +337,8 @@ mash2Ref =
         article
         "Mash2"
         [ "author" .=
-          "Jasmin Christian Blanchette and\nDavid Greenaway and\nCezary Kaliszyk and\nDaniel K{\"{u}}hlwein and\nJosef Urban"
-        , "title" .= "A Learning-Based Fact Selector for Isabelle/HOL"
+          "{Jasmin Christian Blanchette and\nDavid Greenaway and\nCezary Kaliszyk and\nDaniel K{\"{u}}hlwein and\nJosef Urban}"
+        , "title" .= "{A Learning-Based Fact Selector for Isabelle/HOL}"
         , "journal" .= "J. Autom. Reasoning"
         , "volume" .= "57"
         , "number" .= "3"
@@ -354,8 +354,8 @@ theHumbleProgrammerRef =
     Reference
         article
         "TheHumbleProgrammer"
-        [ "author" .= "Dijkstra, Edsger W."
-        , "title" .= "The Humble Programmer"
+        [ "author" .= "{Dijkstra, Edsger W.}"
+        , "title" .= "{The Humble Programmer}"
         , "journal" .= "Commun. ACM"
         , "issue_date" .= "Oct. 1972"
         , "volume" .= "15"
@@ -377,8 +377,8 @@ ghcRef =
     Reference
         "online"
         "GHC8"
-        [ "author" .= "Ben Gamari"
-        , "title" .= "Glasgow Haskell Compiler version 8.0.2"
+        [ "author" .= "{Ben Gamari}"
+        , "title" .= "{Glasgow Haskell Compiler version 8.0.2}"
         , "year" .= "2016"
         , "url" .=
           "https://mail.haskell.org/pipermail/ghc-devs/2016-May/012098.html"
@@ -390,8 +390,8 @@ ghcAPIRef =
     Reference
         "online"
         "GHCAPI"
-        [ "author" .= "GHC Devs"
-        , "title" .= "Glasgow Haskell Compiler API version 8.0.2"
+        [ "author" .= "{GHC Devs}"
+        , "title" .= "{Glasgow Haskell Compiler API version 8.0.2}"
         , "year" .= "2017"
         , "url" .=
           "https://downloads.haskell.org/~ghc/8.0.2/docs/html/libraries/ghc-8.0.2/index.html"

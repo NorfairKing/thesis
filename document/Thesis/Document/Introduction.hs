@@ -11,9 +11,10 @@ import Thesis.Document.References
 thesisIntroduction :: Thesis
 thesisIntroduction =
     section "Introduction" $ do
-        s "Signature inference is the last piece of the puzzle of testing."
         s
-            "To explain why, we must first sketch the problem, and motivate all the other parts of the puzzle."
+            "Signature inference tries to advance property discovery as a practical approach to advancing the state of testing."
+        s
+            "To explain why and how, we must first sketch the problem, and motivate all the other parts of the puzzle."
         subsection "Motivation" $ do
             subsubsection "Correctness" $ do
                 s
@@ -63,10 +64,12 @@ thesisIntroduction =
                     s
                         "Indeed, unit tests often fail to address all possible aspects of the code under test."
                     s
-                        "One would have to write at least one unit test for every possible code path of the code under test to have a chance at covering all possible aspects of the code under test."
+                        "One would have to write at least one unit test for every possible code path of the code under test to have a chance to cover all possible aspects of the code under test."
                 paragraph "Developer-time Costs" $ do
-                    s
-                        "Unit testing, but testing in general, is quite expensive when it comes to developer time."
+                    l
+                        [ emph "Unit testing"
+                        , ", but testing in general, is quite expensive when it comes to developer time"
+                        ]
                     s
                         "First, for a developer to write a test, they must already know what it means for the code to be correct."
                     s "This often requires additional thought, time and energy."
@@ -85,8 +88,10 @@ thesisIntroduction =
                     s
                         "As a result, automated tests are all too often omitted from a software project."
             subsubsection "Property Testing" $ do
-                s
-                    "Property testing is similar to unit testing but the concept differs in one key aspect."
+                l
+                    [ emph "Property testing"
+                    , "is similar to unit testing but the concept differs in one key aspect"
+                    ]
                 s
                     "Instead of specifying a single scenario with the test code, the test code now takes an argument as input."
                 s
@@ -101,14 +106,16 @@ thesisIntroduction =
                 s
                     "This means that a programmer now only needs to write a limited number of property tests, instead of a large number of unit tests."
                 s
-                    "This sounds like it is easier on the programmer, and for some it is, but coming up with properties of code, as opposed to input and output examples, is often much harder."
+                    "For some programmers it may be easier to come up with more general properties of code, but often it is considered much more difficult."
                 s
                     "Consequently, the developer time costs of property testing is even higher and, as a result, property testing is rarely ever done in practice."
             subsubsection "Property Discovery" $ do
                 s
                     "If one could somehow eliminate as much human effort from conceiving tests, then using that approach, combined with property testing, would solve both of the problems with unit testing."
-                s
-                    "Property discovery is a technique to produce property tests for subject code automatically."
+                l
+                    [ emph "Property discovery"
+                    , "is a technique to produce property tests for subject code automatically"
+                    ]
                 s
                     "This process relieves the programmer from having to think of examples or properties and only requires them to select the properties that they think should hold."
                 s "Property discovery is currently a product of research."
@@ -118,9 +125,9 @@ thesisIntroduction =
                     "Current research on property has made great progress, but it has also shown that property discovery is a non trivial problem to solve."
                 paragraph "Complexity" $ do
                     l
-                        [ "Previous work"
+                        [ raw "Claessen et al."
                         , cite quickspecRef
-                        , "has explored automatic discovery of equational properties, and has shown that property discovery is a complex problem"
+                        , "have explored automatic discovery of equational properties, and has shown that property discovery is a complex problem"
                         ]
                     s
                         "The first attempt failed to discover large properties or properties of a large codebase in a reasonable amount of time."

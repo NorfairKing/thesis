@@ -11,10 +11,13 @@ import Thesis.Document.References
 thesisBackgroundPropertyTesting :: Thesis
 thesisBackgroundPropertyTesting =
     subsection "Property testing with QuickCheck" $ do
-        s
-            "QuickCheck is an implementation of the concept of property testing and it is written in Haskell."
+        l
+            [ "QuickCheck"
+            , cite quickcheckRef
+            , cite quickcheckHackageRef
+            , "is an implementation of the concept of property testing and it is written in Haskell"
+            ]
         s "It is a particularly elegant example of a use case for type classes."
-        s "The concept is simple."
         s
             "Instead of requiring a programmer to specify a specific example of the working of his code, the programmer now gets to specify a general property of his code."
         s
