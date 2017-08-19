@@ -144,7 +144,7 @@ thesisEvaluation =
                     , ref assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel <>
                       ", we see that"
                     , emptyBackground
-                    , "finds almost no relevant equations."
+                    , "finds almost no relevant equations"
                     ]
                 l
                     [ "Figure"

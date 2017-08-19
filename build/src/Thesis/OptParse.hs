@@ -119,6 +119,12 @@ parseCommandSendDraft = info parser modifier
     modifier =
         fullDesc <> progDesc "Build a draft document and send it via email."
 
+parseCommandBuildFinal :: ParserInfo Command
+parseCommandBuildFinal = info parser modifier
+  where
+    parser = pure CommandBuildFinal
+    modifier = fullDesc <> progDesc "Build the final thesis document."
+
 parseSendFlags :: Parser SendFlags
 parseSendFlags =
     fmap SendFlags $

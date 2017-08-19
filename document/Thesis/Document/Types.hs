@@ -44,7 +44,10 @@ deriving instance a ~ () => Num (Thesis' a)
 instance a ~ () => IsString (Thesis' a) where
     fromString s = do
         spellCheck $ T.pack s
-        Thesis $ fromString s
+        case reverse s of
+            ('.':_) ->
+                liftIO $ fail $ unlines ["string cannot end in a dot:", show s]
+            _ -> Thesis $ fromString s
 
 instance Monoid (Thesis' ()) where
     mempty = Thesis mempty

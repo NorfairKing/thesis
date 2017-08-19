@@ -76,7 +76,7 @@ thesisSignatureInference =
                 l
                     [ "For type parameters of kind"
                     , haskInline "*"
-                    , "in types without any constraints on the type parameters, QuickSpec has support in the form of placeholders."
+                    , "in types without any constraints on the type parameters, QuickSpec has support in the form of placeholders"
                     ]
                 l
                     [ "QuickSpec exposes five types"
@@ -88,7 +88,8 @@ thesisSignatureInference =
                     , haskInline "newtype" <> "s"
                     , "over"
                     , haskInline "Integer"
-                    , footnote
+                    , footnote $
+                      s
                           "Note that this is sound because values of a parametric type cannot be inspected at all."
                     ]
                 s
@@ -234,7 +235,8 @@ thesisSignatureInference =
                     ]
                 l
                     [ "The following piece of code exhibits this principle"
-                    , footnote
+                    , footnote $
+                      s
                           "This piece of code assumes that there is only a single focus function. In practice this is a valid assumption, but this code could also be extended to work on larger foci using a summation."
                     ]
                 hereFigure $ do
@@ -428,8 +430,9 @@ thesisSignatureInference =
                 newline
                 s
                     "In the next iteration of this idea, we recognised that QuickSpec has a feature that allows it to learn from previous discoveries."
-                todo
-                    "Ensure that this is described properly, either here or in the QuickSpec section."
+                todo $
+                    s
+                        "Ensure that this is described properly, either here or in the QuickSpec section."
                 s
                     "We adapted our definition to allow for dependencies between signatures by arranging the resulting signatures in a forest."
                 hask "type InferredSignature = Forest Signature"
@@ -516,7 +519,7 @@ thesisSignatureInference =
                 l
                     [ "For each run of QuickSpec, an"
                     , haskInline "OptiToken"
-                    , "is generated that describes that run of QuickSpec, and can be given to subsequent runs to inform QuickSpec about the corresponding previous discoveries."
+                    , "is generated that describes that run of QuickSpec, and can be given to subsequent runs to inform QuickSpec about the corresponding previous discoveries"
                     ]
                 l ["As an example,", chunks, "can now be described as follows"]
                 hereFigure $ do
