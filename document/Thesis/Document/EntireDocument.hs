@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.EntireDocument
     ( entireDocument
@@ -8,6 +9,7 @@ import DocImport
 
 import Thesis.Document.Abstract
 import Thesis.Document.Acknowledgements
+import Thesis.Document.Assets
 import Thesis.Document.Background
 import Thesis.Document.Bibliography
 import Thesis.Document.Conclusion
@@ -40,6 +42,7 @@ entireDocument = do
         thesisDiscussion
         thesisConclusion
         thesisBibliography
+        declarationOfOriginality
 
 thesisTableOfContents :: Thesis
 thesisTableOfContents =
@@ -56,3 +59,8 @@ mintedColors = do
     packageDep_ "minted"
     packageDep_ "xcolor"
     comm3 "definecolor" (raw "mintedbgcolor") (raw "rgb") (raw "0.95,0.95,0.95")
+
+declarationOfOriginality :: Thesis
+declarationOfOriginality =
+    slow $
+    withRegisteredAsset $(embedAsset "declaration-originality.pdf") includepdf

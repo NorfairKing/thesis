@@ -3,6 +3,7 @@
 module DocImport
     ( module X
     , DocImport.includegraphics
+    , DocImport.includepdf
     , DocImport.titlepage
     , l
     , s
@@ -82,6 +83,13 @@ includegraphics :: [IGOption] -> FilePath -> Thesis
 includegraphics opts path = do
     packageDep_ "graphicx"
     HaTeX.includegraphics opts path
+
+includepdf :: FilePath -> Thesis
+includepdf fp = do
+    packageDep_ "pdfpages"
+    raw "\\includepdf[pages=-]{"
+    raw $ T.pack fp
+    raw "}\n"
 
 titlepage :: Thesis -> Thesis
 titlepage = liftL $ TeXEnv "titlepage" []
