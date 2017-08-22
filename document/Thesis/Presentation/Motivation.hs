@@ -17,7 +17,7 @@ motivation =
     section "Motivation" $ do
         f "Motivation" $ do
             pause
-            center "Writing correct software is hard for humans."
+            center $ s "Writing correct software is hard for humans."
             note
                 [ "So why would we want to not want to come up with tests manually?"
                 ]
@@ -26,27 +26,29 @@ motivation =
         f "Motivation" $ do
             center "Make machines do it!"
             note
-                [ "It turns out that making machines write software is hard."
-                , "I read on hacker news: One day we will only have to give the machine a precise description of what we want code to do, and the machine will write it for us."
-                , "Well, we are already there. This precise description is called the code."
+                [ s "It turns out that making machines write software is hard."
+                , s "I read on hacker news: One day we will only have to give the machine a precise description of what we want code to do, and the machine will write it for us."
+                , s "Well, we are already there. This precise description is called the code."
                 ]
         lightbulbslide
         note
-            [ "Alright, so maybe we cannot make machines write the code. New idea then."
+            [ s "Alright, so maybe we cannot make machines write the code. New idea then."
             ]
         f "Motivation" $ do
-            center
-                "I will write the code myself, and get the machine to prove that it is correct."
+            center $
+                s
+                    "I will write the code myself, and get the machine to prove that it is correct."
             note
-                [ "There are a few problems with this."
-                , "First of all, you will run into Rice's theorem at some point."
-                , "Second, you have to already know exactly what it means for your code to be correct."
-                , "I argue that, in practice, formal methods will not solve the problem that writing correct code is expensive in the short term."
+                [ s "There are a few problems with this."
+                , s "First of all, you will run into Rice's theorem at some point."
+                , s "Second, you have to already know exactly what it means for your code to be correct."
+                , s "I argue that, in practice, formal methods will not solve the problem that writing correct code is expensive in the short term."
                 ]
         lightbulbslide
         f "Motivation" $ do
-            center
-                "I will write the code myself, and get the machine to test that it works."
+            center $
+                s
+                    "I will write the code myself, and get the machine to test that it works."
             note
                 [ "When formal methods are too expensive, what do we turn to? Testing!"
                 ]

@@ -3,6 +3,7 @@
 module DocImport
     ( module X
     , DocImport.includegraphics
+    , DocImport.includepdf
     , DocImport.titlepage
     , l
     , s
@@ -83,6 +84,13 @@ includegraphics opts path = do
     packageDep_ "graphicx"
     HaTeX.includegraphics opts path
 
+includepdf :: FilePath -> Thesis
+includepdf fp = do
+    packageDep_ "pdfpages"
+    raw "\\includepdf[pages=-]{"
+    raw $ T.pack fp
+    raw "}\n"
+
 titlepage :: Thesis -> Thesis
 titlepage = liftL $ TeXEnv "titlepage" []
 
@@ -101,7 +109,7 @@ s t_ = do
     unless (isUpper $ T.head t_) $ f "Sentence must start with a capital."
     unless (T.last t_ == '.') $ f "Sentence must end in a full stop."
     spellCheck t_
-    fromString $ T.unpack t_
+    raw t_
     raw " "
 
 quoted :: Thesis -> Thesis
@@ -184,9 +192,8 @@ headersAndFooters = do
     comm0 "fancyhf"
     bkind <- gets buildKind
     when (bkind == BuildDraft) $
-        comm1
-            "cfoot"
-            "This is an unfinished draft. Please do not distribute it."
+        comm1 "cfoot" $
+        s "This is an unfinished draft. Please do not distribute it."
 
 hask :: Text -> Thesis
 hask = minted "haskell"

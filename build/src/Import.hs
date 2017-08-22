@@ -4,6 +4,8 @@ module Import
 
 import Prelude as X
 
+import Debug.Trace as X
+
 import Control.Monad as X
 import Control.Monad.Catch as X
 import Data.Char as X

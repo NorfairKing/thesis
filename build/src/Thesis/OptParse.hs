@@ -43,6 +43,7 @@ combineToInstructions cmd Flags Configuration = pure (disp, Settings)
                                       }
                               SendRepPreset preset -> ToPreset preset
                     }
+            CommandBuildFinal -> DispatchBuildFinal
 
 getConfiguration :: Command -> Flags -> IO Configuration
 getConfiguration _ _ = pure Configuration
@@ -81,6 +82,7 @@ parseCommand =
     mconcat
         [ command "build" parseCommandBuild
         , command "send-draft" parseCommandSendDraft
+        , command "build-final" parseCommandBuildFinal
         ]
 
 parseCommandBuild :: ParserInfo Command
@@ -116,6 +118,12 @@ parseCommandSendDraft = info parser modifier
     parser = CommandSendDraft <$> parseSendFlags
     modifier =
         fullDesc <> progDesc "Build a draft document and send it via email."
+
+parseCommandBuildFinal :: ParserInfo Command
+parseCommandBuildFinal = info parser modifier
+  where
+    parser = pure CommandBuildFinal
+    modifier = fullDesc <> progDesc "Build the final thesis document."
 
 parseSendFlags :: Parser SendFlags
 parseSendFlags =

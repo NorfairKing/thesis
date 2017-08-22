@@ -42,7 +42,7 @@ thesisBackgroundHaskell =
                 [ haskInline "eqInt :: Int -> Int -> Bool"
                 , "for integers,"
                 , haskInline "eqFloat :: Float -> Float -> Bool"
-                , "for floating point numbers, etc.."
+                , "for floating point numbers, etc"
                 ]
             l
                 [ "The"

@@ -63,7 +63,7 @@ signatureInference = do
                 haskInline "f" <>
                 " but " <>
                 haskInline "h" <>
-                " is not."
+                raw " is not."
             vfill
             raw "relevant property = property of focus function"
         g "Definitions: Scope" $ do
@@ -76,8 +76,8 @@ signatureInference = do
             "Size of signature: Number of functions in signature"
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
         note
-            [ "We set out to find eighty percent of the properties in twenty percent of the time."
-            , "Of course, later we realised that even twenty percent does not change the time complexity and therefore is too slow in practice."
+            [ s "We set out to find eighty percent of the properties in twenty percent of the time."
+            , s "Of course, later we realised that even twenty percent does not change the time complexity and therefore is too slow in practice."
             ]
         f "Why is this slow?" $
             enumerate $ do
@@ -86,11 +86,11 @@ signatureInference = do
                 item "Size of the signature"
         lightbulbslide
         f "Critical insight" $ do
-            center "We are not interested in the entire codebase."
-            center "We are interested in a relatively small amount of code."
+            center $ s "We are not interested in the entire codebase."
+            center $ s "We are interested in a relatively small amount of code."
             note
-                [ "This means that we have an entirely different goal than QuickSpec"
-                , "Comparisons with QuickSpec are not really fair, but we have nothing else to compare to"
+                [ s "This means that we have an entirely different goal than QuickSpec."
+                , s "Comparisons with QuickSpec are not really fair, but we have nothing else to compare to."
                 ]
         g "Reducing the size of the signature" $
             hask $
@@ -383,21 +383,22 @@ signatureInference = do
                 , ""
                 , "3.61s user 1.14s system 193% cpu 2.450 total"
                 ]
-        f "Great promise, but ..." $ do
+        f (raw "Great promise, but ...") $ do
             enumerate $ do
                 pause
-                item
-                    "Only works for functions in scope of which the type is in scope too."
+                item $
+                    s
+                        "Only works for functions in scope of which the type is in scope too."
                 pause
-                item "Crashes on partial functions."
+                item $ s "Crashes on partial functions."
                 pause
-                item "Only works with built in instances."
+                item $ s "Only works with built in instances."
                 pause
-                item "Data has to have an Arbitrary instance in scope."
+                item $ s "Data has to have an Arbitrary instance in scope."
                 pause
-                item "Does not play with CPP."
+                item $ s "Does not play with CPP."
                 pause
-                item "Does not play well with higher kinded type variables"
+                item $ s "Does not play well with higher kinded type variables."
             pause
             "All technical problems, not theoretical problems!"
         f "Further Research" $

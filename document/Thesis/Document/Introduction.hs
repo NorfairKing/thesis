@@ -57,7 +57,8 @@ thesisIntroduction =
                 paragraph "Coverage" $ do
                     l
                         [ "Edsger W. Dijkstra famously said"
-                        , dquoted
+                        , dquoted $
+                          s
                               "Program testing can be a very effective way to show the presence of bugs, but it is hopelessly inadequate for showing their absence."
                         , cite theHumbleProgrammerRef
                         ]

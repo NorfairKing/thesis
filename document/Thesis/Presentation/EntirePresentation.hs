@@ -45,8 +45,8 @@ entirePresentation = do
     document $ do
         maketitle
         note
-            [ "The presentation should take about one hour."
-            , "I have been working on this for the last four and a half months, so if I forget to explain anything, please ask me immediately."
+            [ s "The presentation should take about one hour."
+            , s "I have been working on this for the last four and a half months, so if I forget to explain anything, please ask me immediately."
             ]
         vision
         motivation

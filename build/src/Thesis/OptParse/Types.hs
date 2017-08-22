@@ -13,6 +13,7 @@ data Command
                    (Maybe String)
                    (Maybe Bool)
     | CommandSendDraft SendFlags
+    | CommandBuildFinal
     deriving (Show, Eq)
 
 newtype SendFlags = SendFlags
@@ -42,6 +43,7 @@ data Dispatch
                     (Maybe String)
                     Bool
     | DispatchSendDraft SendArgs
+    | DispatchBuildFinal
     deriving (Show, Eq)
 
 newtype SendArgs = SendArgs

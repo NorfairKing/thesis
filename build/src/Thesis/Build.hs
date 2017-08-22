@@ -21,6 +21,9 @@ build mtarget sel =
         ((: []) $ fromMaybe "draft" mtarget)
         (fromMaybe [Selection.All] (constructSelection <$> sel))
 
+buildFinal :: IO ()
+buildFinal = buildWithThesisShake ["final"] [Selection.All] False
+
 buildWithThesisShake :: [String] -> Selection -> Bool -> IO ()
 buildWithThesisShake args sel f = do
     versionFiles <-
