@@ -6,6 +6,8 @@ module Thesis.Document.Dependencies
     ( assetRuntimeFullBackgroundPlot
     , assetRuntimeFullBackgroundEmptyBackgroundPlot
     , assetRelevantEquationsFullBackgroundEmptyBackgroundPlot
+    , assetRelevantEquationsFullBackgroundSyntacticalSimilarityPlot
+    , assetRuntimeFullBackgroundSyntacticalSimilarityPlot
     , assetRuntimeChunksSyntacticSimilarityNamePlot
     , assetRelevantEquationsFullBackgroundSyntacticSimilarityNamePlot
     , assetRuntimeChunksSyntacticSimilaritySymbolsPlot
@@ -31,6 +33,7 @@ import EasySpec.Discover.SignatureInference.SyntacticSimilarityName
 import EasySpec.Discover.SignatureInference.SyntacticSimilaritySymbols
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityType
 
+import EasySpec.Evaluate.Analyse.Data.Common
 import EasySpec.Evaluate.Analyse.Plots.BarsPerGroup
 import EasySpec.Evaluate.Analyse.Plots.DistributionFromRawPlotter
 import EasySpec.Evaluate.Analyse.Plots.DistributionNrDifferentFunctions
@@ -47,28 +50,50 @@ $(makeDependencyAssets
         , "runtime-plot.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategyPlotter
-              ( "runtime"
+              ( runtimeGroup
               , inferFullBackground
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
       , ( "assetRuntimeFullBackgroundEmptyBackgroundPlot"
         , "runtime-plot-full-background-empty-background.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategiesPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct (Pair inferFullBackground inferEmptyBackground)))
       , ( "assetRelevantEquationsFullBackgroundEmptyBackgroundPlot"
         , "relevant-equations-plot-full-background-empty-background.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , relevantEquationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferEmptyBackground)))
+      , ( "assetRelevantEquationsFullBackgroundSyntacticalSimilarityPlot"
+        , "relevant-equations-plot-full-background-syntactical-similarity.pdf"
+        , plotFileFor
+              boxPlotterPerGroupEvaluatorOnDemand
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , [ inferFullBackground
+                , inferSyntacticSimilarityName 5
+                , inferSyntacticSimilaritySymbols 5
+                , inferSyntacticSimilarityType 5
+                ]))
+      , ( "assetRuntimeFullBackgroundSyntacticalSimilarityPlot"
+        , "runtime-plot-full-background-syntactical-similarity.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsStrategiesPlotterOnDemand
+              ( runtimeGroup
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
+              , [ inferFullBackground
+                , inferSyntacticSimilarityName 5
+                , inferSyntacticSimilaritySymbols 5
+                , inferSyntacticSimilarityType 5
+                ]))
       , ( "assetRuntimeChunksSyntacticSimilarityNamePlot"
         , "runtime-plot-full-background-syntactic-similarity-symbols-name.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategiesPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
                     (Pair (inferSyntacticSimilarityName 5) inferFullBackground)))
@@ -76,7 +101,7 @@ $(makeDependencyAssets
         , "relevant-equations-plot-full-background-syntactic-similarity-name.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , relevantEquationsEvaluator
               , OrderedDistinct
                     (Pair (inferSyntacticSimilarityName 5) inferFullBackground)))
@@ -84,7 +109,7 @@ $(makeDependencyAssets
         , "runtime-plot-full-background-syntactic-similarity-symbols.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategiesPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
                     (Pair
@@ -94,7 +119,7 @@ $(makeDependencyAssets
         , "relevant-equations-plot-full-background-syntactic-similarity-symbols.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , relevantEquationsEvaluator
               , OrderedDistinct
                     (Pair
@@ -104,7 +129,7 @@ $(makeDependencyAssets
         , "runtime-plot-full-background-syntactic-similarity-type.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategiesPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct
                     (Pair inferFullBackground (inferSyntacticSimilarityType 5))))
@@ -112,7 +137,7 @@ $(makeDependencyAssets
         , "relevant-equations-plot-full-background-syntactic-similarity-type.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , relevantEquationsEvaluator
               , OrderedDistinct
                     (Pair inferFullBackground (inferSyntacticSimilarityType 5))))
@@ -122,58 +147,58 @@ $(makeDependencyAssets
               (dfrgCartPlotter
                    @(GroupName, SignatureInferenceStrategy)
                    dfrgNrDifferentFunctions)
-              ("evaluation", inferFullBackground))
+              (evaluationGroup, inferFullBackground))
       , ( "assetRuntimeFullBackgroundChunksPlot"
         , "runtime-plot-full-background-chunks.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategiesPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct (Pair inferFullBackground inferChunks)))
       , ( "assetRelevantEquationsFullBackgroundChunksPlot"
         , "relevant-equations-plot-full-background-chunks.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , relevantEquationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunks)))
       , ( "assetEquationsFullBackgroundChunksPlot"
         , "equations-plot-full-background-chunks.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , equationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunks)))
       , ( "assetRuntimeFullBackgroundChunksPlusPlot"
         , "runtime-plot-full-background-chunks-plus.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsStrategiesPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
       , ( "assetRelevantEquationsFullBackgroundChunksPlusPlot"
         , "relevant-equations-plot-full-background-chunks-plus.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , relevantEquationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
       , ( "assetEquationsFullBackgroundChunksPlusPlot"
         , "equations-plot-full-background-chunks-plus.pdf"
         , plotFileFor
               boxPlotterPerEvaluatorStrategies
-              ( "evaluation"
+              ( evaluationGroup
               , equationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
       , ( "assetRuntimeAll"
         , "runtime-all.pdf"
         , plotFileFor
               barsPerGroupEvaluatorsPlotter
-              ( "runtime"
+              ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)))
       , ( "assetRelevantEquationsAll"
         , "relevant-equations-all.pdf"
         , plotFileFor
               boxPlotterPerEvaluator
-              ("evaluation", relevantEquationsEvaluator))
+              (evaluationGroup, relevantEquationsEvaluator))
       ])

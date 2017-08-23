@@ -188,22 +188,7 @@ thesisEvaluation =
                     ]
                 hereFigure $ do
                     withRegisteredAsset
-                        assetRuntimeChunksSyntacticSimilarityNamePlot $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure $ "0.49" <> textwidth
-                            ]
-                            fp
-                    withRegisteredAsset
-                        assetRuntimeChunksSyntacticSimilaritySymbolsPlot $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure $ "0.49" <> textwidth
-                            ]
-                            fp
-                    newline
-                    withRegisteredAsset
-                        assetRuntimeChunksSyntacticSimilarityTypePlot $ \fp ->
+                        assetRuntimeFullBackgroundSyntacticalSimilarityPlot $ \fp ->
                         includegraphics
                             [ KeepAspectRatio True
                             , IGWidth $ CustomMeasure textwidth
@@ -233,22 +218,7 @@ thesisEvaluation =
                     "As is to be expected, all of these signature inference strategies run in constant time and are practical as such."
                 hereFigure $ do
                     withRegisteredAsset
-                        assetRelevantEquationsFullBackgroundSyntacticSimilarityNamePlot $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure $ "0.49" <> textwidth
-                            ]
-                            fp
-                    withRegisteredAsset
-                        assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure $ "0.49" <> textwidth
-                            ]
-                            fp
-                    newline
-                    withRegisteredAsset
-                        assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot $ \fp ->
+                        assetRelevantEquationsFullBackgroundSyntacticalSimilarityPlot $ \fp ->
                         includegraphics
                             [ KeepAspectRatio True
                             , IGWidth $ CustomMeasure textwidth
