@@ -35,6 +35,7 @@ library
         Thesis.Document.References
         Thesis.Document.SignatureInference
         Thesis.Document.SignatureInference.Automation
+        Thesis.Document.SignatureInference.DrillingAndShrinking
         Thesis.Document.SignatureInference.Graph
         Thesis.Document.SignatureInference.Monadic
         Thesis.Document.SignatureInference.Premise

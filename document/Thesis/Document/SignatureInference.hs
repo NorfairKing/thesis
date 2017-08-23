@@ -7,6 +7,7 @@ module Thesis.Document.SignatureInference
 import DocImport
 
 import Thesis.Document.SignatureInference.Automation
+import Thesis.Document.SignatureInference.DrillingAndShrinking
 import Thesis.Document.SignatureInference.Graph
 import Thesis.Document.SignatureInference.Monadic
 import Thesis.Document.SignatureInference.Premise
@@ -21,3 +22,4 @@ thesisSignatureInference =
         thesisSignatureInferenceReducing
         thesisSignatureInferenceGraph
         thesisSignatureInferenceMonadic
+        thesisSignatureInferenceDrillingAndShrinking
