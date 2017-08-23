@@ -7,11 +7,13 @@ module Thesis.Document.SignatureInference
 import DocImport
 
 import Thesis.Document.SignatureInference.Automation
+import Thesis.Document.SignatureInference.Distance
 import Thesis.Document.SignatureInference.DrillingAndShrinking
 import Thesis.Document.SignatureInference.Graph
 import Thesis.Document.SignatureInference.Monadic
 import Thesis.Document.SignatureInference.Premise
 import Thesis.Document.SignatureInference.Reducing
+import Thesis.Document.SignatureInference.TypeReachability
 
 thesisSignatureInference :: Thesis
 thesisSignatureInference =
@@ -20,6 +22,8 @@ thesisSignatureInference =
         thesisSignatureInferencePremise
         thesisSignatureInferenceAutomation
         thesisSignatureInferenceReducing
+        thesisSignatureInferenceDistance
+        thesisSignatureInferenceTypeReachability
         thesisSignatureInferenceGraph
         thesisSignatureInferenceMonadic
         thesisSignatureInferenceDrillingAndShrinking
