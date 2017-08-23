@@ -34,7 +34,7 @@ thesisSignatureInferenceDistance =
             haskL
                 [ "distanceBased"
                 , "    :: (Function -> Function -> Double)"
-                , "    -> Int -> SignatureInference"
+                , "    -> Int -> SignatureInferenceStrategy"
                 , "distanceBased dist i [focus] scope"
                 , "    = take i"
                 , "    $ sortOn"
@@ -64,7 +64,7 @@ thesisSignatureInferenceDistance =
             hereFigure $ do
                 haskL
                     [ "inferSyntacticSimilarityName"
-                    , "    :: Int -> SignatureInference"
+                    , "    :: Int -> SignatureInferenceStrategy"
                     , "inferSyntacticSimilarityName"
                     , "    = distanceBased"
                     , "        (\\ff sf ->"
@@ -98,7 +98,7 @@ thesisSignatureInferenceDistance =
             hereFigure $ do
                 haskL
                     [ "inferSyntacticSimilaritySymbols"
-                    , "    :: Int -> SignatureInference"
+                    , "    :: Int -> SignatureInferenceStrategy"
                     , "inferSyntacticSimilaritySymbols"
                     , "    = distanceBased"
                     , "        (\\ff sf ->"
@@ -143,7 +143,7 @@ thesisSignatureInferenceDistance =
             hereFigure $ do
                 haskL
                     [ "inferSyntacticSimilarityType"
-                    , "    :: Int -> SignatureInference"
+                    , "    :: Int -> SignatureInferenceStrategy"
                     , "inferSyntacticSimilarityType"
                     , "    = distanceBased"
                     , "        (\\ff sf ->"

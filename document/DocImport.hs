@@ -38,6 +38,7 @@ module DocImport
     , syntacticSimilarityName
     , syntacticSimilaritySymbols
     , syntacticSimilarityType
+    , typeReachability
     , chunks
     , chunksPlus
     , slow
@@ -277,6 +278,9 @@ syntacticSimilaritySymbols = mintedTextInline "syntactic-similarity-symbols"
 
 syntacticSimilarityType :: Thesis
 syntacticSimilarityType = mintedTextInline "syntactic-similarity-type"
+
+typeReachability :: Thesis
+typeReachability = mintedTextInline "type-reachability"
 
 chunks :: Thesis
 chunks = mintedTextInline "chunks"
