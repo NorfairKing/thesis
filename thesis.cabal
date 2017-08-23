@@ -34,6 +34,11 @@ library
         Thesis.Document.Introduction
         Thesis.Document.References
         Thesis.Document.SignatureInference
+        Thesis.Document.SignatureInference.Automation
+        Thesis.Document.SignatureInference.Graph
+        Thesis.Document.SignatureInference.Monadic
+        Thesis.Document.SignatureInference.Premise
+        Thesis.Document.SignatureInference.Reducing
         Thesis.Document.TitlePage
         Thesis.Document.Types
         Thesis.LaTeXTarget
