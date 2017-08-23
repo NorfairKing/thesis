@@ -49,7 +49,7 @@ thesisSignatureInference =
                 item $
                     s
                         "QuickSpec does not waste any time finding the properties of the codebase that do not involve the focus function."
-        subsection "Solving the input problem with automation" $ do
+        subsection "Solving the Input Problem with Automation" $ do
             s
                 "The first step in making property discovery feasibly for practical use, is ensuring that a programmer never has to write extra code to discover properties of their code."
             l
@@ -72,7 +72,7 @@ thesisSignatureInference =
                 ]
             s
                 "Monomorphisation consists of getting rid of any type variables in the type of a function."
-            subsubsection "Parameters without constraints" $ do
+            subsubsection "Parameters without Constraints" $ do
                 l
                     [ "For type parameters of kind"
                     , haskInline "*"
@@ -101,7 +101,7 @@ thesisSignatureInference =
                     , "       -- becomes --"
                     , "map :: (A -> B) -> [A] -> [B]"
                     ]
-            subsubsection "Parameters with constraints" $ do
+            subsubsection "Parameters with Constraints" $ do
                 s
                     "Monomorphisation is a bit more complicated in types that have type class constraints."
                 s "Consider the following type."
@@ -189,14 +189,14 @@ thesisSignatureInference =
                 "The result is supposed to be a list of elements of the scope, that is smaller than the entire scope."
             s
                 "This kind of signature inference strategy is sometimes called a reducing signature inference strategy."
-            subsubsection "Full background" $ do
+            subsubsection "Full Background" $ do
                 s
                     "Running QuickSpec in an automated manner can be described as a trivial reducing signature inference strategy as follows."
                 haskL
                     [ "emptyBackground :: SignatureInferenceStrategy"
                     , "emptyBackground focus scope = scope"
                     ]
-            subsubsection "Empty background" $ do
+            subsubsection "Empty Background" $ do
                 l
                     [ "The simplest reducing signature inference strategy is called"
                     , emptyBackground
@@ -217,7 +217,7 @@ thesisSignatureInference =
                 s "Examples of such equations are idempotency and involution."
                 question
                     "Should I explain what idempotency and involution mean?"
-            subsection "Distance-based reducing signature inference strategies" $ do
+            subsection "Distance-based Reducing Signature Inference Strategies" $ do
                 s
                     "Given a general distance between functions, we can construct a reducing signature inference strategy."
                 s

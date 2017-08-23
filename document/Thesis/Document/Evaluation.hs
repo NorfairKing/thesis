@@ -104,7 +104,7 @@ thesisEvaluation =
                 "For each of these examples, for each signature inference strategy and for each function in the module, EasySpec is run using that function as the focus."
             question "How much detail is needed in this section?"
         subsection "Strategies" $ do
-            subsubsection "Empty background" $ do
+            subsubsection "Empty Background" $ do
                 let assetRuntimeFullBackgroundEmptyBackgroundPlotLabel =
                         "fig:runtime-full-background-empty-background"
                 let assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel =
@@ -346,7 +346,7 @@ thesisEvaluation =
                     ]
                 question
                     "How detailed do we want the explanation as to why this happens to be?"
-            subsubsection "Chunks-Plus" $ do
+            subsubsection "Chunks Plus" $ do
                 l
                     [ "We expect the run time of"
                     , chunksPlus

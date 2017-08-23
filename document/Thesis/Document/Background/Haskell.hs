@@ -24,7 +24,7 @@ thesisBackgroundHaskell =
             [ "The language lends itself well to concurrent programming and it uses type inference to ease programming"
             , cite haskellOrgRef
             ]
-        subsubsection "Type classes" $ do
+        subsubsection "Type Classes" $ do
             l
                 [ "Haskell famously has support for type classes"
                 , cite haskellTypeClassesProposal
@@ -83,7 +83,7 @@ thesisBackgroundHaskell =
                 [ "When a type supports equality, we say that this type is in the type class"
                 , haskInline "Eq"
                 ]
-        subsubsection "Type class evidence dictionaries" $ do
+        subsubsection "Type Class Evidence Dictionaries" $ do
             l
                 [ "Haskell's flagship compiler: The Glasgow Haskell Compiler, implements type classes using a desugaring method called evidence dictionaries"
                 , cite haskellTypeClassesImplementation

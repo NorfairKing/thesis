@@ -10,7 +10,7 @@ import Thesis.Document.References
 
 thesisBackgroundPropertyTesting :: Thesis
 thesisBackgroundPropertyTesting =
-    subsection "Property testing with QuickCheck" $ do
+    subsection "Property Testing with QuickCheck" $ do
         l
             [ "QuickCheck"
             , cite quickcheckRef
@@ -58,7 +58,7 @@ thesisBackgroundPropertyTesting =
                 "This function is also usually called the property, even though it is pure."
             s
                 "To produce random Boolean values using this function, QuickCheck will require a generator of the input type."
-        subsubsection "Running property tests" $ do
+        subsubsection "Running Property Tests" $ do
             l
                 [ "When instructed to do so using the"
                 , haskInline "quickCheck"
