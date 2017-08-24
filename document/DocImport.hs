@@ -38,6 +38,17 @@ module DocImport
     , syntacticSimilarityName
     , syntacticSimilaritySymbols
     , syntacticSimilarityType
+    , chunksSimilarityName
+    , chunksSimilaritySymbols
+    , chunksSimilarityType
+    , chunksTypeReachability
+    , chunksPlusSimilarityName
+    , chunksPlusSimilaritySymbols
+    , chunksPlusSimilarityType
+    , chunksPlusTypeReachability
+    , chunksPlusReachabilityName
+    , chunksPlusReachabilitySymbols
+    , chunksPlusReachabilityType
     , typeReachability
     , chunks
     , chunksPlus
@@ -287,6 +298,40 @@ chunks = mintedTextInline "chunks"
 
 chunksPlus :: Thesis
 chunksPlus = mintedTextInline "chunks-plus"
+
+chunksSimilarityName :: Thesis
+chunksSimilarityName = mintedTextInline "chunks-similarity-name"
+
+chunksSimilaritySymbols :: Thesis
+chunksSimilaritySymbols = mintedTextInline "chunks-similarity-symbols"
+
+chunksSimilarityType :: Thesis
+chunksSimilarityType = mintedTextInline "chunks-similarity-type"
+
+chunksTypeReachability :: Thesis
+chunksTypeReachability = mintedTextInline "chunks-type-reachability"
+
+chunksPlusSimilarityName :: Thesis
+chunksPlusSimilarityName = mintedTextInline "chunks-plus-similarity-name"
+
+chunksPlusSimilaritySymbols :: Thesis
+chunksPlusSimilaritySymbols = mintedTextInline "chunks-plus-similarity-symbols"
+
+chunksPlusSimilarityType :: Thesis
+chunksPlusSimilarityType = mintedTextInline "chunks-plus-similarity-type"
+
+chunksPlusTypeReachability :: Thesis
+chunksPlusTypeReachability = mintedTextInline "chunks-plus-type-reachability"
+
+chunksPlusReachabilityName :: Thesis
+chunksPlusReachabilityName = mintedTextInline "chunks-plus-reachability-name"
+
+chunksPlusReachabilitySymbols :: Thesis
+chunksPlusReachabilitySymbols =
+    mintedTextInline "chunks-plus-reachability-symbols"
+
+chunksPlusReachabilityType :: Thesis
+chunksPlusReachabilityType = mintedTextInline "chunks-plus-reachability-type"
 
 slow :: Thesis -> Thesis
 slow func = do
