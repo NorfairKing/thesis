@@ -264,6 +264,8 @@ thesisEvaluation =
                     , typeReachability
                     , "infeasible for use in practical situations, but it may still be useful as a building block for better strategies"
                     ]
+                let assetRuntimeFullBackgroundTypeReachabilityPlotLabel =
+                        "fig:runtime-full-background-type-reachability"
                 hereFigure $ do
                     withRegisteredAsset assetRuntimeTypeReachabilityPlot $ \fp ->
                         includegraphics
@@ -271,15 +273,38 @@ thesisEvaluation =
                             , IGWidth $ CustomMeasure textwidth
                             ]
                             fp
-                todo "continue here"
+                    caption $ "The runtime of " <> typeReachability
+                    lab assetRuntimeFullBackgroundTypeReachabilityPlotLabel
+                l
+                    [ "In figure"
+                    , ref assetRuntimeFullBackgroundTypeReachabilityPlotLabel <>
+                      ", we see that in practice"
+                    , typeReachability
+                    , "seems to reduce the scope to a sufficiently small subset that the runtime is subsequently small enough"
+                    ]
+                let assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel =
+                        "fig:relevant-equations-full-background-type-reachability"
+                l
+                    [ "As for the discovered equations, in figure"
+                    , ref assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel <>
+                      ", we find that"
+                    , typeReachability
+                    , "is not better than"
+                    , fullBackground
+                    , ", but it is at least as promising as the distance based signature inference strategies"
+                    ]
                 hereFigure $ do
                     withRegisteredAsset
-                        assetRelevantEquationsFullBackgroundTypeReachabilityPlot $ \fp ->
+                        assetRelevantEquationsFullBackgroundReducingPlot $ \fp ->
                         includegraphics
                             [ KeepAspectRatio True
                             , IGWidth $ CustomMeasure textwidth
                             ]
                             fp
+                    caption $
+                        "The number of relevant equations of the reducing signature inference strategies"
+                    lab
+                        assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel
             subsubsection "Chunks" $ do
                 l
                     [ chunks

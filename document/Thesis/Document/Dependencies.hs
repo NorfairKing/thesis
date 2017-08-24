@@ -16,6 +16,7 @@ module Thesis.Document.Dependencies
     , assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot
     , assetRuntimeTypeReachabilityPlot
     , assetRelevantEquationsFullBackgroundTypeReachabilityPlot
+    , assetRelevantEquationsFullBackgroundReducingPlot
     , assetNrDifferentFunctionsPlot
     , assetRuntimeFullBackgroundChunksPlot
     , assetRelevantEquationsFullBackgroundChunksPlot
@@ -160,6 +161,18 @@ $(makeDependencyAssets
               , relevantEquationsEvaluator
               , OrderedDistinct
                     (Pair inferFullBackground (inferTypeReachability 7))))
+      , ( "assetRelevantEquationsFullBackgroundReducingPlot"
+        , "relevant-equations-plot-full-background-Reducing.pdf"
+        , plotFileFor
+              boxPlotterPerGroupEvaluatorOnDemand
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , [ inferFullBackground
+                , inferSyntacticSimilarityName 5
+                , inferSyntacticSimilaritySymbols 5
+                , inferSyntacticSimilarityType 5
+                , inferTypeReachability 7
+                ]))
       , ( "assetNrDifferentFunctionsPlot"
         , "evaluation-nr-different-functions.pdf"
         , plotFileFor

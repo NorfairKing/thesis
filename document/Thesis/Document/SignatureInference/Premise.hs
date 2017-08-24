@@ -6,10 +6,6 @@ module Thesis.Document.SignatureInference.Premise
 
 import DocImport
 
-import Thesis.Document.Assets
-import Thesis.Document.Dependencies
-import Thesis.Document.References
-
 thesisSignatureInferencePremise :: Thesis
 thesisSignatureInferencePremise =
         subsection "Premise" $ do

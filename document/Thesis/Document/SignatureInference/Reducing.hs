@@ -6,9 +6,6 @@ module Thesis.Document.SignatureInference.Reducing
 
 import DocImport
 
-import Thesis.Document.Assets
-import Thesis.Document.Dependencies
-import Thesis.Document.References
 
 thesisSignatureInferenceReducing :: Thesis
 thesisSignatureInferenceReducing =
