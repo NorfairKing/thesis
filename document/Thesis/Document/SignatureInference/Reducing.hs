@@ -6,7 +6,6 @@ module Thesis.Document.SignatureInference.Reducing
 
 import DocImport
 
-
 thesisSignatureInferenceReducing :: Thesis
 thesisSignatureInferenceReducing =
     subsection "Reducing Signature Inference Strategies" $ do

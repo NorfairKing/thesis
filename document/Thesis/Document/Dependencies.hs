@@ -21,6 +21,8 @@ module Thesis.Document.Dependencies
     , assetRuntimeFullBackgroundChunksPlot
     , assetRelevantEquationsFullBackgroundChunksPlot
     , assetEquationsFullBackgroundChunksPlot
+    , assetRuntimeDrillingsPlot
+    , assetRelevantEquationsDrillingsPlot
     , assetRuntimeFullBackgroundChunksPlusPlot
     , assetRelevantEquationsFullBackgroundChunksPlusPlot
     , assetEquationsFullBackgroundChunksPlusPlot
@@ -208,6 +210,20 @@ $(makeDependencyAssets
               ( runtimeGroup
               , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
+      , ( "assetRelevantEquationsDrillingsPlot"
+        , "relevant-equations-plot-drillings.pdf"
+        , plotFileFor
+              boxPlotterPerGroupEvaluatorOnDemand
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , [inferFullBackground, inferChunks, inferChunksPlus]))
+      , ( "assetRuntimeDrillingsPlot"
+        , "runtime-plot-drillings.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsStrategiesPlotterOnDemand
+              ( runtimeGroup
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
+              , [inferFullBackground, inferChunks, inferChunksPlus]))
       , ( "assetRelevantEquationsFullBackgroundChunksPlusPlot"
         , "relevant-equations-plot-full-background-chunks-plus.pdf"
         , plotFileFor

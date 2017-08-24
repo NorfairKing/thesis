@@ -301,7 +301,7 @@ thesisEvaluation =
                             , IGWidth $ CustomMeasure textwidth
                             ]
                             fp
-                    caption $
+                    caption
                         "The number of relevant equations of the reducing signature inference strategies"
                     lab
                         assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel
@@ -420,7 +420,7 @@ thesisEvaluation =
                 let assetRuntimeFullBackgroundChunksPlusPlotLabel =
                         "fig:runtime-full-background-chunks-plus"
                 hereFigure $ do
-                    withRegisteredAsset assetRuntimeFullBackgroundChunksPlusPlot $ \fp ->
+                    withRegisteredAsset assetRuntimeDrillingsPlot $ \fp ->
                         includegraphics
                             [ KeepAspectRatio True
                             , IGWidth $ CustomMeasure textwidth
@@ -451,8 +451,7 @@ thesisEvaluation =
                 let assetRelevantEquationsFullBackgroundChunksPlusPlotLabel =
                         "fig:relevant-equations-full-background-chunks-plus"
                 hereFigure $ do
-                    withRegisteredAsset
-                        assetRelevantEquationsFullBackgroundChunksPlusPlot $ \fp ->
+                    withRegisteredAsset assetRelevantEquationsDrillingsPlot $ \fp ->
                         includegraphics
                             [ KeepAspectRatio True
                             , IGWidth $ CustomMeasure textwidth

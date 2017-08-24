@@ -23,8 +23,7 @@ thesisIntroduction =
                 "These reasons include the inherent complexity of systems, but also misaligned incentives and inexperience."
             s
                 "There exist a multitude of approaches to enhance the correctness of code, and usually a diverse portfolio of these is the best approach to writing correct code."
-            s
-                "First, and most importantly, one must choose the right tools."
+            s "First, and most importantly, one must choose the right tools."
             s
                 "Statically typed languages are just one example of a tool that is essential to writing correct code."
             s
