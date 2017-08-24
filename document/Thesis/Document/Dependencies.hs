@@ -26,6 +26,8 @@ module Thesis.Document.Dependencies
     , assetRuntimeFullBackgroundChunksPlusPlot
     , assetRelevantEquationsFullBackgroundChunksPlusPlot
     , assetEquationsFullBackgroundChunksPlusPlot
+    , assetRuntimeFullChunksPlusReachabilityPlot
+    , assetRelevantEquationsChunksPlusReachabilityPlot
     , assetRuntimeAll
     , assetRelevantEquationsAll
     ) where
@@ -33,6 +35,7 @@ module Thesis.Document.Dependencies
 import EasySpec.Discover.SignatureInference
 import EasySpec.Discover.SignatureInference.Chunks
 import EasySpec.Discover.SignatureInference.ChunksPlus
+import EasySpec.Discover.SignatureInference.ChunksReachability
 import EasySpec.Discover.SignatureInference.EmptyBackground
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityName
 import EasySpec.Discover.SignatureInference.SyntacticSimilaritySymbols
@@ -238,6 +241,28 @@ $(makeDependencyAssets
               ( evaluationGroup
               , equationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
+      , ( "assetRelevantEquationsChunksPlusReachabilityPlot"
+        , "relevant-equations-plot-chunks-plus-reachability.pdf"
+        , plotFileFor
+              boxPlotterPerGroupEvaluatorOnDemand
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , [ inferFullBackground
+                , inferChunksPlusReachabilityName 7 5
+                , inferChunksPlusReachabilitySymbols 7 5
+                , inferChunksPlusReachabilityType 7 5
+                ]))
+      , ( "assetRuntimeFullChunksPlusReachabilityPlot"
+        , "runtime-plot-chunks-plus-reachability.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsStrategiesPlotterOnDemand
+              ( runtimeGroup
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
+              , [ inferFullBackground
+                , inferChunksPlusReachabilityName 7 5
+                , inferChunksPlusReachabilitySymbols 7 5
+                , inferChunksPlusReachabilityType 7 5
+                ]))
       , ( "assetRuntimeAll"
         , "runtime-all.pdf"
         , plotFileFor

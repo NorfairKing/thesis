@@ -472,6 +472,33 @@ thesisEvaluation =
                     , fullBackground
                     , "is, and it regularly finds more relevant equations"
                     ]
+            subsubsection "Compositions" $ do
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRuntimeFullChunksPlusReachabilityPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRelevantEquationsChunksPlusReachabilityPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+            subsubsection "Overview" $ do
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRelevantEquationsAll $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+
 
 -- equations :: Thesis
 -- equations = mintedTextInline "equations"
