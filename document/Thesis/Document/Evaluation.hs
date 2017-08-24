@@ -250,6 +250,36 @@ thesisEvaluation =
                 s "This would not be the case in practice."
                 s
                     "It seems that choosing smaller signatures to run QuickSpec on is a good idea, but that these strategies are not ideal in deciding which functions to put in the smaller signature."
+            subsubsection "Type Reachability" $ do
+                l
+                    [ typeReachability
+                    , "is different from the distance based signature inference strategies because it does not guarantee that the reduced scope is any smaller than the original scope"
+                    ]
+                l
+                    [ "As such, it is not guaranteed to be any faster than"
+                    , fullBackground
+                    ]
+                l
+                    [ "This makes"
+                    , typeReachability
+                    , "infeasible for use in practical situations, but it may still be useful as a building block for better strategies"
+                    ]
+                hereFigure $ do
+                    withRegisteredAsset assetRuntimeTypeReachabilityPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
+                todo "continue here"
+                hereFigure $ do
+                    withRegisteredAsset
+                        assetRelevantEquationsFullBackgroundTypeReachabilityPlot $ \fp ->
+                        includegraphics
+                            [ KeepAspectRatio True
+                            , IGWidth $ CustomMeasure textwidth
+                            ]
+                            fp
             subsubsection "Chunks" $ do
                 l
                     [ chunks

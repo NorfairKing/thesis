@@ -14,6 +14,8 @@ module Thesis.Document.Dependencies
     , assetRelevantEquationsFullBackgroundSyntacticSimilaritySymbolsPlot
     , assetRuntimeChunksSyntacticSimilarityTypePlot
     , assetRelevantEquationsFullBackgroundSyntacticSimilarityTypePlot
+    , assetRuntimeTypeReachabilityPlot
+    , assetRelevantEquationsFullBackgroundTypeReachabilityPlot
     , assetNrDifferentFunctionsPlot
     , assetRuntimeFullBackgroundChunksPlot
     , assetRelevantEquationsFullBackgroundChunksPlot
@@ -32,6 +34,7 @@ import EasySpec.Discover.SignatureInference.EmptyBackground
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityName
 import EasySpec.Discover.SignatureInference.SyntacticSimilaritySymbols
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityType
+import EasySpec.Discover.SignatureInference.TypeReachability
 
 import EasySpec.Evaluate.Analyse.Data.Common
 import EasySpec.Evaluate.Analyse.Plots.BarsPerGroup
@@ -141,6 +144,22 @@ $(makeDependencyAssets
               , relevantEquationsEvaluator
               , OrderedDistinct
                     (Pair inferFullBackground (inferSyntacticSimilarityType 5))))
+      , ( "assetRuntimeTypeReachabilityPlot"
+        , "runtime-plot-full-background-syntactic-similarity-type.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsStrategiesPlotter
+              ( runtimeGroup
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
+              , OrderedDistinct
+                    (Pair inferFullBackground (inferTypeReachability 7))))
+      , ( "assetRelevantEquationsFullBackgroundTypeReachabilityPlot"
+        , "relevant-equations-plot-full-background-syntactic-similarity-type.pdf"
+        , plotFileFor
+              boxPlotterPerEvaluatorStrategies
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , OrderedDistinct
+                    (Pair inferFullBackground (inferTypeReachability 7))))
       , ( "assetNrDifferentFunctionsPlot"
         , "evaluation-nr-different-functions.pdf"
         , plotFileFor
