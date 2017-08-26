@@ -18,7 +18,8 @@ import Thesis.Document.SignatureInference.TypeReachability
 thesisSignatureInference :: Thesis
 thesisSignatureInference =
     section "Signature Inference with EasySpec" $ do
-        s "In this section I will introduce the concept of signature inference."
+        s
+            "In this section I will introduce the concept of signature inference and how we implemented it in the EasySpec tool."
         thesisSignatureInferencePremise
         thesisSignatureInferenceAutomation
         thesisSignatureInferenceReducing

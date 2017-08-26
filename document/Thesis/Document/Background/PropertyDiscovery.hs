@@ -95,11 +95,19 @@ thesisBackgroundPropertyDiscovery =
             "QuickSpec only knows about those instances that it gets supplied with via the signature."
         newline
         s
-            "The last important part of a signature is a set of background properties."
+            "The last part of a signature that is important for this work is a set of background properties."
         s
             "These are properties that the signature somehow knows about already, and will use in its discovery."
         s
             "One way for a signature to contain background properties, is by using the properties that a previous run of QuickSpec discovered."
+        newline
+        s
+            "A signature also contains several configuration settings such as the maximum size of the discovered properties."
+        l
+            [ "The default value for this setting sets the maximum size of discovered properties to be"
+            , m 7
+            , "and we do not change it throughout this work"
+            ]
         newline
         s
             "Using a signature, QuickSpec will enumerate all properties that relate the functions in that signature, up to a given size."

@@ -35,7 +35,7 @@ thesisDiscussion =
             tabular Nothing fmt $ do
                 header
                 mapM_
-                    (\(strat, compl) -> strat & bigoh compl >> lnbk >> hline)
+                    (\(strat, compl) -> strat & m (bigoh compl) >> lnbk >> hline)
                     [ (fullBackground, s_ ^: (2 * m_))
                     , (emptyBackground, f_)
                     , (syntacticSimilarityName, i_)

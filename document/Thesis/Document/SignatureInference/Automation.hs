@@ -22,20 +22,64 @@ thesisSignatureInferenceAutomation =
             , haskInline "quickSpec"
             , "on using an automated interactive evaluator"
             ]
-        newline
-        l
-            [ "By hooking into the GHC API"
-            , cite ghcAPIRef
-            , "one can find all functions that are in scope in a given module"
-            ]
-        l
-            [ "Given all functions in scope, we can try to generate a"
-            , haskInline "Signature"
-            , "that contains all of these functions, but first they need to be monomorphised"
-            ]
-        s
-            "Monomorphisation consists of getting rid of any type variables in the type of a function."
-        subsubsection "Parameters without Constraints" $ do
+        subsubsection "Generating a signature" $ do
+            l
+                [ "By hooking into the GHC API"
+                , cite ghcAPIRef
+                , "one can find all functions that are in scope in a given module"
+                ]
+            l
+                [ "We will refer to these functions as values of type"
+                , haskInline "Function"
+                , "for easy reference, because these values have several names in the GHC API"
+                ]
+            citationNeeded
+            l
+                [ "To automatically supply QuickSpec with a"
+                , haskInline "Signature"
+                , "we need to generate a Haskell expression that describes a"
+                , haskInline "Signature"
+                , "and interactively evaluate it"
+                ]
+            l
+                [ "Recall that a signature contains a list of"
+                , haskInline "Constant"
+                , "values"
+                ]
+            l
+                [ "To generate an expression that describes the appropriate"
+                , haskInline "Constant"
+                , "values, we need to monomorphise the functions in scope, and generate a"
+                , haskInline "Constant"
+                , "expression for each of the"
+                , haskInline "Function"
+                , "values by giving each function a name, and specifying their type explicitly"
+                ]
+            haskL
+                [ "not :: Bool -> Bool"
+                , "   -- becomes --"
+                , "constant \"not\" (not :: Bool -> Bool)"
+                ]
+            s
+                "Next, we need to generate an expression to describe that describes the type class instances that are in scope."
+            s
+                "QuickSpec already knows about some instances by default, and these were comprehensive enough to perform our research, so the full instance resolution work has not been implemented in EasySpec."
+            lnbk
+            s
+                "Lastly, We need to generate an expression that describes the properties that we already know about."
+            s
+                "Previously discovered properties usually come from previous runs of QuickSpec, so this first automated version leaves this field empty for now."
+            todo
+                "Refer to a next section that uses previously discovered properties"
+            l
+                [ "We will call this initial automation"
+                , fullBackground
+                , "for reasons that will become clear in the next section"
+                ]
+        subsubsection "Monomorphisation" $ do
+            s
+                "Monomorphisation consists of instantiating any type variables in the type of a function with monomorphic types so that no type variables remain in the type."
+            newline
             l
                 [ "For type parameters of kind"
                 , haskInline "*"
@@ -64,7 +108,6 @@ thesisSignatureInferenceAutomation =
                 , "       -- becomes --"
                 , "map :: (A -> B) -> [A] -> [B]"
                 ]
-        subsubsection "Parameters with Constraints" $ do
             s
                 "Monomorphisation is a bit more complicated in types that have type class constraints."
             s "Consider the following type."
@@ -93,7 +136,19 @@ thesisSignatureInferenceAutomation =
                 , haskInline "mkDict"
                 , "the function that can turn a type class constraint into an evidence dictionary argument"
                 ]
-        todo "Higher kinded type parameters?"
+            newline
+            s
+                "Haskell supports type parameters that cannot be instantiated with a type, but rather with a type constructor."
+            s "These type parameters are called higher kinded."
+            l
+                [ "An example of a higher kinded type parameter is"
+                , haskInline "t"
+                , "in the length function"
+                ]
+            hask "length :: Foldable t => t a -> Int"
+            s
+                "Monomorphisation of higher kinded types is not trivial in general, but could be performed manually for type constructors in scope, given that type constraints can be resolved."
+            s "This transformation has not been implemented in EasySpec yet."
         subsubsection "Complexity" $ do
             s
                 "An automated version of QuickSpec offers many benefits, but it does not solve the problem of computational complexity that QuickSpec exhibits."
@@ -105,7 +160,7 @@ thesisSignatureInferenceAutomation =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-                caption "Complexity of Automated QuickSpec"
+                caption $ "Runtime of" <> fullBackground
                 lab automationComplexityLabel
             l
                 [ "In figure"
@@ -132,3 +187,4 @@ thesisSignatureInferenceAutomation =
                 , m 7 <> ","
                 , "but it is not practical for real code bases"
                 ]
+            todo "refer to the section about discovery complexity"

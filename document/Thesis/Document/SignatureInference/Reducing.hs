@@ -32,8 +32,8 @@ thesisSignatureInferenceReducing =
             s
                 "Running QuickSpec in an automated manner can be described as a trivial reducing signature inference strategy as follows."
             haskL
-                [ "emptyBackground :: SignatureInferenceStrategy"
-                , "emptyBackground focus scope = scope"
+                [ "fullBackground :: SignatureInferenceStrategy"
+                , "fullBackground focus scope = scope"
                 ]
         subsubsection "Empty Background" $ do
             l

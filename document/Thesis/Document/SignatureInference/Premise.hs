@@ -16,11 +16,16 @@ thesisSignatureInferencePremise =
         s
             "This work, however, asserts that usually a programmer is not necessarily interested in all the equations relating the functions in the entire codebase."
         s
-            "The assumption is that a programmer is more interested in the properties that relate a very small number of functions, say one."
-        s "We call these functions the focus functions."
+            "The assumption is that a programmer is more interested in the properties that involve a very small number of functions, say one."
+        l ["We call these functions the", emph "focus functions"]
         s
             "The new goal is to find the properties that relate the focus functions to the rest of the codebase."
-        s "We will call these relevant equations."
+        l
+            [ "We will call these"
+            , emph "relevant equations"
+            , "or"
+            , emph "relevant properties"
+            ]
         s "With respect to this new goal, QuickSpec has at least two problems."
         itemize $ do
             item $
@@ -32,7 +37,7 @@ thesisSignatureInferencePremise =
         l
             [ "The question that this work tries to answer is"
             , dquoted
-                  "How do we choose the inputs to give to QuickSpec intelligently, such that it will find properties of that one focus function in a practical amount of time?"
+                  "How do we choose the inputs to give to QuickSpec intelligently, such that it will find properties of that one focus function in a practically feasible amount of time?"
             ]
         "Ideally the inputs will be chosen such that:"
         itemize $ do

@@ -25,6 +25,7 @@ ETH
 CPP
 kinded
 effectful
+monomorphise
 monomorphised
 monomorphising
 monomorphisation
