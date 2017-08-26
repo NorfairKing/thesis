@@ -332,7 +332,7 @@ thesisEvaluation =
                 let assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel =
                         "fig:relevant-equations-full-background-empty-background"
                 l
-                    [ "In figure"
+                    [ "In Figure"
                     , ref assetRuntimeFullBackgroundEmptyBackgroundPlotLabel <>
                       ", the runtime of"
                     , emptyBackground
@@ -362,7 +362,7 @@ thesisEvaluation =
                     caption $ l ["Runtime of", emptyBackground]
                     lab assetRuntimeFullBackgroundEmptyBackgroundPlotLabel
                 l
-                    [ "However, when we look at figure"
+                    [ "However, when we look at Figure"
                     , ref assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel <>
                       ", we see that"
                     , emptyBackground
@@ -427,7 +427,7 @@ thesisEvaluation =
                             ]
                     lab assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel
                 l
-                    [ "In figure"
+                    [ "In Figure"
                     , ref assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel <>
                       ", we find the runtimes of"
                     , fullBackground <> ","
@@ -458,7 +458,7 @@ thesisEvaluation =
                             , syntacticSimilarityType
                             ]
                 l
-                    [ "In figure"
+                    [ "In Figure"
                     , ref assetRelevantEquationsFullBackgroundSyntacticSimilarityPlotLabel <>
                       ", we find a box plot of the number of relevant equations that each of these strategies discover"
                     ]
@@ -498,7 +498,7 @@ thesisEvaluation =
                     caption $ "The runtime of " <> typeReachability
                     lab assetRuntimeFullBackgroundTypeReachabilityPlotLabel
                 l
-                    [ "In figure"
+                    [ "In Figure"
                     , ref assetRuntimeFullBackgroundTypeReachabilityPlotLabel <>
                       ", we see that in practice"
                     , typeReachability
@@ -507,7 +507,7 @@ thesisEvaluation =
                 let assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel =
                         "fig:relevant-equations-full-background-type-reachability"
                 l
-                    [ "As for the discovered equations, in figure"
+                    [ "As for the discovered equations, in Figure"
                     , ref assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel <>
                       ", we find that"
                     , typeReachability
@@ -569,7 +569,7 @@ thesisEvaluation =
                     caption $ "The number of relevant equations of " <> chunks
                     lab assetRuntimeFullBackgroundChunksPlotLabel
                 l
-                    [ "When we look at figure"
+                    [ "When we look at Figure"
                     , ref assetRuntimeFullBackgroundChunksPlotLabel <>
                       ", we see that this looks plausible"
                     ]
@@ -604,7 +604,7 @@ thesisEvaluation =
                     caption $ "The number of relevant equations of " <> chunks
                     lab assetRelevantEquationsFullBackgroundChunksPlotLabel
                 l
-                    [ "However, when we look at figure"
+                    [ "However, when we look at Figure"
                     , ref assetRelevantEquationsFullBackgroundChunksPlotLabel <>
                       ", we find that"
                     , chunks
@@ -652,7 +652,7 @@ thesisEvaluation =
                         "The number of relevant equations of " <> chunksPlus
                     lab assetRuntimeFullBackgroundChunksPlusPlotLabel
                 l
-                    [ "In figure"
+                    [ "In Figure"
                     , ref assetRuntimeFullBackgroundChunksPlusPlotLabel <>
                       ", we see that"
                     , chunksPlus
@@ -683,7 +683,7 @@ thesisEvaluation =
                         "The number of relevant equations of " <> chunksPlus
                     lab assetRelevantEquationsFullBackgroundChunksPlusPlotLabel
                 l
-                    [ "In figure"
+                    [ "In Figure"
                     , ref assetRelevantEquationsFullBackgroundChunksPlusPlotLabel <>
                       ", we see that this is indeed the case"
                     ]

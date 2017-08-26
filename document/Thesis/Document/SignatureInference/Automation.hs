@@ -163,7 +163,7 @@ thesisSignatureInferenceAutomation =
                 caption $ "Runtime of" <> fullBackground
                 lab automationComplexityLabel
             l
-                [ "In figure"
+                [ "In Figure"
                 , ref automationComplexityLabel
                 , "we see the runtime of the automated version of QuickSpec with respect to the size of the scope that it was run on"
                 ]

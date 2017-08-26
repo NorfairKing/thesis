@@ -13,7 +13,7 @@ thesisDiscussion =
         s
             "This work has explored several different signature inference strategies."
         let summaryLabel = "fig:summary"
-        l ["A summary can be found in figure", ref summaryLabel]
+        l ["A summary can be found in Figure", ref summaryLabel]
         let s_ = "S"
             m_ = "M"
             f_ = "F"

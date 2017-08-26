@@ -34,7 +34,7 @@ thesisSignatureInferenceGraph =
                 caption "Number of different functions that occur in a property"
                 lab differentFunctionsPerPropertyLabel
             l
-                [ "In figure"
+                [ "In Figure"
                 , ref differentFunctionsPerPropertyLabel
                 , "there is a histogram of the number of different functions in an equation"
                 ]

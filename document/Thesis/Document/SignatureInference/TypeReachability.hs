@@ -11,12 +11,13 @@ thesisSignatureInferenceTypeReachability =
     subsection "Type Reachability" $ do
         s
             "A more sophisticated signature inference strategy is based on how functions can be composed."
-        l ["This signature inference strategy is called", typeReachability]
-        todo "rewrite the intro to type reachability"
         l
-            [ typeReachability
-            , "is a reducing signature inference strategy that also uses types"
+            [ "This signature inference strategy is called"
+            , typeReachability
+            , "and it is a reducing signature inference strategy"
             ]
+        s
+            "It uses type information to try to rule out parts of the scope from being relevant to the focus."
         let typeReachabilityExampleLabel = "fig:type-type-reachability-example"
         subsubsection "Motivation" $ do
             s
@@ -31,10 +32,13 @@ thesisSignatureInferenceTypeReachability =
                     , "j :: Double -> Double"
                     ]
                 lab typeReachabilityExampleLabel
+                caption $
+                    "An example scope in which " <> typeReachability <>
+                    " would work well"
             l
                 [ "If the focus consists of the single function"
                 , haskInline "f"
-                , "then, Without looking at the implementations, we can already say that"
+                , "then, without looking at their implementation, we can already say that"
                 , haskInline "i"
                 , "can never occur in an equation together with"
                 , haskInline "f"
@@ -46,8 +50,9 @@ thesisSignatureInferenceTypeReachability =
                 , haskInline "Bool"
                 ]
             l
-                [ typeReachability
-                , "intends to eliminate functions from the scope that cannot occur together in an equation with any focus functions"
+                [ "The intention of the"
+                , typeReachability
+                , "signature inference strategy is to eliminate functions from the scope that cannot occur together in an equation with any focus functions"
                 ]
             s
                 "To see why this situation occurs, we have to explore a concept that we have called type reachability."
@@ -87,7 +92,8 @@ thesisSignatureInferenceTypeReachability =
                     s
                         "Note that there can be multiple possible input and output types of a function."
                     l
-                        [ haskInline "(+)"
+                        [ "The function"
+                        , haskInline "(+)"
                         , "can have both"
                         , haskInline "a"
                         , "and"
@@ -95,16 +101,14 @@ thesisSignatureInferenceTypeReachability =
                         , "as an output type due to currying"
                         ]
                     l
-                        [ haskInline "take"
+                        [ "The function"
+                        , haskInline "take"
                         , "can have both"
                         , haskInline "Int"
                         , "and"
                         , haskInline "a"
                         , "as an input type due to the fact that it has multiple arguments"
                         ]
-                    footnote $
-                        s
-                            "Note that the second part of the definition is just a special case of this third part, but it makes it easier to explain the definition."
                 item $ do
                     let a = "a"
                         b = "b"
@@ -130,20 +134,21 @@ thesisSignatureInferenceTypeReachability =
                         , "steps"
                         ]
             l
-                [ "Consider the example in figure"
+                [ "Consider the example in Figure"
                 , ref typeReachabilityExampleLabel
                 , "again"
                 ]
             l
                 [ "From the function"
-                , haskInline "f" <> ","
+                , haskInline "f" <> ", the functions"
                 , haskInline "g"
                 , "and"
                 , haskInline "h"
                 , "are type reachable in one step"
                 ]
             l
-                [ haskInline "j"
+                [ "The function"
+                , haskInline "j"
                 , "is type type reachable in two steps, and"
                 , haskInline "i"
                 , "is not type reachable from"
