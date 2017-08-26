@@ -25,10 +25,10 @@ thesisSignatureInferenceDistance =
             , "closed functions in scope are put together in the signature"
             ]
         l
-            [ "The following piece of code exhibits this principle"
+            [ "The following piece of code implements this concept"
             , footnote $
               s
-                  "This piece of code assumes that there is only a single focus function. In practice this is a valid assumption, but this code could also be extended to work on larger foci using a summation."
+                  "This piece of code assumes that there is only a single focus function. In practice this is a valid assumption, but this code could also be extended to work on a larger focus using a summation."
             ]
         hereFigure $ do
             haskL
@@ -107,7 +107,7 @@ thesisSignatureInferenceDistance =
                 caption syntacticSimilaritySymbols
         subsubsection "Syntactic Similarity Type" $ do
             l
-                [ "A final second distance based reducing signature inference strategy is called"
+                [ "Our final distance based reducing signature inference strategy is called"
                 , syntacticSimilarityType
                 ]
             s
@@ -124,17 +124,21 @@ thesisSignatureInferenceDistance =
             l
                 [ "For example, the type"
                 , haskInline "[a] -> [a]"
-                , "has the following parts multiset:"
+                , "has the following parts multiset"
                 ]
-            hereFigure $
+            hereFigure $ do
                 mintedTextL
                     [ "[a] -> [a] : 1"
                     , "([a] ->)   : 1"
                     , "(-> [a])   : 1"
                     , "(->)       : 2"
                     , "[a]        : 2"
+                    , "[]         : 2"
                     , "a          : 2"
                     ]
+                caption $
+                    "The multiset of parts of the type " <>
+                    haskInline "[a] -> [a]"
             s
                 "This multiset is interpreted as a vector in an infinitely dimensional vector space."
             s
