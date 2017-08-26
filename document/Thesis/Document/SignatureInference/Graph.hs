@@ -8,59 +8,55 @@ import DocImport
 
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
+import Thesis.Document.References
 
 thesisSignatureInferenceGraph :: Thesis
 thesisSignatureInferenceGraph =
     subsection "Graph Signature Inference Strategies" $ do
-        subsubsection "Motivation" $ do
-            s
-                "During experimentation, we tried looking for clues to build better strategies."
-            s
-                "One of the measures we looked at, was the number of different functions that occur in any given property."
-            l
-                [ "We ran"
-                , fullBackground
-                , "on many examples, and gathered the following data"
-                ]
-            let differentFunctionsPerPropertyLabel =
-                    "fig:different-functions-per-property"
-            hereFigure $ do
-                withRegisteredAsset assetNrDifferentFunctionsPlot $ \fp ->
-                    includegraphics
-                        [ KeepAspectRatio True
-                        , IGWidth $ CustomMeasure textwidth
-                        ]
-                        fp
-                caption "Number of different functions that occur in a property"
-                lab differentFunctionsPerPropertyLabel
-            l
-                [ "In Figure"
-                , ref differentFunctionsPerPropertyLabel
-                , "there is a histogram of the number of different functions in an equation"
-                ]
-            l
-                [ "We notice that"
-                , m 60
-                , "and"
-                , m 70
-                , "per cent of all properties that were discovered by"
-                , fullBackground
-                , "only talk about two or fewer functions"
-                ]
-            l
-                [ "Similarly, we find that almost"
-                , m 90
-                , "per cent of all properties only talk about three or fewer functions"
-                ]
-            s
-                "This means that it does not make sense to run QuickSpec on large signatures."
-            s
-                "The complexity of running QuickSpec suggests that it is cheaper to run QuickSpec multiple times with different small signatures than to run QuickSpec on a large signature."
-            s
-                "This is when we realised that we should try running QuickSpec more than once."
+        s
+            "During experimentation, we searched for clues to build better strategies."
+        s
+            "One of the measures we looked at, was the number of different functions that occur in any given property."
+        l
+            [ "We ran"
+            , fullBackground
+            , "on many examples, and gathered the following data"
+            ]
+        let differentFunctionsPerPropertyLabel =
+                "fig:different-functions-per-property"
+        hereFigure $ do
+            withRegisteredAsset assetNrDifferentFunctionsPlot $ \fp ->
+                includegraphics
+                    [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+                    fp
+            caption "Number of different functions that occur in a property"
+            lab differentFunctionsPerPropertyLabel
+        l
+            [ "In Figure"
+            , ref differentFunctionsPerPropertyLabel
+            , "there is a histogram of the number of different functions in an equation"
+            ]
+        l
+            [ "We notice that"
+            , m 60
+            , "and"
+            , m 70
+            , "per cent of all properties that were discovered by"
+            , fullBackground
+            , "only talk about two or fewer functions"
+            ]
+        l
+            [ "Similarly, we find that almost"
+            , m 90
+            , "per cent of all properties only talk about three or fewer functions"
+            ]
+        s
+            "This means that it may not always be worth it to run QuickSpec on large signatures."
+        s
+            "The runtime of running QuickSpec suggests that it is cheaper to run QuickSpec multiple times with different small signatures than to run QuickSpec on a large signature."
         subsubsection "Definition" $ do
             s
-                "The definition of a signature inference strategy would have to be changed to allow for multiple runs of QuickSpec."
+                "To allow for multiple runs of QuickSpec, the definition of a signature inference strategy needs to be changed."
             s
                 "The first attempt involved defining a signature inference strategy as a reducing signature inference strategy that produces a list of signatures instead of a single signature."
             haskL
@@ -77,15 +73,27 @@ thesisSignatureInferenceGraph =
                 "Note that any reducing signature inference strategy can be trivially converted to a reducing signature inference strategy."
             newline
             s
-                "In the next iteration of this idea, we recognised that QuickSpec has a feature that allows it to learn from previous discoveries."
-            todo $
-                s
-                    "Ensure that this is described properly, either here or in the QuickSpec section."
+                "In the next iteration of this idea, we observed that QuickSpec has a feature that allows it to learn from previous discoveries."
+            todo "Refer back to the background section"
+            l
+                [ "Recall that a signature contains a field called"
+                , haskInline "background"
+                , "that allows a user to specify previously discovered properties"
+                ]
+            s
+                "The result of running QuickSpec is a signature in which this field has been filled with the properties that were discovered in that run."
+            s
+                "In subsequent runs, the user can then specify these discovered properties in the signatures to run QuickSpec on, and QuickSpec will take these properties into account for optimisation of further discovery."
+            l
+                [ "For more details, refer to the second QuickSpec paper"
+                , cite quickspec2Ref
+                ]
+            lnbk
             s
                 "We adapted our definition to allow for dependencies between signatures by arranging the resulting signatures in a forest."
             hask "type InferredSignature = Forest Signature"
             s
-                "Now we could describe the idea that every signature had to be run before its parent could be run, and QuickSpec would do the appropriate optimisation."
+                "Now we could describe the idea that every signature had to be run before its parent could be run, and QuickSpec would perform the appropriate optimisation."
             s
                 "Again, it is trivial to convert a list signature inference strategy into a forest signature inference strategy."
             s

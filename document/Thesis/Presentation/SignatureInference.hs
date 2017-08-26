@@ -76,8 +76,8 @@ signatureInference = do
             "Size of signature: Number of functions in signature"
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
         note
-            [ s "We set out to find eighty percent of the properties in twenty percent of the time."
-            , s "Of course, later we realised that even twenty percent does not change the time complexity and therefore is too slow in practice."
+            [ s "We set out to find eighty per cent of the properties in twenty per cent of the time."
+            , s "Of course, later we realised that even twenty per cent does not change the time complexity and therefore is too slow in practice."
             ]
         f "Why is this slow?" $
             enumerate $ do

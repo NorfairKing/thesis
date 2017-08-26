@@ -9,13 +9,12 @@ import DocImport
 thesisSignatureInferenceMonadic :: Thesis
 thesisSignatureInferenceMonadic =
     subsection "Monadic Signature Inference Strategies" $ do
-        subsubsection "Motivation" $ do
-            s
-                "Graph signature inference strategies are expressive enough to declare dependencies between QuickSpec runs, but they cannot use information from previous runs in subsequent runs."
-            s
-                "One hypothesis suggests that the equations that are discovered in QuickSpec runs may teach more about the functions at hand, and what we can expect when we subsequently run QuickSpec."
-            s
-                "The definition of a signature inference strategy would have to be adapted again, to make it even more expressive."
+        s
+            "Graph signature inference strategies are expressive enough to declare dependencies between QuickSpec runs, but they cannot use information from previous runs in subsequent runs."
+        s
+            "One hypothesis suggests that the equations that are discovered in QuickSpec runs may teach more about the functions at hand, and what we can expect when we subsequently run QuickSpec."
+        s
+            "The definition of a signature inference strategy would have to be adapted again, to make it even more expressive."
         subsubsection "Definition" $ do
             s
                 "One standard abstraction that allows for the expression of composition is of course the monad."
