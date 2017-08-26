@@ -161,9 +161,15 @@ thesisSignatureInferenceTypeReachability =
                 , m i
                 , "is a parameter of the strategy"
                 ]
-            s "It is important to note that we only use an under approximation for real type reachability."
-            s "This under approximation only deals with monomorphic types, and only considers the first argument and the last output of functions."
-            l ["This limitation allows us to implement the under approximation function", haskInline "typeReachableInOneStep", "without integrating with any type checker"]
+            s
+                "It is important to note that we only use an under approximation for real type reachability."
+            s
+                "This under approximation only deals with monomorphic types, and only considers the first argument and the last output of functions."
+            l
+                [ "This limitation allows us to implement the under approximation function"
+                , haskInline "typeReachableInOneStep"
+                , "without integrating with any type checker"
+                ]
             hereFigure $ do
                 haskL
                     [ "inferTypeReachability :: Int -> SignatureInferenceStrategy"
@@ -179,5 +185,7 @@ thesisSignatureInferenceTypeReachability =
             l
                 [ "In this work, we investigate this strategy with"
                 , m 7
-                , "as the parameter", m i <> ", because this is the maximum size of properties that we use"
+                , "as the parameter"
+                , m i <>
+                  ", because this is the maximum size of properties that we use"
                 ]

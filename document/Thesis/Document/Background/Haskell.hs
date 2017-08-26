@@ -27,8 +27,8 @@ thesisBackgroundHaskell =
         subsubsection "Type Classes" $ do
             l
                 [ "Haskell famously has support for type classes"
-                , cite haskellTypeClassesProposal
-                , cite haskellTypeClasses
+                , cite haskellTypeClassesProposal <> ","
+                , cite haskellTypeClasses <> ","
                 , cite haskellTypeClassesTypeInference
                 ]
             s
@@ -51,7 +51,7 @@ thesisBackgroundHaskell =
                 ]
             hask $ T.unlines ["class Eq a where", "    (==) :: a -> a -> Bool"]
             l
-                [ "To define equality is to instantiate the"
+                [ "For specific instances, equality is defined by instantiating the"
                 , haskInline "Eq"
                 , "type class using a type class instance"
                 ]
@@ -72,7 +72,7 @@ thesisBackgroundHaskell =
                 , "function to test for equality, and the type checker will infer which equality will be used"
                 ]
             s
-                "Now that an equality can be defined parametrically in which type of values are tested, the programmer can write functions that are parametric in a type, so long as that type supports equality."
+                "Now that equality can be defined parametrically in which type of values are tested, the programmer can write functions that are parametric in a type, so long as that type supports equality."
             l
                 [ "For example, the"
                 , haskInline "elem"
@@ -85,11 +85,9 @@ thesisBackgroundHaskell =
                 ]
         subsubsection "Type Class Evidence Dictionaries" $ do
             l
-                [ "Haskell's flagship compiler: The Glasgow Haskell Compiler, implements type classes using a desugaring method called evidence dictionaries"
+                [ "The Glasgow Haskell Compiler, implements type classes using a desugaring method called evidence dictionaries"
                 , cite haskellTypeClassesImplementation
                 ]
-            s
-                "These evidence dictionaries will become important in what follows, so they are introduced here briefly."
             s
                 "Take the previous example of a function with a type parameter that has a type class constraint."
             hask "elem :: Eq a => a -> [a] -> Bool"

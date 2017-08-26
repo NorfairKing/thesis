@@ -14,8 +14,8 @@ thesisBackgroundPropertyDiscovery :: Thesis
 thesisBackgroundPropertyDiscovery =
     subsection "Property Discovery with QuickSpec" $ do
         l
-            [ "QuickSpec is the product of recent research on property discovery"
-            , cite quickspecRef
+            [ "QuickSpec is a recently developed tool for property discovery"
+            , cite quickspecRef <> ","
             , cite quickspec2Ref
             ]
         s "QuickSpec aims to simplify the process of writing property tests."
@@ -69,11 +69,11 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "Typeable"
             , "but"
             , haskInline "a -> Double"
-            , "is not, because the latter has a type variable:"
+            , "is not, because the latter is polymorphic in a type variable:"
             , haskInline "a"
             ]
         s
-            "It is important to note that computing a concrete representation of a type with parameters does not make sense and, more importantly, generating values of such a type is impractical."
+            "It is important to note that generating values of a type with type parameters is impractical."
         l
             [ "A value of type"
             , haskInline "Constant"
@@ -125,6 +125,10 @@ thesisBackgroundPropertyDiscovery =
             "Note that it is not a restriction to only allow properties where the input types of the both sides are the same."
         s
             "Indeed, for any property where the input types of the sides are different, there exists a property where this is not the case that expresses the same equation."
+        haskL
+            [ "\\a      -> f a = \\b      -> g b -- different input type"
+            , "\\(a, b) -> f a = \\(a, b) -> g b -- same input type"
+            ]
         l
             [ "Furthermore,"
             , haskInline "B"
@@ -139,11 +143,11 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "p :: A -> Bool"
             , "can be expressed in the above form as follows"
             ]
-        hask "p = \\_ -> True"
+        hask "\\x -> p x = \\_ -> True"
         s "Also note that QuickSpec does not show properties in this form."
         s
             "In fact, QuickSpec leaves out the left side of the lambda expression, so it would show the above equation as follows."
-        hask "p = True"
+        hask "      p x =       True"
         l
             [ "When QuickSpec is run using the"
             , haskInline "quickSpec"
@@ -161,8 +165,8 @@ thesisBackgroundPropertyDiscovery =
             ]
         l
             [ "For further details, please refer to the QuickSpec papers"
-            , cite quickspecRef
+            , cite quickspecRef <> ","
             , cite quickspec2Ref
-            , "and the QuickSpec package on Hackage"
-            , cite quickspecHackageRef
+            , "and the QuickSpec repository on GitHub"
+            , cite quickspecGithubRef
             ]

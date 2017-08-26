@@ -13,7 +13,7 @@ module Thesis.Document.References
     , quickcheckHackageRef
     , quickspecRef
     , quickspec2Ref
-    , quickspecHackageRef
+    , quickspecGithubRef
     , hipspecRef
     , smartcheckRef
     , fitspecRef
@@ -187,8 +187,8 @@ quickspec2Ref =
         , "year" .= "{2017}"
         ]
 
-quickspecHackageRef :: Reference
-quickspecHackageRef =
+quickspecGithubRef :: Reference
+quickspecGithubRef =
     Reference
         miscelaneous
         "smallbone2016QuickSpec-2"

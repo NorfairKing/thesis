@@ -695,7 +695,7 @@ thesisEvaluation =
                     , "is, and it regularly finds more relevant equations"
                     ]
             subsubsection "Compositions" $ do
-                hereFigure $ do
+                hereFigure $
                     withRegisteredAsset
                         assetRuntimeFullChunksPlusReachabilityPlot $ \fp ->
                         includegraphics
@@ -703,7 +703,7 @@ thesisEvaluation =
                             , IGWidth $ CustomMeasure textwidth
                             ]
                             fp
-                hereFigure $ do
+                hereFigure $
                     withRegisteredAsset
                         assetRelevantEquationsChunksPlusReachabilityPlot $ \fp ->
                         includegraphics
@@ -711,14 +711,14 @@ thesisEvaluation =
                             , IGWidth $ CustomMeasure textwidth
                             ]
                             fp
-            subsubsection "Overview" $ do
-                hereFigure $ do
-                    withRegisteredAsset assetRelevantEquationsAll $ \fp ->
-                        includegraphics
-                            [ KeepAspectRatio True
-                            , IGWidth $ CustomMeasure textwidth
-                            ]
-                            fp
+            subsubsection "Overview" $
+                hereFigure $
+                withRegisteredAsset assetRelevantEquationsAll $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
 
 -- equations :: Thesis
 -- equations = mintedTextInline "equations"

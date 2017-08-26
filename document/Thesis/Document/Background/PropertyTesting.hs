@@ -13,18 +13,18 @@ thesisBackgroundPropertyTesting =
     subsection "Property Testing with QuickCheck" $ do
         l
             [ "QuickCheck"
-            , cite quickcheckRef
+            , cite quickcheckRef <> ","
             , cite quickcheckHackageRef
             , "is an implementation of the concept of property testing and it is written in Haskell"
             ]
         s "It is a particularly elegant example of a use case for type classes."
         s
-            "Instead of requiring a programmer to specify a specific example of the working of his code, the programmer now gets to specify a general property of his code."
+            "Instead of requiring a programmer to specify a specific example of the workings of their code, the programmer now gets to specify a general property of their code."
         s
             "To perform property tests, a programmer needs to provide two pieces of code: A generator, and a function that takes the output of the generator and produces a Boolean value."
         subsubsection "Generators and the Arbitrary Type Class" $ do
             s
-                "Generators are a central component of QuickCheck and property test in general."
+                "Generators are a central component of QuickCheck and property testing in general."
             s
                 "In essence, a generator is a pure function that can use a pseudo random generator to produce values of a certain type."
             l
@@ -52,12 +52,14 @@ thesisBackgroundPropertyTesting =
         subsubsection "Properties" $ do
             s
                 "A property, in this case, is loosely defined as anything that can produce a Boolean value from supplied pseudo randomness."
-            s "A typical example is a function as follows."
+            s "An example is a function as follows."
             hask "f :: A -> Bool"
             s
                 "This function is also usually called the property, even though it is pure."
-            s
-                "To produce random Boolean values using this function, QuickCheck will require a generator of the input type."
+            l
+                [ "To produce random Boolean values using this function, QuickCheck will require a generator of the input type"
+                , haskInline "A"
+                ]
         subsubsection "Running Property Tests" $ do
             l
                 [ "When instructed to do so using the"
@@ -87,6 +89,6 @@ thesisBackgroundPropertyTesting =
             l
                 [ "For further details, please refer to the original QuickCheck paper"
                 , cite quickcheckRef
-                , ", and the QuickCheck package on Hackage"
+                , "and the QuickCheck package on Hackage"
                 , cite quickcheckHackageRef
                 ]
