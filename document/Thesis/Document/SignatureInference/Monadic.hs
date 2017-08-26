@@ -17,7 +17,7 @@ thesisSignatureInferenceMonadic =
             "The definition of a signature inference strategy would have to be adapted again, to make it even more expressive."
         subsubsection "Definition" $ do
             s
-                "One standard abstraction that allows for the expression of composition is of course the monad."
+                "One standard abstraction that allows for the expression of composition is the monad."
             s
                 "We adapted the result of a signature inference strategy to be defined as a monadic piece of data that expresses how and when QuickSpec should be run."
             hereFigure $
@@ -75,13 +75,9 @@ thesisSignatureInferenceMonadic =
                     , "        InferFrom [f, s] [l1t]"
                     ]
                 caption $ chunks <> " as a monadic signature inference strategy"
+            s "This monad only expresses the intent to run QuickSpec."
             s
-                "Of course, this monad only expresses the intent to run QuickSpec."
-            s
-                "One still requires an interpreter to actually discover any properties."
-            s
-                "Implementing such an interpreter is left as an exercise to the reader."
-            question "Can I really write something like this?"
+                "One still requires a straight forward interpreter to actually discover any properties."
         subsubsection "Chunks Plus" $ do
             l
                 [ "The increased expressiveness of monadic signature inference strategies opened the doors for a new strategy:"
