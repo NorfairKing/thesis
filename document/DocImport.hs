@@ -61,6 +61,7 @@ module DocImport
     , m
     , ma
     , pars
+    , bigoh
     , getBuildKind
     ) where
 
@@ -373,6 +374,9 @@ ma = mathDisplay . unSpellCheck
 
 pars :: LaTeXC l => l -> l
 pars = autoParens
+
+bigoh :: LaTeXC l => l -> l
+bigoh n = "O" <> pars n
 
 unSpellCheck :: Thesis -> Thesis
 unSpellCheck func = do

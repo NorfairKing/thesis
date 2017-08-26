@@ -40,3 +40,4 @@ reachability
 unifiable
 typechecks
 drillings
+instantiations

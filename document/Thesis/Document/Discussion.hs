@@ -28,15 +28,14 @@ thesisDiscussion =
                     ]
             let header = do
                     hline
-                    "Strategy" & "Time Complexity"
+                    "Strategy" & "Discovery Complexity"
                     lnbk
                     hline
                     hline
             tabular Nothing fmt $ do
                 header
-                let o n = m $ raw "O\\left(" <> n <> raw "\\right)"
                 mapM_
-                    (\(strat, compl) -> strat & o compl >> lnbk >> hline)
+                    (\(strat, compl) -> strat & bigoh compl >> lnbk >> hline)
                     [ (fullBackground, s_ ^: (2 * m_))
                     , (emptyBackground, f_)
                     , (syntacticSimilarityName, i_)
