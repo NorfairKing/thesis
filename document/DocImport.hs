@@ -204,9 +204,14 @@ headersAndFooters = do
     comm1 "pagestyle" "fancy"
     comm0 "fancyhf"
     bkind <- gets buildKind
-    when (bkind == BuildDraft) $
-        comm1 "cfoot" $
-        s "This is an unfinished draft. Please do not distribute it."
+    comm1 "rfoot" $ comm0 "thepage"
+    comm2 "renewcommand" (raw "\\headrulewidth") (raw "0.4pt")
+    comm2 "renewcommand" (raw "\\footrulewidth") (raw "0.4pt")
+    when (bkind == BuildDraft) $ do
+        let draftMessage =
+                s "This is an unfinished draft. Please do not distribute it."
+        comm1 "cfoot" draftMessage
+        comm1 "chead" draftMessage
 
 hask :: Text -> Thesis
 hask = minted "haskell"
