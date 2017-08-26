@@ -233,7 +233,7 @@ thesisEvaluation =
                     , chunks
                     , "is therefore linear in the number of those tuples"
                     ]
-                ma $ bigoh ((2 ^: 14) * s_ * f_) =: bigoh (s_ * f_)
+                ma $ bigoh (s_ * f_)
                 s
                     "This means that the discovery complexity is linear in the scope size if the focus size is constant (usually it is one)."
         subsection "Evaluators" $ do
