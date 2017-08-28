@@ -70,13 +70,15 @@ thesisEvaluationStrategies =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-                lab assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel
                 caption $ l ["Relevant equations of", emptyBackground]
+                lab assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel
             l
                 [ "Because the"
                 , emptyBackground
-                , "signature inference strategy only finds equations that only concern functions in focus, it misses out on most of the relevant equations"
+                , "signature inference strategy only finds equations that only consist of functions in focus, it misses out on most of the relevant equations"
                 ]
+            todo
+                "more plots: irrelevant equations and total equations? Maybe also equations per time?"
         subsubsection "Syntactic Similarity" $ do
             let assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel =
                     "fig:runtime-full-background-syntactic-similarity"
@@ -111,6 +113,7 @@ thesisEvaluationStrategies =
                         , syntacticSimilarityType
                         ]
                 lab assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel
+            todo "maybe fix that the name does not fit on this plot"
             l
                 [ "In Figure"
                 , ref assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel <>
@@ -158,21 +161,26 @@ thesisEvaluationStrategies =
             s
                 "It seems that choosing smaller signatures to run QuickSpec on is a good idea, but that these strategies are not ideal in deciding which functions to put in the smaller signature."
         subsubsection "Type Reachability" $ do
+            let assetRuntimeFullBackgroundTypeReachabilityPlotLabel =
+                    "fig:runtime-full-background-type-reachability"
             l
-                [ typeReachability
-                , "is different from the distance based signature inference strategies because it does not guarantee that the reduced scope is any smaller than the original scope"
+                [ "The"
+                , typeReachability
+                , "signature inference strategy is different from the distance based signature inference strategies because it does not guarantee that the reduced scope is any smaller than the original scope"
                 ]
             l
                 [ "As such, it is not guaranteed to be any faster than"
                 , fullBackground
                 ]
             l
-                [ "This makes"
+                [ "This could make"
                 , typeReachability
-                , "infeasible for use in practical situations, but it may still be useful as a building block for better strategies"
+                , "infeasible for use in certain situations, but as we can see in Figure"
+                , ref assetRuntimeFullBackgroundTypeReachabilityPlotLabel <>
+                  ", the experiments that we used do not cause"
+                , typeReachability
+                , "to exhibit this problem"
                 ]
-            let assetRuntimeFullBackgroundTypeReachabilityPlotLabel =
-                    "fig:runtime-full-background-type-reachability"
             hereFigure $ do
                 withRegisteredAsset assetRuntimeTypeReachabilityPlot $ \fp ->
                     includegraphics
@@ -183,11 +191,9 @@ thesisEvaluationStrategies =
                 caption $ "The runtime of " <> typeReachability
                 lab assetRuntimeFullBackgroundTypeReachabilityPlotLabel
             l
-                [ "In Figure"
-                , ref assetRuntimeFullBackgroundTypeReachabilityPlotLabel <>
-                  ", we see that in practice"
+                [ "we see that in practice"
                 , typeReachability
-                , "seems to reduce the scope to a sufficiently small subset that the runtime is subsequently small enough"
+                , "reduces the scope to a sufficiently small subset that the runtime is subsequently small enough to be practically feasible"
                 ]
             let assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel =
                     "fig:relevant-equations-full-background-type-reachability"
@@ -213,7 +219,11 @@ thesisEvaluationStrategies =
                 lab
                     assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel
         subsubsection "Chunks" $ do
-            l [chunks, "runs QuickCheck on many signatures of constant size"]
+            l
+                [ "The"
+                , chunks
+                , "signature inference strategy runs QuickCheck on many signatures of constant size"
+                ]
             let s_ = "S"
                 f_ = "F"
             l
@@ -221,7 +231,7 @@ thesisEvaluationStrategies =
                 , chunks
                 , "runs QuickSpec"
                 , "on exactly"
-                , m s_
+                , m $ s_ * f_
                 , "signatures of size"
                 , m 2
                 , "and one more signature of size"
@@ -237,7 +247,7 @@ thesisEvaluationStrategies =
             l
                 [ "As a result, we expect"
                 , chunks
-                , "to run in linear time with respect to the size of the scope"
+                , "to have a linear discovery complexity with respect to the size of the scope"
                 ]
             let assetRuntimeFullBackgroundChunksPlotLabel =
                     "fig:runtime-full-background-chunks"
@@ -258,8 +268,10 @@ thesisEvaluationStrategies =
             l
                 [ "For an interactive use case,"
                 , chunks
-                , "may not be practical, but for a nightly use case, it may very well be"
+                , "may not be practical, but for a nightly use case, it could be"
                 ]
+            s
+                "A user would have to evaluate whether the strategy is fast enough for their use case."
             l
                 [ "Moreover, the"
                 , chunks
@@ -307,9 +319,9 @@ thesisEvaluationStrategies =
                 "How detailed do we want the explanation as to why this happens to be?"
         subsubsection "Chunks Plus" $ do
             l
-                [ "We expect the run time of"
+                [ "We expect"
                 , chunksPlus
-                , "to be quadratic in complexity"
+                , "to have a quadratic discovery complexity"
                 ]
             l
                 [ "As such,"
@@ -337,7 +349,7 @@ thesisEvaluationStrategies =
                 , ref assetRuntimeFullBackgroundChunksPlusPlotLabel <>
                   ", we see that"
                 , chunksPlus
-                , "seems to have the complexity that we expected"
+                , "has the complexity that we expected"
                 ]
             l
                 [ "This plot also confirms that"
