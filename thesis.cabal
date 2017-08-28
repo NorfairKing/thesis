@@ -31,6 +31,10 @@ library
         Thesis.Document.DocTechDetails
         Thesis.Document.EntireDocument
         Thesis.Document.Evaluation
+        Thesis.Document.Evaluation.DiscoveryComplexity
+        Thesis.Document.Evaluation.Evaluators
+        Thesis.Document.Evaluation.Experiments
+        Thesis.Document.Evaluation.Strategies
         Thesis.Document.Introduction
         Thesis.Document.References
         Thesis.Document.SignatureInference

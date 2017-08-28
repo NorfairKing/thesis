@@ -52,6 +52,12 @@ module DocImport
     , typeReachability
     , chunks
     , chunksPlus
+    , equations
+    , runtime
+    , relevantEquations
+    , relevantFunctions
+    , equationsMinusRelevantEquations
+    , relevantEquationsDividedByRuntime
     , slow
     , question
     , todo
@@ -338,6 +344,26 @@ chunksPlusReachabilitySymbols =
 
 chunksPlusReachabilityType :: Thesis
 chunksPlusReachabilityType = mintedTextInline "chunks-plus-reachability-type"
+
+equations :: Thesis
+equations = mintedTextInline "equations"
+
+runtime :: Thesis
+runtime = mintedTextInline "runtime"
+
+relevantEquations :: Thesis
+relevantEquations = mintedTextInline "relevant-equations"
+
+relevantFunctions :: Thesis
+relevantFunctions = mintedTextInline "relevant-functions"
+
+equationsMinusRelevantEquations :: Thesis
+equationsMinusRelevantEquations =
+    mintedTextInline "equations-minus-relevant-equations"
+
+relevantEquationsDividedByRuntime :: Thesis
+relevantEquationsDividedByRuntime =
+    mintedTextInline "relevant-equations-divided-by-runtime"
 
 slow :: Thesis -> Thesis
 slow func = do
