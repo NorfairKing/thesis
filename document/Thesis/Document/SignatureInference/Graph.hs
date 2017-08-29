@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.SignatureInference.Graph
     ( thesisSignatureInferenceGraph
@@ -116,6 +117,40 @@ thesisSignatureInferenceGraph =
                 "Next, it creates a signature for every tuple of one focus function and one scope function and adds the initial node as a dependency."
             s
                 "The resulting directed acyclic graph of signatures is star shaped and only contains signatures with two or fewer functions."
-            todo $
-                raw
-                    "A nice illustration of chunks, a graphviz graph or something."
+            let chunksExampleLabel = "fig:chunks-example"
+            l
+                [ "As an example, consider the scope in figure"
+                , ref chunksExampleLabel <> ", and choose"
+                , haskInline "sort"
+                , "as the focus"
+                ]
+            hereFigure $ do
+                haskL
+                    [ "sort :: Ord a => [a] -> [a]"
+                    , "reverse :: [a] -> [a]"
+                    , "id :: a -> a"
+                    , "not :: Bool -> Bool"
+                    ]
+                caption "An example scope"
+                lab chunksExampleLabel
+            let chunksExampleGraphLabel = "fig:chunks-example-graph"
+            l
+                [ "The"
+                , chunks
+                , "signature inference strategy will first run QuickSpec on a signature that only contains"
+                , haskInline "sort" <>
+                  ", and then on the signatures with two functions as depicted in figure"
+                , ref chunksExampleGraphLabel
+                ]
+            hereFigure $ do
+                withDotAsset $(embedAsset "chunks.dot") $ \fp ->
+                    center $
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                caption $
+                    sequence_
+                        ["The graph that ", chunks, "builds for the example"]
+                lab chunksExampleGraphLabel

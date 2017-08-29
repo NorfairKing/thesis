@@ -1,10 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.SignatureInference.Monadic
     ( thesisSignatureInferenceMonadic
     ) where
 
 import DocImport
+
+import Thesis.Document.Assets
 
 thesisSignatureInferenceMonadic :: Thesis
 thesisSignatureInferenceMonadic =
@@ -101,6 +104,32 @@ thesisSignatureInferenceMonadic =
                 "If QuickSpec finds relevant equations in both of these nodes, a new node is created that contains both of these scope function and the focus function."
             s
                 "This new node then points to appropriate two nodes as a dependant."
-            todo $
-                raw
-                    "A nice illustration of chunks, a graphviz graph or something."
+            l
+                [ "As an example, consider the same example scope as in the section about"
+                , chunks
+                ]
+            todo "refer to it"
+            let chunksPlusExampleGraphLabel = "fig:chunks-example-graph"
+            l
+                [ "The"
+                , chunksPlus
+                , "signature inference strategy will first run QuickSpec exactly as"
+                , chunks
+                , "would, and then conditionally on the signatures with three functions as depicted in grey in figure"
+                , ref chunksPlusExampleGraphLabel
+                ]
+            hereFigure $ do
+                withDotAsset $(embedAsset "chunks-plus.dot") $ \fp ->
+                    center $
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                caption $
+                    sequence_
+                        [ "The graph that "
+                        , chunksPlus
+                        , "builds for the example"
+                        ]
+                lab chunksPlusExampleGraphLabel

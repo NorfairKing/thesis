@@ -8,6 +8,7 @@ module Thesis.Document.Assets
     , embedExternalAsset
     , makeAsset
     , withRegisteredAsset
+    , withDotAsset
     ) where
 
 import DocImport
@@ -20,6 +21,7 @@ import qualified Data.ByteString as SB
 import Data.FileEmbed (bsToExp, makeRelativeToProject)
 import Data.Hashable
 import qualified System.FilePath as FP
+import System.Process
 
 data Asset = Asset
     { assetPath :: FilePath -- Relative to the directory that 'assets' is in.
@@ -74,3 +76,21 @@ withRegisteredAsset :: Asset -> (FilePath -> Thesis) -> Thesis
 withRegisteredAsset a func = do
     registerAsset a
     func $ assetPath a
+
+registerDotAsset :: Asset -> Thesis' FilePath
+registerDotAsset asset = do
+    let p = assetPath asset FP.-<.> "pdf"
+    t $
+        registerAction p $ \rootdir -> do
+            rd <- resolveDir' rootdir
+            fp <- makeAsset rd asset
+            let fp' = toFilePath fp FP.-<.> "pdf"
+            liftIO $
+                print $ unwords ["dot", "-Tpdf", toFilePath fp, "-o" ++ fp']
+            liftIO $ callProcess "dot" ["-Tpdf", toFilePath fp, "-o" ++ fp']
+    pure p
+
+withDotAsset :: Asset -> (FilePath -> Thesis) -> Thesis
+withDotAsset a func = do
+    fp' <- registerDotAsset a
+    func fp'
