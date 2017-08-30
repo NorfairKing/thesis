@@ -18,12 +18,12 @@ thesisConclusion =
                 "Signature inference has proved to be a promising approach to making property discovery practical by taming the complexity of QuickSpec."
             s
                 "The progress that we achieved on making property discovery practical for code bases of realistic sizes promises that property discovery could become a real and very valuable tool in software development."
-            s "It is possible to create great value this way."
-        subsection "Furter Work" $ do
+        subsection "Further Work" $ do
             s
                 "Significant engineering effort is required to make property discovery realistically usable."
             s
-                "Most of the minimally necessary research is done, but significant corners had to be cut with respect to practical usability."
+                "Most of the necessary research is done, but significant corners had to be cut with respect to practical usability."
+            s "Nevertheless, there is still room for more research on this topic."
             lnbk
             s
                 "The signature inference strategies discussed in this work only ever choose function out of the scope and translate their types literally."

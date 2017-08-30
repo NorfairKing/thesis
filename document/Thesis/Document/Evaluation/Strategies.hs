@@ -315,8 +315,55 @@ thesisEvaluationStrategies =
                 , chunks <>
                   ", QuickSpec is more likely to find multiple different relevant equations that could generalise to fewer equations if QuickSpec had more context"
                 ]
-            question
-                "How detailed do we want the explanation as to why this happens to be?"
+            l ["As an example, consider the following example of a scope"]
+            haskL
+                [ "a :: Int -> Int"
+                , "a = (+1)"
+                , "b :: Int -> Int"
+                , "b = (+2)"
+                , "c :: Int -> Int"
+                , "c = (+3)"
+                , "d :: Int -> Int"
+                , "d = (+4)"
+                ]
+            l
+                [ "When we run"
+                , fullBackground
+                , "on this scope, we find the following equations"
+                ]
+            haskL ["a (a x) = b x", "a (b x) = c x", "a (c x) = d x"]
+            l
+                [ "If we chose"
+                , haskInline "d"
+                , "as the focus, only the last equation would be considered relevant"
+                ]
+            l
+                [ "This means that"
+                , fullBackground
+                , "only finds one relevant equations"
+                ]
+            l
+                [ "When we run"
+                , chunks
+                , "on this scope with focus"
+                , haskInline "d"
+                , "we find the following relevant equations"
+                ]
+            haskL ["b (b x) = d x", "a (a (a (a x))) = d x"]
+            l
+                [ "Note that neither of these equations are found in the"
+                , fullBackground
+                , "results, because they are more specific than some of the equations that"
+                , fullBackground
+                , "finds"
+                ]
+            l
+                [ "The lack of context caused"
+                , chunks
+                , "to find more relevant equations than"
+                , fullBackground
+                , "did"
+                ]
         subsubsection "Chunks Plus" $ do
             l
                 [ "We expect"
