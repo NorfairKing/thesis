@@ -23,7 +23,8 @@ thesisConclusion =
                 "Significant engineering effort is required to make property discovery realistically usable."
             s
                 "Most of the necessary research is done, but significant corners had to be cut with respect to practical usability."
-            s "Nevertheless, there is still room for more research on this topic."
+            s
+                "Nevertheless, there is still room for more research on this topic."
             lnbk
             s
                 "The signature inference strategies discussed in this work only ever choose function out of the scope and translate their types literally."

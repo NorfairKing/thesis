@@ -33,7 +33,8 @@ haskellOrgRef =
     Reference
         "online"
         "HaskellOrg"
-        [ "title" .= "{Haskell Language}"
+        [ "author" .= "{haskell.org}"
+        , "title" .= "{Haskell Language Front Page}"
         , "url" .= "https://www.haskell.org/"
         , "urldate" .= "2017-06-11"
         ]
@@ -68,21 +69,17 @@ haskellTypeClasses =
     Reference
         inproceedings
         "haskellTypeClasses"
-        [ "author" .= "{Wadler, P. and Blott, S.}"
-        , "title" .= "{How to Make Ad-hoc Polymorphism Less Ad Hoc}"
+        [ "author" .= "{Philip Wadler and Stephen Blott}"
+        , "title" .= "{How to Make ad-hoc Polymorphism Less ad-hoc}"
         , "booktitle" .=
-          "{Proceedings of the 16th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages}"
-        , "series" .= "{POPL '89}"
-        , "year" .= "{1989}"
-        , "isbn" .= "{0-89791-294-2}"
-        , "location" .= "{Austin, Texas, USA}"
+          "{Conference Record of the Sixteenth Annual {ACM} Symposium on Principles of Programming Languages, Austin, Texas, USA, January 11-13, 1989}"
         , "pages" .= "{60--76}"
-        , "numpages" .= "{17}"
+        , "year" .= "{1989}"
         , "url" .= "{http://doi.acm.org/10.1145/75277.75283}"
         , "doi" .= "{10.1145/75277.75283}"
-        , "acmid" .= "{75283}"
-        , "publisher" .= "{ACM}"
-        , "address" .= "{New York, NY, USA}"
+        , "timestamp" .= "{Mon, 21 May 2012 16:19:51 +0200}"
+        , "biburl" .= "{http://dblp.uni-trier.de/rec/bib/conf/popl/WadlerB89}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 haskellTypeClassesTypeInference :: Reference
@@ -90,31 +87,38 @@ haskellTypeClassesTypeInference =
     Reference
         article
         "hall1996type"
-        [ "title" .= "{Type classes in Haskell}"
-        , "author" .=
-          "{Hall, Cordelia V and Hammond, Kevin and Peyton Jones, Simon L and Wadler, Philip L}"
-        , "journal" .=
-          "{ACM Transactions on Programming Languages and Systems (TOPLAS)}"
+        [ "author" .=
+          "{Cordelia V. Hall and Kevin Hammond and Simon L. Peyton Jones and Philip Wadler}"
+        , "title" .= "{Type Classes in Haskell}"
+        , "journal" .= "{{ACM} Trans. Program. Lang. Syst.}"
         , "volume" .= "{18}"
         , "number" .= "{2}"
         , "pages" .= "{109--138}"
         , "year" .= "{1996}"
-        , "publisher" .= "{ACM}"
+        , "url" .= "{http://doi.acm.org/10.1145/227699.227700}"
+        , "doi" .= "{10.1145/227699.227700}"
+        , "timestamp" .= "{Mon, 03 Apr 2006 11:19:30 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/journals/toplas/HallHJW96}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 haskellTypeClassesImplementation :: Reference
 haskellTypeClassesImplementation =
     Reference
         inproceedings
-        "peterson1993implementing"
-        [ "title" .= "{Implementing type classes}"
-        , "author" .= "{Peterson, John and Jones, Mark}"
-        , "booktitle" .= "{ACM SIGPLAN Notices}"
-        , "volume" .= "{28}"
-        , "number" .= "{6}"
+        "ImplementingTypeClasses"
+        [ "author" .= "{John Peterson and Mark P. Jones}"
+        , "title" .= "{Implementing Type Classes}"
+        , "booktitle" .=
+          "{Proceedings of the {ACM} SIGPLAN'93 Conference on Programming Language Design and Implementation (PLDI), Albuquerque, New Mexico, USA, June 23-25, 1993}"
         , "pages" .= "{227--236}"
         , "year" .= "{1993}"
-        , "organization" .= "{ACM}"
+        , "url" .= "{http://doi.acm.org/10.1145/155090.155112}"
+        , "doi" .= "{10.1145/155090.155112}"
+        , "timestamp" .= "{Mon, 21 May 2012 16:19:53 +0200}"
+        , "biburl" .= "{http://dblp.uni-trier.de/rec/bib/conf/pldi/PetersonJ93}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 quickcheckRef :: Reference
@@ -122,21 +126,18 @@ quickcheckRef =
     Reference
         inproceedings
         "QuickCheck"
-        [ "author" .= "{Claessen, Koen and Hughes, John}"
+        [ "author" .= "{Koen Claessen and John Hughes}"
         , "title" .=
-          "{QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs}"
+          "{QuickCheck: a lightweight tool for random testing of Haskell programs}"
         , "booktitle" .=
-          "{Proceedings of the Fifth ACM SIGPLAN International Conference on Functional Programming}"
-        , "series" .= "ICFP '00"
-        , "year" .= "2000"
-        , "isbn" .= "1-58113-202-6"
-        , "pages" .= "268--279"
-        , "numpages" .= "12"
-        , "url" .= "http://doi.acm.org/10.1145/351240.351266"
-        , "doi" .= "10.1145/351240.351266"
-        , "acmid" .= "351266"
-        , "publisher" .= "ACM"
-        , "address" .= "New York, NY, USA"
+          "{Proceedings of the Fifth {ACM} {SIGPLAN} International Conference on Functional Programming {(ICFP} '00), Montreal, Canada, September 18-21, 2000.}"
+        , "pages" .= "{268--279}"
+        , "year" .= "{2000}"
+        , "url" .= "{http://doi.acm.org/10.1145/351240.351266}"
+        , "doi" .= "{10.1145/351240.351266}"
+        , "timestamp" .= "{Tue, 11 Jun 2013 13:51:25 +0200}"
+        , "biburl" .= "{http://dblp.uni-trier.de/rec/bib/conf/icfp/ClaessenH00}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 quickcheckHackageRef :: Reference
@@ -163,10 +164,17 @@ quickspecRef =
     Reference
         inproceedings
         "QuickSpec"
-        [ "title" .= "{QuickSpec: Guessing Formal Specifications Using Testing}"
-        , "author" .= "{Koen Claessen and Nicholas Smallbone and John Hughes}"
-        , "booktitle" .= "TAP"
-        , "year" .= "2010"
+        [ "author" .= "{Koen Claessen and Nicholas Smallbone and John Hughes}"
+        , "title" .= "{QuickSpec: Guessing Formal Specifications Using Testing}"
+        , "booktitle" .=
+          "{Tests and Proofs, 4th International Conference, {TAP} 2010, M{\\'{a}}laga, Spain, July 1-2, 2010. Proceedings}"
+        , "pages" .= "{6--21}"
+        , "year" .= "{2010}"
+        , "url" .= "{https://doi.org/10.1007/978-3-642-13977-2_3}"
+        , "doi" .= "{10.1007/978-3-642-13977-2_3}"
+        , "timestamp" .= "{Fri, 19 May 2017 01:25:21 +0200}"
+        , "biburl" .= "{http://dblp.uni-trier.de/rec/bib/conf/tap/ClaessenSH10}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 inproceedings :: ReferenceType
@@ -177,14 +185,19 @@ quickspec2Ref =
     Reference
         article
         "QuickSpec2"
-        [ "title" .= "{Quick Specifications for the Busy Programmer}"
+        [ "author" .=
+          "{Nicholas Smallbone and Moa Johansson and Koen Claessen and Maximilian Algehed}"
+        , "title" .= "{Quick specifications for the busy programmer}"
+        , "journal" .= "{J. Funct. Program.}"
         , "volume" .= "{27}"
-        , "DOI" .= "{10.1017/S0956796817000090}"
-        , "journal" .= "{Journal of Functional Programming}"
-        , "publisher" .= "{Cambridge University Press}"
-        , "author" .=
-          "{SMALLBONE,\nNICHOLAS and JOHANSSON,\nMOA and CLAESSEN,\nKOEN and ALGEHED,\nMAXIMILIAN}"
+        , "pages" .= "{e18}"
         , "year" .= "{2017}"
+        , "url" .= "{https://doi.org/10.1017/S0956796817000090}"
+        , "doi" .= "{10.1017/S0956796817000090}"
+        , "timestamp" .= "{Mon, 17 Jul 2017 16:13:52 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/journals/jfp/SmallboneJCA17}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 quickspecGithubRef :: Reference
@@ -208,18 +221,18 @@ hipspecRef =
         inbook
         "HipSpec"
         [ "author" .=
-          "{Claessen, Koen\nand Johansson, Moa\nand Ros{\'e}n, Dan\nand Smallbone, Nicholas}"
-        , "editor" .= "{Bonacina, Maria Paola}"
+          "{Koen Claessen and Moa Johansson and Dan Ros{\\'{e}}n and Nicholas Smallbone}"
         , "title" .= "{Automating Inductive Proofs Using Theory Exploration}"
-        , "bookTitle" .=
-          "{Automated Deduction -- CADE-24: 24th International Conference on Automated Deduction, Lake Placid, NY, USA, June 9-14, 2013. Proceedings}"
-        , "year" .= "2013"
-        , "publisher" .= "{Springer Berlin Heidelberg}"
-        , "address" .= "{Berlin, Heidelberg}"
-        , "pages" .= "392--406"
-        , "isbn" .= "978-3-642-38574-2"
-        , "doi" .= "10.1007/978-3-642-38574-2_27"
-        , "url" .= "http://dx.doi.org/10.1007/978-3-642-38574-2_27"
+        , "booktitle" .=
+          "{Automated Deduction - {CADE-24} - 24th International Conference on Automated Deduction, Lake Placid, NY, USA, June 9-14, 2013. Proceedings}"
+        , "pages" .= "{392--406}"
+        , "year" .= "{2013}"
+        , "url" .= "{https://doi.org/10.1007/978-3-642-38574-2_27}"
+        , "doi" .= "{10.1007/978-3-642-38574-2_27}"
+        , "timestamp" .= "{Sun, 21 May 2017 00:17:17 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/conf/cade/ClaessenJRS13}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 smartcheckRef :: Reference
@@ -229,12 +242,16 @@ smartcheckRef =
         "SmartCheck"
         [ "author" .= "{Lee Pike}"
         , "title" .=
-          "{SmartCheck: Automatic and Efficient Counterexample Reduction and Generalization}"
-        , "booktitle" .= "{Proceedings of the Haskell Symposium}"
-        , "publisher" .= "ACM"
-        , "year" .= "2014"
-        , "note" .=
-          "{Available at \\url{http://www.cs.indiana.edu/~lepike/pub_pages/smartcheck.html}}"
+          "{SmartCheck: automatic and efficient counterexample reduction and generalization}"
+        , "booktitle" .=
+          "{Proceedings of the 2014 {ACM} {SIGPLAN} symposium on Haskell, Gothenburg, Sweden, September 4-5, 2014}"
+        , "pages" .= "{53--64}"
+        , "year" .= "{2014}"
+        , "url" .= "{http://doi.acm.org/10.1145/2633357.2633365}"
+        , "doi" .= "{10.1145/2633357.2633365}"
+        , "timestamp" .= "{Mon, 08 Sep 2014 16:12:17 +0200}"
+        , "biburl" .= "{http://dblp.uni-trier.de/rec/bib/conf/haskell/Pike14}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 fitspecRef :: Reference
@@ -242,23 +259,18 @@ fitspecRef =
     Reference
         inproceedings
         "FitSpec"
-        [ "author" .= "{Braquehais, Rudy and Runciman, Colin}"
-        , "title" .= "{FitSpec: Refining Property Sets for Functional Testing}"
+        [ "author" .= "{Rudy Braquehais and Colin Runciman}"
+        , "title" .= "{FitSpec: refining property sets for functional testing}"
         , "booktitle" .=
-          "{Proceedings of the 9th International Symposium on Haskell}"
-        , "series" .= "{Haskell 2016}"
-        , "year" .= "2016"
-        , "isbn" .= "978-1-4503-4434-0"
-        , "location" .= "{Nara, Japan}"
-        , "pages" .= "1--12"
-        , "numpages" .= "12"
-        , "url" .= "http://doi.acm.org/10.1145/2976002.2976003"
-        , "doi" .= "10.1145/2976002.2976003"
-        , "acmid" .= "2976003"
-        , "publisher" .= "ACM"
-        , "address" .= "New York, NY, USA"
-        , "keywords" .=
-          "Haskell, formal specification, mutation testing, property-based testing, systematic testing"
+          "{Proceedings of the 9th International Symposium on Haskell, Haskell 2016, Nara, Japan, September 22-23, 2016}"
+        , "pages" .= "{1--12}"
+        , "year" .= "{2016}"
+        , "url" .= "{http://doi.acm.org/10.1145/2976002.2976003}"
+        , "doi" .= "{10.1145/2976002.2976003}"
+        , "timestamp" .= "{Thu, 22 Sep 2016 13:56:24 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/conf/haskell/BraquehaisR16}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 smallcheckRef :: Reference
@@ -266,25 +278,19 @@ smallcheckRef =
     Reference
         inproceedings
         "SmallCheck"
-        [ "author" .=
-          "{Runciman, Colin and Naylor, Matthew and Lindblad, Fredrik}"
+        [ "author" .= "{Colin Runciman and Matthew Naylor and Fredrik Lindblad}"
         , "title" .=
-          "{Smallcheck and Lazy Smallcheck: Automatic Exhaustive Testing for Small Values}"
+          "{Smallcheck and lazy smallcheck: automatic exhaustive testing for small values}"
         , "booktitle" .=
-          "{Proceedings of the First ACM SIGPLAN Symposium on Haskell}"
-        , "series" .= "Haskell '08"
-        , "year" .= "2008"
-        , "isbn" .= "978-1-60558-064-7"
-        , "location" .= "{Victoria, BC, Canada}"
-        , "pages" .= "37--48"
-        , "numpages" .= "12"
-        , "url" .= "http://doi.acm.org/10.1145/1411286.1411292"
-        , "doi" .= "10.1145/1411286.1411292"
-        , "acmid" .= "1411292"
-        , "publisher" .= "ACM"
-        , "address" .= "{New York, NY, USA}"
-        , "keywords" .=
-          "embedded language, exhaustive search, lazy evaluation, property-based testing, type classes"
+          "{Proceedings of the 1st {ACM} {SIGPLAN} Symposium on Haskell, Haskell 2008, Victoria, BC, Canada, 25 September 2008}"
+        , "pages" .= "{37--48}"
+        , "year" .= "{2008}"
+        , "url" .= "{http://doi.acm.org/10.1145/1411286.1411292}"
+        , "doi" .= "{10.1145/1411286.1411292}"
+        , "timestamp" .= "{Fri, 29 Jan 2010 14:44:59 +0100}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/conf/haskell/RuncimanNL08}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 leancheckRef :: Reference
@@ -312,7 +318,7 @@ speculateRef =
         [ "author" .= "{Rudy Braquehais and Colin Runciman}"
         , "title" .=
           "{Speculate: discovering conditional equations and inequalities about black-box functions by reasoning from test results}"
-        , "booktitle" .= "{Haskell'17}"
+        , "booktitle" .= "{Haskell Symposium 2017}"
         , "year" .= "{2017}"
         , "publisher" .= "{ACM}"
         ]
@@ -325,10 +331,17 @@ filteringRef =
         [ "author" .= "{Jia Meng and Lawrence C. Paulson}"
         , "title" .=
           "{Lightweight relevance filtering for machine-generated resolution problems}"
-        , "booktitle" .=
-          "{In ESCoR: Empirically Successful Computerized Reasoning}"
-        , "year" .= "2006"
-        , "pages" .= "53--69"
+        , "journal" .= "{J. Applied Logic}"
+        , "volume" .= "{7}"
+        , "number" .= "{1}"
+        , "pages" .= "{41--57}"
+        , "year" .= "{2009}"
+        , "url" .= "{https://doi.org/10.1016/j.jal.2007.07.004}"
+        , "doi" .= "{10.1016/j.jal.2007.07.004}"
+        , "timestamp" .= "{Tue, 06 Jun 2017 22:27:34 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/journals/japll/MengP09}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 mash2Ref :: Reference
@@ -337,13 +350,19 @@ mash2Ref =
         article
         "Mash2"
         [ "author" .=
-          "{Jasmin Christian Blanchette and\nDavid Greenaway and\nCezary Kaliszyk and\nDaniel K{\"{u}}hlwein and\nJosef Urban}"
+          "{Jasmin Christian Blanchette and David Greenaway and Cezary Kaliszyk and Daniel K{\\\"{u}}hlwein and Josef Urban}"
         , "title" .= "{A Learning-Based Fact Selector for Isabelle/HOL}"
-        , "journal" .= "J. Autom. Reasoning"
-        , "volume" .= "57"
-        , "number" .= "3"
-        , "pages" .= "219--244"
-        , "year" .= "2016"
+        , "journal" .= "{J. Autom. Reasoning}"
+        , "volume" .= "{57}"
+        , "number" .= "{3}"
+        , "pages" .= "{219--244}"
+        , "year" .= "{2016}"
+        , "url" .= "{https://doi.org/10.1007/s10817-016-9362-8}"
+        , "doi" .= "{10.1007/s10817-016-9362-8}"
+        , "timestamp" .= "{Thu, 15 Jun 2017 21:22:45 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/journals/jar/BlanchetteGKKU16}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 inbook :: ReferenceType
@@ -354,22 +373,19 @@ theHumbleProgrammerRef =
     Reference
         article
         "TheHumbleProgrammer"
-        [ "author" .= "{Dijkstra, Edsger W.}"
+        [ "author" .= "{Edsger W. Dijkstra}"
         , "title" .= "{The Humble Programmer}"
-        , "journal" .= "Commun. ACM"
-        , "issue_date" .= "Oct. 1972"
-        , "volume" .= "15"
-        , "number" .= "10"
-        , "month" .= "oct"
-        , "year" .= "1972"
-        , "issn" .= "0001-0782"
-        , "pages" .= "859--866"
-        , "numpages" .= "8"
-        , "url" .= "http://doi.acm.org/10.1145/355604.361591"
-        , "doi" .= "10.1145/355604.361591"
-        , "acmid" .= "361591"
-        , "publisher" .= "ACM"
-        , "address" .= "New York, NY, USA"
+        , "journal" .= "{Commun. {ACM}}"
+        , "volume" .= "{15}"
+        , "number" .= "{10}"
+        , "pages" .= "{859--866}"
+        , "year" .= "{1972}"
+        , "url" .= "{http://doi.acm.org/10.1145/355604.361591}"
+        , "doi" .= "{10.1145/355604.361591}"
+        , "timestamp" .= "{Tue, 07 Jun 2011 16:50:42 +0200}"
+        , "biburl" .=
+          "{http://dblp.uni-trier.de/rec/bib/journals/cacm/Dijkstra72}"
+        , "bibsource" .= "{dblp computer science bibliography, http://dblp.org}"
         ]
 
 ghcRef :: Reference
