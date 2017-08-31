@@ -68,8 +68,8 @@ thesisDiscussion =
                     , (chunksPlusReachabilitySymbols, chunPDC, 1)
                     , (chunksPlusReachabilityType, chunPDC, 1)
                     ]
-            lab summaryLabel
             caption "A summary of the different signature inference strategies"
+            lab summaryLabel
         s "The symbols in this table are defined as follows."
         itemize $ do
             let sym symb_ expl_ = item $ m symb_ <> ": " <> expl_

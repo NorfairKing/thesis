@@ -138,7 +138,7 @@ thesisIntroduction =
         s
             "Property discovery is relatively new technique, that is not ready for use in practical software engineering yet."
         s
-            "Current research on property discovery has made great progress, but it has also shown that property discovery is a non trivial problem to solve."
+            "Current research on property discovery has made great progress, but it has also shown that property discovery is a nontrivial problem to solve."
         lnbk
         l
             [ raw "Claessen et al."
@@ -150,7 +150,7 @@ thesisIntroduction =
         l
             [ "Subsequent research"
             , cite quickspec2Ref
-            , "has improved upon these limitations, but remains unable to discover properties of realistic code bases"
+            , "has improved upon these limitations, but remains unable to discover properties of realistic codebases"
             ]
         lnbk
         l

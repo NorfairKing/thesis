@@ -6,6 +6,7 @@ Traytel
 Edsger
 probabilistically
 codebase
+codebases
 QuickCheck
 QuickSpec
 hoc
@@ -42,3 +43,7 @@ unifiable
 typechecks
 drillings
 instantiations
+pseudorandom
+pseudorandomness
+pseudocode
+underapproximation

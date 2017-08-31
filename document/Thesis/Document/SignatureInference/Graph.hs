@@ -52,7 +52,7 @@ thesisSignatureInferenceGraph =
             , "per cent of all properties only talk about three or fewer functions"
             ]
         s
-            "This means that it may not always be worth it to run QuickSpec on large signatures."
+            "This means that it may not always be worthwhile to run QuickSpec on large signatures."
         s
             "The runtime of running QuickSpec suggests that it is cheaper to run QuickSpec multiple times with different small signatures than to run QuickSpec on a large signature."
         subsubsection "Definition" $ do

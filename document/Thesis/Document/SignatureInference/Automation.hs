@@ -14,7 +14,7 @@ thesisSignatureInferenceAutomation :: Thesis
 thesisSignatureInferenceAutomation =
     subsection "Automation" $ do
         s
-            "The first step in making property discovery feasibly for practical use, is ensuring that a programmer never has to write extra code to discover properties of their code."
+            "The first step in making property discovery feasible for practical use, is ensuring that a programmer never has to write extra code to discover properties of their code."
         l
             [ "It involves inspecting the subject code and generating a"
             , haskInline "Signature"
@@ -61,12 +61,12 @@ thesisSignatureInferenceAutomation =
                 , "constant \"not\" (not :: Bool -> Bool)"
                 ]
             s
-                "Next, we need to generate an expression to describe that describes the type class instances that are in scope."
+                "Next, we need to generate an expression that describes the type class instances that are in scope."
             s
                 "QuickSpec already knows about some instances by default, and these were comprehensive enough to perform our research, so the full instance resolution work has not been implemented in EasySpec."
             lnbk
             s
-                "Lastly, We need to generate an expression that describes the properties that we already know about."
+                "Lastly, we need to generate an expression that describes the properties that we already know about."
             s
                 "Previously discovered properties usually come from previous runs of QuickSpec, so this first automated version leaves this field empty for now."
             todo
@@ -185,6 +185,6 @@ thesisSignatureInferenceAutomation =
                 , m p_
                 , "to be"
                 , m 7 <> ","
-                , "but it is not practical for real code bases"
+                , "but it is not practical for real codebases"
                 ]
             todo "refer to the section about discovery complexity"

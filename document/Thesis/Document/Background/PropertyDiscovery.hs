@@ -20,7 +20,7 @@ thesisBackgroundPropertyDiscovery =
             ]
         s "QuickSpec aims to simplify the process of writing property tests."
         s
-            "It is based on the idea is that properties could be discovered using a combination of intelligently looking at types, and using tests to validate the properties using QuickCheck."
+            "It is based on the idea that properties could be discovered using a combination of intelligently looking at types, and using tests to validate the properties using QuickCheck."
         s "QuickSpec exposes the following function as its entry point."
         hask "quickSpec :: Signature -> IO Signature"
         s
@@ -132,7 +132,7 @@ thesisBackgroundPropertyDiscovery =
         s
             "Note that it is not a restriction to only allow properties where the input types of the both sides are the same."
         s
-            "Indeed, for any property where the input types of the sides are different, there exists a property where this is not the case that expresses the same equation."
+            "Indeed, for any property where the input types of the sides are different, there exists a property where this is not the case and that expresses the same equation."
         haskL
             [ "\\a      -> f a = \\b      -> g b -- different input type"
             , "\\(a, b) -> f a = \\(a, b) -> g b -- same input type"
@@ -142,7 +142,7 @@ thesisBackgroundPropertyDiscovery =
             , haskInline "B"
             , "must be in"
             , haskInline "Eq"
-            , "such that they results of the respective functions may be compared for equality"
+            , "such that the results of the respective functions may be compared for equality"
             ]
         s
             "Note that the shape of these properties is not a limitation with respect to their expressiveness."

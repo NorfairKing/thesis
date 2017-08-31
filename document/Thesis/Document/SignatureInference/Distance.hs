@@ -48,7 +48,7 @@ thesisSignatureInferenceDistance =
                 , syntacticSimilarityName
                 ]
             s
-                "It is based on the assumption that mutual relevancy of functions can be predicted by the similarity of their names."
+                "It is based on the assumption that mutual relevance of functions can be predicted by the similarity of their names."
             l
                 [ "For example, the functions"
                 , haskInline "isPrime :: Int -> Bool"
@@ -60,7 +60,7 @@ thesisSignatureInferenceDistance =
             s
                 "Because EasySpec has access to compile time information about code, it can introspect the name of functions."
             s
-                "The following is pseudo code to define this signature inference strategy."
+                "The following is pseudocode to define this signature inference strategy."
             hereFigure $ do
                 haskL
                     [ "inferSyntacticSimilarityName"

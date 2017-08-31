@@ -149,7 +149,7 @@ thesisSignatureInferenceTypeReachability =
             l
                 [ "The function"
                 , haskInline "j"
-                , "is type type reachable in two steps, and"
+                , "is type reachable in two steps, and"
                 , haskInline "i"
                 , "is not type reachable from"
                 , haskInline "f"
@@ -169,7 +169,7 @@ thesisSignatureInferenceTypeReachability =
             s
                 "It is important to note that we only use an under approximation for real type reachability."
             s
-                "This under approximation only deals with monomorphic types, and only considers the first argument and the last output of functions."
+                "This underapproximation only deals with monomorphic types, and only considers the first argument and the last output of functions."
             l
                 [ "This limitation allows us to implement the under approximation function"
                 , haskInline "typeReachableInOneStep"

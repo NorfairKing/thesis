@@ -70,7 +70,7 @@ thesisEvaluationStrategies =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-                caption $ l ["Relevant equations of", emptyBackground]
+                caption $ "Relevant equations of " <> emptyBackground
                 lab assetRelevantEquationsFullBackgroundEmptyBackgroundPlotLabel
             l
                 [ "Because the"
@@ -134,8 +134,6 @@ thesisEvaluationStrategies =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-                lab
-                    assetRelevantEquationsFullBackgroundSyntacticSimilarityPlotLabel
                 caption $
                     sequence_
                         [ "Relevant equations of the syntactic similarity signature inference strategies:"
@@ -145,6 +143,8 @@ thesisEvaluationStrategies =
                         , " and "
                         , syntacticSimilarityType
                         ]
+                lab
+                    assetRelevantEquationsFullBackgroundSyntacticSimilarityPlotLabel
             l
                 [ "In Figure"
                 , ref assetRelevantEquationsFullBackgroundSyntacticSimilarityPlotLabel <>
@@ -193,7 +193,7 @@ thesisEvaluationStrategies =
             l
                 [ "we see that in practice"
                 , typeReachability
-                , "reduces the scope to a sufficiently small subset that the runtime is subsequently small enough to be practically feasible"
+                , "reduces the scope to a sufficiently small subset such that the runtime is subsequently small enough to be practically feasible"
                 ]
             let assetRelevantEquationsFullBackgroundTypeReachabilityPlotLabel =
                     "fig:relevant-equations-full-background-type-reachability"
@@ -203,8 +203,8 @@ thesisEvaluationStrategies =
                   ", we find that"
                 , typeReachability
                 , "is not better than"
-                , fullBackground
-                , ", but it is at least as promising as the distance based signature inference strategies"
+                , fullBackground <> ","
+                , "but it is at least as promising as the distance based signature inference strategies"
                 ]
             hereFigure $ do
                 withRegisteredAsset
@@ -307,7 +307,7 @@ thesisEvaluationStrategies =
                 , "does"
                 ]
             s
-                "This may seem curious at first, but is explained by the fact that QuickSpec outputs only the most general properties it discovers."
+                "This may seem curious at first, but it is explained by the fact that QuickSpec outputs only the most general properties it discovers."
             s
                 "With a larger scope, general properties that subsume others are more likely to be discovered."
             s

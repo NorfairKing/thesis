@@ -13,11 +13,11 @@ thesisConclusion =
             s
                 "QuickSpec has made great progress toward practical property discovery."
             s
-                "It looked promising, until we had a look at the complexity of QuickSpec with respect to realistic code bases."
+                "It looked promising, until we had a look at the complexity of QuickSpec with respect to realistic codebases."
             s
                 "Signature inference has proved to be a promising approach to making property discovery practical by taming the complexity of QuickSpec."
             s
-                "The progress that we achieved on making property discovery practical for code bases of realistic sizes promises that property discovery could become a real and very valuable tool in software development."
+                "The progress that we achieved on making property discovery practical for codebases of realistic sizes promises that property discovery could become a real and very valuable tool in software development."
         subsection "Further Work" $ do
             s
                 "Significant engineering effort is required to make property discovery realistically usable."
@@ -27,18 +27,18 @@ thesisConclusion =
                 "Nevertheless, there is still room for more research on this topic."
             lnbk
             s
-                "The signature inference strategies discussed in this work only ever choose function out of the scope and translate their types literally."
+                "The signature inference strategies discussed in this work only ever choose functions out of the scope and translate their types literally."
             s
                 "These strategies never attempt to add anything to the signature that was not already in scope."
             s
                 "It may be useful to consider adding entirely new functions or expressions to a signature."
             s
-                "Literals are a good example of such expressions: It could be useful to add the zero constant to the signature, if the focus involves numbers."
+                "Literals are a good example of such expressions: it could be useful to add the zero constant to the signature, if the focus involves numbers."
             s
                 "Similarly, it may be useful to add the empty list to the scope, if the focus involves lists, etc."
             lnbk
             s
-                "Automatic monomorphisation of higher kinded type variables has been glossed over in this work, because it is a not trivial concept to implement."
+                "Automatic monomorphisation of higher kinded type variables has been glossed over in this work, because it is a nontrivial concept to implement."
             s
                 "Higher kinded type variables cannot simply be translated in the same way that simple type variables can be translated because QuickSpec currently has no support for such a translation."
             lnbk

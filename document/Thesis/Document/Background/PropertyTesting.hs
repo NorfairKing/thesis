@@ -21,16 +21,16 @@ thesisBackgroundPropertyTesting =
         s
             "Instead of requiring a programmer to specify a specific example of the workings of their code, the programmer now gets to specify a general property of their code."
         s
-            "To perform property tests, a programmer needs to provide two pieces of code: A generator, and a function that takes the output of the generator and produces a Boolean value."
+            "To perform property tests, a programmer needs to provide two pieces of code: a generator, and a function that takes the output of the generator and produces a Boolean value."
         subsubsection "Generators and the Arbitrary Type Class" $ do
             s
                 "Generators are a central component of QuickCheck and property testing in general."
             s
-                "In essence, a generator is a pure function that can use a pseudo random generator to produce values of a certain type."
+                "In essence, a generator is a pure function that can use a pseudorandom generator to produce values of a certain type."
             l
                 [ "For example, a value of type"
                 , haskInline "Gen Int"
-                , "represents provides evidence that it is possible to generate pseudo random integers given a pseudo random generator of bits"
+                , "provides evidence that, it is possible to generate pseudorandom integers given a pseudorandom generator of bits"
                 ]
             s
                 "Users can write generators for their own data types such that values of those types can also be generated."
@@ -51,7 +51,7 @@ thesisBackgroundPropertyTesting =
                 ]
         subsubsection "Properties" $ do
             s
-                "A property, in this case, is loosely defined as anything that can produce a Boolean value from supplied pseudo randomness."
+                "A property, in this case, is loosely defined as anything that can produce a Boolean value from supplied pseudorandomness."
             s "An example is a function as follows."
             hask "f :: A -> Bool"
             s

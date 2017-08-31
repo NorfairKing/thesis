@@ -12,7 +12,7 @@ thesisSignatureInferencePremise =
         s
             "QuickSpec requires a programmer to specify all of the context that they are interested in."
         s
-            "If one were to automate the process of generating QuickSpec code from a code base, the result would discover all properties that relate any properties in that code base."
+            "If one were to automate the process of generating QuickSpec code from a codebase, the result would discover all properties that relate any properties in that codebase."
         s
             "This work, however, asserts that usually a programmer is not necessarily interested in all the equations relating the functions in the entire codebase."
         s

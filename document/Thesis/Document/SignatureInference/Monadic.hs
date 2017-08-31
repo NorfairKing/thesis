@@ -80,7 +80,7 @@ thesisSignatureInferenceMonadic =
                 caption $ chunks <> " as a monadic signature inference strategy"
             s "This monad only expresses the intent to run QuickSpec."
             s
-                "One still requires a straight forward interpreter to actually discover any properties."
+                "One still requires a straightforward interpreter to actually discover any properties."
         subsubsection "Chunks Plus" $ do
             l
                 [ "The increased expressiveness of monadic signature inference strategies opened the doors for a new strategy:"
@@ -101,7 +101,7 @@ thesisSignatureInferenceMonadic =
                 , "strategy are considered"
                 ]
             s
-                "If QuickSpec finds relevant equations in both of these nodes, a new node is created that contains both of these scope function and the focus function."
+                "If QuickSpec finds relevant equations in both of these nodes, a new node is created that contains both of these scope functions and the focus function."
             s
                 "This new node then points to appropriate two nodes as a dependant."
             l
