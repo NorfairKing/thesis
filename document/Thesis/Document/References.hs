@@ -24,6 +24,7 @@ module Thesis.Document.References
     , filteringRef
     , mash2Ref
     , typeableHackageRef
+    , catalanNumberRef
     ) where
 
 import DocImport
@@ -428,6 +429,21 @@ typeableHackageRef =
         , "version" .= "4.9.1.0"
         , "keywords" .= "Prelude"
         , "subtype" .= "program"
+        ]
+
+catalanNumberRef :: Reference
+catalanNumberRef =
+    Reference
+        "book"
+        "TAOCP"
+        [ "author" .= "{Knuth, Donald E.}"
+        , "title" .=
+          "{The Art of Computer Programming, Volume 1 (3rd Ed.): Fundamental Algorithms}"
+        , "year" .= "{1997}"
+        , "isbn" .= "{0-201-89683-4}"
+        , "publisher" .= "{Addison Wesley Longman Publishing Co., Inc.}"
+        , "address" .= "{Redwood City, CA, USA}"
+        , "section" .= "{2.3.4.4}"
         ]
 
 (.=) :: a -> b -> (a, b)

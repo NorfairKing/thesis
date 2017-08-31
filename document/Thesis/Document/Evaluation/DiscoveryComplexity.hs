@@ -6,27 +6,28 @@ module Thesis.Document.Evaluation.DiscoveryComplexity
 
 import DocImport
 
+import Thesis.Document.References
+
 thesisEvaluationDiscoveryComplexity :: Thesis
 thesisEvaluationDiscoveryComplexity =
     subsection "Discovery Complexity" $ do
         s
             "The nature of signature inference strategies is that they perform some local computation interleaved with property discovery by QuickSpec."
         s
-            "This means that traditional complexity analysis will give results that are not as good at modelling the runtime of different signature inference strategies than a domain specific complexity analysis could be."
-        s
             "For this work, we conceived a type of complexity analysis that specifically applies to signature inference strategies."
         s
-            "Its assumptions are that the local computation in the signature inference strategies are relatively cheap compared to the property discovery that QuickSpec performs."
-        s
-            "As long as signature inference strategies do not implement property discovery in their local computation, this is a reasonable assumption."
-        todo "How do I show that this is reasonable?"
+            "We assume that the local computation is negligible compared to the QuickSpec invocations."
         s
             "For the purpose of the analysis, we will consider the local computation free, and we will focus on the complexity of the property discovery."
-        s
-            "The complexity of property discovery in QuickSpec is naturally upper bounded by the number of possible equations (including ill typed equations) that could be discovered."
+        l
+            [ "If we view QuickCheck as a"
+            , dquoted "generate and test"
+            , "method, then its runtime is upper bounded by the number of equations that are tested"
+            ]
         s
             "This means that we will compute the discovery complexity of a signature inference strategy as the sum of those numbers, over the executions of property discovery."
         subsubsection "Maxmimum Number of Discovered Equations" $ do
+            packageDep_ "amsmath"
             let m_ = "M"
                 t_ = "T"
                 s_ = "S"
@@ -35,7 +36,7 @@ thesisEvaluationDiscoveryComplexity =
                 , m m_
                 , "that can be discovered in a scope of"
                 , m s_
-                , "equations is related to the number of terms"
+                , "functions is related to the number of terms"
                 , m t_
                 , "that can be built using those functions"
                 ]
@@ -98,9 +99,8 @@ thesisEvaluationDiscoveryComplexity =
                 , m n_
                 , "leaves, is well known to be the Catalan number"
                 , m $ cat_ (n_ - 1)
+                , cite catalanNumberRef
                 ]
-            question "How do I cite this? I got it from Wikipedia"
-            packageDep_ "amsmath"
             ma $
                 c_ n_ =: cat_ (n_ - 1) * pars (s_ + v_) ^: n_ =: frac 1 n_ *
                 comm2 "binom" (2 * n_ - 2) (n_ - 1) *
@@ -173,7 +173,7 @@ thesisEvaluationDiscoveryComplexity =
             l
                 [ "In general, this number is"
                 , m $ bigoh $ s_ ^: (2 * m_) <> ","
-                , "but because we were able to fix"
+                , "but because we have fixed"
                 , m m_ <> " to be"
                 , m 7 <> ","
                 , "this number is"
@@ -234,3 +234,8 @@ thesisEvaluationDiscoveryComplexity =
             ma $ bigoh (s_ * f_)
             s
                 "This means that the discovery complexity is linear in the scope size if the focus size is constant (usually it is one)."
+            s "Note that is a worst case analysis."
+            l
+                [ "In practice types and advanced pruning by QuickSpec vastly decreases the number of equations tested"
+                , cite quickspec2Ref
+                ]
