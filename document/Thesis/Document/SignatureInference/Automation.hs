@@ -16,7 +16,7 @@ thesisSignatureInferenceAutomation =
         s
             "The first step in making property discovery feasible for practical use, is ensuring that a programmer never has to write extra code to discover properties of their code."
         l
-            [ "It involves inspecting the subject code and generating a"
+            [ "This automation involves inspecting the subject code and generating a"
             , haskInline "Signature"
             , "to run"
             , haskInline "quickSpec"
@@ -24,7 +24,7 @@ thesisSignatureInferenceAutomation =
             ]
         subsubsection "Generating a signature" $ do
             l
-                [ "By hooking into the GHC API"
+                [ "By interfacing with the GHC API"
                 , cite ghcAPIRef
                 , "one can find all functions that are in scope in a given module"
                 ]
@@ -47,9 +47,13 @@ thesisSignatureInferenceAutomation =
                 , "values"
                 ]
             l
-                [ "To generate an expression that describes the appropriate"
+                [ "To generate an expression that evaluates to a"
+                , haskInline "Signature" <>
+                  ", we need to generate subexpressions that each evaluate to a"
                 , haskInline "Constant"
-                , "values, we need to monomorphise the functions in scope, and generate a"
+                ]
+            l
+                [ "This involves monomorphising the functions in scope, and generating a"
                 , haskInline "Constant"
                 , "expression for each of the"
                 , haskInline "Function"
@@ -68,13 +72,14 @@ thesisSignatureInferenceAutomation =
             s
                 "Lastly, we need to generate an expression that describes the properties that we already know about."
             s
-                "Previously discovered properties usually come from previous runs of QuickSpec, so this first automated version leaves this field empty for now."
+                "Previously discovered properties usually come from previous runs of QuickSpec, so we leave this field empty for now."
             todo
                 "Refer to a next section that uses previously discovered properties"
             l
                 [ "We will call this initial automation"
                 , fullBackground
-                , "for reasons that will become clear in the next section"
+                , "as described in section"
+                , todo "refer there"
                 ]
         subsubsection "Monomorphisation" $ do
             s
@@ -121,7 +126,7 @@ thesisSignatureInferenceAutomation =
                 , haskInline "A"
                 , "is in fact in the"
                 , haskInline "Ord"
-                , "type class"
+                , "type class even though the parameter that it represents should be in the", haskInline "Ord", "type class"
                 ]
             s
                 "The way QuickSpec solves this problem is by translating type class constraints to argument evidence dictionaries."
@@ -150,8 +155,11 @@ thesisSignatureInferenceAutomation =
                 "Monomorphisation of higher kinded types is not trivial in general, but could be performed manually for type constructors in scope, given that type constraints can be resolved."
             s "This transformation has not been implemented in EasySpec yet."
         subsubsection "Complexity" $ do
-            s
-                "An automated version of QuickSpec offers many benefits, but it does not solve the problem of computational complexity that QuickSpec exhibits."
+            l
+                [ "The"
+                , fullBackground
+                , "automation already offers many benefits, but it does not solve the problem of computational complexity that QuickSpec exhibits"
+                ]
             let automationComplexityLabel = "fig:automationComplexity"
             hereFigure $ do
                 withRegisteredAsset assetRuntimeFullBackgroundPlot $ \fp ->
