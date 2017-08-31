@@ -393,7 +393,7 @@ ghcRef =
     Reference
         "online"
         "GHC8"
-        [ "author" .= "{Ben Gamari}"
+        [ "author" .= "{GHC Developers}"
         , "title" .= "{Glasgow Haskell Compiler version 8.0.2}"
         , "year" .= "2016"
         , "url" .=
