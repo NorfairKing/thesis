@@ -77,8 +77,6 @@ thesisEvaluationStrategies =
                 , emptyBackground
                 , "signature inference strategy only finds equations that only consist of functions in focus, it misses out on most of the relevant equations"
                 ]
-            todo
-                "more plots: irrelevant equations and total equations? Maybe also equations per time?"
         subsubsection "Syntactic Similarity" $ do
             let assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel =
                     "fig:runtime-full-background-syntactic-similarity"
@@ -113,7 +111,6 @@ thesisEvaluationStrategies =
                         , syntacticSimilarityType
                         ]
                 lab assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel
-            todo "maybe fix that the name does not fit on this plot"
             l
                 [ "In Figure"
                 , ref assetRuntimeFullBackgroundSyntacticSimilarityPlotLabel <>

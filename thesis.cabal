@@ -37,15 +37,16 @@ library
         Thesis.Document.Evaluation.Strategies
         Thesis.Document.Introduction
         Thesis.Document.References
+        Thesis.Document.Sections
         Thesis.Document.SignatureInference
         Thesis.Document.SignatureInference.Automation
         Thesis.Document.SignatureInference.Distance
         Thesis.Document.SignatureInference.DrillingAndShrinking
-        Thesis.Document.SignatureInference.TypeReachability
         Thesis.Document.SignatureInference.Graph
         Thesis.Document.SignatureInference.Monadic
         Thesis.Document.SignatureInference.Premise
         Thesis.Document.SignatureInference.Reducing
+        Thesis.Document.SignatureInference.TypeReachability
         Thesis.Document.TitlePage
         Thesis.Document.Types
         Thesis.LaTeXTarget

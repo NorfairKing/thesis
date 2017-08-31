@@ -25,6 +25,7 @@ module Thesis.Document.References
     , mash2Ref
     , typeableHackageRef
     , catalanNumberRef
+    , easyspecGithubRef
     ) where
 
 import DocImport
@@ -444,6 +445,21 @@ catalanNumberRef =
         , "publisher" .= "{Addison Wesley Longman Publishing Co., Inc.}"
         , "address" .= "{Redwood City, CA, USA}"
         , "section" .= "{2.3.4.4}"
+        ]
+
+easyspecGithubRef :: Reference
+easyspecGithubRef =
+    Reference
+        miscelaneous
+        "EasySpec"
+        [ "author" .= "{Tom Sydney Kerckhove}"
+        , "title" .=
+          "{EasySpec: Signature Inference for Functional Property Discovery}"
+        , "howpublished" .=
+          "\\url{https://github.com/NorfairKing/easyspec/tree/ec1c933e7c647a010e941ca36662dc23ded3c511}"
+        , "year" .= "2017"
+        , "keywords" .= "Haskell, Testing"
+        , "subtype" .= "program"
         ]
 
 (.=) :: a -> b -> (a, b)

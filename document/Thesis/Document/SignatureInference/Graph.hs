@@ -10,6 +10,7 @@ import DocImport
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
 import Thesis.Document.References
+import Thesis.Document.Sections
 
 thesisSignatureInferenceGraph :: Thesis
 thesisSignatureInferenceGraph =
@@ -73,9 +74,11 @@ thesisSignatureInferenceGraph =
             s
                 "Note that any reducing signature inference strategy can be trivially converted to a reducing signature inference strategy."
             newline
-            s
-                "In the next iteration of this idea, we observed that QuickSpec has a feature that allows it to learn from previous discoveries."
-            todo "Refer back to the background section"
+            l
+                [ "In the next iteration of this idea, we observed that QuickSpec has a feature that allows it to learn from previous discoveries as alluded to in section"
+                , ref propertyDiscoveryBackgroundSection
+                ]
+            lab strategyWithBackgroundSection
             l
                 [ "Recall that a signature contains a field called"
                 , haskInline "background"
@@ -107,6 +110,7 @@ thesisSignatureInferenceGraph =
             s
                 "At this point, signature inference strategies were strictly more expressive, which allowed for more intricate signature inference strategies."
         subsubsection "Chunks" $ do
+            lab chunksSection
             s
                 "Using the newfound knowledge that properties usually contain very few different functions, we set out to create a signature inference strategy that takes advantage of this fact."
             s

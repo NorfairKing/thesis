@@ -374,7 +374,11 @@ question :: Thesis -> Thesis
 question t_ = todo_ [TeXRaw "linecolor=blue"] $ "Question for Dmitriy: " <> t_
 
 todo :: Thesis -> Thesis
-todo = todo_ []
+todo t_ = do
+    bkind <- gets buildKind
+    when (bkind == BuildFinal) $
+        liftIO $ die "Must not have todos in final version."
+    todo_ [] t_
 
 todo_ :: [LaTeX] -> Thesis -> Thesis
 todo_ extraArgs t_ = do

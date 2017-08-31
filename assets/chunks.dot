@@ -1,5 +1,5 @@
 digraph chunks {
-  node [shape="note"];
+  node [shape="rectangle"];
   edge [arrowhead="empty"];
   l1 [label="[sort]"];
   l2a [label="[sort, reverse]"];

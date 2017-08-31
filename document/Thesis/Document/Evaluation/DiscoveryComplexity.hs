@@ -7,10 +7,12 @@ module Thesis.Document.Evaluation.DiscoveryComplexity
 import DocImport
 
 import Thesis.Document.References
+import Thesis.Document.Sections
 
 thesisEvaluationDiscoveryComplexity :: Thesis
 thesisEvaluationDiscoveryComplexity =
     subsection "Discovery Complexity" $ do
+        lab discoveryComplexitySection
         s
             "The nature of signature inference strategies is that they perform some local computation interleaved with property discovery by QuickSpec."
         s
@@ -186,9 +188,10 @@ thesisEvaluationDiscoveryComplexity =
             l
                 [ "The first is"
                 , fullBackground
+                , "as defined in section"
+                , ref fullBackgroundSection
                 , "and it is easy to analyse because it performs little local computation and only runs QuickSpec once"
                 ]
-            todo "refer back to the section where full background is defined"
             let s_ = "S"
             l
                 [ "For a scope of size"
@@ -204,8 +207,12 @@ thesisEvaluationDiscoveryComplexity =
                 , m $ bigoh $ s_ ^: 14
                 ]
             lnbk
-            l ["Next, consider", m chunks]
-            todo "refer back to the section where chunks is defined"
+            l
+                [ "Next, consider"
+                , m chunks
+                , "as defined in section"
+                , ref chunksSection
+                ]
             s
                 "This signature inference strategy performs some local computation to construct tuples of a scope function and a focus function, and runs QuickSpec as many times as there are such tuples."
             let f_ = "F"

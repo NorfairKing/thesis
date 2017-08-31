@@ -9,6 +9,7 @@ import DocImport
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
 import Thesis.Document.References
+import Thesis.Document.Sections
 
 thesisSignatureInferenceAutomation :: Thesis
 thesisSignatureInferenceAutomation =
@@ -33,7 +34,6 @@ thesisSignatureInferenceAutomation =
                 , haskInline "Function"
                 , "for easy reference, because these values have several names in the GHC API"
                 ]
-            citationNeeded
             l
                 [ "To automatically supply QuickSpec with a"
                 , haskInline "Signature"
@@ -71,15 +71,15 @@ thesisSignatureInferenceAutomation =
             lnbk
             s
                 "Lastly, we need to generate an expression that describes the properties that we already know about."
-            s
-                "Previously discovered properties usually come from previous runs of QuickSpec, so we leave this field empty for now."
-            todo
-                "Refer to a next section that uses previously discovered properties"
+            l
+                [ "Previously discovered properties usually come from previous runs of QuickSpec, so we leave this field empty for now and get back to it in section"
+                , ref strategyWithBackgroundSection
+                ]
             l
                 [ "We will call this initial automation"
                 , fullBackground
-                , "as described in section"
-                , todo "refer there"
+                , "for reasons that will become clear in section"
+                , ref fullBackgroundSection
                 ]
         subsubsection "Monomorphisation" $ do
             s
@@ -126,7 +126,9 @@ thesisSignatureInferenceAutomation =
                 , haskInline "A"
                 , "is in fact in the"
                 , haskInline "Ord"
-                , "type class even though the parameter that it represents should be in the", haskInline "Ord", "type class"
+                , "type class even though the parameter that it represents should be in the"
+                , haskInline "Ord"
+                , "type class"
                 ]
             s
                 "The way QuickSpec solves this problem is by translating type class constraints to argument evidence dictionaries."
@@ -195,4 +197,7 @@ thesisSignatureInferenceAutomation =
                 , m 7 <> ","
                 , "but it is not practical for real codebases"
                 ]
-            todo "refer to the section about discovery complexity"
+            l
+                [ "For a more detailed breakdown of this complexity, we refer to section"
+                , ref discoveryComplexitySection
+                ]

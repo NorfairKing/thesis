@@ -130,7 +130,6 @@ thesisDiscussion =
             s
                 "Higher kinded type variables are not supported in EasySpec because their monomorphisation is still done manually in QuickSpec."
             lnbk
-            todo "refer to the section where I explained this problem earlier"
             l
                 [ "Both QuickSpec and EasySpec use the"
                 , haskInline "arbitrary"

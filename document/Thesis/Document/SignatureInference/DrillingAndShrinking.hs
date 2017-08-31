@@ -6,6 +6,8 @@ module Thesis.Document.SignatureInference.DrillingAndShrinking
 
 import DocImport
 
+import Thesis.Document.Sections
+
 thesisSignatureInferenceDrillingAndShrinking :: Thesis
 thesisSignatureInferenceDrillingAndShrinking =
     subsection "Composing strategies: Drilling and Shrinking" $ do
@@ -21,9 +23,10 @@ thesisSignatureInferenceDrillingAndShrinking =
         subsubsection "Shrinking" $ do
             s "A shrinking corresponds to a function as follows."
             hask "[Function] -> [Function] -> [Function]"
-            s
-                "Note that this corresponds exactly to the idea of a reducing signature inference strategy."
-            todo "reference back to that section"
+            l
+                [ "Note that this corresponds exactly to the idea of a reducing signature inference strategy from section"
+                , ref reducingSISSection
+                ]
             s "We have already considered the following shrinkings."
             itemize $ do
                 item emptyBackground
@@ -31,7 +34,6 @@ thesisSignatureInferenceDrillingAndShrinking =
                 item syntacticSimilarityType
                 item syntacticSimilaritySymbols
                 item typeReachability
-            todo "reference their sections"
         subsubsection "Drilling" $ do
             s "A drilling corresponds to a function as follows."
             hask "[Function] -> [Function] -> InferM ()"
@@ -42,7 +44,6 @@ thesisSignatureInferenceDrillingAndShrinking =
                 item fullBackground
                 item chunks
                 item chunksPlus
-            todo "reference their sections"
         subsubsection "Composing two shrinkings" $ do
             s
                 "Given two shrinkings, we can create a new shrinking by composition."

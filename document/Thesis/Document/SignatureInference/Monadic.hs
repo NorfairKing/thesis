@@ -8,6 +8,7 @@ module Thesis.Document.SignatureInference.Monadic
 import DocImport
 
 import Thesis.Document.Assets
+import Thesis.Document.Sections
 
 thesisSignatureInferenceMonadic :: Thesis
 thesisSignatureInferenceMonadic =
@@ -105,10 +106,9 @@ thesisSignatureInferenceMonadic =
             s
                 "This new node then points to appropriate two nodes as a dependant."
             l
-                [ "As an example, consider the same example scope as in the section about"
-                , chunks
+                [ "As an example, consider the same example scope as in section"
+                , ref chunksSection
                 ]
-            todo "refer to it"
             let chunksPlusExampleGraphLabel = "fig:chunks-example-graph"
             l
                 [ "The"

@@ -9,10 +9,12 @@ import DocImport
 import qualified Data.Text as T
 
 import Thesis.Document.References
+import Thesis.Document.Sections
 
 thesisBackgroundPropertyDiscovery :: Thesis
 thesisBackgroundPropertyDiscovery =
     subsection "Property Discovery with QuickSpec" $ do
+        lab propertyDiscoveryBackgroundSection
         l
             [ "QuickSpec is a recently developed tool for property discovery"
             , cite quickspecRef <> ","

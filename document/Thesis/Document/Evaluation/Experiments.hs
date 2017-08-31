@@ -6,6 +6,8 @@ module Thesis.Document.Evaluation.Experiments
 
 import DocImport
 
+import Thesis.Document.References
+
 thesisEvaluationExperiments :: Thesis
 thesisEvaluationExperiments =
     subsection "Experiments" $ do
@@ -26,9 +28,11 @@ thesisEvaluationExperiments =
             ]
         s
             "For each of these examples, for each signature inference strategy and for each function in the module, EasySpec is run using that function as the focus."
-        s
-            "The code samples can be found in the EasySpec repository, and consist of the following major groups."
-        citationNeeded
+        l
+            [ "The code samples can be found in the EasySpec repository,"
+            , cite easyspecGithubRef
+            , "and consist of the following major groups"
+            ]
         itemize $ do
             item $
                 l

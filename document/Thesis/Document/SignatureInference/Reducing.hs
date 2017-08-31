@@ -6,9 +6,12 @@ module Thesis.Document.SignatureInference.Reducing
 
 import DocImport
 
+import Thesis.Document.Sections
+
 thesisSignatureInferenceReducing :: Thesis
 thesisSignatureInferenceReducing =
     subsection "Reducing Signature Inference Strategies" $ do
+        lab reducingSISSection
         s
             "The first attempt at speeding up the above process is to shrink the signature that is given to QuickSpec by omitting functions."
         s
@@ -31,6 +34,7 @@ thesisSignatureInferenceReducing =
         lnbk
         s
             "Running QuickSpec on the entire scope of functions can be described as a trivial reducing signature inference strategy as follows."
+        lab fullBackgroundSection
         haskL
             [ "fullBackground :: SignatureInferenceStrategy"
             , "fullBackground focus scope = scope"
