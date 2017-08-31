@@ -261,14 +261,14 @@ thesisEvaluationStrategies =
                 caption $ "The number of relevant equations of " <> chunks
                 lab assetRuntimeFullBackgroundChunksPlotLabel
             l
-                [ "When we look at Figure"
+                [ "Figure"
                 , ref assetRuntimeFullBackgroundChunksPlotLabel <>
-                  ", we see that this looks plausible"
+                  "confirms this expectation"
                 ]
             l
-                [ "For an interactive use case,"
+                [ "For the interactive use case,"
                 , chunks
-                , "may not be practical, but for a nightly use case, it could be"
+                , "may not be practical, but for the nightly use case, it could be"
                 ]
             s
                 "A user would have to evaluate whether the strategy is fast enough for their use case."
@@ -298,24 +298,26 @@ thesisEvaluationStrategies =
                 caption $ "The number of relevant equations of " <> chunks
                 lab assetRelevantEquationsFullBackgroundChunksPlotLabel
             l
-                [ "However, when we look at Figure"
+                [ "However, Figure"
                 , ref assetRelevantEquationsFullBackgroundChunksPlotLabel <>
-                  ", we find that"
+                  ", shows that"
                 , chunks
-                , "often even finds more relevant properties than"
+                , "often even finds even more relevant properties than"
                 , fullBackground
                 , "does"
                 ]
             s
-                "This may seem curious at first, but it explained by the fact that QuickSpec outputs only the most general form of the properties it discovers."
+                "This may seem curious at first, but is explained by the fact that QuickSpec outputs only the most general properties it discovers."
             s
-                "With more context, properties are more likely to have a more general property that will be discovered."
+                "With a larger scope, general properties that subsume others are more likely to be discovered."
+            s
+                "With more scope, properties are more likely to have a more general property that will be discovered."
             l
-                [ "If this context is omitted, such as in the case of"
+                [ "If the context is reduced, such as in the case of"
                 , chunks <>
                   ", QuickSpec is more likely to find multiple different relevant equations that could generalise to fewer equations if QuickSpec had more context"
                 ]
-            l ["As an example, consider the following example of a scope"]
+            l ["As an example, consider the following scope"]
             haskL
                 [ "a :: Int -> Int"
                 , "a = (+1)"
@@ -358,7 +360,7 @@ thesisEvaluationStrategies =
                 , "finds"
                 ]
             l
-                [ "The lack of context caused"
+                [ "The reduction of the scope caused"
                 , chunks
                 , "to find more relevant equations than"
                 , fullBackground

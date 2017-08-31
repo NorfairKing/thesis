@@ -15,7 +15,7 @@ thesisEvaluation :: Thesis
 thesisEvaluation =
     section "Evaluation" $ do
         s
-            "In this section we will evaluate the different signature inference strategies that were introduced in the previous section."
+            "In this section we evaluate the different signature inference strategies that were introduced in the previous section."
         thesisEvaluationDiscoveryComplexity
         thesisEvaluationEvaluators
         thesisEvaluationExperiments
