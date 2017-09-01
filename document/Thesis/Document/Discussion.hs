@@ -141,3 +141,13 @@ thesisDiscussion =
                 "Custom generators could be of great value if certain properties only hold for a subset of a type, but neither QuickSpec nor EasySpec currently supports them."
             s
                 "Furthermore, EasySpec currently does not find, and inform QuickSpec about, instances that are in scope, so EasySpec will only operate on types of which QuickSpec already has the Arbitrary instance."
+            lnbk
+            s
+                "Lastly, because EasySpec uses the interactive evaluator that built into GHC by interpolating Strings, there are a lot of issues with respect to modules and unexported symbols."
+            l
+                [ "For example, EasySpec does not work well on modules that export functions of which the type contains unexported symbols, such as the function"
+                , haskInline "error :: HasCallStack a => String -> a"
+                , "wherein"
+                , haskInline "HasCallStack"
+                , "is not exported"
+                ]

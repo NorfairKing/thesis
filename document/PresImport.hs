@@ -30,9 +30,6 @@ usecolortheme :: Thesis -> Thesis -> Thesis
 usecolortheme =
     liftL2 $ \a1 a2 -> TeXComm "usecolortheme" [OptArg a1, FixArg a2]
 
-url :: Text -> Thesis
-url = comm1 "url" . raw
-
 f :: Thesis -> Thesis -> Thesis
 f t_ content =
     frame $ do

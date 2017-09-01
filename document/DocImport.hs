@@ -69,6 +69,7 @@ module DocImport
     , pars
     , bigoh
     , getBuildKind
+    , url
     ) where
 
 import Import as X
@@ -422,3 +423,6 @@ unSpellCheck func = do
 
 getBuildKind :: Thesis' BuildKind
 getBuildKind = gets buildKind
+
+url :: Text -> Thesis
+url = comm1 "url" . raw
