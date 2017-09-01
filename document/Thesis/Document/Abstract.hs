@@ -10,10 +10,7 @@ thesisAbstract :: Thesis
 thesisAbstract = do
     newpage
     abstract $ do
-        s
-            "We contribute a technique that can make property discovery practically feasible by taming the complexity of the discovery algorithm."
-        lnbk
-        -- Motivation
+        -- Setting / Motivation
         s
             "Property discovery has the potential to be a great tool for practical software correctness."
         -- Problem statement
