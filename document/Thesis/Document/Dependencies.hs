@@ -21,6 +21,7 @@ module Thesis.Document.Dependencies
     , assetRuntimeFullBackgroundChunksPlot
     , assetRelevantEquationsFullBackgroundChunksPlot
     , assetEquationsFullBackgroundChunksPlot
+    , assetRelevantEquationsChunksReducingsPlot,assetRuntimeChunksReducingsPlot,assetRelevantEquationsChunksPlusReducingsPlot,assetRuntimeChunksPlusReducingsPlot
     , assetRuntimeDrillingsPlot
     , assetRelevantEquationsDrillingsPlot
     , assetRuntimeFullBackgroundChunksPlusPlot
@@ -35,7 +36,11 @@ module Thesis.Document.Dependencies
 import EasySpec.Discover.SignatureInference
 import EasySpec.Discover.SignatureInference.Chunks
 import EasySpec.Discover.SignatureInference.ChunksPlus
+import EasySpec.Discover.SignatureInference.ChunksPlusSimilarity
 import EasySpec.Discover.SignatureInference.ChunksReachability
+import EasySpec.Discover.SignatureInference.ChunksSimilarityName
+import EasySpec.Discover.SignatureInference.ChunksSimilaritySymbols
+import EasySpec.Discover.SignatureInference.ChunksSimilarityType
 import EasySpec.Discover.SignatureInference.EmptyBackground
 import EasySpec.Discover.SignatureInference.SyntacticSimilarityName
 import EasySpec.Discover.SignatureInference.SyntacticSimilaritySymbols
@@ -241,6 +246,54 @@ $(makeDependencyAssets
               ( evaluationGroup
               , equationsEvaluator
               , OrderedDistinct (Pair inferFullBackground inferChunksPlus)))
+      , ( "assetRelevantEquationsChunksReducingsPlot"
+        , "relevant-equations-plot-chunks-reducings.pdf"
+        , plotFileFor
+              boxPlotterPerGroupEvaluatorOnDemand
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , [ inferFullBackground
+                , inferChunksSimilarityName 5
+                , inferChunksSimilaritySymbols 5
+                , inferChunksSimilarityType 5
+                , inferChunksTypeReachability 7
+                ]))
+      , ( "assetRuntimeChunksReducingsPlot"
+        , "runtime-plot-chunks-reducings.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsStrategiesPlotterOnDemand
+              ( runtimeGroup
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
+              , [ inferFullBackground
+                , inferChunksSimilarityName 5
+                , inferChunksSimilaritySymbols 5
+                , inferChunksSimilarityType 5
+                , inferChunksTypeReachability 7
+                ]))
+      , ( "assetRelevantEquationsChunksPlusReducingsPlot"
+        , "relevant-equations-plot-chunks-plus-reducings.pdf"
+        , plotFileFor
+              boxPlotterPerGroupEvaluatorOnDemand
+              ( evaluationGroup
+              , relevantEquationsEvaluator
+              , [ inferFullBackground
+                , inferChunksPlusSimilarityName 5
+                , inferChunksPlusSimilaritySymbols 5
+                , inferChunksPlusSimilarityType 5
+                , inferChunksPlusTypeReachability 7
+                ]))
+      , ( "assetRuntimeChunksPlusReducingsPlot"
+        , "runtime-plot-chunks-plus-reducings.pdf"
+        , plotFileFor
+              barsPerGroupEvaluatorsStrategiesPlotterOnDemand
+              ( runtimeGroup
+              , IndepDepPairEvaluator (Pair scopeSizeEvaluator runtimeEvaluator)
+              , [ inferFullBackground
+                , inferChunksPlusSimilarityName 5
+                , inferChunksPlusSimilaritySymbols 5
+                , inferChunksPlusSimilarityType 5
+                , inferChunksPlusTypeReachability 7
+                ]))
       , ( "assetRelevantEquationsChunksPlusReachabilityPlot"
         , "relevant-equations-plot-chunks-plus-reachability.pdf"
         , plotFileFor

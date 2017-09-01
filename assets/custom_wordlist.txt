@@ -37,7 +37,7 @@ monad
 monadic
 runtimes
 Zürich
-shrinkings
+reducings
 reachability
 unifiable
 typechecks

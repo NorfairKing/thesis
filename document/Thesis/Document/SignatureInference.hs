@@ -8,7 +8,7 @@ import DocImport
 
 import Thesis.Document.SignatureInference.Automation
 import Thesis.Document.SignatureInference.Distance
-import Thesis.Document.SignatureInference.DrillingAndShrinking
+import Thesis.Document.SignatureInference.DrillingAndReducing
 import Thesis.Document.SignatureInference.Graph
 import Thesis.Document.SignatureInference.Monadic
 import Thesis.Document.SignatureInference.Premise
@@ -27,4 +27,4 @@ thesisSignatureInference =
         thesisSignatureInferenceTypeReachability
         thesisSignatureInferenceGraph
         thesisSignatureInferenceMonadic
-        thesisSignatureInferenceDrillingAndShrinking
+        thesisSignatureInferenceDrillingAndReducing

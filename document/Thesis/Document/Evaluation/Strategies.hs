@@ -433,14 +433,100 @@ thesisEvaluationStrategies =
                 , "is, and it regularly finds more relevant equations"
                 ]
         subsubsection "Compositions" $ do
-            hereFigure $
+            let chunksReducingsRuntimeLabel = "fig:chunks-reducings-runtime"
+            l
+                [ "In Figure"
+                , ref chunksReducingsRuntimeLabel <>
+                  ", we see that all the compositions of a reducing with"
+                , chunks
+                , "yield a signature inference strategies that runs in a practically feasible amount of time, even"
+                , chunksTypeReachability
+                ]
+            hereFigure $ do
+                withRegisteredAsset assetRuntimeChunksReducingsPlot $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                lab chunksReducingsRuntimeLabel
+            let chunksReducingsRelevantEquationsLabel =
+                    "fig:chunks-reducings-relevant-equations"
+            l
+                [ "In Figure"
+                , lab chunksReducingsRelevantEquationsLabel <>
+                  ", we see that these composed strategies all approach"
+                , fullBackground
+                , "in terms of how many relevant equations they find"
+                ]
+            hereFigure $ do
+                withRegisteredAsset assetRelevantEquationsChunksReducingsPlot $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                lab chunksReducingsRelevantEquationsLabel
+            let chunksPlusReducingsRuntimeLabel =
+                    "fig:chunks-plus-reducings-runtime"
+            l
+                [ "As we can see in Figure"
+                , ref chunksPlusReducingsRuntimeLabel <>
+                  ", composing the same reducings with a more intensive drilling:"
+                , chunksPlus
+                , "produces signature inference strategies that still run in a practical amount of time, but still a greater amount of time, even"
+                , chunksPlusTypeReachability
+                ]
+            hereFigure $ do
+                withRegisteredAsset assetRuntimeChunksPlusReducingsPlot $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                lab chunksPlusReducingsRuntimeLabel
+            let chunksPlusReducingsRelevantEquationsLabel =
+                    "fig:chunks-plus-reducings-relevant-equations"
+            l
+                [ "In Figure"
+                , ref chunksPlusReducingsRelevantEquationsLabel
+                , "we find that these these compositions regularly outperform"
+                , fullBackground
+                ]
+            hereFigure $ do
+                withRegisteredAsset
+                    assetRelevantEquationsChunksPlusReducingsPlot $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                lab chunksPlusReducingsRelevantEquationsLabel
+            s
+                "The compositions of two reducings with a drilling produced less successful signature inference strategies than expected."
+            let chunksPlusReachabilitiesRuntimeLabel =
+                    "fig:chunks-plus-reachabilities-runtime"
+            l
+                [ "As we can see in Figure"
+                , ref chunksPlusReachabilitiesRuntimeLabel <>
+                  ", these strategies still ran in a practical amount of time"
+                ]
+            hereFigure $ do
                 withRegisteredAsset assetRuntimeFullChunksPlusReachabilityPlot $ \fp ->
                     includegraphics
                         [ KeepAspectRatio True
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-            hereFigure $
+                lab chunksPlusReachabilitiesRuntimeLabel
+            let chunksPlusReachabilitiesRelevantEquationsLabel =
+                    "fig:chunks-plus-reachabilities-relevant-equations"
+            l
+                [ "However, if we look at Figure"
+                , ref chunksPlusReachabilitiesRelevantEquationsLabel <>
+                  ", we see that these more complex compositions do not outperform their simpler variants"
+                ]
+            hereFigure $ do
                 withRegisteredAsset
                     assetRelevantEquationsChunksPlusReachabilityPlot $ \fp ->
                     includegraphics
@@ -448,9 +534,23 @@ thesisEvaluationStrategies =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        subsubsection "Overview" $
-            hereFigure $
-            withRegisteredAsset assetRelevantEquationsAll $ \fp ->
-                includegraphics
-                    [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
-                    fp
+                lab chunksPlusReachabilitiesRelevantEquationsLabel
+        subsubsection "Overview" $ do
+            let overviewRelevantEquationsLabel =
+                    "fig:overview-relevant-equations"
+            l
+                [ "In Figure"
+                , ref overviewRelevantEquationsLabel <>
+                  ", there is an overview of the performance, with respect to the number of relevant equations found, of all the signature inference strategies that we studied"
+                ]
+            hereFigure $ do
+                withRegisteredAsset assetRelevantEquationsAll $ \fp ->
+                    includegraphics
+                        [ KeepAspectRatio True
+                        , IGWidth $ CustomMeasure textwidth
+                        ]
+                        fp
+                lab overviewRelevantEquationsLabel
+            l ["The best performing signature inference strategy is clearly", chunksPlus, "and, while it is still significantly faster than", fullBackground <> ", it may not run in a practically feasible amount of time"]
+            l ["Of the signature inference strategies that run in a feasible amount of time,", chunksPlusTypeReachability, "finds the most relevant equations"]
+            l ["If one needs a constant time guarantee, then", chunksPlusSimilarityType,"or", chunksPlusSimilaritySymbols, "are viable alternatives"]
