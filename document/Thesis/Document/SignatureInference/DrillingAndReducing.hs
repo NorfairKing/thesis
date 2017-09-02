@@ -6,8 +6,6 @@ module Thesis.Document.SignatureInference.DrillingAndReducing
 
 import DocImport
 
-import Thesis.Document.Sections
-
 thesisSignatureInferenceDrillingAndReducing :: Thesis
 thesisSignatureInferenceDrillingAndReducing =
     subsection "Composing strategies: Drilling and Reducing" $ do

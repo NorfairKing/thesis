@@ -551,6 +551,22 @@ thesisEvaluationStrategies =
                         ]
                         fp
                 lab overviewRelevantEquationsLabel
-            l ["The best performing signature inference strategy is clearly", chunksPlus, "and, while it is still significantly faster than", fullBackground <> ", it may not run in a practically feasible amount of time"]
-            l ["Of the signature inference strategies that run in a feasible amount of time,", chunksPlusTypeReachability, "finds the most relevant equations"]
-            l ["If one needs a constant time guarantee, then", chunksPlusSimilarityType,"or", chunksPlusSimilaritySymbols, "are viable alternatives"]
+            l
+                [ "The best performing signature inference strategy is clearly"
+                , chunksPlus
+                , "and, while it is still significantly faster than"
+                , fullBackground <>
+                  ", it may not run in a practically feasible amount of time"
+                ]
+            l
+                [ "Of the signature inference strategies that run in a feasible amount of time,"
+                , chunksPlusTypeReachability
+                , "finds the most relevant equations"
+                ]
+            l
+                [ "If one needs a constant time guarantee, then"
+                , chunksPlusSimilarityType
+                , "or"
+                , chunksPlusSimilaritySymbols
+                , "are viable alternatives"
+                ]

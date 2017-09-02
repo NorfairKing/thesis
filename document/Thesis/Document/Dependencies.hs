@@ -21,7 +21,10 @@ module Thesis.Document.Dependencies
     , assetRuntimeFullBackgroundChunksPlot
     , assetRelevantEquationsFullBackgroundChunksPlot
     , assetEquationsFullBackgroundChunksPlot
-    , assetRelevantEquationsChunksReducingsPlot,assetRuntimeChunksReducingsPlot,assetRelevantEquationsChunksPlusReducingsPlot,assetRuntimeChunksPlusReducingsPlot
+    , assetRelevantEquationsChunksReducingsPlot
+    , assetRuntimeChunksReducingsPlot
+    , assetRelevantEquationsChunksPlusReducingsPlot
+    , assetRuntimeChunksPlusReducingsPlot
     , assetRuntimeDrillingsPlot
     , assetRelevantEquationsDrillingsPlot
     , assetRuntimeFullBackgroundChunksPlusPlot

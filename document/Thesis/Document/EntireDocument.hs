@@ -42,7 +42,7 @@ entireDocument = do
         thesisDiscussion
         thesisConclusion
         thesisBibliography
-        declarationOfOriginality
+        extraDocuments
 
 thesisTableOfContents :: Thesis
 thesisTableOfContents =
@@ -60,7 +60,10 @@ mintedColors = do
     packageDep_ "xcolor"
     comm3 "definecolor" (raw "mintedbgcolor") (raw "rgb") (raw "0.95,0.95,0.95")
 
-declarationOfOriginality :: Thesis
-declarationOfOriginality =
-    slow $
-    withRegisteredAsset $(embedAsset "declaration-originality.pdf") includepdf
+extraDocuments :: Thesis
+extraDocuments =
+    slow $ do
+        withRegisteredAsset
+            $(embedAsset "declaration-originality.pdf")
+            includepdf
+        withRegisteredAsset $(embedAsset "consent.pdf") includepdf
