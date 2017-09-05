@@ -28,7 +28,7 @@ thesisSignatureInferenceReducing =
         s
             "The first argument to a signature inference strategy is the list of focus functions, and the second argument is a list of all the functions in scope."
         s
-            "The result is supposed to be a list of elements of the scope, that is smaller than the entire scope."
+            "The result is supposed to be a list of elements of the scope that is smaller than the entire scope."
         s
             "This kind of signature inference strategy is sometimes called a reducing signature inference strategy."
         lnbk
@@ -56,7 +56,7 @@ thesisSignatureInferenceReducing =
             ]
         s "As a result, it will find only relevant equations."
         s
-            "However, it will find only equations that only relate the focus functions."
+            "However, it will only find equations that exclusively relate the focus functions to each other."
         s "Examples of such equations are idempotency and involution."
         haskL
             [ "reverse (reverse x) = x -- Involution"

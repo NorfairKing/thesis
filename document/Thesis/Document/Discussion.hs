@@ -94,6 +94,7 @@ thesisDiscussion =
                     , m j_
                     , " is fixed to be "
                     , m 7
+                    , raw ";\n"
                     ]
                 s "This is the configuration that we chose."
         subsection "Configurability" $ do

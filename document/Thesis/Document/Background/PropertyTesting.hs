@@ -30,7 +30,7 @@ thesisBackgroundPropertyTesting =
             l
                 [ "For example, a value of type"
                 , haskInline "Gen Int"
-                , "provides evidence that, it is possible to generate pseudorandom integers given a pseudorandom generator of bits"
+                , "provides evidence that it is possible to generate pseudorandom integers given a pseudorandom generator of bits"
                 ]
             s
                 "Users can write generators for their own data types such that values of those types can also be generated."

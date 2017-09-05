@@ -87,7 +87,7 @@ thesisBackgroundPropertyDiscovery =
             "This allows QuickSpec to output the discovered properties in a human readable manner."
         newline
         l
-            [ "A signature further also contains a set of type class instances"
+            [ "A signature also contains a set of type class instances"
             , "(" <> haskInline "instances" <> ")"
             , "specifically the evidence dictionaries or information about how to construct them"
             ]
@@ -143,9 +143,9 @@ thesisBackgroundPropertyDiscovery =
             , "such that arbitrary values can be generated as input"
             ]
         s
-            "Note that it is not a restriction to only allow properties where the input types of the both sides are the same."
+            "Note that it is not a restriction to only allow properties where the input types of both sides are the same."
         s
-            "Indeed, for any property where the input types of the sides are different, there exists a property where this is not the case and that expresses the same equation."
+            "Indeed, for any property where the input types of the sides are different, there exists a property where this is not the case and where it expresses the same equation."
         haskL
             [ "\\a      -> f a = \\b      -> g b -- different input type"
             , "\\(a, b) -> f a = \\(a, b) -> g b -- same input type"

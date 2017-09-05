@@ -72,7 +72,7 @@ thesisBackgroundHaskell =
                 , "function to test for equality, and the type checker will infer which equality will be used"
                 ]
             s
-                "Now that equality can be defined parametrically in which type of values are tested, the programmer can write functions that are parametric in a type, so long as that type supports equality."
+                "Now that equality can be defined parametrically in which type of values is tested, the programmer can write functions that are parametric in a type, so long as that type supports equality."
             l
                 [ "For example, the"
                 , haskInline "elem"
@@ -85,7 +85,7 @@ thesisBackgroundHaskell =
                 ]
         subsubsection "Type Class Evidence Dictionaries" $ do
             l
-                [ "The Glasgow Haskell Compiler, implements type classes using a desugaring method called evidence dictionaries"
+                [ "The Glasgow Haskell Compiler implements type classes using a desugaring method called evidence dictionaries"
                 , cite haskellTypeClassesImplementation
                 ]
             s

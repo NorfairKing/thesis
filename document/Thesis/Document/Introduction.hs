@@ -47,13 +47,13 @@ thesisIntroduction =
         s
             "Beyond what the language of choice can offer, tools that employ formal methods such as formal verification, model checking, various static analysis techniques, etc, can provide additional correctness guarantees."
         s
-            "These usually suffer from one of two problems: Either the programmer has to have already decided what it means for their code to be correct, or the method is so specific in its scope that it cannot help in general."
+            "These usually suffer from one of two problems: Either the programmer already has to have decided what it means for their code to be correct, or the method is so specific in its scope that it cannot help in general."
         s
             "Moreover, they are also often too expensive in terms of engineering effort or computing power, or both, to be used in practice."
         lnbk
         s "The most commonly adopted approach in practice, is testing."
         s
-            "Testing suffers from the same issue that a programmer has to already know what it means for their code to be correct, but it is rather more generally applicable."
+            "Testing suffers from the same issue that a programmer already has to know what it means for their code to be correct, but it is rather more generally applicable."
         s
             "The idea of automated testing is that programmers can tell if their code is faulty before running the code in production."
         s
@@ -134,11 +134,11 @@ thesisIntroduction =
             , "is a technique to produce property tests for subject code automatically"
             ]
         s
-            "By eliminating the human effort form conceiving tests, this approach can be combined with property testing to solve both of the problems with unit testing."
+            "By eliminating the human effort from conceiving tests, this approach can be combined with property testing to solve both of the problems with unit testing."
         s
             "By discovering properties automatically, the programmer is relieved from having to think of examples or properties, and now only has to select the properties that they think should hold."
         s
-            "Property discovery is relatively new technique, that is not ready for use in practical software engineering yet."
+            "Property discovery is a relatively new technique, that is not ready for use in practical software engineering yet."
         lnbk
         l
             [ raw "Claessen et al."
@@ -168,7 +168,7 @@ thesisIntroduction =
         s
             "This means that, to discover the properties of a single function, the programmer has to specify which functions are relevant."
         s
-            "The process of figuring out which functions are relevant in property discover is often only marginally easier than to think of the properties manually."
+            "The process of figuring out which functions are relevant in property discovery is often only marginally easier than to think of the properties manually."
         lnbk
         s
             "This signature is defined by a piece of code that the programmer has to write manually."
