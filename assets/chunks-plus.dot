@@ -12,6 +12,7 @@ digraph chunks {
   l3a [label="[sort, reverse, id]"];
   l3b [label="[sort, id, not]"];
   l3c [label="[sort, not, reverse]"];
+  edge [style="dashed"];
   l3a -> l2a;
   l3a -> l2b;
   l3b -> l2b;

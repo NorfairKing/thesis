@@ -47,7 +47,9 @@ thesisBackgroundPropertyDiscovery =
             , "  }"
             ]
         l
-            [ "A signature mainly consists of a list of functions that are called constants because they must be in the"
+            [ "A signature mainly consists of a list of functions"
+            , "(" <> haskInline "constants" <> ")"
+            , "that are called constants because they must be in the"
             , haskInline "Typeable"
             , "type class"
             ]
@@ -84,8 +86,11 @@ thesisBackgroundPropertyDiscovery =
         s
             "This allows QuickSpec to output the discovered properties in a human readable manner."
         newline
-        s
-            "A signature further also contains a set of type class instances, specifically the evidence dictionaries or information about how to construct them."
+        l
+            [ "A signature further also contains a set of type class instances"
+            , "(" <> haskInline "instances" <> ")"
+            , "specifically the evidence dictionaries or information about how to construct them"
+            ]
         l
             [ "For example, if a signature is said to contain the instance"
             , haskInline "Eq Int"
@@ -96,10 +101,12 @@ thesisBackgroundPropertyDiscovery =
         s
             "QuickSpec only knows about those instances that it gets supplied with via the signature."
         newline
+        l
+            [ "The last part of a signature that is important for this work is a set of background properties"
+            , "(" <> haskInline "background" <> ")"
+            ]
         s
-            "The last part of a signature that is important for this work is a set of background properties."
-        s
-            "These are properties that the signature somehow knows about already, and will use in its discovery."
+            "These are properties that we can tell the signature about if we already know them, and will use in its discovery."
         s
             "One way for a signature to contain background properties, is by using the properties that a previous run of QuickSpec discovered."
         newline
@@ -110,6 +117,10 @@ thesisBackgroundPropertyDiscovery =
             , m 7
             , "and we do not change it throughout this work"
             ]
+        s
+            "The discovery algorithm will discover all properties smaller than or equal to this maximum size."
+        s
+            "The size of a property is the maximum of the sizes of each of the sides of the equation."
         newline
         s
             "Using a signature, QuickSpec will enumerate all properties that relate the functions in that signature, up to a given size."

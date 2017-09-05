@@ -81,7 +81,7 @@ thesisBackgroundPropertyTesting =
                 , "then the test fails"
                 ]
             s
-                "When a function fails a property test a shrinking process is started."
+                "When a function fails a property test, a shrinking process is started."
             s
                 "In this process, the input value for which the property does not hold is inspected further in order to find a smaller value that still fails the property."
             s

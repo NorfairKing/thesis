@@ -83,7 +83,7 @@ thesisSignatureInferenceAutomation =
                 ]
         subsubsection "Monomorphisation" $ do
             s
-                "Monomorphisation consists of instantiating any type variables in the type of a function with monomorphic types so that no type variables remain in the type."
+                "Monomorphisation consists of instantiating any type variables in the type of a function with monomorphic types so that no type variables remain."
             newline
             l
                 [ "For type parameters of kind"

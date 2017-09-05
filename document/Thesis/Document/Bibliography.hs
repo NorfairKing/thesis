@@ -14,6 +14,7 @@ import Thesis.Document.References
 thesisBibliography :: Thesis
 thesisBibliography =
     slow $ do
+        newpage
         packageDep ["hidelinks"] "hyperref"
         mapM_
             nocite

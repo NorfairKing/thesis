@@ -30,7 +30,7 @@ thesisIntroduction =
     -- - The DSL for strategies
     -- - Easyspec-evaluate to evaluate strategies
      do
-        s "Writing correct is code is hard."
+        s "Writing correct code is hard."
         s
             "In order to write correct code, a programmer first has to decide what it means for code to be correct, and then write code that matches these expectations."
         s
