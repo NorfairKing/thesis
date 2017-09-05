@@ -16,6 +16,14 @@ thesisConclusion =
                 "It looked promising, until we had a look at the complexity of QuickSpec with respect to realistic codebases."
             s
                 "Signature inference has proved to be a promising approach to making property discovery practical by taming the complexity of QuickSpec."
+            l
+                [ "We provided options to decrease the discovery complexity from"
+                , m $ bigoh $ "S" ^: 14
+                , "to"
+                , m $ bigoh "S"
+                , "or"
+                , m (bigoh "1")
+                ]
             s
                 "The progress that we achieved on making property discovery practical for codebases of realistic sizes promises that property discovery could become a real and very valuable tool in software development."
         subsection "Further Work" $ do

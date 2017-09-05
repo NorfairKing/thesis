@@ -139,8 +139,10 @@ thesisDiscussion =
                 ]
             s
                 "Custom generators could be of great value if certain properties only hold for a subset of a type, but neither QuickSpec nor EasySpec currently supports them."
-            s
-                "Furthermore, EasySpec currently does not find, and inform QuickSpec about, instances that are in scope, so EasySpec will only operate on types of which QuickSpec already has the Arbitrary instance."
+            l
+                [ "Furthermore, EasySpec currently does not find any instances that are in scope, so EasySpec will only operate on types of which QuickSpec already has the Arbitrary instance"
+                , raw "built-in"
+                ]
             lnbk
             s
                 "Lastly, because EasySpec uses the interactive evaluator that built into GHC by interpolating Strings, there are a lot of issues with respect to modules and unexported symbols."

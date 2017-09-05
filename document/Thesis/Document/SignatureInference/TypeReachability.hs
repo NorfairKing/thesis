@@ -167,11 +167,11 @@ thesisSignatureInferenceTypeReachability =
                 , "is a parameter of the strategy"
                 ]
             s
-                "It is important to note that we only use an under approximation for real type reachability."
+                "It is important to note that we only use an underapproximation for real type reachability."
             s
                 "This underapproximation only deals with monomorphic types, and only considers the first argument and the last output of functions."
             l
-                [ "This limitation allows us to implement the under approximation function"
+                [ "This limitation allows us to implement the underapproximation function"
                 , haskInline "typeReachableInOneStep"
                 , "without integrating with any type checker"
                 ]

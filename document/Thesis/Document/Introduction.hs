@@ -47,9 +47,9 @@ thesisIntroduction =
         s
             "Beyond what the language of choice can offer, tools that employ formal methods such as formal verification, model checking, various static analysis techniques, etc, can provide additional correctness guarantees."
         s
-            "These usually suffer from one of two problems: Either the programmer has to already have decided what it means for their code to be correct, or the method is so specific in its scope that it cannot help in general."
+            "These usually suffer from one of two problems: Either the programmer has to have already decided what it means for their code to be correct, or the method is so specific in its scope that it cannot help in general."
         s
-            "Moreover, they are also often too expensive in terms of engineering effort or compute power, or both, to be used in practice."
+            "Moreover, they are also often too expensive in terms of engineering effort or computing power, or both, to be used in practice."
         lnbk
         s "The most commonly adopted approach in practice, is testing."
         s
@@ -116,7 +116,7 @@ thesisIntroduction =
             "We say that the property test passes if it passes for a given number of randomly chosen input values."
         lnbk
         s
-            "Property testing solves the coverage problem of unit testing probabilistically, but exacerbates the second problem of unit testing."
+            "Property testing solves the coverage problem of unit testing probabilistically, but exacerbates the cost problem of unit testing."
         s
             "As the number of executions of a property test increases, the probability that all possible aspects of the code under test are covered, should tend to one."
         s
@@ -126,8 +126,6 @@ thesisIntroduction =
         s
             "Consequently, the developer time costs of property testing is even higher and, as a result, property testing is rarely ever done in practice."
         lnbk
-        s
-            "If one could somehow eliminate as much human effort from conceiving tests, then using that approach, combined with property testing, would solve both of the problems with unit testing."
         l
             [ emph "Property discovery"
             , cite quickspecRef <> ","
@@ -136,11 +134,11 @@ thesisIntroduction =
             , "is a technique to produce property tests for subject code automatically"
             ]
         s
-            "This process relieves the programmer from having to think of examples or properties and only requires them to select the properties that they think should hold."
+            "By eliminating the human effort form conceiving tests, this approach can be combined with property testing to solve both of the problems with unit testing."
+        s
+            "By discovering properties automatically, the programmer is relieved from having to think of examples or properties, and now only has to select the properties that they think should hold."
         s
             "Property discovery is relatively new technique, that is not ready for use in practical software engineering yet."
-        s
-            "Current research on property discovery has made great progress, but it has also shown that property discovery is a nontrivial problem to solve."
         lnbk
         l
             [ raw "Claessen et al."
@@ -173,11 +171,11 @@ thesisIntroduction =
             "The process of figuring out which functions are relevant in property discover is often only marginally easier than to think of the properties manually."
         lnbk
         s
-            "The third problem with property discovery, as it currently stands, is that the input is itself a piece of code."
+            "This signature is defined by a piece of code that the programmer has to write manually."
         s
-            "This code contains the names of, types of, and references to the implementations of all the functions in the signature upon which one wishes to run the property algorithm."
+            "It contains the names, types, and references to the implementations, of all the functions in the signature upon which one wishes to run the property algorithm."
         s
-            "Writing this code imposes a transaction cost that ensures that property discovery is not feasible in practice from a developer's perspective."
+            "Writing this code introduces a significant amount of friction that ensures that property discovery is not a practical method in practice from a developer's perspective."
         lnbk
         s
             "We contribute a new approach to taming the computational complexity of property discovery: signature inference."
