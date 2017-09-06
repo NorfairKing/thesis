@@ -241,7 +241,7 @@ thesisEvaluationDiscoveryComplexity =
             ma $ bigoh (s_ * f_)
             s
                 "This means that the discovery complexity is linear in the scope size if the focus size is constant (usually it is one)."
-            s "Note that is a worst case analysis."
+            s "Note that this is a worst case analysis."
             l
                 [ "In practice types and advanced pruning by QuickSpec vastly decreases the number of equations tested"
                 , cite quickspec2Ref

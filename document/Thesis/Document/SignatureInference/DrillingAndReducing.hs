@@ -11,7 +11,7 @@ thesisSignatureInferenceDrillingAndReducing =
     subsection "Composing strategies: Drilling and Reducing" $ do
         s "In the previous sections, a larger pattern emerges."
         s
-            "The idea that the entire codebase is too large to consider even a substantial part of it, leads us to signature inference strategies that try to to reduce the scope to a smaller subset of relevant functions."
+            "The idea that the entire codebase is too large to consider even a substantial part of it, leads us to signature inference strategies that try to reduce the scope to a smaller subset of relevant functions."
         s
             "On the other hand, we find signature inference strategies that find more relevant equations (but fewer irrelevant equations) and spend less time as a result."
         l ["In this section we call this concept", dquoted "drilling"]

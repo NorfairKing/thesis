@@ -188,7 +188,7 @@ thesisEvaluationStrategies =
                 caption $ "The runtime of " <> typeReachability
                 lab assetRuntimeFullBackgroundTypeReachabilityPlotLabel
             l
-                [ "we see that in practice"
+                [ "In practice, we see that"
                 , typeReachability
                 , "reduces the scope to a sufficiently small subset such that the runtime is subsequently small enough to be practically feasible"
                 ]
@@ -259,8 +259,8 @@ thesisEvaluationStrategies =
                 lab assetRuntimeFullBackgroundChunksPlotLabel
             l
                 [ "Figure"
-                , ref assetRuntimeFullBackgroundChunksPlotLabel <>
-                  "confirms this expectation"
+                , ref assetRuntimeFullBackgroundChunksPlotLabel
+                , "confirms this expectation"
                 ]
             l
                 [ "For the interactive use case,"
@@ -339,7 +339,7 @@ thesisEvaluationStrategies =
             l
                 [ "This means that"
                 , fullBackground
-                , "only finds one relevant equations"
+                , "only finds one relevant equation"
                 ]
             l
                 [ "When we run"
@@ -439,7 +439,7 @@ thesisEvaluationStrategies =
                 , ref chunksReducingsRuntimeLabel <>
                   ", we see that all the compositions of a reducing with"
                 , chunks
-                , "yield a signature inference strategies that runs in a practically feasible amount of time, even"
+                , "yield a signature inference strategy that runs in a practically feasible amount of time, even"
                 , chunksTypeReachability
                 ]
             hereFigure $ do
@@ -490,7 +490,7 @@ thesisEvaluationStrategies =
             l
                 [ "In Figure"
                 , ref chunksPlusReducingsRelevantEquationsLabel
-                , "we find that these these compositions regularly outperform"
+                , "we find that these compositions regularly outperform"
                 , fullBackground
                 ]
             hereFigure $ do

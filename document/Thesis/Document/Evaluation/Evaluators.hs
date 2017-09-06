@@ -15,7 +15,7 @@ thesisEvaluationEvaluators =
         l
             [ "To define what"
             , quoted "better"
-            , "means when it comes to inference strategies, we developed the the concept of an evaluator"
+            , "means when it comes to inference strategies, we developed the concept of an evaluator"
             ]
         l
             [ "An evaluator has a name and a way to create a"
@@ -58,12 +58,12 @@ thesisEvaluationEvaluators =
         s
             "For this purpose, anything slower than a logarithmic discovery complexity would most likely be impractical, and even a logarithmic discovery complexity may be infeasible for large codebases."
         s
-            "Because of the difference between complexity and actual runtime, the best way to tell if a particular signature inference strategy is practical will remain to test it out on the codebase at hand."
+            "Because of the difference between complexity and actual runtime, testing out a particular signature inference strategy will still be the best way to tell if it is practical."
         newline
         s
             "A signature inference strategy should not just be fast, but it should also find relevant properties."
         s
-            "In practice we only care about relevant properties, properties relevant to the focus functions, but it is important to note that all properties take time to discover."
+            "In practice we only care about properties that are relevant to the focus functions, but it is important to note that all properties take time to discover."
         s
             "This means that we look for a strategy that finds many relevant properties, and ideally few irrelevant properties and therefore few properties beyond the relevant properties."
         newline

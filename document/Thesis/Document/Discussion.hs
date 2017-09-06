@@ -109,7 +109,7 @@ thesisDiscussion =
                 "This use case can be enabled by choosing a signature inference strategy that has an appropriate discovery complexity."
             lnbk
             s
-                "Another potential user interface involves running property discovery over night."
+                "Another potential user interface involves running property discovery overnight."
             s
                 "In this case there is a larger number of feasible signature inference strategies available."
             lnbk
@@ -119,7 +119,7 @@ thesisDiscussion =
             s
                 "EasySpec suffers from most of the functional shortcomings that QuickSpec has."
             s
-                "This includes false positives, which means that some times properties are discovered that do not hold."
+                "This includes false positives, which means that sometimes properties are discovered that do not hold."
             s
                 "This is not a big problem since a human must still select the properties that they want to have hold, and the properties are still tested afterwards."
             lnbk

@@ -94,7 +94,7 @@ thesisSignatureInferenceMonadic =
                 , chunksPlus
                 , "first runs QuickSpec in a similar way to"
                 , chunks
-                , "and potentially then runs QuickSpec some more based on the following procedure"
+                , "and then potentially runs QuickSpec some more based on the following procedure"
                 ]
             l
                 [ "For each set of two different scope functions, the corresponding nodes in the"

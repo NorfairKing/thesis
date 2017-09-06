@@ -59,7 +59,7 @@ haskellTypeClassesProposal =
         [ "author" .= "{Philip Lee Wadler}"
         , "howpublished" .= "{Letter to Haskell working group}"
         , "year" .= "1988"
-        , "month" .= "Februari"
+        , "month" .= "February"
         , "day" .= "27"
         , "url" .=
           "http://homepages.inf.ed.ac.uk/wadler/papers/class-letter/class-letter.txt"
