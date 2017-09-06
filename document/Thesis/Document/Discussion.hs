@@ -154,3 +154,10 @@ thesisDiscussion =
                 , haskInline "HasCallStack"
                 , "is not exported"
                 ]
+            lnbk
+            s
+                "EasySpec uses the GHC API to type check code, and translates the resulting types to a representation defined in an external library."
+            s
+                "This translation allowed for quicker iteration because the translated representation was easier to work with, but the translation is not lossless."
+            s
+                "It further complicates certain common practical situations such as modules and unexported symbols, but it has also prevented us from using the type checking mechanisms within GHC to implement type reachability."

@@ -100,7 +100,7 @@ thesisIntroduction =
         s
             "After all, if the code works, then testing looks like an extra cost that could be cut."
         s
-            "If the code contains mistakes, then spending time testing just makes the development process seem slower."
+            "If the code contains mistakes, then spending time testing (instead of ignoring the mistakes) just makes the development process seem slower."
         s
             "As a result, tests are all too often omitted from a software project."
         lnbk
@@ -113,7 +113,7 @@ thesisIntroduction =
         s
             "For any argument, the test code now tests a property of this argument, namely the property that the test passes when given this input."
         s
-            "We say that the property test passes if it passes for a given number of randomly chosen input values."
+            "We say that the property test passes if it passes for a given number of randomly generated input values."
         lnbk
         s
             "Property testing solves the coverage problem of unit testing probabilistically, but exacerbates the cost problem of unit testing."
@@ -122,7 +122,7 @@ thesisIntroduction =
         s
             "This means that a programmer now only needs to write a limited number of property tests, instead of a large number of unit tests."
         s
-            "For some programmers it may be easier to come up with more general properties of code, but often it is considered much more difficult."
+            "However, coming up with general properties of code is often considered more difficult than coming up with example test cases."
         s
             "Consequently, the developer time costs of property testing is even higher and, as a result, property testing is rarely ever done in practice."
         lnbk
@@ -141,9 +141,8 @@ thesisIntroduction =
             "Property discovery is a relatively new technique, that is not ready for use in practical software engineering yet."
         lnbk
         l
-            [ raw "Claessen et al."
-            , cite quickspecRef
-            , "have explored automatic discovery of equational properties, and has shown that property discovery is a complex problem"
+            [ raw "Claessen et al." <> cite quickspecRef
+            , "have explored automatic discovery of equational properties, and have shown that property discovery is a complex problem"
             ]
         s
             "The first attempt failed to discover large properties or properties of a large codebase in a reasonable amount of time."
@@ -186,7 +185,7 @@ thesisIntroduction =
         s
             "Signature inference consists of inferring appropriate input for the current property discovery mechanism by using compile time information about the subject code."
         l
-            [ "This approach simultaneously solves the"
+            [ "This approach therein simultaneously solves the"
             , dquoted "code as input"
             , "problem"
             ]

@@ -21,7 +21,7 @@ thesisAbstract = do
             "Unfortunately current methods remain infeasible because of the immense search space."
         -- Approach
         s
-            "We contribute a new approach to taming the complexity of the current generate and test algorithm that runs this algorithm several times with carefully chosen inputs of smaller size: signature inference."
+            "We contribute a new approach to taming the computational complexity of the current generate and test algorithm that runs this algorithm several times with carefully chosen inputs of smaller size: signature inference."
         s "We implement this approach in a new tool called EasySpec."
         -- Results
         s
