@@ -23,6 +23,10 @@ thesisAcknowledgements =
             "He consistently allowed this work to be my own, but steered me in the right the direction whenever he thought I needed it."
         lnbk
         s
+            "A big thank you to everyone who contributed to proofreading this work."
+        s "Their extra eyes were most helpful."
+        lnbk
+        s
             "Finally, I must express my very profound gratitude to my parents and to my brother for providing me with unfailing support and continuous encouragement throughout my years of study and through the process of researching and writing this thesis."
         s "This accomplishment would not have been possible without them."
         lnbk

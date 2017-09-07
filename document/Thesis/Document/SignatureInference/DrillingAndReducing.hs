@@ -35,7 +35,7 @@ thesisSignatureInferenceDrillingAndReducing =
             item fullBackground
             item chunks
             item chunksPlus
-        subsubsection "Composing two reducings" $ do
+        subsubsection "Composing Two Reducings" $ do
             s
                 "Given two reducings, we can create a new reducing by composition."
             haskL
@@ -67,7 +67,7 @@ thesisSignatureInferenceDrillingAndReducing =
                 , syntacticSimilarityName
                 , "could be useful"
                 ]
-        subsubsection "Composing two drillings" $ do
+        subsubsection "Composing Two Drillings" $ do
             s
                 "Given two drillings, we can create a new drilling by composition."
             haskL
@@ -83,7 +83,7 @@ thesisSignatureInferenceDrillingAndReducing =
                 "In theory composing two drillings could be useful, for example if the two drillings operate fundamentally differently and if they both do not take much time."
             s
                 "In practice we only have very similar drillings, so we will not be looking at any compositions of drillings."
-        subsubsection "Composing a reducing with a drilling" $ do
+        subsubsection "Composing a Reducing With a Drilling" $ do
             s
                 "Given a reducing and a drilling, we can compose them to make a new drilling as follows."
             haskL
@@ -100,7 +100,7 @@ thesisSignatureInferenceDrillingAndReducing =
                 ]
             s
                 "For example, in such a composition, we could combine a reducing that reduces a scope to a constant size with a drilling that does not concern itself with the size of the scope."
-        subsubsection "Filling the gaps" $ do
+        subsubsection "Filling the Gaps" $ do
             s
                 "Consider all possible compositions of one reducing and one drilling."
             l
@@ -135,7 +135,7 @@ thesisSignatureInferenceDrillingAndReducing =
                     chunksTypeReachability & chunksPlusTypeReachability
                     lnbk
                 caption "Composed signature inference strategies"
-        subsubsection "Special compositions" $ do
+        subsubsection "Special Compositions" $ do
             s
                 "The last signature inference strategies that we consider are compositions of two reducings and a drilling."
             l

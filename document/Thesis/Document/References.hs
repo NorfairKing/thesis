@@ -408,7 +408,7 @@ ghcAPIRef =
     Reference
         "online"
         "GHCAPI"
-        [ "author" .= "{GHC Devs}"
+        [ "author" .= "{GHC Developers}"
         , "title" .= "{Glasgow Haskell Compiler API version 8.0.2}"
         , "year" .= "2017"
         , "url" .=

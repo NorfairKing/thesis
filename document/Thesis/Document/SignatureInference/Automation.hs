@@ -23,7 +23,7 @@ thesisSignatureInferenceAutomation =
             , haskInline "quickSpec"
             , "on using an automated interactive evaluator"
             ]
-        subsubsection "Generating a signature" $ do
+        subsubsection "Generating a Signature" $ do
             l
                 [ "By interfacing with the GHC API"
                 , cite ghcAPIRef

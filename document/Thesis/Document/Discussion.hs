@@ -87,6 +87,9 @@ thesisDiscussion =
                     , m m_
                     , " is fixed to be "
                     , m 7 <> ", "
+                    , m f_
+                    , " is fixed to be "
+                    , m 1 <> ", "
                     , m i_
                     , " is fixed to be "
                     , m 5
@@ -99,7 +102,7 @@ thesisDiscussion =
                 s "This is the configuration that we chose."
         subsection "Configurability" $ do
             s
-                "The research into different signature inference strategies has had the nice side effect that signature inference can now be configured accordingly."
+                "The exploration of different signature inference strategies has had the nice side effect that signature inference can now be configured to use a chosen signature inference strategy."
             lnbk
             s
                 "Indeed, different signature inference strategies make it possible to support multiple use cases."
@@ -121,7 +124,7 @@ thesisDiscussion =
             s
                 "This includes false positives, which means that sometimes properties are discovered that do not hold."
             s
-                "This is not a big problem since a human must still select the properties that they want to have hold, and the properties are still tested afterwards."
+                "This is not a big problem since a human must still select the properties that they want to have hold, and the properties are still tested afterwards with different random input."
             lnbk
             s
                 "Both QuickSpec and EasySpec can only discover properties that already hold (modulo false positives)."
@@ -129,7 +132,7 @@ thesisDiscussion =
                 "This means that properties that you may want to have hold about code will not be discovered if the code does not already satisfy those properties."
             lnbk
             s
-                "Higher kinded type variables are not supported in EasySpec because their monomorphisation is still done manually in QuickSpec."
+                "Higher kinded type variables are not supported in EasySpec because their monomorphisation still has to be done manually in QuickSpec and QuickSpec has no dummy higher kinded variables as it does for other variables."
             lnbk
             l
                 [ "Both QuickSpec and EasySpec use the"
@@ -146,7 +149,7 @@ thesisDiscussion =
                 ]
             lnbk
             s
-                "Lastly, because EasySpec uses the interactive evaluator that built into GHC by interpolating Strings, there are a lot of issues with respect to modules and unexported symbols."
+                "Lastly, because EasySpec uses the interactive evaluator that built into GHC by interpolating Strings, there are many issues with respect to modules and unexported symbols."
             l
                 [ "For example, EasySpec does not work well on modules that export functions of which the type contains unexported symbols, such as the function"
                 , haskInline "error :: HasCallStack a => String -> a"
@@ -158,6 +161,9 @@ thesisDiscussion =
             s
                 "EasySpec uses the GHC API to type check code, and translates the resulting types to a representation defined in an external library."
             s
-                "This translation allowed for quicker iteration because the translated representation was easier to work with, but the translation is not lossless."
+                "This translation allowed for quicker iteration because the translated representation was easier to work with than internal representation in GHC, but the translation is not lossless."
+            s "Therefore the translation incurs several limitations."
             s
-                "It further complicates certain common practical situations such as modules and unexported symbols, but it has also prevented us from using the type checking mechanisms within GHC to implement type reachability."
+                "It further complicates certain common practical situations such as modules and unexported symbols."
+            s
+                "Moreover, it also prevents us from using the type checking mechanisms within GHC to implement type reachability."

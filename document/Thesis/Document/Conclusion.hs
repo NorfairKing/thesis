@@ -9,28 +9,27 @@ import DocImport
 thesisConclusion :: Thesis
 thesisConclusion =
     section "Conclusion" $ do
-        subsection "Signature Inference" $ do
-            s
-                "QuickSpec has made great progress toward practical property discovery."
-            s
-                "It looked promising, until we had a look at the complexity of QuickSpec with respect to realistic codebases."
-            s
-                "Signature inference has proved to be a promising approach to making property discovery practical by taming the complexity of QuickSpec."
-            l
-                [ "We provided options to decrease the discovery complexity from"
-                , m $ bigoh $ "S" ^: 14
-                , "to"
-                , m $ bigoh "S"
-                , "or"
-                , m (bigoh "1")
-                ]
-            s
-                "The progress that we achieved on making property discovery practical for codebases of realistic sizes promises that property discovery could become a real and very valuable tool in software development."
-        subsection "Further Work" $ do
+        s
+            "QuickSpec has made great progress toward practical property discovery."
+        s
+            "It looked promising, until we had a look at the complexity of QuickSpec with respect to realistic codebases."
+        s
+            "Signature inference has proved to be a promising approach to making property discovery practical by taming the complexity of QuickSpec."
+        l
+            [ "We provided options to decrease the discovery complexity from"
+            , m $ bigoh $ "S" ^: 14
+            , "to"
+            , m $ bigoh "S"
+            , "or"
+            , m (bigoh "1")
+            ]
+        s
+            "The progress that we achieved on making property discovery practical for codebases of realistic sizes promises that property discovery could become a real and very valuable tool in software development."
+        subsection "Future Work" $ do
             s
                 "Significant engineering effort is required to make property discovery realistically usable."
             s
-                "Most of the necessary research is done, but significant corners had to be cut with respect to practical usability."
+                "Much of the necessary research is done, but significant corners had to be cut with respect to practical usability."
             s
                 "Nevertheless, there is still room for more research on this topic."
             lnbk
@@ -54,5 +53,4 @@ thesisConclusion =
                 "Type class instances should be discovered by the signature inference tool, but currently are not."
             s
                 "This limitation has cut down the practical significance of EasySpec significantly, and requires engineering effort to lift."
-            s
-                "However, instance discovery could also aid signature inference in ways that we have not considered yet."
+            s "However, instance discovery could also aid signature inference."

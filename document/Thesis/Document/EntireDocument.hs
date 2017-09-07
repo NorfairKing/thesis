@@ -62,8 +62,5 @@ mintedColors = do
 
 extraDocuments :: Thesis
 extraDocuments =
-    slow $ do
-        withRegisteredAsset
-            $(embedAsset "declaration-originality.pdf")
-            includepdf
-        withRegisteredAsset $(embedAsset "consent.pdf") includepdf
+    slow $
+    withRegisteredAsset $(embedAsset "declaration-originality.pdf") includepdf

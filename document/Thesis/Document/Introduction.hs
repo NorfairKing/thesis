@@ -41,7 +41,7 @@ thesisIntroduction =
         l
             [ "Compilation, static typing, immutability, functional programming, purity,"
             , raw "higher-order"
-            , "programming and laziness are just some examples of tools that should support the programmer in writing correct code"
+            , "programming and laziness are just some examples of programming language features that should support the programmer in writing correct code"
             ]
         lnbk
         s
@@ -87,9 +87,7 @@ thesisIntroduction =
             , emph "coverage problem"
             ]
         lnbk
-        l
-            [ "Unit testing, but testing in general, is quite expensive when it comes to developer time"
-            ]
+        s "Unit testing is quite expensive when it comes to developer time."
         s
             "Developers have to come up with enough examples of inputs and their corresponding outputs to cover the subject code."
         s "Then they have to implement the corresponding unit testing code."
@@ -141,7 +139,8 @@ thesisIntroduction =
             "Property discovery is a relatively new technique, that is not ready for use in practical software engineering yet."
         lnbk
         l
-            [ raw "Claessen et al." <> cite quickspecRef
+            [ raw "Claessen et al."
+            , cite quickspecRef
             , "have explored automatic discovery of equational properties, and have shown that property discovery is a complex problem"
             ]
         s
@@ -153,7 +152,7 @@ thesisIntroduction =
             ]
         lnbk
         l
-            [ "The input to the property discovery algorithm that is mentioned in"
+            [ "The input to the property discovery algorithm developed"
             , cite quickspecRef
             , "and"
             , cite quickspec2Ref
