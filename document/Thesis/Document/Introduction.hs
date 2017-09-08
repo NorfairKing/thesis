@@ -173,7 +173,7 @@ thesisIntroduction =
         s
             "It contains the names, types, and references to the implementations, of all the functions in the signature upon which one wishes to run the property algorithm."
         s
-            "Writing this code introduces a significant amount of friction that ensures that property discovery is not a practical method in practice from a developer's perspective."
+            "Writing this code represents a significant burden on the programmer that ensures that property discovery is not a practical method in practice from a developer's perspective."
         lnbk
         s
             "We contribute a new approach to taming the computational complexity of property discovery: signature inference."
