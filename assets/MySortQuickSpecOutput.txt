@@ -1,0 +1,18 @@
+== Signature ==
+      True :: Bool
+      (<=) :: Ord a => a -> a -> Bool
+       (:) :: a -> [a] -> [a]
+    mySort :: Ord a => [a] -> [a]
+myIsSorted :: Ord a => [a] -> Bool
+
+== Laws ==
+  1. y <= y = True
+  2. y <= True = True
+  3. True <= x = x
+  4. myIsSorted (mySort xs) = True
+  5. mySort (mySort xs) = mySort xs
+  6. xs <= mySort xs = myIsSorted xs
+  7. mySort xs <= xs = True
+  8. myIsSorted (y : (y : xs)) = myIsSorted (y : xs)
+  9. mySort (y : mySort xs) = mySort (y : xs)
+

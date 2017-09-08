@@ -1,0 +1,123 @@
+name: thesis
+version: 0.0.0.0
+cabal-version: >=1.10
+build-type: Simple
+license: AllRightsReserved
+license-file: build/LICENSE
+copyright: Copyright: (c) 2016 Tom Sydney Kerckhove
+maintainer: syd.kerckhove@gmail.com
+homepage: http://cs-syd.eu
+category: CsSyd
+author: Tom Sydney Kerckhove
+
+library
+    exposed-modules:
+        Thesis
+        Thesis.Build
+        Thesis.Constants
+        Thesis.Document
+        Thesis.Document.Abstract
+        Thesis.Document.Acknowledgements
+        Thesis.Document.Assets
+        Thesis.Document.Background
+        Thesis.Document.Background.Haskell
+        Thesis.Document.Background.PropertyDiscovery
+        Thesis.Document.Background.PropertyTesting
+        Thesis.Document.Bibliography
+        Thesis.Document.Conclusion
+        Thesis.Document.Dependencies
+        Thesis.Document.Dependencies.TH
+        Thesis.Document.Discussion
+        Thesis.Document.DocTechDetails
+        Thesis.Document.EntireDocument
+        Thesis.Document.Evaluation
+        Thesis.Document.Evaluation.DiscoveryComplexity
+        Thesis.Document.Evaluation.Evaluators
+        Thesis.Document.Evaluation.Experiments
+        Thesis.Document.Evaluation.Strategies
+        Thesis.Document.Introduction
+        Thesis.Document.References
+        Thesis.Document.Sections
+        Thesis.Document.SignatureInference
+        Thesis.Document.SignatureInference.Automation
+        Thesis.Document.SignatureInference.Distance
+        Thesis.Document.SignatureInference.DrillingAndReducing
+        Thesis.Document.SignatureInference.Graph
+        Thesis.Document.SignatureInference.Monadic
+        Thesis.Document.SignatureInference.Premise
+        Thesis.Document.SignatureInference.Reducing
+        Thesis.Document.SignatureInference.TypeReachability
+        Thesis.Document.TitlePage
+        Thesis.Document.Types
+        Thesis.LaTeXTarget
+        Thesis.OptParse
+        Thesis.OptParse.Types
+        Thesis.Presentation.AboutMe
+        Thesis.Presentation.Automation
+        Thesis.Presentation.EntirePresentation
+        Thesis.Presentation.Motivation
+        Thesis.Presentation.PropertyDiscovery
+        Thesis.Presentation.SignatureInference
+        Thesis.Presentation.Utils
+        Thesis.Presentation.Vision
+        Thesis.SendDraft
+        Thesis.ShakeBuild
+        Thesis.Types
+        Thesis.Utils
+    build-depends:
+        base >=4.9 && <=5,
+        HaTeX >=3.17 && <3.18,
+        bytestring >=0.10 && <0.11,
+        directory >=1.3 && <1.4,
+        easyspec >=0.0 && <0.1,
+        easyspec-evaluate >=0.0 && <0.1,
+        exceptions -any,
+        file-embed >=0.0.10 && <0.1,
+        filepath >=1.4 && <1.5,
+        gitrev >=1.2 && <1.4,
+        hashable >=1.2 && <1.3,
+        haspell -any,
+        hostname >=1.0 && <1.1,
+        lambdatex >=0.2 && <0.3,
+        mime-mail >=0.4 && <0.5,
+        mtl >=2.2 && <2.3,
+        optparse-applicative -any,
+        path -any,
+        path-io -any,
+        process >=1.4 && <1.5,
+        quickspec >=2,
+        shake -any,
+        shake-path -any,
+        template-haskell >=2.11 && <2.12,
+        text >=1.2 && <1.3,
+        time >=1.6 && <1.7,
+        zifter -any
+    default-language: Haskell2010
+    default-extensions: NoImplicitPrelude
+    hs-source-dirs: build/src/ document/
+    other-modules:
+        Import
+        DocImport
+        PresImport
+    ghc-options: -Wall
+
+executable thesis
+    main-is: Main.hs
+    build-depends:
+        base >=4.9 && <=5,
+        thesis -any
+    default-language: Haskell2010
+    hs-source-dirs: build/app/
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N
+
+test-suite thesis-test
+    type: exitcode-stdio-1.0
+    main-is: Spec.hs
+    build-depends:
+        base >=4.9 && <=5,
+        thesis -any,
+        hspec -any
+    default-language: Haskell2010
+    default-extensions: NoImplicitPrelude
+    hs-source-dirs: build/test/
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall

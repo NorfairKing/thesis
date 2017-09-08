@@ -1,0 +1,22 @@
+digraph chunks {
+  node [shape="rectangle"];
+  edge [arrowhead="empty"];
+  l1 [label="[sort]"];
+  l2a [label="[sort, reverse]"];
+  l2b [label="[sort, id]"];
+  l2c [label="[sort, not]"];
+  l2a -> l1;
+  l2b -> l1;
+  l2c -> l1;
+  node [style="filled"];
+  l3a [label="[sort, reverse, id]"];
+  l3b [label="[sort, id, not]"];
+  l3c [label="[sort, not, reverse]"];
+  edge [style="dashed"];
+  l3a -> l2a;
+  l3a -> l2b;
+  l3b -> l2b;
+  l3b -> l2c;
+  l3c -> l2c;
+  l3c -> l2a;
+}
