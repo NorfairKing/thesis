@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Thesis.Presentation.SignatureInference
+module Thesis.Presentation.Public.SignatureInference
     ( signatureInference
     ) where
 
@@ -10,7 +10,7 @@ import qualified Data.Text as T
 
 import Thesis.Document.Assets
 import Thesis.Document.Dependencies
-import Thesis.Presentation.Utils
+import Thesis.Presentation.Public.Utils
 
 signatureInference :: Thesis
 signatureInference = do

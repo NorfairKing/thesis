@@ -1,18 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Thesis.Presentation.EntirePresentation
+module Thesis.Presentation.Public.EntirePresentation
     ( entirePresentation
     ) where
 
 import PresImport
 
 import Thesis.Document.Assets
-import Thesis.Presentation.AboutMe
-import Thesis.Presentation.Automation
-import Thesis.Presentation.Motivation
-import Thesis.Presentation.PropertyDiscovery
-import Thesis.Presentation.SignatureInference
-import Thesis.Presentation.Vision
+import Thesis.Presentation.Public.AboutMe
+import Thesis.Presentation.Public.Automation
+import Thesis.Presentation.Public.Motivation
+import Thesis.Presentation.Public.PropertyDiscovery
+import Thesis.Presentation.Public.SignatureInference
+import Thesis.Presentation.Public.Vision
 
 entirePresentation :: Thesis
 entirePresentation = do

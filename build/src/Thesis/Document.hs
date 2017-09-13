@@ -19,7 +19,8 @@ import Development.Shake.Path
 import Thesis.Document.EntireDocument
 import Thesis.Document.Types
 import Thesis.LaTeXTarget
-import Thesis.Presentation.EntirePresentation
+import qualified Thesis.Presentation.Public.EntirePresentation
+       as Public
 import Thesis.Utils
 
 thesisDraftRule :: String
@@ -34,8 +35,11 @@ documentRules sel f = do
     void $ addOracle $ \(FastQ ()) -> pure f
     simpleRule "draft" BuildDraft entireDocument
     simpleRule "final" BuildFinal entireDocument
-    simpleRule "presenter-presentation" BuildDraft entirePresentation
-    simpleRule "public-presentation" BuildFinal entirePresentation
+    simpleRule
+        "presenter-public-presentation"
+        BuildDraft
+        Public.entirePresentation
+    simpleRule "public-presentation" BuildFinal Public.entirePresentation
 
 simpleRule :: String -> BuildKind -> Thesis -> Rules ()
 simpleRule name build doc =

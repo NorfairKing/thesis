@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Thesis.Presentation.Vision
+module Thesis.Presentation.Public.Vision
     ( vision
     ) where
 

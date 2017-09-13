@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Thesis.Presentation.PropertyDiscovery
+module Thesis.Presentation.Public.PropertyDiscovery
     ( propertyDiscovery
     ) where
 

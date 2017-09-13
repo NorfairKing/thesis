@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Thesis.Presentation.Utils where
+module Thesis.Presentation.Public.Utils where
 
 import PresImport
 

@@ -11,9 +11,6 @@ import EasySpec.Evaluate.Build as EE
 
 import Thesis.Document.Assets
 
-makeDependencyAsset :: (String, FilePath, IO (Path Abs File)) -> Q [Dec]
-makeDependencyAsset trip = makeDependencyAssets [trip]
-
 makeDependencyAssets :: [(String, FilePath, IO (Path Abs File))] -> Q [Dec]
 makeDependencyAssets trips' = do
     trips <- runIO $ forM trips' $ \(n, p, genPath) -> (,,) n p <$> genPath

@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Thesis.Presentation.Motivation
+module Thesis.Presentation.Public.Motivation
     ( motivation
     ) where
 
@@ -10,7 +10,7 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Assets
-import Thesis.Presentation.Utils
+import Thesis.Presentation.Public.Utils
 
 motivation :: Thesis
 motivation =

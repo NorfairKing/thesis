@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Thesis.Presentation.Automation
+module Thesis.Presentation.Public.Automation
     ( automation
     ) where
 
@@ -10,7 +10,7 @@ import PresImport
 import qualified Data.Text as T
 
 import Thesis.Document.Assets
-import Thesis.Presentation.Utils
+import Thesis.Presentation.Public.Utils
 
 automation :: Thesis
 automation = do

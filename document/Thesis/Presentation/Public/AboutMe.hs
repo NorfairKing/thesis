@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Thesis.Presentation.AboutMe
+module Thesis.Presentation.Public.AboutMe
     ( aboutme
     ) where
 

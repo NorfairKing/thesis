@@ -52,14 +52,14 @@ library
         Thesis.LaTeXTarget
         Thesis.OptParse
         Thesis.OptParse.Types
-        Thesis.Presentation.AboutMe
-        Thesis.Presentation.Automation
-        Thesis.Presentation.EntirePresentation
-        Thesis.Presentation.Motivation
-        Thesis.Presentation.PropertyDiscovery
-        Thesis.Presentation.SignatureInference
-        Thesis.Presentation.Utils
-        Thesis.Presentation.Vision
+        Thesis.Presentation.Public.AboutMe
+        Thesis.Presentation.Public.Automation
+        Thesis.Presentation.Public.EntirePresentation
+        Thesis.Presentation.Public.Motivation
+        Thesis.Presentation.Public.PropertyDiscovery
+        Thesis.Presentation.Public.SignatureInference
+        Thesis.Presentation.Public.Utils
+        Thesis.Presentation.Public.Vision
         Thesis.SendDraft
         Thesis.ShakeBuild
         Thesis.Types

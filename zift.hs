@@ -52,7 +52,7 @@ main =
                    cmd
                        (Cwd $ toFilePath rd)
                        (init out2 ++ "/bin/thesis")
-                       "build presenter-presentation"
+                       "build presenter-public-presentation"
                printZift out4
                Stdout out5 <-
                    liftIO $
