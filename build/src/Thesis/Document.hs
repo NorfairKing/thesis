@@ -19,6 +19,8 @@ import Development.Shake.Path
 import Thesis.Document.EntireDocument
 import Thesis.Document.Types
 import Thesis.LaTeXTarget
+import qualified Thesis.Presentation.Academic.EntirePresentation
+       as Academic
 import qualified Thesis.Presentation.Public.EntirePresentation
        as Public
 import Thesis.Utils
@@ -40,6 +42,11 @@ documentRules sel f = do
         BuildDraft
         Public.entirePresentation
     simpleRule "public-presentation" BuildFinal Public.entirePresentation
+    simpleRule
+        "presenter-academic-presentation"
+        BuildDraft
+        Academic.entirePresentation
+    simpleRule "academic-presentation" BuildFinal Academic.entirePresentation
 
 simpleRule :: String -> BuildKind -> Thesis -> Rules ()
 simpleRule name build doc =

@@ -2,4 +2,4 @@
 
 stack install :thesis \
   --exec='thesis build public-presentation' \
-  --exec='thesis build presenter-presentation'
+  --exec='thesis build presenter-public-presentation'
