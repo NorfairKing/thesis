@@ -53,6 +53,8 @@ library
         Thesis.OptParse
         Thesis.OptParse.Types
         Thesis.Presentation.Academic.EntirePresentation
+        Thesis.Presentation.Academic.Motivation
+        Thesis.Presentation.Academic.SignatureInference
         Thesis.Presentation.Public.AboutMe
         Thesis.Presentation.Public.Automation
         Thesis.Presentation.Public.EntirePresentation
