@@ -12,7 +12,6 @@ motivation :: Thesis
 motivation =
     section "Motivation" $ do
         f "Motivation" $ do
-            pause
             center $ s "Writing correct software is hard for humans."
             note
                 [ "So why would we want to not want to come up with tests manually?"

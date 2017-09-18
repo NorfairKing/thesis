@@ -366,7 +366,6 @@ signatureInference =
         pictureSlide
             "The outcome of chunks plus: Relevant equations"
             assetRelevantEquationsFullBackgroundChunksPlusPlot
-        pictureSlide "All strategies" assetRelevantEquationsAll
         g "Neat" $
             mintedText $
             T.unlines
@@ -380,6 +379,37 @@ signatureInference =
                 , ""
                 , "3.61s user 1.14s system 193% cpu 2.450 total"
                 ]
+        g "Composing Strategies" $
+            haskL
+                [ "type Reducing"
+                , "    = [Function] -> [Function] -> [Function]"
+                , ""
+                , "type Drilling"
+                , "    = [Function] -> [Function] -> InferM ()"
+                ]
+        g "Composing Strategies" $
+            small $
+            haskL
+                [ "composeReducings :: Reducing -> Reducing -> Reducing"
+                , "composeReducings r1 r2 focus = r2 focus . r1 focus"
+                , ""
+                , "composeDrillings :: Drilling -> Drilling -> Drilling"
+                , "composeDrillings d1 d2 focus scope = do"
+                , "    d1 focus scope"
+                , "    d2 focus scope"
+                , ""
+                , "composeReducingWithDrilling"
+                , "    :: Reducing -> Drilling -> Drilling"
+                , "composeReducingWithDrilling r d focus scope"
+                , "    = d focus $ r focus scope"
+                ]
+        pictureSlide
+            "The runtime of chunks plus composed with reducings"
+            assetRuntimeChunksPlusReducingsPlot
+        pictureSlide
+            "The outcome of chunks plus composed with reducings: Relevant equations"
+            assetRelevantEquationsChunksPlusReducingsPlot
+        pictureSlide "All strategies" assetRelevantEquationsAll
         f (raw "Great promise, but ...") $ do
             enumerate $ do
                 pause
@@ -407,13 +437,3 @@ signatureInference =
                 item "Can we apply this to effectful code?"
                 pause
                 item "Relative importance of equations"
-        g "Call to action" $ do
-            "Proofs of concept:"
-            mintedText $
-                T.unlines
-                    [ "https://github.com/nick8325/quickcheck"
-                    , "https://github.com/nick8325/quickspec"
-                    , ""
-                    , "https://github.com/NorfairKing/easyspec"
-                    ]
-            "Now we need to make it production ready!"

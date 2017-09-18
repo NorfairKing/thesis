@@ -52,6 +52,7 @@ library
         Thesis.LaTeXTarget
         Thesis.OptParse
         Thesis.OptParse.Types
+        Thesis.Presentation.Academic.AboutMe
         Thesis.Presentation.Academic.EntirePresentation
         Thesis.Presentation.Academic.Motivation
         Thesis.Presentation.Academic.SignatureInference

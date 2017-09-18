@@ -53,7 +53,10 @@ pictureSlide title_ asset =
     f title_ $
     withRegisteredAsset asset $ \fp ->
         includegraphics
-            [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+            [ KeepAspectRatio True
+            , IGWidth $ CustomMeasure textwidth
+            , IGHeight $ CustomMeasure $ 0.9 <> textheight
+            ]
             fp
 
 haskFile :: Asset -> Thesis
