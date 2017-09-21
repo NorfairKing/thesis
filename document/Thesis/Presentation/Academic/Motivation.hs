@@ -16,7 +16,7 @@ motivation =
             note
                 [ "So why would we want to not want to come up with tests manually?"
                 ]
-        g "Unit test" $ do
+        g "Unit Testing" $ do
             only [FromSlide 2] $ raw "\\setminted{highlightlines={2,4}}"
             hask $
                 T.unlines
@@ -25,7 +25,7 @@ motivation =
                     , "        =="
                     , "            [1, 4, 6]"
                     ]
-        g "Property testing" $ do
+        g "Property Testing" $ do
             only [OneSlide 1] $ raw "\\setminted{highlightlines=1}"
             only [OneSlide 2] $ raw "\\setminted{highlightlines=2}"
             only [OneSlide 3] $ raw "\\setminted{highlightlines=4}"

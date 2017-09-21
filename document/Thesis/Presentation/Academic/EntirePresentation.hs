@@ -7,7 +7,6 @@ module Thesis.Presentation.Academic.EntirePresentation
 import PresImport
 
 import Thesis.Document.Assets
-import Thesis.Presentation.Academic.AboutMe
 import Thesis.Presentation.Academic.Automation
 import Thesis.Presentation.Academic.Motivation
 import Thesis.Presentation.Academic.SignatureInference
@@ -47,7 +46,6 @@ entirePresentation = do
             [ s "The presentation should take about thirty minutes."
             , s "I have been working on this for the last six months, so if I forget to explain anything, please ask me immediately."
             ]
-        aboutme
         motivation
         propertyDiscovery
         automation

@@ -17,8 +17,7 @@ signatureInference =
     section "Signature Inference" $ do
         pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
         note ["Now we have automated QuickSpec, but it still slow"]
-        f "" $ huge $ center "Definitions"
-        g "Definitions: Property" $ do
+        g "Definition: Property" $ do
             vfill
             " Example:"
             hask "reverse (reverse ls) = ls"
@@ -41,14 +40,14 @@ signatureInference =
                 pause
                 item "Size of the signature"
         lightbulbslide
-        f "Critical insight" $ do
+        f "Critical Insight" $ do
             center $ s "We are not interested in the entire codebase."
             center $ s "We are interested in a relatively small amount of code."
             note
                 [ s "This means that we have an entirely different goal than QuickSpec."
                 , s "Comparisons with QuickSpec are not really fair, but we have nothing else to compare to."
                 ]
-        g "Reducing the size of the signature" $
+        g "Reducing the Size of the Signature" $
             hask $
             T.unlines
                 [ "inferSignature"
@@ -56,7 +55,7 @@ signatureInference =
                 , "  -> [Function] -- Functions in scope"
                 , "  -> [Function] -- Chosen functions"
                 ]
-        g "Full background and empty background" $ do
+        g "Full Background and Empty Background" $ do
             hask "inferFullBackground _ scope = scope"
             hask "inferEmptyBackground focus _ = focus"
             pause
@@ -77,7 +76,7 @@ signatureInference =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        g "Syntactic similarity: Name" $ do
+        g "Syntactic Similarity: Name" $ do
             hask $
                 T.unlines
                     [ "inferSyntacticSimilarityName [focus] scope"
@@ -105,7 +104,7 @@ signatureInference =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        g "Syntactic similarity: Implementation" $ do
+        g "Syntactic Similarity: Implementation" $ do
             raw "\\setminted{highlightlines=5}"
             hask $
                 T.unlines
@@ -134,7 +133,7 @@ signatureInference =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        g "Syntactic similarity: Type" $ do
+        g "Syntactic Similarity: Type" $ do
             raw "\\setminted{highlightlines=5}"
             hask $
                 T.unlines
@@ -163,7 +162,7 @@ signatureInference =
                         , IGWidth $ CustomMeasure textwidth
                         ]
                         fp
-        f "Other things we tried" $
+        f "Other Things we Tried" $
             enumerate $ do
                 item "Similarity using a different metric: edit distance"
                 item "Unions of the previous strategies"
@@ -200,10 +199,10 @@ signatureInference =
                     [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
                     fp
         pictureSlide
-            "The runtime of chunks"
+            "The Runtime of Chunks"
             assetRuntimeFullBackgroundChunksPlot
         pictureSlide
-            "The outcome of chunks: Relevant equations"
+            "The Outcome of Chunks: Relevant equations"
             assetRelevantEquationsFullBackgroundChunksPlot
         pictureSlide
             "Why does chunks find more relevant equations?"

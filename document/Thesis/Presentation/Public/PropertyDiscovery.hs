@@ -24,10 +24,10 @@ propertyDiscovery =
                     , "        isSorted (sort ls)"
                     ]
         f "" $ center $ huge "Property Discovery with QuickSpec"
-        g "Example code" $ do
+        g "Example Code" $ do
             only [OneSlide 2] $ raw "\\setminted{highlightlines={3, 12}}"
             haskFile $(embedAsset "MySort.hs")
-        g "Property discovery using QuickSpec" $ do
+        g "Property Discovery using QuickSpec" $ do
             footnotesize $
                 mintedText $
                 T.unlines

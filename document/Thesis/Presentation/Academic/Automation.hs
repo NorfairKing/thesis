@@ -47,7 +47,7 @@ automation = do
                     ]
             pause
             hask "signature { constants = [...] }"
-        g "Current situation" $ do
+        g "Current Situation" $ do
             mintedTextInline "$ cat Reverse.hs"
             haskFile $(embedAsset "Reverse.hs")
             vfill
