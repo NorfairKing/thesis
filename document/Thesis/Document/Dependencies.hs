@@ -34,6 +34,8 @@ module Thesis.Document.Dependencies
     , assetRelevantEquationsChunksPlusReachabilityPlot
     , assetRuntimeAll
     , assetRelevantEquationsAll
+    , assetChunksDot
+    , assetChunksPlusDot
     ) where
 
 import EasySpec.Discover.SignatureInference
@@ -331,3 +333,9 @@ $(makeDependencyAssets
               boxPlotterPerEvaluator
               (evaluationGroup, relevantEquationsEvaluator))
       ])
+
+assetChunksDot :: Asset
+assetChunksDot = $(embedAsset "chunks.dot")
+
+assetChunksPlusDot :: Asset
+assetChunksPlusDot = $(embedAsset "chunks-plus.dot")

@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.SignatureInference.Graph
     ( thesisSignatureInferenceGraph
@@ -147,7 +146,7 @@ thesisSignatureInferenceGraph =
                 , ref chunksExampleGraphLabel
                 ]
             hereFigure $ do
-                withDotAsset $(embedAsset "chunks.dot") $ \fp ->
+                withDotAsset assetChunksDot $ \fp ->
                     center $
                     includegraphics
                         [ KeepAspectRatio True

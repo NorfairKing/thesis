@@ -8,9 +8,9 @@ import PresImport
 
 import Thesis.Document.Assets
 import Thesis.Presentation.Academic.AboutMe
+import Thesis.Presentation.Academic.Automation
 import Thesis.Presentation.Academic.Motivation
 import Thesis.Presentation.Academic.SignatureInference
-import Thesis.Presentation.Public.Automation
 import Thesis.Presentation.Public.PropertyDiscovery
 
 entirePresentation :: Thesis
@@ -52,6 +52,7 @@ entirePresentation = do
         propertyDiscovery
         automation
         signatureInference
+        maketitle
 
 mintedColors :: Thesis
 mintedColors = do

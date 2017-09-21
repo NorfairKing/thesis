@@ -35,49 +35,6 @@ signatureInference =
                     , "instance Eq B"
                     ]
             vfill
-        g "Definitions: Size of property" $ do
-            " Example:"
-            hask "xs <= mySort xs = myIsSorted xs"
-            pause
-            raw "Size: 4"
-            pause
-            vfill
-            " In general: It's complicated"
-        g "Definitions: Property of a function" $ do
-            "Functions:"
-            hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0"]
-            vfill
-            "Properties of " <> haskInline "f" <> ":"
-            hask $ T.unlines ["f (g x) = g (f x)", "f z = z"]
-            "Not properties of " <> haskInline "f" <> ":"
-            hask $ T.unlines ["g z = z"]
-        g "Definitions: Relevant function" $ do
-            "Functions:"
-            hask $ T.unlines ["f = (* 2)", "g = (* 3)", "z = 0", "h = id"]
-            "Properties:"
-            hask $
-                T.unlines ["f (g x) = g (f x)", "f z = z", "g z = z", "h x = x"]
-            vfill
-            haskInline "g" <> " and " <> haskInline "z" <> " are relevant to " <>
-                haskInline "f" <>
-                " but " <>
-                haskInline "h" <>
-                raw " is not."
-            vfill
-            raw "relevant property = property of focus function"
-        g "Definitions: Scope" $ do
-            "Scope: Functions in scope"
-            vfill
-            pause
-            "Size of scope: Number of functions in scope"
-            vfill
-            pause
-            "Size of signature: Number of functions in signature"
-        pictureSlide "Automated, but still slow" assetRuntimeFullBackgroundPlot
-        note
-            [ s "We set out to find eighty per cent of the properties in twenty per cent of the time."
-            , s "Of course, later we realised that even twenty per cent does not change the time complexity and therefore is too slow in practice."
-            ]
         f "Why is this slow?" $
             enumerate $ do
                 item "Maximum size of the discovered properties"
@@ -126,7 +83,7 @@ signatureInference =
                     [ "inferSyntacticSimilarityName [focus] scope"
                     , "    = take 5 $ sortOn"
                     , "      (\\sf ->"
-                    , "        hammingDistance"
+                    , "        distance"
                     , "          (name focus) (name sf))"
                     , "      scope "
                     ]
@@ -155,7 +112,7 @@ signatureInference =
                     [ "inferSyntacticSimilaritySymbols i [focus] scope"
                     , "    = take i $ sortOn"
                     , "      (\\sf ->"
-                    , "        hammingDistance"
+                    , "        distance"
                     , "          (symbols focus) (symbols sf))"
                     , "      scope "
                     ]
@@ -184,7 +141,7 @@ signatureInference =
                     [ "inferSyntacticSimilarityType i [focus] scope"
                     , "    = take i $ sortOn"
                     , "      (\\sf ->"
-                    , "        hammingDistance"
+                    , "        distance"
                     , "          (getTypeParts focus) (getTypeParts sf))"
                     , "      scope "
                     ]
@@ -220,23 +177,16 @@ signatureInference =
         lightbulbslide
         f "" $ huge $ center "We can run QuickSpec more than once!"
         g "Inferred Signature" $ do
-            hask $
-                T.unlines
-                    [ "type SignatureInferenceStrategy"
-                    , "    = [Function] -> [Function] -> InferredSignature"
-                    ]
-            pause
             "Combine the results of multiple runs:"
-            hask "type InferredSignature = [Signature]"
+            hask "[Signature]"
             pause
             "User previous results as background properties:"
-            hask "type InferredSignature = Forest Signature"
+            hask "Forest Signature"
             pause
             "Share previous runs:"
-            hask "type InferredSignature = DAG Signature"
+            hask "DAG Signature"
         g "Chunks" $ do
             small $ hask "chunks :: SignatureInferenceStrategy"
-            vspace $ Cm 0.5
             footnotesize $
                 hask $
                 T.unlines
@@ -244,17 +194,11 @@ signatureInference =
                     , ">     [sort :: Ord a => [a] -> [a]]"
                     , ">     [reverse :: [a] -> [a], id :: a -> a]"
                     ]
-            footnotesize $
-                mintedText $
-                T.unlines
-                    [ "[sort, reverse]"
-                    , "        |"
-                    , "        v"
-                    , "     -> [sort]"
-                    , "     |"
-                    , "     |"
-                    , "[sort, id]"
-                    ]
+            withDotAsset assetChunksDot $ \fp ->
+                center $
+                includegraphics
+                    [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+                    fp
         pictureSlide
             "The runtime of chunks"
             assetRuntimeFullBackgroundChunksPlot
@@ -264,52 +208,27 @@ signatureInference =
         pictureSlide
             "Why does chunks find more relevant equations?"
             assetEquationsFullBackgroundChunksPlot
-        g "Why does chunks find more relevant equations?" $
-            tiny $ do
-                "Scope:"
-                hask $
+        g "Why does chunks find more relevant equations?" $ do
+            "Scope:"
+            hask $
+                T.unlines ["a = (+ 1)", "b = (+ 2)", "c = (+ 3)", "d = (+ 4)"]
+            pause
+            vfill
+            minipage Nothing (raw "0.4" <> textwidth) $ do
+                "Full background:"
+                mintedText $
                     T.unlines
-                        [ "i = (+ 1)"
-                        , "j = (+ 2)"
-                        , "k = (+ 3)"
-                        , "l = (+ 4)"
-                        , "m = (+ 5)"
-                        , "n = (+ 6)"
-                        , "o = (+ 7)"
-                        , "p = (+ 8)"
-                        , "q = (+ 9)"
-                        , "r = (+ 10)"
-                        ]
-                pause
-                vfill
-                minipage Nothing (raw "0.4" <> textwidth) $ do
-                    "Full background:"
-                    mintedText $
-                        T.unlines
-                            [ "i (i x) = j x"
-                            , "i (j x) = k x"
-                            , "i (k x) = l x"
-                            , "i (l x) = m x"
-                            , "i (m x) = n x"
-                            , "i (n x) = o x"
-                            , "i (o x) = p x"
-                            , "i (p x) = q x"
-                            , "i (q x) = r x"
-                            ]
-                    "Relevant to r:"
-                    mintedText "i (q x) = r x"
-                pause
-                minipage Nothing (raw "0.4" <> textwidth) $ do
-                    "Chunks for r:"
-                    mintedText $
-                        T.unlines
-                            [ "q (i x) = r x"
-                            , "q (q x) = p (r x)"
-                            , "q (q (q x)) = o (r (r x))"
-                            , "q (q (q (q (q x)))) = m (r (r (r (r x))))"
-                            , "q (q (q (q (q (q x))))) = l (r (r (r (r (r x)))))"
-                            ]
-                    "All relevant"
+                        ["a (a x) = b x", "a (b x) = c x", "a (c x) = d x"]
+                "Relevant to d:"
+                mintedText "a (c x) = d x"
+            pause
+            hfill
+            minipage Nothing (raw "0.4" <> textwidth) $ do
+                "Chunks for d:"
+                mintedText $
+                    T.unlines ["b (b x) = d x", "a (a (a (a x))) = d x"]
+                "All relevant"
+            hfill
         g "Inferred Signature" $
             hask $
             T.unlines
@@ -341,7 +260,6 @@ signatureInference =
                 ]
         g "Chunks Plus" $ do
             small $ hask "chunksPlus :: SignatureInferenceStrategy"
-            vspace $ Cm 0.5
             footnotesize $
                 hask $
                 T.unlines
@@ -349,17 +267,11 @@ signatureInference =
                     , ">     [sort :: Ord a => [a] -> [a]]"
                     , ">     [reverse :: [a] -> [a], id :: a -> a]"
                     ]
-            footnotesize $
-                mintedText $
-                T.unlines
-                    [ "                     ->  [sort, reverse]"
-                    , "                    /            |"
-                    , "                   /             v"
-                    , "[sort, reverse, id]            -> [sort]"
-                    , "                   \\          |"
-                    , "                    \\         |"
-                    , "                     ->  [sort, id]"
-                    ]
+            withDotAsset assetChunksPlusDot $ \fp ->
+                center $
+                includegraphics
+                    [KeepAspectRatio True, IGWidth $ CustomMeasure textwidth]
+                    fp
         pictureSlide
             "The runtime of chunks plus"
             assetRuntimeFullBackgroundChunksPlusPlot

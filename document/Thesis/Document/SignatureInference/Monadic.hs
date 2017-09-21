@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Thesis.Document.SignatureInference.Monadic
     ( thesisSignatureInferenceMonadic
@@ -8,6 +7,7 @@ module Thesis.Document.SignatureInference.Monadic
 import DocImport
 
 import Thesis.Document.Assets
+import Thesis.Document.Dependencies
 import Thesis.Document.Sections
 
 thesisSignatureInferenceMonadic :: Thesis
@@ -119,7 +119,7 @@ thesisSignatureInferenceMonadic =
                 , ref chunksPlusExampleGraphLabel
                 ]
             hereFigure $ do
-                withDotAsset $(embedAsset "chunks-plus.dot") $ \fp ->
+                withDotAsset assetChunksPlusDot $ \fp ->
                     center $
                     includegraphics
                         [ KeepAspectRatio True
