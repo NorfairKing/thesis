@@ -12,7 +12,6 @@ import Thesis.Presentation.Public.Automation
 import Thesis.Presentation.Public.Motivation
 import Thesis.Presentation.Public.PropertyDiscovery
 import Thesis.Presentation.Public.SignatureInference
-import Thesis.Presentation.Public.Vision
 
 entirePresentation :: Thesis
 entirePresentation = do
@@ -33,7 +32,7 @@ entirePresentation = do
     -- Basic info
     title "Signature Inference for Functional Property Discovery"
     subtitle $ raw "or: How never to come up with tests manually anymore(*)"
-    date $ raw "27 July 2017"
+    date $ raw "11 October 2017"
     author "Tom Sydney Kerckhove"
     institute Nothing $ do
         "ETH Zurich"
@@ -44,11 +43,6 @@ entirePresentation = do
     -- The presentation
     document $ do
         maketitle
-        note
-            [ s "The presentation should take about one hour."
-            , s "I have been working on this for the last four and a half months, so if I forget to explain anything, please ask me immediately."
-            ]
-        vision
         motivation
         propertyDiscovery
         automation

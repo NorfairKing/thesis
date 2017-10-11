@@ -27,35 +27,24 @@ automation = do
                 T.unlines
                     [ "data Signature ="
                     , "  Signature {"
-                    , "    constants           :: [Constant],"
-                    , "    instances           :: [[Instance]],"
+                    , "    functions           :: [Function],"
                     , "    [...]"
-                    , "    background          :: [Prop],"
-                    , "    [...]"
+                    , "    properties          :: [Prop],"
                     , "  }"
                     ]
             hask "quickSpec :: Signature -> IO Signature"
             comment
                 "QuickSpec finds all properties of all functions in the signature"
-        g "Automatic Monomorphisation" $ do
-            hask "filter :: (a -> Bool) -> [a] -> [a]"
-            center "becomes"
-            hask "filter :: (A -> Bool) -> [A] -> [A]"
-            pause
-            vfill
-            hask "sort :: Ord a => [a] -> [a]"
-            center "becomes"
-            hask "sort :: Dict (Ord A) -> [A] -> [A]"
         g "Signature Expression Generation" $ do
             pause
-            hask "sort :: Ord a => [a] -> [a]"
+            hask "filter :: (a -> Bool) -> [a] -> [a]"
             pause
-            hask "mkDict sort :: Dict (Ord A) -> [A] -> [A]"
+            hask "filter :: (A -> Bool) -> [A] -> [A]"
             pause
             hask $
                 T.unlines
-                    [ "constant \"sort\""
-                    , "  (mkDict sort :: Dict (Ord A) -> [A] -> [A])"
+                    [ "function \"filter\""
+                    , "  (filter :: (A -> Bool) -> [A] -> [A])"
                     ]
             pause
             hask "signature { constants = [...] }"

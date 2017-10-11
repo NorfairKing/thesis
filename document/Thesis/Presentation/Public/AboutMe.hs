@@ -9,18 +9,13 @@ import PresImport
 aboutme :: Thesis
 aboutme =
     f "About Me" $ do
-        "Student at ETH"
-        lnbk
-        "This is my master thesis"
+        "This was my master thesis"
         lnbk
         "Wrote Haskell in open source"
         lnbk
         "Taught Haskell at ETH"
         lnbk
-        "Wrote Haskell in industry"
-        lnbk
-        "Looking for a job!"
-        lnbk
+        "Haskell and DevOps in industry"
         vfill
         center $ do
             url "https://cs-syd.eu/"

@@ -63,7 +63,6 @@ library
         Thesis.Presentation.Public.PropertyDiscovery
         Thesis.Presentation.Public.SignatureInference
         Thesis.Presentation.Public.Utils
-        Thesis.Presentation.Public.Vision
         Thesis.SendDraft
         Thesis.ShakeBuild
         Thesis.Types

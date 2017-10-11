@@ -54,20 +54,13 @@ propertyDiscovery =
                     , "  8. myIsSorted (y : (y : xs)) = myIsSorted (y : xs)"
                     , "  9. mySort (y : mySort xs) = mySort (y : xs)"
                     ]
-            note
-                [ "Explain how would you use this"
-                , "Before I go on:"
-                , "This is Really cool!"
-                , "Really good at what it does"
-                , "Great foundation for what comes next"
-                ]
         g "QuickSpec Code" $ tiny $ haskFile $(embedAsset "MySortQuickSpec.hs")
         g "Problems with QuickSpec: Monomorphisation" $ do
             "Only for monomorphic functions"
             hask $
                 T.unlines
-                    [ "constant \"<\""
-                    , "  (mkDict (<) :: Dict (Ord A) -> A -> A -> Bool)"
+                    [ "constant \"filter\""
+                    , "  (filter :: (A -> B) -> [A] -> [B] -> Bool)"
                     ]
         f "Problems with QuickSpec: Code" $ do
             "Programmer has to write code for all functions of interest"
