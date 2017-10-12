@@ -15,7 +15,7 @@ propertyDiscovery :: Thesis
 propertyDiscovery =
     section "Property Discovery" $ do
         g "Property Discovery" $ do
-            only [OneSlide 1] $ raw "\\setminted{highlightlines=4}"
+            only [OneSlide 1] $ raw "\\setminted{highlightlines={3,4}}"
             hask $
                 T.unlines
                     [ "  forAll"
@@ -60,7 +60,7 @@ propertyDiscovery =
             hask $
                 T.unlines
                     [ "constant \"filter\""
-                    , "  (filter :: (A -> B) -> [A] -> [B] -> Bool)"
+                    , "  (filter :: (A -> Bool) -> [A] -> [A])"
                     ]
         f "Problems with QuickSpec: Code" $ do
             "Programmer has to write code for all functions of interest"

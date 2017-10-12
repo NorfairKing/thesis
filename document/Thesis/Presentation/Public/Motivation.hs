@@ -15,10 +15,10 @@ motivation =
             only [FromSlide 2] $ raw "\\setminted{highlightlines={2,4}}"
             haskL
                 ["sort", "    [4, 1, 6]", "        ==", "            [1, 4, 6]"]
-        g "Property testing" $ do
+        g "Property Testing" $ do
             only [OneSlide 1] $ raw "\\setminted{highlightlines=1}"
             only [OneSlide 2] $ raw "\\setminted{highlightlines=2}"
-            only [OneSlide 3] $ raw "\\setminted{highlightlines=4}"
+            only [OneSlide 3] $ raw "\\setminted{highlightlines={3,4}}"
             haskL
                 [ "  forAll"
                 , "    arbitrary"
