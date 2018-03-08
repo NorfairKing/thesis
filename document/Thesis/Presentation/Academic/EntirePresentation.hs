@@ -31,14 +31,16 @@ entirePresentation = do
     -- Basic info
     title "Signature Inference for Functional Property Discovery"
     subtitle $ raw "or: How never to come up with tests manually anymore(*)"
-    date $ raw "2017-09-18"
+    date $ raw "2018-02-22"
     author "Tom Sydney Kerckhove"
     institute Nothing $ do
-        "ETH Zurich"
+        raw "FP Complete"
         lnbk
         url "https://cs-syd.eu/"
         lnbk
         url "https://github.com/NorfairKing"
+        lnbk
+        url "https://fpcomplete.com"
     -- The presentation
     document $ do
         maketitle
